@@ -1,0 +1,265 @@
+{
+  "hero": {
+    "companyName": "JANCY BUILDERS",
+    "brandTagline": "BUILD THE WORLD",
+    "mainTitle": "FROM FOUNDATION TO FINISHED HOME.",
+    "subTitle": "Professional construction solutions built with precision, quality and trust.",
+    "ctaPrimaryText": "VIEW OUR PROJECTS",
+    "ctaPrimaryLink": "#projects",
+    "ctaSecondaryText": "GET A FREE QUOTE",
+    "ctaSecondaryLink": "#quote",
+    "logoUrl": "/logo/jancy-logo.svg"
+  },
+  "settings": {
+    "autoplay": true,
+    "scrollAnimation": true,
+    "pauseOnHover": true,
+    "defaultDuration": 5,
+    "transitionDuration": 0.8,
+    "desktopVideoUrl": "/videos/construction-timelapse.mp4",
+    "mobileVideoUrl": "/videos/construction-timelapse-mobile.mp4",
+    "fallbackMode": "auto"
+  },
+  "stages": [
+    {
+      "id": 1,
+      "stageNumber": "01",
+      "name": "Empty Land",
+      "title": "Every Great Home Starts With a Vision.",
+      "description": "Clean land, construction boundary, basic site markings, survey pegs, and architectural blueprint grid overlay in the early morning light.",
+      "desktopMediaUrl": "/images/stages/stage-01.jpg",
+      "mobileMediaUrl": "/images/stages/stage-01.jpg",
+      "mediaType": "image",
+      "duration": 5,
+      "order": 1,
+      "active": true,
+      "milestone": "LAND",
+      "blueprintSpecs": {
+        "surveyCode": "SVY-8842",
+        "soilBearingCapacity": "240 kN/m²",
+        "totalPlotArea": "6,400 sq.ft",
+        "elevation": "+12.4m AMSL"
+      }
+    },
+    {
+      "id": 2,
+      "stageNumber": "02",
+      "name": "Site Preparation",
+      "title": "Precision Begins From the Ground.",
+      "description": "Land preparation, excavation, soil removal, foundation marking, construction equipment, measuring and laser leveling.",
+      "desktopMediaUrl": "/images/stages/stage-02.jpg",
+      "mobileMediaUrl": "/images/stages/stage-02.jpg",
+      "mediaType": "image",
+      "duration": 5,
+      "order": 2,
+      "active": true,
+      "milestone": "PREP",
+      "blueprintSpecs": {
+        "excavationDepth": "3.2m below NGL",
+        "soilType": "Dense Cohesive Clay / Gravel",
+        "trenchVolume": "185 m³",
+        "compactionIndex": "98% Modified Proctor"
+      }
+    },
+    {
+      "id": 3,
+      "stageNumber": "03",
+      "name": "Foundation / Basement",
+      "title": "Strong Foundations Build Strong Futures.",
+      "description": "Excavated foundation area, reinforcement steel, concrete footing, foundation walls, basement structure, and concrete pouring.",
+      "desktopMediaUrl": "/images/stages/stage-03.jpg",
+      "mobileMediaUrl": "/images/stages/stage-03.jpg",
+      "mediaType": "image",
+      "duration": 5,
+      "order": 3,
+      "active": true,
+      "milestone": "FOUNDATION",
+      "blueprintSpecs": {
+        "concreteGrade": "M30 / C25/30 Self-Compacting",
+        "footingDepth": "1.5m",
+        "raftThickness": "450mm",
+        "waterproofing": "Dual Membrane Bituminous Barrier"
+      }
+    },
+    {
+      "id": 4,
+      "stageNumber": "04",
+      "name": "Steel Reinforcement",
+      "title": "Engineered For Strength.",
+      "description": "Vertical reinforcement bars, steel columns, reinforcement cages, column foundations, and structural steel framework.",
+      "desktopMediaUrl": "/images/stages/stage-04.jpg",
+      "mobileMediaUrl": "/images/stages/stage-04.jpg",
+      "mediaType": "image",
+      "duration": 5,
+      "order": 4,
+      "active": true,
+      "milestone": "STEEL",
+      "blueprintSpecs": {
+        "rebarStandard": "Fe550D High-Ductility TMT",
+        "columnCages": "16x 25mm dia main bars",
+        "stirrupSpacing": "100mm c/c shear zones",
+        "seismicZone": "Zone IV Earthquake Resistant"
+      }
+    },
+    {
+      "id": 5,
+      "stageNumber": "05",
+      "name": "Columns and Beams",
+      "title": "Structure Takes Shape.",
+      "description": "RCC columns, beams, slabs, staircase structure, and ground-to-upper floor structural skeleton rising from the foundation.",
+      "desktopMediaUrl": "/images/stages/stage-05.jpg",
+      "mobileMediaUrl": "/images/stages/stage-05.jpg",
+      "mediaType": "image",
+      "duration": 5,
+      "order": 5,
+      "active": true,
+      "milestone": "STRUCTURE",
+      "blueprintSpecs": {
+        "slabThickness": "175mm Two-Way Post-Tensioned",
+        "cantileverSpan": "3.8m Architectural Overhang",
+        "beamCrossSection": "300 x 600mm",
+        "curingPeriod": "28 Days Ponding & Fog Curing"
+      }
+    },
+    {
+      "id": 6,
+      "stageNumber": "06",
+      "name": "Brick / Block Walls",
+      "title": "Turning Plans Into Spaces.",
+      "description": "Brick walls, autoclaved block masonry, room partitions, and precision openings for panoramic doors and windows.",
+      "desktopMediaUrl": "/images/stages/stage-06.jpg",
+      "mobileMediaUrl": "/images/stages/stage-06.jpg",
+      "mediaType": "image",
+      "duration": 5,
+      "order": 6,
+      "active": true,
+      "milestone": "WALLS",
+      "blueprintSpecs": {
+        "masonryType": "Autoclaved Aerated Concrete (AAC)",
+        "thermalInsulation": "U-Value 0.28 W/m²K",
+        "lintelBeams": "Precast RCC with Drip Grooves",
+        "acousticRating": "STC 52 dB Sound Isolation"
+      }
+    },
+    {
+      "id": 7,
+      "stageNumber": "07",
+      "name": "Plastering",
+      "title": "Crafted With Attention To Detail.",
+      "description": "Internal and external cement plastering, surface leveling, ceiling work, and transition from raw construction into crisp architectural lines.",
+      "desktopMediaUrl": "/images/stages/stage-07.jpg",
+      "mobileMediaUrl": "/images/stages/stage-07.jpg",
+      "mediaType": "image",
+      "duration": 5,
+      "order": 7,
+      "active": true,
+      "milestone": "PLASTER",
+      "blueprintSpecs": {
+        "plasterMix": "1:4 Cement-Coarse Sand Polymer Modified",
+        "cornerBeads": "Galvanized Edge Plaster Corner Protectors",
+        "exteriorFinish": "Weather-Shield Stucco Base",
+        "surfaceFlatness": "Class A (< 2mm over 3m straightedge)"
+      }
+    },
+    {
+      "id": 8,
+      "stageNumber": "08",
+      "name": "Electrical & Plumbing",
+      "title": "Smart Engineering Behind Every Wall.",
+      "description": "Concealed electrical conduit wiring, distribution switch boxes, plumbing lines, water feeds, and drainage infrastructure.",
+      "desktopMediaUrl": "/images/stages/stage-08.jpg",
+      "mobileMediaUrl": "/images/stages/stage-08.jpg",
+      "mediaType": "image",
+      "duration": 5,
+      "order": 8,
+      "active": true,
+      "milestone": "MEP",
+      "blueprintSpecs": {
+        "electricalConduits": "FR-LSH Low-Smoke Halogen-Free",
+        "plumbingPipes": "Multi-Layer Composite CPVC SDR-11",
+        "smartAutomation": "KNX / Zigbee Integrated Backbones",
+        "pressureTesting": "15 Bar Hydrostatic Line Test"
+      }
+    },
+    {
+      "id": 9,
+      "stageNumber": "09",
+      "name": "Flooring & Interior",
+      "title": "Designed For The Way You Live.",
+      "description": "Large-format floor tiles, modern kitchen installation, bathroom finishing, interior ambient lighting, and door and window frames.",
+      "desktopMediaUrl": "/images/stages/stage-09.jpg",
+      "mobileMediaUrl": "/images/stages/stage-09.jpg",
+      "mediaType": "image",
+      "duration": 5,
+      "order": 9,
+      "active": true,
+      "milestone": "INTERIOR",
+      "blueprintSpecs": {
+        "flooringMaterial": "Italian Statuario Marble Slabs (1600x3200mm)",
+        "ceilingDesign": "Acoustic Gypsum with Warm 2700K Cove LED",
+        "glazingFrames": "Thermal Break Powder-Coated Aluminum",
+        "underlayment": "Anti-Fracture Acoustic Membrane"
+      }
+    },
+    {
+      "id": 10,
+      "stageNumber": "10",
+      "name": "Painting",
+      "title": "Every Detail Matters.",
+      "description": "Primer application, exterior weather-resistant paint, interior luxury emulsion, and facade cladding with subtle Jancy Builders brand accents.",
+      "desktopMediaUrl": "/images/stages/stage-10.jpg",
+      "mobileMediaUrl": "/images/stages/stage-10.jpg",
+      "mediaType": "image",
+      "duration": 5,
+      "order": 10,
+      "active": true,
+      "milestone": "PAINT",
+      "blueprintSpecs": {
+        "exteriorCoat": "Elastomeric Silicone Hydrophobic Paint",
+        "interiorCoats": "Low-VOC Silk Luxury Washable Emulsion",
+        "accentCladding": "Kiln-Dried Canadian Cedar Wood Panels",
+        "warranty": "10-Year Weatherproof Guarantee"
+      }
+    },
+    {
+      "id": 11,
+      "stageNumber": "11",
+      "name": "Exterior Finishing",
+      "title": "Built With Quality. Finished With Care.",
+      "description": "Panoramic glass glazing, balcony railings, exterior architectural lighting, landscaping, paved driveway, compound wall, and gate.",
+      "desktopMediaUrl": "/images/stages/stage-11.jpg",
+      "mobileMediaUrl": "/images/stages/stage-11.jpg",
+      "mediaType": "image",
+      "duration": 5,
+      "order": 11,
+      "active": true,
+      "milestone": "EXTERIOR",
+      "blueprintSpecs": {
+        "balconyRailings": "17.5mm Toughened Laminated Glass Frameless",
+        "drivewayPaving": "Interlocking Heavy-Duty Granite Cobblestone",
+        "perimeterLighting": "IP67 In-Ground & Wall Up-and-Down Sconces",
+        "irrigation": "Automated Drip Landscaping System"
+      }
+    },
+    {
+      "id": 12,
+      "stageNumber": "12",
+      "name": "Completed Home",
+      "title": "YOUR VISION. OUR CRAFT.",
+      "description": "A completed luxury modern home captured at golden-hour sunset, showcasing pristine landscaping, paved driveway, and world-class architectural craftsmanship.",
+      "desktopMediaUrl": "/images/stages/stage-12.jpg",
+      "mobileMediaUrl": "/images/stages/stage-12.jpg",
+      "mediaType": "image",
+      "duration": 6,
+      "order": 12,
+      "active": true,
+      "milestone": "COMPLETED",
+      "blueprintSpecs": {
+        "builtUpArea": "5,850 sq.ft",
+        "energyRating": "LEED Platinum / IGBC Net Zero Ready",
+        "structuralWarranty": "Lifetime Structural Quality Assurance",
+        "handoverStatus": "Key Handover Ready & Certified"
+      }
+    }
+  ]
+}
