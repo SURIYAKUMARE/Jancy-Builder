@@ -3,13 +3,13 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Facebook, Instagram, Linkedin, Youtube, MapPin, Phone, Clock, Star, ExternalLink } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Youtube, MapPin, Phone, Clock, Star, ExternalLink, MessageCircle } from "lucide-react";
 
 export default function FooterExact() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-[#0B0F19] text-slate-400 pt-10 pb-6 border-t border-slate-800/80">
+    <footer id="footer" className="w-full bg-[#0B0F19] text-slate-400 pt-10 pb-6 border-t border-slate-800/80 scroll-mt-24">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Business Credentials Grid */}
@@ -148,6 +148,16 @@ export default function FooterExact() {
               aria-label="YouTube"
             >
               <Youtube className="w-3.5 h-3.5" />
+            </a>
+            <a
+              href="https://wa.me/917708247124?text=Hello%20Jancy%20Builders%2C%20I%20would%20like%20to%20discuss%20a%20construction%20project%20with%20Er.%20Sakay%20Antony%20Stalin."
+              target="_blank"
+              rel="noreferrer"
+              className="w-8 h-8 rounded-full bg-slate-800/80 hover:bg-[#25D366] text-slate-300 hover:text-white flex items-center justify-center transition-colors"
+              aria-label="WhatsApp"
+              title="Chat on WhatsApp (+91 77082 47124)"
+            >
+              <MessageCircle className="w-3.5 h-3.5 fill-current" />
             </a>
           </div>
 

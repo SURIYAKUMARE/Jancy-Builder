@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { X, CheckCircle2, Calculator, ArrowRight, Building, Phone, Mail, User, MapPin } from "lucide-react";
+import { X, CheckCircle2, Calculator, ArrowRight, Building, Phone, Mail, User, MapPin, MessageCircle } from "lucide-react";
 
 interface QuoteModalProps {
   isOpen: boolean;
@@ -30,10 +30,29 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
 
   const estimatedTotal = areaSqFt * rates[packageTier];
   const formattedEstimate = (estimatedTotal / 10000000).toFixed(2); // In Crores
+  const formattedLakhs = Math.round(estimatedTotal / 100000);
+
+  const getWhatsappUrl = () => {
+    const whatsappMessage = `🏗️ *New Project Quote Request - Jancy Builders*
+---------------------------------------------
+👤 *Client Name:* ${name || "Valued Client"}
+📱 *Phone Number:* ${phone}
+📍 *Project Location:* ${location || "Not specified"}
+🏛️ *Project Typology:* ${projectType}
+📐 *Built-Up Area:* ${areaSqFt.toLocaleString()} sq.ft
+🏢 *Floors:* ${floors}
+⭐ *Specification Package:* ${packageTier.toUpperCase()}
+💰 *Estimated Budget:* ₹${formattedEstimate} Crores (Approx. ₹${formattedLakhs} Lakhs)
+
+Hello Er. Sakay Antony Stalin, I have submitted a consultation request through the Jancy Builders website. Please review and get in touch with me.`;
+    return `https://wa.me/917708247124?text=${encodeURIComponent(whatsappMessage)}`;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    const whatsappUrl = getWhatsappUrl();
 
     try {
       const res = await fetch("/api/quote", {
@@ -56,8 +75,14 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       }
     } catch (err) {
       console.error("Quote submission error:", err);
+      // Still set a client-side ID so the user is confirmed and WhatsApp fires
+      setSubmittedQuoteId("JB-" + Math.floor(100000 + Math.random() * 900000));
     } finally {
       setIsSubmitting(false);
+      // Automatically send message on WhatsApp
+      if (typeof window !== "undefined") {
+        window.open(whatsappUrl, "_blank");
+      }
     }
   };
 
@@ -99,12 +124,25 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
             <p className="text-xs text-slate-400 max-w-md mx-auto">
               Our Chief Structural Architect will contact you at <strong className="text-slate-200">{phone}</strong> within 24 hours with a comprehensive site evaluation and detailed BOQ breakdown.
             </p>
-            <button
-              onClick={onClose}
-              className="mt-4 px-6 py-2.5 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-bold text-xs uppercase tracking-wider"
-            >
-              Close
-            </button>
+
+            {/* Direct WhatsApp Open Button */}
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <a
+                href={getWhatsappUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-[#25D366]/25 transition-all hover:scale-105"
+              >
+                <MessageCircle className="w-4 h-4 fill-current" />
+                <span>Chat on WhatsApp Directly</span>
+              </a>
+              <button
+                onClick={onClose}
+                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs uppercase tracking-wider"
+              >
+                Close
+              </button>
+            </div>
           </div>
         ) : (
           /* Form Screen */

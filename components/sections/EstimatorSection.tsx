@@ -91,6 +91,41 @@ export default function EstimatorSection({ onOpenQuote }: EstimatorSectionProps)
   const interiorLakhs = Math.round((totalCost * 0.25) / 100000);
   const facadeLakhs = Math.round((totalCost * 0.10) / 100000);
 
+  // Automatically compose and send WhatsApp message with full configuration
+  const handleRequestBOQ = () => {
+    const typologyName = typologies.find((t) => t.id === typology)?.name || "Luxury Villa";
+    const packageName = packages.find((p) => p.id === packageType)?.name || "Ultra Craft";
+    const packageRate = packages.find((p) => p.id === packageType)?.rate || "₹4,400/sq.ft";
+
+    const message = `🏗️ *Turnkey Construction Estimate Request*
+*Jancy Builders — BUILD THE WORLD*
+---------------------------------------
+📌 *Architectural Typology:* ${typologyName}
+📐 *Built-Up Area:* ${areaSqFt.toLocaleString()} sq.ft
+💎 *Specification Package:* ${packageName} (${packageRate})
+💰 *Estimated Turnkey Investment:* ₹${costInCrores} Crores (Approx. ₹${costInLakhs} Lakhs)
+
+📊 *Category Cost Breakdown:*
+• Civil & Skeleton (45%): ₹${civilLakhs} Lakhs
+• MEP Services (20%): ₹${mepLakhs} Lakhs
+• Interiors & Tiles (25%): ₹${interiorLakhs} Lakhs
+• Facade & Landscaping (10%): ₹${facadeLakhs} Lakhs
+
+✅ *Guaranteed Inclusions:*
+• Soil Testing, RCC Raft & Fe550D TMT
+• 100% On-Time Delivery Guarantee
+• Complete Project Management & 3D BIM MEP
+
+Hello Er. Sakay Antony Stalin, I configured this project on the Jancy Builders website and would like to receive the full BOQ breakdown and schedule a direct site consultation.`;
+
+    const encoded = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/917708247124?text=${encoded}`;
+    if (typeof window !== "undefined") {
+      window.open(whatsappUrl, "_blank");
+    }
+    onOpenQuote();
+  };
+
   return (
     <section id="estimator" className="relative py-20 lg:py-28 bg-[#FAF8F5] overflow-hidden">
       {/* Subtle background ambient blur */}
@@ -455,7 +490,7 @@ export default function EstimatorSection({ onOpenQuote }: EstimatorSectionProps)
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={onOpenQuote}
+                  onClick={handleRequestBOQ}
                   className="w-full inline-flex items-center justify-center gap-2 bg-[#C29061] hover:bg-[#b58354] text-slate-950 font-bold text-xs sm:text-sm py-3.5 px-5 rounded-full shadow-lg shadow-[#C29061]/20 transition-all duration-200"
                 >
                   <span>Request Comprehensive BOQ Estimate</span>
@@ -491,15 +526,13 @@ export default function EstimatorSection({ onOpenQuote }: EstimatorSectionProps)
                   >
                     <Phone className="w-3.5 h-3.5" />
                   </a>
-                  <a
-                    href="https://wa.me/917708247124?text=Hi%20Jancy%20Builders%2C%20I%20would%20like%20to%20discuss%20my%20construction%20project%20cost%20estimate."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-8 h-8 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white flex items-center justify-center transition-colors shadow-sm"
-                    title="Chat on WhatsApp (+91 77082 47124)"
+                  <button
+                    onClick={handleRequestBOQ}
+                    className="w-8 h-8 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white flex items-center justify-center transition-colors shadow-sm cursor-pointer"
+                    title="Send Project Estimate via WhatsApp (+91 77082 47124)"
                   >
                     <MessageCircle className="w-3.5 h-3.5 fill-current" />
-                  </a>
+                  </button>
                 </div>
               </div>
 
