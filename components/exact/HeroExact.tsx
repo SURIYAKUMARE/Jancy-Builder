@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import {
   ArrowRight,
@@ -8,12 +8,11 @@ import {
   Star,
   Building2,
   Users2,
-  Calendar,
   ShieldCheck,
-  ChevronRight,
   ChevronDown,
   Home,
   Armchair,
+  Sparkles,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Stage } from "@/types/hero";
@@ -29,8 +28,68 @@ interface HeroExactProps {
   onOpenExplorer: (idx: number) => void;
 }
 
+// Smooth animated rolling integer
+function AnimatedNumber({ value, suffix = "" }: { value: number; suffix?: string }) {
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    const duration = 1400;
+    const startTime = performance.now();
+
+    const update = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      setDisplay(Math.floor(ease * value));
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        setDisplay(value);
+      }
+    };
+
+    const handle = requestAnimationFrame(update);
+    return () => cancelAnimationFrame(handle);
+  }, [value]);
+
+  return (
+    <span>
+      {display}
+      {suffix}
+    </span>
+  );
+}
+
+// Smooth animated rolling decimal
+function AnimatedDecimal({ value }: { value: number }) {
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    const duration = 1400;
+    const startTime = performance.now();
+
+    const update = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      setDisplay(Number((ease * value).toFixed(1)));
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        setDisplay(value);
+      }
+    };
+
+    const handle = requestAnimationFrame(update);
+    return () => cancelAnimationFrame(handle);
+  }, [value]);
+
+  return <span>{display.toFixed(1)}</span>;
+}
+
 export default function HeroExact({
-  stages,
   currentStageIndex,
   onOpenQuote,
   onOpenExplorer,
@@ -55,6 +114,14 @@ export default function HeroExact({
     },
   ];
 
+  // Auto-advance featured projects carousel smoothly
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFeaturedIdx((prev) => (prev + 1) % featuredProjects.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [featuredProjects.length]);
+
   const handleNextFeatured = () => {
     setFeaturedIdx((prev) => (prev + 1) % featuredProjects.length);
   };
@@ -72,39 +139,61 @@ export default function HeroExact({
 
   return (
     <section className="relative w-full min-h-[95vh] lg:min-h-screen bg-[#FBF9F5] overflow-hidden flex flex-col justify-between pt-24 sm:pt-28">
-      {/* 1. RIGHT SIDE VILLA BACKGROUND VISUAL */}
+      
+      {/* 1. RIGHT SIDE VILLA BACKGROUND VISUAL WITH CONTINUOUS CINEMATIC KEN BURNS */}
       <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[58%] h-full z-0 overflow-hidden pointer-events-none">
-        <div className="relative w-full h-full">
+        <motion.div
+          animate={{
+            scale: [1.03, 1.08, 1.03],
+            x: [0, -12, 0],
+            y: [0, -6, 0],
+          }}
+          transition={{
+            duration: 22,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="relative w-full h-full"
+        >
           <Image
             src="/images/hero-sunset-villa.jpg"
             alt="Jancy Builders - Building Dreams Into Reality"
             fill
             priority
-            className="object-cover object-center scale-105 transition-transform duration-1000 ease-out"
+            className="object-cover object-center"
           />
           {/* Subtle natural shading overlays */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#FBF9F5]/70 via-transparent to-transparent lg:hidden" />
-        </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/25" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FBF9F5]/75 via-transparent to-transparent lg:hidden" />
+        </motion.div>
       </div>
 
       {/* 2. ELEGANT CONVEX ORGANIC CURVE DIVIDER (Desktop) */}
       <div className="absolute inset-0 z-[1] pointer-events-none hidden lg:block overflow-hidden">
         <svg
-          className="absolute left-0 top-0 h-full w-[54%] text-[#FBF9F5] fill-current"
+          className="absolute left-0 top-0 h-full w-[54%] text-[#FBF9F5] fill-current drop-shadow-sm"
           viewBox="0 0 750 1000"
           preserveAspectRatio="none"
         >
-          {/* Organic curve matching media_1790172708401.png */}
           <path d="M0,0 L600,0 C680,180 730,360 670,540 C610,720 540,860 480,1000 L0,1000 Z" />
         </svg>
       </div>
 
-      {/* 3. TOP-RIGHT SKY CURSIVE SCRIPT */}
+      {/* 3. TOP-RIGHT SKY CURSIVE SCRIPT WITH DELICATE SWAY */}
       <motion.div
         initial={{ opacity: 0, scale: 0.85, rotate: -8 }}
-        animate={{ opacity: 0.95, scale: 1, rotate: -5 }}
-        transition={{ delay: 0.6, duration: 1.2, ease: "easeOut" }}
+        animate={{
+          opacity: 0.95,
+          scale: 1,
+          rotate: [-6, -4, -6],
+          y: [0, -4, 0],
+        }}
+        transition={{
+          delay: 0.5,
+          duration: 7,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
         className="absolute top-28 sm:top-32 right-8 sm:right-16 lg:right-24 z-10 pointer-events-none select-none hidden md:block"
       >
         <span className="font-['Caveat',cursive] text-3xl sm:text-4xl lg:text-[42px] text-slate-800 font-bold tracking-wide drop-shadow-sm block leading-tight">
@@ -113,79 +202,135 @@ export default function HeroExact({
         </span>
       </motion.div>
 
-      {/* 4. TOP-RIGHT FLOATING "MODERN LIVING REDEFINED" CARD */}
+      {/* 4. TOP-RIGHT FLOATING "MODERN LIVING REDEFINED" CARD WITH LEVITATION & CAROUSEL */}
       <motion.div
         initial={{ opacity: 0, y: -20, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ delay: 0.7, duration: 0.8 }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+          y: [0, -9, 0],
+        }}
+        transition={{
+          y: {
+            repeat: Infinity,
+            duration: 4.8,
+            ease: "easeInOut",
+          },
+          opacity: { delay: 0.7, duration: 0.8 },
+          scale: { delay: 0.7, duration: 0.8 },
+        }}
         className="absolute top-44 sm:top-48 right-6 sm:right-12 lg:right-16 z-20 hidden md:block"
       >
-        <div className="bg-white/95 backdrop-blur-md rounded-2xl p-3 shadow-2xl border border-white/80 flex items-center gap-3.5 max-w-[290px] transition-all hover:shadow-black/15">
+        <div className="bg-white/95 backdrop-blur-md rounded-2xl p-3 shadow-2xl border border-white/80 flex items-center gap-3.5 max-w-[295px] transition-all hover:shadow-black/20 group">
           <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-slate-100">
-            <Image
-              src={currentFeatured.thumbnail}
-              alt={currentFeatured.title}
-              fill
-              className="object-cover"
-            />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentFeatured.thumbnail}
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.4 }}
+                className="relative w-full h-full"
+              >
+                <Image
+                  src={currentFeatured.thumbnail}
+                  alt={currentFeatured.title}
+                  fill
+                  className="object-cover"
+                />
+              </motion.div>
+            </AnimatePresence>
           </div>
+
           <div className="flex-1 min-w-0">
-            <h4 className="text-xs font-bold text-slate-900 truncate">
-              {currentFeatured.title}
-            </h4>
-            <p className="text-[10px] text-slate-500 line-clamp-1 mt-0.5">
-              {currentFeatured.subtitle}
-            </p>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentFeatured.title}
+                initial={{ opacity: 0, x: 8 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -8 }}
+                transition={{ duration: 0.3 }}
+              >
+                <h4 className="text-xs font-bold text-slate-900 truncate">
+                  {currentFeatured.title}
+                </h4>
+                <p className="text-[10px] text-slate-500 line-clamp-1 mt-0.5">
+                  {currentFeatured.subtitle}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+
             {/* 3 Carousel Dots */}
-            <div className="flex items-center gap-1.5 mt-1.5">
+            <div className="flex items-center gap-1.5 mt-2">
               {featuredProjects.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setFeaturedIdx(i)}
-                  className={`h-1.5 rounded-full transition-all ${
-                    featuredIdx === i ? "w-4 bg-slate-900" : "w-1.5 bg-slate-300"
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    featuredIdx === i ? "w-4 bg-slate-900" : "w-1.5 bg-slate-300 hover:bg-slate-400"
                   }`}
                   aria-label={`Go to slide ${i + 1}`}
                 />
               ))}
             </div>
           </div>
-          <button
+
+          <motion.button
+            whileHover={{ scale: 1.12, rotate: 5 }}
+            whileTap={{ scale: 0.9 }}
             onClick={handleNextFeatured}
             className="w-8 h-8 rounded-full bg-slate-950 text-white flex items-center justify-center hover:bg-[#C29061] transition-colors flex-shrink-0 shadow-md"
             title="Next Featured Project"
           >
             <ArrowRight className="w-3.5 h-3.5" />
-          </button>
+          </motion.button>
         </div>
       </motion.div>
 
-      {/* 5. MAIN LEFT HERO FOREGROUND CONTENT */}
+      {/* 5. MAIN LEFT HERO FOREGROUND CONTENT WITH STAGGERED ENTRANCES */}
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 w-full my-auto py-10 lg:py-16">
         <div className="max-w-xl sm:max-w-2xl space-y-6 sm:space-y-8">
           
-          {/* Eyebrow Line & Sub-Header */}
+          {/* Eyebrow Line & Sub-Header with Expanding Line Motion */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -25 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2, duration: 0.7 }}
             className="flex items-center gap-3"
           >
-            <span className="h-[2px] w-8 bg-slate-400 block" />
+            <motion.span
+              initial={{ width: 0 }}
+              animate={{ width: 32 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              className="h-[2px] bg-slate-400 block"
+            />
             <span className="text-[11px] sm:text-xs font-bold tracking-[0.22em] text-slate-500 uppercase">
               ARCHITECTURE &nbsp;/&nbsp; CONSTRUCTION &nbsp;/&nbsp; INTERIORS
             </span>
           </motion.div>
 
-          {/* Grand Headline: Building Dreams Into Reality */}
+          {/* Grand Headline: Building Dreams Into Reality with Shimmering Gold Accent */}
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 35 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.8 }}
+            transition={{ delay: 0.35, duration: 0.8, ease: "easeOut" }}
             className="text-4xl sm:text-6xl lg:text-[4.5rem] font-black text-slate-950 tracking-tight leading-[1.06] font-sans"
           >
             Building Dreams<br />
-            Into <span className="text-[#C29061]">Reality</span>
+            Into{" "}
+            <span className="relative inline-block">
+              <span className="text-[#C29061] bg-gradient-to-r from-[#C29061] via-[#E8C59A] to-[#B07F50] bg-clip-text text-transparent">
+                Reality
+              </span>
+              {/* Subtle sparkle icon floating near the dot of the i */}
+              <motion.span
+                animate={{ rotate: [0, 180, 360], scale: [0.9, 1.15, 0.9] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+                className="absolute -top-1 -right-4 hidden sm:inline-block text-[#C29061]"
+              >
+                <Sparkles className="w-4 h-4 fill-current opacity-80" />
+              </motion.span>
+            </span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -205,27 +350,37 @@ export default function HeroExact({
             transition={{ delay: 0.65, duration: 0.8 }}
             className="flex items-center flex-wrap gap-6 pt-2"
           >
-            {/* Primary Black Pill Button */}
+            {/* Primary Black Pill Button with Aura Pulse and Arrow Slide */}
             <motion.button
-              whileHover={{ scale: 1.04, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.2)" }}
-              whileTap={{ scale: 0.96 }}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 15px 35px rgba(0, 0, 0, 0.28)",
+              }}
+              whileTap={{ scale: 0.95 }}
               onClick={onOpenQuote}
-              className="inline-flex items-center gap-2.5 bg-slate-950 hover:bg-slate-800 text-white text-sm font-bold px-7 py-3.5 rounded-full shadow-lg shadow-black/15 transition-all duration-200"
+              className="group relative inline-flex items-center gap-2.5 bg-slate-950 hover:bg-slate-800 text-white text-sm font-bold px-7 py-3.5 rounded-full shadow-lg shadow-black/15 transition-all duration-200 overflow-hidden"
             >
+              {/* Hover light sweep shimmer */}
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
               <span>Get a Free Quote</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
             </motion.button>
 
-            {/* Secondary Circular Play Button + Watch Our Story */}
+            {/* Secondary Circular Play Button + Radiating Radar Pulse */}
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => onOpenExplorer(currentStageIndex)}
-              className="inline-flex items-center gap-3.5 group text-left"
+              className="inline-flex items-center gap-3.5 group text-left cursor-pointer"
             >
-              <div className="w-11 h-11 rounded-full bg-white text-slate-950 shadow-md border border-slate-200/80 flex items-center justify-center group-hover:bg-[#C29061] group-hover:text-white group-hover:border-[#C29061] transition-all duration-200">
-                <Play className="w-4 h-4 fill-current ml-0.5" />
+              <div className="relative">
+                {/* Continuous radar pulse ring */}
+                <span className="absolute inset-0 rounded-full bg-[#C29061] animate-ping opacity-25 pointer-events-none" />
+                <div className="relative w-11 h-11 rounded-full bg-white text-slate-950 shadow-md border border-slate-200/80 flex items-center justify-center group-hover:bg-[#C29061] group-hover:text-white group-hover:border-[#C29061] transition-all duration-200 group-hover:shadow-lg">
+                  <Play className="w-4 h-4 fill-current ml-0.5 group-hover:scale-110 transition-transform" />
+                </div>
               </div>
+
               <div>
                 <span className="block text-sm font-bold text-slate-900 group-hover:text-[#C29061] transition-colors leading-tight">
                   Watch Our Story
@@ -237,7 +392,7 @@ export default function HeroExact({
             </motion.button>
           </motion.div>
 
-          {/* 4 Stats in Clean Horizontal Row */}
+          {/* 4 Stats in Clean Horizontal Row with Live Rolling Counter Animations */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
@@ -245,59 +400,59 @@ export default function HeroExact({
             className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-5 sm:gap-6 border-t border-slate-200/80 max-w-xl"
           >
             {/* Stat 1 */}
-            <div className="flex flex-col">
+            <motion.div whileHover={{ y: -2 }} className="flex flex-col cursor-default">
               <div className="flex items-center gap-1.5 text-slate-400 mb-1">
                 <Building2 className="w-4 h-4 text-slate-500" />
               </div>
               <span className="text-2xl font-black text-slate-950 font-sans tracking-tight leading-none">
-                250+
+                <AnimatedNumber value={250} suffix="+" />
               </span>
               <span className="text-[11px] text-slate-500 font-medium mt-1">
                 Projects Completed
               </span>
-            </div>
+            </motion.div>
 
             {/* Stat 2 */}
-            <div className="flex flex-col">
+            <motion.div whileHover={{ y: -2 }} className="flex flex-col cursor-default">
               <div className="flex items-center gap-1.5 text-slate-400 mb-1">
                 <Users2 className="w-4 h-4 text-slate-500" />
               </div>
               <span className="text-2xl font-black text-slate-950 font-sans tracking-tight leading-none">
-                500+
+                <AnimatedNumber value={500} suffix="+" />
               </span>
               <span className="text-[11px] text-slate-500 font-medium mt-1">
                 Happy Clients
               </span>
-            </div>
+            </motion.div>
 
             {/* Stat 3 */}
-            <div className="flex flex-col">
+            <motion.div whileHover={{ y: -2 }} className="flex flex-col cursor-default">
               <div className="flex items-center gap-1.5 text-slate-400 mb-1">
                 <Star className="w-4 h-4 text-[#C29061] fill-[#C29061]" />
               </div>
               <span className="text-2xl font-black text-slate-950 font-sans tracking-tight leading-none flex items-center gap-0.5">
-                4.8<span className="text-base text-[#C29061]">★</span>
+                <AnimatedDecimal value={4.8} /><span className="text-base text-[#C29061]">★</span>
               </span>
               <span className="text-[11px] text-slate-500 font-medium mt-1">
                 Client Satisfaction
               </span>
-            </div>
+            </motion.div>
 
             {/* Stat 4 */}
-            <div className="flex flex-col">
+            <motion.div whileHover={{ y: -2 }} className="flex flex-col cursor-default">
               <div className="flex items-center gap-1.5 text-slate-400 mb-1">
                 <ShieldCheck className="w-4 h-4 text-slate-500" />
               </div>
               <span className="text-2xl font-black text-slate-950 font-sans tracking-tight leading-none">
-                8+
+                <AnimatedNumber value={8} suffix="+" />
               </span>
               <span className="text-[11px] text-slate-500 font-medium mt-1">
                 Years of Experience
               </span>
-            </div>
+            </motion.div>
           </motion.div>
 
-          {/* Bottom-Left Script Text: Spaces for a Brighter Tomorrow */}
+          {/* Bottom-Left Script Text: Spaces for a Brighter Tomorrow with Draw-In Underline */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -313,7 +468,10 @@ export default function HeroExact({
               viewBox="0 0 140 10"
               fill="none"
             >
-              <path
+              <motion.path
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ delay: 1.1, duration: 1.2, ease: "easeOut" }}
                 d="M2 7 C35 1, 95 2, 138 7"
                 stroke="currentColor"
                 strokeWidth="1.5"
@@ -325,58 +483,92 @@ export default function HeroExact({
         </div>
       </div>
 
-      {/* 6. FLOATING BOTTOM CAPSULE OVER THE POOL (Residential / Commercial / Interior Design) */}
+      {/* 6. FLOATING BOTTOM CAPSULE OVER THE POOL WITH GENTLE LEVITATION & HOVER SPRING */}
       <div className="relative z-20 w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 pb-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           
-          {/* Centered/Right Floating 3-Category Capsule */}
+          {/* Centered/Right Floating 3-Category Capsule with Continuous Ambient Float */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.85, duration: 0.8 }}
+            initial={{ opacity: 0, y: 35 }}
+            animate={{
+              opacity: 1,
+              y: [0, -6, 0],
+            }}
+            transition={{
+              y: {
+                repeat: Infinity,
+                duration: 5.6,
+                ease: "easeInOut",
+              },
+              opacity: { delay: 0.85, duration: 0.8 },
+            }}
             className="w-full md:w-auto md:ml-auto md:mr-16 bg-white/95 backdrop-blur-md rounded-2xl md:rounded-full py-3.5 px-6 sm:px-8 shadow-2xl border border-white/80 flex flex-col sm:flex-row items-center gap-6 sm:gap-8"
           >
             {/* Category 1: Residential */}
-            <div className="flex items-center gap-3 w-full sm:w-auto">
-              <div className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 flex-shrink-0">
-                <Home className="w-4 h-4 text-slate-700" />
+            <motion.div
+              whileHover={{ scale: 1.04, y: -2 }}
+              transition={{ duration: 0.2 }}
+              className="flex items-center gap-3 w-full sm:w-auto cursor-pointer group"
+            >
+              <div className="w-9 h-9 rounded-xl bg-slate-100 group-hover:bg-[#C29061] group-hover:text-white flex items-center justify-center text-slate-700 flex-shrink-0 transition-colors">
+                <Home className="w-4 h-4" />
               </div>
               <div className="text-left">
-                <h5 className="text-xs font-bold text-slate-900 leading-tight">Residential</h5>
-                <p className="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">Homes for every story</p>
+                <h5 className="text-xs font-bold text-slate-900 group-hover:text-[#C29061] transition-colors leading-tight">
+                  Residential
+                </h5>
+                <p className="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">
+                  Homes for every story
+                </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Divider */}
             <div className="hidden sm:block h-7 w-[1px] bg-slate-200" />
 
             {/* Category 2: Commercial */}
-            <div className="flex items-center gap-3 w-full sm:w-auto">
-              <div className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 flex-shrink-0">
-                <Building2 className="w-4 h-4 text-slate-700" />
+            <motion.div
+              whileHover={{ scale: 1.04, y: -2 }}
+              transition={{ duration: 0.2 }}
+              className="flex items-center gap-3 w-full sm:w-auto cursor-pointer group"
+            >
+              <div className="w-9 h-9 rounded-xl bg-slate-100 group-hover:bg-[#C29061] group-hover:text-white flex items-center justify-center text-slate-700 flex-shrink-0 transition-colors">
+                <Building2 className="w-4 h-4" />
               </div>
               <div className="text-left">
-                <h5 className="text-xs font-bold text-slate-900 leading-tight">Commercial</h5>
-                <p className="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">Spaces for growth</p>
+                <h5 className="text-xs font-bold text-slate-900 group-hover:text-[#C29061] transition-colors leading-tight">
+                  Commercial
+                </h5>
+                <p className="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">
+                  Spaces for growth
+                </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Divider */}
             <div className="hidden sm:block h-7 w-[1px] bg-slate-200" />
 
             {/* Category 3: Interior Design */}
-            <div className="flex items-center gap-3 w-full sm:w-auto">
-              <div className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 flex-shrink-0">
-                <Armchair className="w-4 h-4 text-slate-700" />
+            <motion.div
+              whileHover={{ scale: 1.04, y: -2 }}
+              transition={{ duration: 0.2 }}
+              className="flex items-center gap-3 w-full sm:w-auto cursor-pointer group"
+            >
+              <div className="w-9 h-9 rounded-xl bg-slate-100 group-hover:bg-[#C29061] group-hover:text-white flex items-center justify-center text-slate-700 flex-shrink-0 transition-colors">
+                <Armchair className="w-4 h-4" />
               </div>
               <div className="text-left">
-                <h5 className="text-xs font-bold text-slate-900 leading-tight">Interior Design</h5>
-                <p className="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">Beauty in every corner</p>
+                <h5 className="text-xs font-bold text-slate-900 group-hover:text-[#C29061] transition-colors leading-tight">
+                  Interior Design
+                </h5>
+                <p className="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">
+                  Beauty in every corner
+                </p>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
 
-          {/* Far Right: SCROLL TO EXPLORE */}
+          {/* Far Right: SCROLL TO EXPLORE WITH CONTINUOUS BOUNCE */}
           <motion.button
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -384,12 +576,20 @@ export default function HeroExact({
             onClick={handleScrollDown}
             className="hidden lg:flex flex-col items-center gap-1.5 text-slate-400 hover:text-slate-900 transition-colors group cursor-pointer"
           >
-            <span className="text-[9px] font-mono tracking-widest uppercase writing-mode-vertical">
+            <span className="text-[9px] font-mono tracking-widest uppercase">
               SCROLL TO EXPLORE
             </span>
-            <div className="w-7 h-7 rounded-full border border-slate-300 flex items-center justify-center group-hover:border-slate-800 transition-colors">
-              <ChevronDown className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-            </div>
+            <motion.div
+              animate={{ y: [0, 5, 0] }}
+              transition={{
+                repeat: Infinity,
+                duration: 1.6,
+                ease: "easeInOut",
+              }}
+              className="w-7 h-7 rounded-full border border-slate-300 flex items-center justify-center group-hover:border-slate-800 transition-colors"
+            >
+              <ChevronDown className="w-4 h-4" />
+            </motion.div>
           </motion.button>
 
         </div>
