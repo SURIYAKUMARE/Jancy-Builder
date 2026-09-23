@@ -71,7 +71,7 @@ export default function QuoteModal({
 
 ✅ *Included:* Structural + MEP + Finishing + 100% Guaranteed Timeline
 
-Hello Er. Sakay Antony Stalin, I would like to request the comprehensive BOQ document and schedule an architectural site evaluation.`;
+Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ document and schedule an architectural site evaluation.`;
 
     return `https://wa.me/917708247124?text=${encodeURIComponent(message)}`;
   };
@@ -162,7 +162,7 @@ Hello Er. Sakay Antony Stalin, I would like to request the comprehensive BOQ doc
               {submittedQuoteId}
             </div>
             <p className="text-xs text-slate-400 max-w-md mx-auto">
-              Our Chief Structural Engineer, <strong>Er. Sakay Antony Stalin</strong>, will review your project and contact you at <strong className="text-slate-200">{phone}</strong> within 24 hours with a comprehensive site evaluation.
+              Our Chief Structural Engineer, <strong>Er. Sahaya Antony Stalin</strong>, will review your project and contact you at <strong className="text-slate-200">{phone}</strong> within 24 hours with a comprehensive site evaluation.
             </p>
 
             <div className="pt-3 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -347,7 +347,7 @@ Hello Er. Sakay Antony Stalin, I would like to request the comprehensive BOQ doc
             {/* Footer Note Matching media_1790183200649.png */}
             <div className="text-center pt-1">
               <p className="text-[11px] text-slate-400">
-                Prefer speaking directly? Call Er. Sakay Antony Stalin at{" "}
+                Prefer speaking directly? Call Er. Sahaya Antony Stalin at{" "}
                 <a
                   href="tel:+917708247124"
                   onClick={() => trackEvent("expert_call_click", { source: "quote_modal" })}

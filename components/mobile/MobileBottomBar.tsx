@@ -28,7 +28,7 @@ export default function MobileBottomBar({ onOpenQuote }: MobileBottomBarProps) {
   }, []);
 
   const whatsappMessage = encodeURIComponent(
-    "Hello Jancy Builders, I would like to get a turnkey construction cost estimate and site consultation with Er. Sakay Antony Stalin."
+    "Hello Jancy Builders, I would like to get a turnkey construction cost estimate and site consultation with Er. Sahaya Antony Stalin."
   );
   const whatsappUrl = `https://wa.me/917708247124?text=${whatsappMessage}`;
 
@@ -58,7 +58,7 @@ export default function MobileBottomBar({ onOpenQuote }: MobileBottomBarProps) {
             <a
               href="tel:+917708247124"
               className="bg-white/10 hover:bg-white/20 active:scale-[0.98] text-white border border-white/15 font-semibold text-xs py-3 px-3.5 rounded-xl flex items-center justify-center gap-1.5 transition-all select-none"
-              title="Call Er. Sakay Antony Stalin"
+              title="Call Er. Sahaya Antony Stalin"
             >
               <Phone className="w-4 h-4 text-[#B88746]" />
               <span className="font-mono">Call</span>

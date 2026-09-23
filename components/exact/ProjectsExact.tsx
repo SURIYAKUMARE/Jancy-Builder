@@ -189,7 +189,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
   // WhatsApp helper for specific project
   const getProjectWhatsappUrl = (p: ProjectItem) => {
     const text = encodeURIComponent(
-      `Hello Er. Sakay Antony Stalin, I am interested in building a project similar to "${p.title}" (${p.location}, ${p.area}). Please share floor plans, specifications, and turnkey budget details.`
+      `Hello Er. Sahaya Antony Stalin, I am interested in building a project similar to "${p.title}" (${p.location}, ${p.area}). Please share floor plans, specifications, and turnkey budget details.`
     );
     return `https://wa.me/917708247124?text=${text}`;
   };
@@ -602,7 +602,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                     {selectedProject.engineering}
                   </p>
                   <p className="text-[11px] text-slate-400 mt-2 font-mono">
-                    Supervised &amp; Certified by: <strong>Er. Sakay Antony Stalin</strong> (B.E. Civil, Jancy Builders)
+                    Supervised &amp; Certified by: <strong>Er. Sahaya Antony Stalin</strong> (B.E. Civil, Jancy Builders)
                   </p>
                 </div>
 

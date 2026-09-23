@@ -26,7 +26,7 @@ export default function FooterExact() {
               />
             </Link>
             <p className="text-slate-400 text-[12px] leading-relaxed pt-1">
-              Led by <strong className="text-white">Er. Sakay Antony Stalin</strong>, Jancy Builders has been transforming blueprints into landmark residences and commercial spaces since 2016.
+              Led by <strong className="text-white">Er. Sahaya Antony Stalin</strong>, Jancy Builders has been transforming blueprints into landmark residences and commercial spaces since 2016.
             </p>
             <div className="flex items-center gap-1.5 pt-1 text-[#DC2626]">
               <div className="flex items-center">
@@ -150,7 +150,7 @@ export default function FooterExact() {
               <Youtube className="w-3.5 h-3.5" />
             </a>
             <a
-              href="https://wa.me/917708247124?text=Hello%20Jancy%20Builders%2C%20I%20would%20like%20to%20discuss%20a%20construction%20project%20with%20Er.%20Sakay%20Antony%20Stalin."
+              href="https://wa.me/917708247124?text=Hello%20Jancy%20Builders%2C%20I%20would%20like%20to%20discuss%20a%20construction%20project%20with%20Er.%20Sahaya%20Antony%20Stalin."
               target="_blank"
               rel="noreferrer"
               className="w-8 h-8 rounded-full bg-slate-800/80 hover:bg-[#25D366] text-slate-300 hover:text-white flex items-center justify-center transition-colors"

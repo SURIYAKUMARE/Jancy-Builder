@@ -32,7 +32,7 @@ export default function AboutEditorial({ onOpenQuote }: AboutEditorialProps) {
     {
       icon: HardHat,
       title: "Direct Civil Engineering Leadership",
-      desc: "Every project is supervised directly by Er. Sakay Antony Stalin, B.E. Civil, ensuring zero compromise on structural specifications.",
+      desc: "Every project is supervised directly by Er. Sahaya Antony Stalin, B.E. Civil, ensuring zero compromise on structural specifications.",
     },
     {
       icon: ShieldCheck,
@@ -52,7 +52,7 @@ export default function AboutEditorial({ onOpenQuote }: AboutEditorialProps) {
   ];
 
   const whatsappMessage = encodeURIComponent(
-    "Hello Er. Sakay Antony Stalin, I reviewed the Jancy Builders profile and would like to schedule an architectural consultation and site inspection for my upcoming construction."
+    "Hello Er. Sahaya Antony Stalin, I reviewed the Jancy Builders profile and would like to schedule an architectural consultation and site inspection for my upcoming construction."
   );
   const whatsappUrl = `https://wa.me/917708247124?text=${whatsappMessage}`;
 
@@ -76,7 +76,7 @@ export default function AboutEditorial({ onOpenQuote }: AboutEditorialProps) {
           </h2>
 
           <p className="mt-5 text-base sm:text-lg text-slate-700 leading-relaxed font-normal">
-            At Jancy Builders, we believe a home is not just an assembly of concrete and bricks—it is a lifelong generational sanctuary. Guided by Chief Civil Engineer <span className="font-semibold text-slate-900">Er. Sakay Antony Stalin</span>, we merge architectural artistry with uncompromising structural engineering across Tamil Nadu.
+            At Jancy Builders, we believe a home is not just an assembly of concrete and bricks—it is a lifelong generational sanctuary. Guided by Chief Civil Engineer <span className="font-semibold text-slate-900">Er. Sahaya Antony Stalin</span>, we merge architectural artistry with uncompromising structural engineering across Tamil Nadu.
           </p>
         </div>
 
@@ -98,7 +98,7 @@ export default function AboutEditorial({ onOpenQuote }: AboutEditorialProps) {
               <div className="mt-6 pt-6 border-t border-slate-100 flex items-center justify-between flex-wrap gap-4">
                 <div>
                   <h4 className="text-base font-bold text-slate-950 font-sans tracking-tight">
-                    Er. Sakay Antony Stalin, B.E. (Civil)
+                    Er. Sahaya Antony Stalin, B.E. (Civil)
                   </h4>
                   <p className="text-xs font-mono uppercase tracking-wider text-[#B88746] font-semibold mt-0.5">
                     Founder &amp; Chief Structural Consultant

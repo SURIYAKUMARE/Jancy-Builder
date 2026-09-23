@@ -142,7 +142,7 @@ ${addonsText}
 • 100% On-Time Delivery Guarantee
 • Complete Project Management & 3D BIM MEP
 
-Hello Er. Sakay Antony Stalin, I configured this project on the Jancy Builders website and would like to receive the full BOQ breakdown and schedule a direct site consultation.`;
+Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders website and would like to receive the full BOQ breakdown and schedule a direct site consultation.`;
 
     const encoded = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/917708247124?text=${encoded}`;
@@ -604,7 +604,7 @@ Hello Er. Sakay Antony Stalin, I configured this project on the Jancy Builders w
                   <div className="relative w-10 h-10 rounded-full overflow-hidden border border-white/20 bg-slate-800 flex-shrink-0">
                     <Image
                       src="/images/testimonials/arun-kumar.jpg"
-                      alt="Er. Sakay Antony Stalin"
+                      alt="Er. Sahaya Antony Stalin"
                       fill
                       className="object-cover"
                     />
@@ -622,7 +622,7 @@ Hello Er. Sakay Antony Stalin, I configured this project on the Jancy Builders w
                   <a
                     href="tel:+917708247124"
                     className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#C29061] text-white hover:text-slate-950 flex items-center justify-center transition-colors shadow-sm"
-                    title="Call Er. Sakay Antony Stalin (+91 77082 47124)"
+                    title="Call Er. Sahaya Antony Stalin (+91 77082 47124)"
                   >
                     <Phone className="w-3.5 h-3.5" />
                   </a>

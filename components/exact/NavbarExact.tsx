@@ -48,7 +48,7 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
   ];
 
   const whatsappMessage = encodeURIComponent(
-    "Hello Jancy Builders, I visited your website and would like to consult with Chief Engineer Er. Sakay Antony Stalin regarding a new construction project."
+    "Hello Jancy Builders, I visited your website and would like to consult with Chief Engineer Er. Sahaya Antony Stalin regarding a new construction project."
   );
   const whatsappUrl = `https://wa.me/917708247124?text=${whatsappMessage}`;
 
@@ -147,7 +147,7 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
           <a
             href="tel:+917708247124"
             className="hidden xl:flex items-center gap-2 text-slate-800 hover:text-[#C29061] transition-colors group/phone"
-            title="Call Er. Sakay Antony Stalin (+91 77082 47124)"
+            title="Call Er. Sahaya Antony Stalin (+91 77082 47124)"
           >
             <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 group-hover/phone:bg-[#C29061] group-hover/phone:text-white transition-colors">
               <Phone className="w-3.5 h-3.5 stroke-[2.2]" />
