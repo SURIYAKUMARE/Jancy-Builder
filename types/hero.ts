@@ -18,6 +18,8 @@ export interface ConstructionStage {
   blueprintSpecs?: BlueprintSpecs;
 }
 
+export type Stage = ConstructionStage;
+
 export interface HeroContent {
   companyName: string;
   brandTagline: string;
