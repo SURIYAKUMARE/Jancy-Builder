@@ -5,7 +5,6 @@ import Image from "next/image";
 import {
   ArrowRight,
   Play,
-  Pause,
   Star,
   Building2,
   Users2,
@@ -23,9 +22,9 @@ interface HeroExactProps {
   stages: Stage[];
   currentStageIndex: number;
   onSelectStage: (idx: number) => void;
-  isPlaying: boolean;
-  onTogglePlay: () => void;
-  progressPercent: number;
+  isPlaying?: boolean;
+  onTogglePlay?: () => void;
+  progressPercent?: number;
   onOpenQuote: () => void;
   onOpenExplorer: (idx: number) => void;
 }
@@ -34,9 +33,6 @@ export default function HeroExact({
   stages,
   currentStageIndex,
   onSelectStage,
-  isPlaying,
-  onTogglePlay,
-  progressPercent,
   onOpenQuote,
   onOpenExplorer,
 }: HeroExactProps) {
@@ -190,18 +186,6 @@ export default function HeroExact({
                 <Play className="w-4 h-4 fill-current ml-0.5 group-hover:scale-110 transition-transform" />
               </div>
               <span>Watch Our Story</span>
-            </motion.button>
-
-            {/* Timelapse Toggle / Badge */}
-            <motion.button
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={onTogglePlay}
-              className="inline-flex items-center gap-2 bg-black/40 hover:bg-black/60 border border-white/20 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-mono text-slate-200 transition-colors"
-              title="Toggle Construction Timelapse"
-            >
-              {isPlaying ? <Pause className="w-3.5 h-3.5 text-[#E8C59A]" /> : <Play className="w-3.5 h-3.5 text-[#E8C59A] fill-current" />}
-              <span>STAGE {String(currentStage?.stageNumber || currentStageIndex + 1).padStart(2, "0")} • {isPlaying ? "PLAYING" : "TIMELAPSE"}</span>
             </motion.button>
           </motion.div>
 
