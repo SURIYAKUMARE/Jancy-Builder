@@ -15,7 +15,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
     {
       id: "luxury-villa",
       title: "Luxury Villa",
-      location: "Coimbatore",
+      location: "Samugarengapuram, Tirunelveli",
       image: "/images/projects/luxury-villa.jpg",
       area: "6,500 sq.ft",
       type: "Custom Residential",
@@ -23,7 +23,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
     {
       id: "apartment-complex",
       title: "Apartment Complex",
-      location: "Chennai",
+      location: "Tirunelveli Town",
       image: "/images/projects/apartment-complex.jpg",
       area: "35,000 sq.ft",
       type: "Multi-Unit Living",
@@ -31,15 +31,15 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
     {
       id: "office-building",
       title: "Office Building",
-      location: "Bangalore",
+      location: "Chennai / Bangalore",
       image: "/images/projects/office-building.jpg",
       area: "48,000 sq.ft",
       type: "Corporate Headquarters",
     },
     {
       id: "modern-home",
-      title: "Modern Home",
-      location: "Erode",
+      title: "Modern Residence",
+      location: "Vallioor, Tirunelveli",
       image: "/images/projects/modern-home.jpg",
       area: "4,200 sq.ft",
       type: "Contemporary Residence",

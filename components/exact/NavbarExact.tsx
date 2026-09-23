@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Search, ArrowRight, Menu, X } from "lucide-react";
+import { Search, ArrowRight, Menu, X, Phone } from "lucide-react";
 
 interface NavbarExactProps {
   onOpenQuote: () => void;
@@ -95,6 +95,16 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
             )}
           </div>
 
+          {/* Direct Phone Call Button */}
+          <a
+            href="tel:+917708247124"
+            className="hidden lg:inline-flex items-center gap-2 text-slate-700 hover:text-[#DC2626] font-semibold text-xs py-2 px-3 rounded-full hover:bg-gray-100 transition-colors"
+            title="Call Jancy Builders"
+          >
+            <Phone className="w-3.5 h-3.5 text-[#DC2626]" />
+            <span>+91 77082 47124</span>
+          </a>
+
           {/* Red Pill Get a Quote Button */}
           <button
             onClick={onOpenQuote}
@@ -146,6 +156,13 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
             ))}
           </nav>
           <div className="pt-4 border-t border-gray-100 flex flex-col gap-3">
+            <a
+              href="tel:+917708247124"
+              className="w-full bg-slate-100 hover:bg-slate-200 text-slate-900 text-center py-2.5 rounded-full font-semibold text-sm flex items-center justify-center gap-2"
+            >
+              <Phone className="w-4 h-4 text-[#DC2626]" />
+              <span>Call +91 77082 47124</span>
+            </a>
             <button
               onClick={() => {
                 setMobileMenuOpen(false);

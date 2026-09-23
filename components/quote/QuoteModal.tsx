@@ -228,7 +228,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
               <input
                 required
                 type="text"
-                placeholder="e.g. OMR, Chennai / Whitefield, Bangalore"
+                placeholder="e.g. Samugarengapuram / Tirunelveli / Coimbatore"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 className="w-full px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:border-yellow-400 focus:outline-none"
@@ -250,6 +250,15 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                 </>
               )}
             </button>
+
+            {/* Direct Helpline */}
+            <div className="pt-2 text-center text-[11px] text-slate-400">
+              Prefer speaking directly? Call Er. Sakay Antony Stalin at{" "}
+              <a href="tel:+917708247124" className="text-yellow-400 hover:underline font-bold">
+                +91 77082 47124
+              </a>{" "}
+              (Open 24/7)
+            </div>
           </form>
         )}
       </div>

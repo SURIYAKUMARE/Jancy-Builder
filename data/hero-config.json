@@ -2,6 +2,21 @@
   "hero": {
     "companyName": "JANCY BUILDERS",
     "brandTagline": "BUILD THE WORLD",
+    "founder": "Er. Sakay Antony Stalin",
+    "role": "Founder & Principal Civil Engineer",
+    "phone": "+91 77082 47124",
+    "whatsapp": "+917708247124",
+    "address": "Jancy Home, Perumal Kovil Street, Samugarengapuram, Tirunelveli - 627112, Tamil Nadu, India",
+    "city": "Tirunelveli",
+    "area": "Samugarengapuram",
+    "pincode": "627112",
+    "yearEstablished": 2016,
+    "rating": "5.0",
+    "hours": "Open 24 Hours, Monday – Sunday",
+    "coordinates": {
+      "latitude": 8.337495,
+      "longitude": 77.698087
+    },
     "mainTitle": "FROM FOUNDATION TO FINISHED HOME.",
     "subTitle": "Professional construction solutions built with precision, quality and trust.",
     "ctaPrimaryText": "VIEW OUR PROJECTS",

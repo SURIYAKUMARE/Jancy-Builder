@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { ArrowRight, Play, Pause, Star, Building2, Clock, ShieldCheck, ChevronRight, CheckCircle2, Lock, Sparkles, Layers } from "lucide-react";
+import { ArrowRight, Play, Pause, Star, Building2, Clock, ShieldCheck, ChevronRight, CheckCircle2, Lock, Sparkles, Layers, Phone } from "lucide-react";
 import { Stage } from "@/types/hero";
 
 interface HeroExactProps {
@@ -140,7 +140,7 @@ export default function HeroExact({
                   <span className="text-xl sm:text-2xl font-black text-slate-900">10+</span>
                 </div>
                 <span className="text-[11px] text-slate-500 font-medium leading-tight mt-0.5">
-                  Years of Experience
+                  Years (Est. 2016)
                 </span>
               </div>
 
@@ -148,10 +148,10 @@ export default function HeroExact({
               <div className="flex flex-col border-l border-gray-100 pl-3">
                 <div className="flex items-center gap-1.5">
                   <Star className="w-3.5 h-3.5 text-[#DC2626] fill-[#DC2626]" />
-                  <span className="text-xl sm:text-2xl font-black text-slate-900">100%</span>
+                  <span className="text-xl sm:text-2xl font-black text-slate-900">5.0</span>
                 </div>
                 <span className="text-[11px] text-slate-500 font-medium leading-tight mt-0.5">
-                  Client Satisfaction
+                  Star Rating (Justdial)
                 </span>
               </div>
             </div>
@@ -276,7 +276,7 @@ export default function HeroExact({
             <div id="consultation" className="bg-[#111827] text-white rounded-2xl p-6 sm:p-7 shadow-2xl border border-slate-800 relative">
               {/* Badge */}
               <div className="inline-block bg-red-600/10 border border-red-600/30 text-[#DC2626] text-[10px] font-extrabold tracking-wider px-2.5 py-1 rounded-md uppercase mb-2">
-                GET A FREE CONSULTATION
+                GET A FREE CONSULTATION • EST. 2016
               </div>
 
               {/* Title */}
@@ -286,7 +286,7 @@ export default function HeroExact({
 
               {/* Subtitle */}
               <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                Share your requirements and our experts will get back to you with the best solution.
+                Connect directly with <strong className="text-white">Er. Sakay Antony Stalin</strong> &amp; our engineering team for free site evaluation.
               </p>
 
               {/* Form */}
@@ -365,6 +365,27 @@ export default function HeroExact({
                     <span>{submitting ? "Submitting..." : "Submit Request"}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
+
+                  {/* Direct Contact Options */}
+                  <div className="pt-1 flex items-center gap-2">
+                    <a
+                      href="tel:+917708247124"
+                      className="w-1/2 bg-slate-800/80 hover:bg-slate-700 text-white rounded-lg py-2 text-[11px] font-medium flex items-center justify-center gap-1.5 border border-slate-700 transition-colors"
+                      title="Direct Phone Call"
+                    >
+                      <Phone className="w-3 h-3 text-[#DC2626]" />
+                      <span>+91 77082 47124</span>
+                    </a>
+                    <a
+                      href="https://wa.me/917708247124?text=Hi%20Jancy%20Builders,%20I%20would%20like%20to%20consult%20regarding%20construction%20services"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-1/2 bg-emerald-600/90 hover:bg-emerald-600 text-white rounded-lg py-2 text-[11px] font-medium flex items-center justify-center gap-1.5 transition-colors"
+                      title="Instant WhatsApp Consultation"
+                    >
+                      <span>WhatsApp</span>
+                    </a>
+                  </div>
                 </form>
               )}
 

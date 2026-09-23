@@ -36,18 +36,18 @@ export default function ProcessTestimonialsExact() {
     {
       id: 1,
       quote:
-        "Jancy Builders turned our dream home into reality. Excellent quality, on-time delivery and a very professional team!",
+        "Jancy Builders turned our dream home into reality. Excellent quality, on-time delivery and Er. Stalin Antony personally ensured top structural standards!",
       author: "Arun Kumar",
-      location: "Coimbatore",
+      location: "Samugarengapuram, Tirunelveli",
       image: "/images/testimonials/arun-kumar.jpg",
       rating: 5,
     },
     {
       id: 2,
       quote:
-        "The 12-stage transparency gave us total peace of mind. Every milestone was completed ahead of schedule with flawless finish.",
-      author: "Priya Senthil",
-      location: "Chennai",
+        "The 12-stage construction transparency gave our family total peace of mind. From foundation to final handover, every milestone was executed with world-class engineering.",
+      author: "Dr. Selvakumar M.",
+      location: "Tirunelveli Town",
       image: "/images/testimonials/arun-kumar.jpg",
       rating: 5,
     },
