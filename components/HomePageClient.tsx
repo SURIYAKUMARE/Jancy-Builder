@@ -82,7 +82,7 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
   };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans selection:bg-[#DC2626]/20 selection:text-[#DC2626]">
+    <div className="min-h-screen w-full overflow-x-hidden bg-white text-slate-900 flex flex-col font-sans selection:bg-[#DC2626]/20 selection:text-[#DC2626]">
       {/* 0. ARCHITECTURAL HAIRLINE INTRO ANIMATION */}
       <BrandIntro />
 

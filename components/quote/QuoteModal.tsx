@@ -9,6 +9,8 @@ import {
   MessageCircle,
   Phone,
   ShieldCheck,
+  Loader2,
+  Check,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { trackEvent } from "@/lib/analytics";
@@ -35,6 +37,7 @@ export default function QuoteModal({
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [submittedQuoteId, setSubmittedQuoteId] = useState<string | null>(null);
 
   if (!isOpen) return null;
@@ -79,9 +82,8 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage(null);
     trackEvent("quote_submission", { projectType, areaSqFt, grade, location });
-
-    const whatsappUrl = getWhatsappUrl();
 
     try {
       const res = await fetch("/api/quote", {
@@ -97,20 +99,24 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
           estimatedTotal,
         }),
       });
-      const data = await res.json();
-      if (data.quoteId) {
-        setSubmittedQuoteId(data.quoteId);
-      } else {
-        setSubmittedQuoteId(`JB-${Math.floor(100000 + Math.random() * 900000)}`);
+
+      if (!res.ok) {
+        throw new Error("Failed to submit quote request");
       }
-    } catch (err) {
-      setSubmittedQuoteId(`JB-${Math.floor(100000 + Math.random() * 900000)}`);
-    } finally {
-      setIsSubmitting(false);
+
+      const data = await res.json();
+      const quoteId = data.quoteId || `JB-${Math.floor(100000 + Math.random() * 900000)}`;
+      setSubmittedQuoteId(quoteId);
+
       // Automatically launch WhatsApp with pre-composed specification
+      const whatsappUrl = getWhatsappUrl();
       if (typeof window !== "undefined") {
         window.open(whatsappUrl, "_blank");
       }
+    } catch (err) {
+      setErrorMessage("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -154,9 +160,9 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
             <div className="mx-auto h-16 w-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/40">
               <CheckCircle2 className="h-9 w-9" />
             </div>
-            <h4 className="text-2xl font-bold text-white">Consultation Request Confirmed!</h4>
+            <h4 className="text-2xl font-bold text-white">✓ Request Received</h4>
             <p className="text-sm text-slate-300 max-w-md mx-auto">
-              Thank you, <span className="font-semibold text-white">{name || "Valued Client"}</span>. Your project reference ID is:
+              Thank you. Our construction expert will contact you shortly.
             </p>
             <div className="inline-block px-5 py-2.5 rounded-xl bg-slate-900 border border-[#F59E0B]/40 font-mono text-lg font-bold text-[#F59E0B] tracking-wider">
               {submittedQuoteId}
@@ -289,59 +295,94 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
             <div className="space-y-3 pt-1">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[11px] text-slate-300 font-medium mb-1">
-                    Your Full Name
-                  </label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-[11px] text-slate-300 font-medium">
+                      Your Full Name
+                    </label>
+                    {name.trim().length >= 2 && (
+                      <Check className="w-3.5 h-3.5 text-emerald-400 stroke-[3]" />
+                    )}
+                  </div>
                   <input
                     type="text"
                     required
+                    autoComplete="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. John Doe"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#F59E0B] transition-colors"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B]/40 transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] text-slate-300 font-medium mb-1">
-                    Contact Number
-                  </label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-[11px] text-slate-300 font-medium">
+                      Contact Number
+                    </label>
+                    {phone.trim().length >= 10 && (
+                      <Check className="w-3.5 h-3.5 text-emerald-400 stroke-[3]" />
+                    )}
+                  </div>
                   <input
                     type="tel"
                     required
+                    inputMode="numeric"
+                    autoComplete="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+91 98765 43210"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#F59E0B] transition-colors"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B]/40 transition-all"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[11px] text-slate-300 font-medium mb-1">
-                  Site / Construction Location
-                </label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-[11px] text-slate-300 font-medium">
+                    Site / Construction Location
+                  </label>
+                  {location.trim().length >= 3 && (
+                    <Check className="w-3.5 h-3.5 text-emerald-400 stroke-[3]" />
+                  )}
+                </div>
                 <input
                   type="text"
                   required
+                  autoComplete="street-address"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   placeholder="e.g. Samugarengapuram / Tirunelveli / Coimbatore"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#F59E0B] transition-colors"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B]/40 transition-all"
                 />
               </div>
             </div>
 
-            {/* Vibrant Gold CTA Button */}
+            {/* Error Message Banner */}
+            {errorMessage && (
+              <div className="p-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 text-xs text-center font-medium">
+                {errorMessage}
+              </div>
+            )}
+
+            {/* Vibrant Gold CTA Button with Section 16 Submitting... text */}
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               disabled={isSubmitting}
               type="submit"
-              className="w-full py-3.5 px-6 rounded-full bg-[#F59E0B] hover:bg-[#D97706] text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-[#F59E0B]/25 flex items-center justify-center gap-2 transition-all"
+              className="w-full py-3.5 px-6 rounded-full bg-[#F59E0B] hover:bg-[#D97706] text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-[#F59E0B]/25 flex items-center justify-center gap-2 transition-all disabled:opacity-60"
             >
-              <span>{isSubmitting ? "PROCESSING ESTIMATE..." : "REQUEST FULL BOQ & SITE INSPECTION"}</span>
-              <ArrowRight className="w-4 h-4" />
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Submitting...</span>
+                </>
+              ) : (
+                <>
+                  <span>REQUEST FULL BOQ & SITE INSPECTION</span>
+                  <ArrowRight className="w-4 h-4" />
+                </>
+              )}
             </motion.button>
 
             {/* Footer Note Matching media_1790183200649.png */}

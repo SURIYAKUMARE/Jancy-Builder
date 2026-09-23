@@ -28,7 +28,7 @@ interface EstimatorSectionProps {
 
 export default function EstimatorSection({ onOpenQuote }: EstimatorSectionProps) {
   const [activeStep, setActiveStep] = useState(1);
-  const [typology, setTypology] = useState<"villa" | "house" | "commercial">("villa");
+  const [typology, setTypology] = useState<"villa" | "house" | "commercial" | "duplex">("villa");
   const [areaSqFt, setAreaSqFt] = useState<number>(4500);
   const [packageType, setPackageType] = useState<"classic" | "premium" | "ultra">("ultra");
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
@@ -67,8 +67,13 @@ export default function EstimatorSection({ onOpenQuote }: EstimatorSectionProps)
       image: "/images/projects/modern-home.jpg",
     },
     {
+      id: "duplex" as const,
+      name: "Duplex Residence",
+      image: "/images/projects/modern-home.jpg",
+    },
+    {
       id: "commercial" as const,
-      name: "Commercial Landmark",
+      name: "Commercial Hub",
       image: "/images/projects/office-building.jpg",
     },
   ];
@@ -295,13 +300,36 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
 
             {/* Center Interactive Controls (6 Cols) */}
             <div className="lg:col-span-6 space-y-7">
+
+              {/* Progress Indicator Bar (Section 13) */}
+              <div className="flex items-center justify-between text-[11px] font-mono font-bold text-slate-400 pb-3 border-b border-slate-100 overflow-x-auto scrollbar-none gap-2">
+                <span className="text-[#C29061] flex items-center gap-1.5 flex-shrink-0">
+                  <span className="w-5 h-5 rounded-full bg-[#C29061] text-white flex items-center justify-center text-[10px]">01</span>
+                  <span>PROJECT TYPE</span>
+                </span>
+                <span className="h-[1px] w-4 sm:w-8 bg-[#C29061]/50 flex-shrink-0" />
+                <span className="text-[#C29061] flex items-center gap-1.5 flex-shrink-0">
+                  <span className="w-5 h-5 rounded-full bg-[#C29061] text-white flex items-center justify-center text-[10px]">02</span>
+                  <span>AREA</span>
+                </span>
+                <span className="h-[1px] w-4 sm:w-8 bg-[#C29061]/50 flex-shrink-0" />
+                <span className="text-[#C29061] flex items-center gap-1.5 flex-shrink-0">
+                  <span className="w-5 h-5 rounded-full bg-[#C29061] text-white flex items-center justify-center text-[10px]">03</span>
+                  <span>PACKAGE</span>
+                </span>
+                <span className="h-[1px] w-4 sm:w-8 bg-[#C29061]/50 flex-shrink-0" />
+                <span className="text-[#C29061] flex items-center gap-1.5 flex-shrink-0">
+                  <span className="w-5 h-5 rounded-full bg-[#C29061] text-white flex items-center justify-center text-[10px]">04</span>
+                  <span>INCLUSIONS</span>
+                </span>
+              </div>
               
               {/* 1. Choose Architectural Typology */}
               <div>
                 <label className="block text-xs font-bold text-slate-900 mb-3">
                   1. Choose Architectural Typology
                 </label>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {typologies.map((t) => {
                     const isSelected = typology === t.id;
                     return (
@@ -547,8 +575,17 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
                   <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 block">
                     Estimated Turnkey Investment
                   </span>
-                  <div className="text-3xl sm:text-4xl font-black text-[#E8C59A] font-sans tracking-tight mt-1">
-                    ₹{costInCrores} <span className="text-xl sm:text-2xl font-bold">Crores</span>
+                  <div className="text-3xl sm:text-4xl font-black text-[#E8C59A] font-sans tracking-tight mt-1 flex items-baseline gap-1">
+                    <span>₹</span>
+                    <motion.span
+                      key={costInCrores}
+                      initial={{ opacity: 0.5, y: -4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.22, ease: "easeOut" }}
+                    >
+                      {costInCrores}
+                    </motion.span>
+                    <span className="text-xl sm:text-2xl font-bold ml-1">Crores</span>
                   </div>
                   <span className="text-xs text-slate-400 block mt-0.5">
                     (Approx. ₹{costInLakhs} Lakhs turnkey budget)

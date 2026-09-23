@@ -96,6 +96,29 @@ export default function HeroExact({
 }: HeroExactProps) {
   // Featured Project Mini-Slider state matching mockup
   const [featuredIdx, setFeaturedIdx] = useState(0);
+  const [mouseParallax, setMouseParallax] = useState({ x: 0, y: 0 });
+
+  // Desktop-only mouse parallax (disabled on mobile & when reduced motion is preferred)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const isDesktop = window.innerWidth >= 1024;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!isDesktop || prefersReducedMotion) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const { innerWidth, innerHeight } = window;
+      const normX = (e.clientX / innerWidth - 0.5) * 2;
+      const normY = (e.clientY / innerHeight - 0.5) * 2;
+      setMouseParallax({
+        x: normX * 5,
+        y: normY * 3,
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
   const featuredProjects = [
     {
       title: "Modern Living Redefined",
@@ -140,18 +163,26 @@ export default function HeroExact({
   return (
     <section className="relative w-full min-h-[95vh] lg:min-h-screen bg-[#FBF9F5] overflow-hidden flex flex-col justify-between pt-24 sm:pt-28">
       
-      {/* 1. RIGHT SIDE VILLA BACKGROUND VISUAL WITH CONTINUOUS CINEMATIC KEN BURNS */}
-      <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[58%] h-full z-0 overflow-hidden pointer-events-none">
+      {/* 1. RIGHT SIDE VILLA BACKGROUND VISUAL WITH CONTINUOUS CINEMATIC KEN BURNS + SUBTLE DESKTOP PARALLAX */}
+      <div
+        className="absolute right-0 top-0 bottom-0 w-full lg:w-[58%] h-full z-0 overflow-hidden pointer-events-none transition-transform duration-300 ease-out"
+        style={{
+          transform: `translate3d(${-mouseParallax.x * 0.4}px, ${-mouseParallax.y * 0.5}px, 0)`,
+        }}
+      >
         <motion.div
+          initial={{ opacity: 0, scale: 1.05 }}
           animate={{
-            scale: [1.03, 1.08, 1.03],
-            x: [0, -12, 0],
-            y: [0, -6, 0],
+            opacity: 1,
+            scale: [1.03, 1.07, 1.03],
+            x: [0, -10, 0],
+            y: [0, -5, 0],
           }}
           transition={{
-            duration: 22,
-            repeat: Infinity,
-            ease: "easeInOut",
+            opacity: { delay: 0.15, duration: 0.9 },
+            scale: { duration: 24, repeat: Infinity, ease: "easeInOut" },
+            x: { duration: 24, repeat: Infinity, ease: "easeInOut" },
+            y: { duration: 24, repeat: Infinity, ease: "easeInOut" },
           }}
           className="relative w-full h-full"
         >
@@ -216,8 +247,11 @@ export default function HeroExact({
             duration: 4.8,
             ease: "easeInOut",
           },
-          opacity: { delay: 0.7, duration: 0.8 },
-          scale: { delay: 0.7, duration: 0.8 },
+          opacity: { delay: 0.5, duration: 0.8 },
+          scale: { delay: 0.5, duration: 0.8 },
+        }}
+        style={{
+          transform: `translate3d(${mouseParallax.x * 0.6}px, ${mouseParallax.y * 0.8}px, 0)`,
         }}
         className="absolute top-44 sm:top-48 right-6 sm:right-12 lg:right-16 z-20 hidden md:block"
       >
@@ -291,17 +325,17 @@ export default function HeroExact({
       <div className="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 w-full my-auto py-10 lg:py-16">
         <div className="max-w-xl sm:max-w-2xl space-y-6 sm:space-y-8">
           
-          {/* Eyebrow Line & Sub-Header with Expanding Line Motion */}
+          {/* Eyebrow Line: 0ms delay */}
           <motion.div
-            initial={{ opacity: 0, x: -25 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2, duration: 0.7 }}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0, duration: 0.55, ease: "easeOut" }}
             className="flex items-center gap-3"
           >
             <motion.span
               initial={{ width: 0 }}
               animate={{ width: 32 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
+              transition={{ delay: 0.15, duration: 0.5 }}
               className="h-[2px] bg-slate-400 block"
             />
             <span className="text-[11px] sm:text-xs font-bold tracking-[0.22em] text-slate-500 uppercase">
@@ -309,11 +343,11 @@ export default function HeroExact({
             </span>
           </motion.div>
 
-          {/* Grand Headline: Building Dreams Into Reality with Shimmering Gold Accent */}
+          {/* Grand Headline: 120ms delay */}
           <motion.h1
-            initial={{ opacity: 0, y: 35 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.8, ease: "easeOut" }}
+            transition={{ delay: 0.12, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="text-4xl sm:text-6xl lg:text-[4.5rem] font-black text-slate-950 tracking-tight leading-[1.06] font-sans"
           >
             Building Dreams<br />
@@ -333,30 +367,31 @@ export default function HeroExact({
             </span>
           </motion.h1>
 
-          {/* Subtitle */}
+          {/* Subtitle: 240ms delay */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
+            transition={{ delay: 0.24, duration: 0.7, ease: "easeOut" }}
             className="text-slate-600 text-sm sm:text-base max-w-lg leading-relaxed font-normal"
           >
             We create modern homes, commercial spaces and infrastructure that inspire a better tomorrow.
           </motion.p>
 
-          {/* CTA Buttons Row: [ Get a Free Quote -> ] and ( ▶ ) Watch Our Story */}
+          {/* CTA Buttons Row: 360ms delay */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.65, duration: 0.8 }}
+            transition={{ delay: 0.36, duration: 0.7, ease: "easeOut" }}
             className="flex items-center flex-wrap gap-6 pt-2"
           >
-            {/* Primary Black Pill Button with Aura Pulse and Arrow Slide */}
+            {/* Primary Black Pill Button with upward hover, arrow shift, active scale(0.97) */}
             <motion.button
               whileHover={{
-                scale: 1.05,
-                boxShadow: "0 15px 35px rgba(0, 0, 0, 0.28)",
+                y: -2,
+                scale: 1.02,
+                boxShadow: "0 15px 35px rgba(0, 0, 0, 0.25)",
               }}
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ scale: 0.97 }}
               onClick={onOpenQuote}
               className="group relative inline-flex items-center gap-2.5 bg-slate-950 hover:bg-slate-800 text-white text-sm font-bold px-7 py-3.5 rounded-full shadow-lg shadow-black/15 transition-all duration-200 overflow-hidden"
             >
@@ -368,7 +403,7 @@ export default function HeroExact({
 
             {/* Secondary Circular Play Button + Radiating Radar Pulse */}
             <motion.button
-              whileHover={{ scale: 1.03 }}
+              whileHover={{ y: -2, scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => onOpenExplorer(currentStageIndex)}
               className="inline-flex items-center gap-3.5 group text-left cursor-pointer"
@@ -392,11 +427,12 @@ export default function HeroExact({
             </motion.button>
           </motion.div>
 
-          {/* 4 Stats in Clean Horizontal Row with Live Rolling Counter Animations */}
+          {/* 4 Stats in Clean Horizontal Row: 650ms delay with viewport trigger */}
           <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.65, duration: 0.75, ease: "easeOut" }}
             className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-5 sm:gap-6 border-t border-slate-200/80 max-w-xl"
           >
             {/* Stat 1 */}

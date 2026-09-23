@@ -24,18 +24,18 @@ export default function BrandIntro({ onComplete }: BrandIntroProps) {
       return;
     }
 
-    // Start intro sequence
+    // Step 1: Start intro sequence
     setIsVisible(true);
 
-    // After 1.9s, smoothly fade and slide out
+    // After 1.85s, smoothly glide logo upward and curtain-wipe reveal hero underneath
     const timer = setTimeout(() => {
       setIsVisible(false);
       sessionStorage.setItem("jb_intro_viewed", "true");
       setTimeout(() => {
         setShouldRender(false);
         onComplete?.();
-      }, 700); // Wait for exit animation
-    }, 1900);
+      }, 700); // Wait for exit upward transition
+    }, 1850);
 
     return () => clearTimeout(timer);
   }, [onComplete]);
@@ -49,22 +49,32 @@ export default function BrandIntro({ onComplete }: BrandIntroProps) {
           key="brand-splash"
           initial={{ opacity: 1, y: 0 }}
           exit={{
-            opacity: 0,
-            y: -40,
-            transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+            y: "-100%",
+            transition: {
+              duration: 0.75,
+              ease: [0.16, 1, 0.3, 1], // Luxury architectural cubic-bezier
+            },
           }}
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#F7F4EE] select-none pointer-events-auto"
         >
-          {/* Subtle Architectural Grid Lines */}
+          {/* Step 1: Subtle Architectural CAD Grid Lines */}
           <div className="absolute inset-0 pointer-events-none opacity-40 bg-[linear-gradient(to_right,#E8DFD1_1px,transparent_1px),linear-gradient(to_bottom,#E8DFD1_1px,transparent_1px)] bg-[size:4rem_4rem]" />
 
-          {/* Center Logo Container */}
-          <div className="relative z-10 flex flex-col items-center justify-center p-8">
-            
-            {/* Architectural Frame Line-Drawing Animation */}
+          {/* Center Logo Container - Moves upward at end of intro */}
+          <motion.div
+            initial={{ y: 0 }}
+            animate={{ y: [0, 0, -35] }}
+            transition={{
+              times: [0, 0.75, 1],
+              duration: 1.8,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="relative z-10 flex flex-col items-center justify-center p-8 sm:p-12"
+          >
+            {/* Step 4: Architectural Frame Line-Drawing Animation */}
             <svg
               className="absolute -inset-4 w-[calc(100%+2rem)] h-[calc(100%+2rem)] pointer-events-none"
-              viewBox="0 0 340 180"
+              viewBox="0 0 360 200"
               fill="none"
               preserveAspectRatio="none"
             >
@@ -72,57 +82,57 @@ export default function BrandIntro({ onComplete }: BrandIntroProps) {
               <motion.rect
                 x="4"
                 y="4"
-                width="332"
-                height="172"
+                width="352"
+                height="192"
                 rx="16"
                 stroke="#B88746"
                 strokeWidth="1.2"
                 strokeDasharray="8 6"
                 initial={{ pathLength: 0, opacity: 0 }}
                 animate={{ pathLength: 1, opacity: 0.7 }}
-                transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ delay: 0.25, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
               />
               
               {/* Precision corner marks */}
               <motion.path
-                d="M 12 24 L 12 12 L 24 12"
+                d="M 14 26 L 14 14 L 26 14"
                 stroke="#B88746"
                 strokeWidth="2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.4 }}
+                transition={{ delay: 0.4, duration: 0.4 }}
               />
               <motion.path
-                d="M 328 24 L 328 12 L 316 12"
+                d="M 346 26 L 346 14 L 334 14"
                 stroke="#B88746"
                 strokeWidth="2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.4 }}
+                transition={{ delay: 0.4, duration: 0.4 }}
               />
               <motion.path
-                d="M 12 156 L 12 168 L 24 168"
+                d="M 14 174 L 14 186 L 26 186"
                 stroke="#B88746"
                 strokeWidth="2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.4 }}
+                transition={{ delay: 0.4, duration: 0.4 }}
               />
               <motion.path
-                d="M 328 156 L 328 168 L 316 168"
+                d="M 346 174 L 346 186 L 334 186"
                 stroke="#B88746"
                 strokeWidth="2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.4 }}
+                transition={{ delay: 0.4, duration: 0.4 }}
               />
             </svg>
 
-            {/* Logo scaling 96% -> 100% with subtle opacity */}
+            {/* Step 2 & 3: Logo starts opacity:0, scale:0.92 -> opacity:1, scale:1 */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
+              initial={{ opacity: 0, scale: 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
               className="relative w-56 sm:w-64 h-16 sm:h-20"
             >
               <Image
@@ -134,20 +144,20 @@ export default function BrandIntro({ onComplete }: BrandIntroProps) {
               />
             </motion.div>
 
-            {/* Tagline Reveal: BUILD YOUR WORLD */}
+            {/* Step 5: BUILD YOUR WORLD with subtle letter-spacing animation */}
             <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.7, ease: "easeOut" }}
+              initial={{ opacity: 0, y: 8, letterSpacing: "0.2em" }}
+              animate={{ opacity: 1, y: 0, letterSpacing: "0.38em" }}
+              transition={{ delay: 0.55, duration: 0.8, ease: "easeOut" }}
               className="mt-4 flex items-center gap-3"
             >
               <span className="h-[1px] w-6 bg-[#B88746]/60 block" />
-              <span className="text-[11px] sm:text-xs font-mono font-bold tracking-[0.35em] text-[#B88746] uppercase">
+              <span className="text-[11px] sm:text-xs font-mono font-bold text-[#B88746] uppercase">
                 BUILD YOUR WORLD
               </span>
               <span className="h-[1px] w-6 bg-[#B88746]/60 block" />
             </motion.div>
-          </div>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>

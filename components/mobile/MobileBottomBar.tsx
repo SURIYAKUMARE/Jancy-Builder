@@ -47,7 +47,7 @@ export default function MobileBottomBar({ onOpenQuote }: MobileBottomBarProps) {
             {/* Primary Action: Get Free Estimate Modal */}
             <button
               onClick={onOpenQuote}
-              className="flex-1 bg-[#B88746] hover:bg-[#a3753b] active:scale-[0.98] text-slate-950 font-bold text-xs sm:text-sm py-3 px-3.5 rounded-xl shadow-lg shadow-[#B88746]/25 flex items-center justify-center gap-1.5 transition-all select-none"
+              className="flex-1 min-h-[48px] bg-[#B88746] hover:bg-[#a3753b] active:scale-[0.98] text-slate-950 font-bold text-xs sm:text-sm py-3 px-3.5 rounded-xl shadow-lg shadow-[#B88746]/25 flex items-center justify-center gap-1.5 transition-all select-none"
             >
               <Calculator className="w-4 h-4 stroke-[2.5]" />
               <span className="tracking-wide uppercase font-sans">Get Free Estimate</span>
@@ -57,7 +57,7 @@ export default function MobileBottomBar({ onOpenQuote }: MobileBottomBarProps) {
             {/* Quick Call Button */}
             <a
               href="tel:+917708247124"
-              className="bg-white/10 hover:bg-white/20 active:scale-[0.98] text-white border border-white/15 font-semibold text-xs py-3 px-3.5 rounded-xl flex items-center justify-center gap-1.5 transition-all select-none"
+              className="min-h-[48px] bg-white/10 hover:bg-white/20 active:scale-[0.98] text-white border border-white/15 font-semibold text-xs py-3 px-3.5 rounded-xl flex items-center justify-center gap-1.5 transition-all select-none"
               title="Call Er. Sahaya Antony Stalin"
             >
               <Phone className="w-4 h-4 text-[#B88746]" />
@@ -69,7 +69,7 @@ export default function MobileBottomBar({ onOpenQuote }: MobileBottomBarProps) {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-11 h-11 bg-[#25D366] hover:bg-[#20ba5a] active:scale-[0.98] text-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-md transition-all select-none"
+              className="w-12 h-12 min-h-[48px] min-w-[48px] bg-[#25D366] hover:bg-[#20ba5a] active:scale-[0.98] text-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-md transition-all select-none"
               title="Chat on WhatsApp"
             >
               <MessageCircle className="w-5 h-5 fill-current" />
