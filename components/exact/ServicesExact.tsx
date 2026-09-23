@@ -41,11 +41,11 @@ export default function ServicesExact({ onOpenQuote }: ServicesExactProps) {
   ];
 
   return (
-    <section id="services" className="w-full bg-[#FAFAFA] py-14 lg:py-20 border-b border-gray-100">
+    <section id="services" className="w-full bg-white pb-14 lg:pb-20 border-b border-gray-100">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Services Grid: Left Header Card + 4 Service Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 items-stretch pt-4">
           
           {/* Header Block / Column 1 */}
           <div className="lg:col-span-1 flex flex-col justify-between py-2 pr-2">
