@@ -7,7 +7,6 @@ import { ConstructionStage, HeroConfig } from "@/types/hero";
 import {
   ArrowLeft,
   Save,
-  RotateCcw,
   Plus,
   Trash2,
   ChevronUp,
@@ -15,13 +14,11 @@ import {
   Upload,
   CheckCircle,
   Eye,
-  Settings,
   Layers,
   FileText,
   Video,
-  ExternalLink,
   Sliders,
-  AlertCircle
+  Sparkles
 } from "lucide-react";
 
 export default function AdminHeroPage() {
@@ -32,7 +29,6 @@ export default function AdminHeroPage() {
   const [uploadingStageId, setUploadingStageId] = useState<number | null>(null);
   const [previewStageIdx, setPreviewStageIdx] = useState(0);
 
-  // Fetch current config
   useEffect(() => {
     fetch("/api/hero")
       .then((res) => res.json())
@@ -42,16 +38,15 @@ export default function AdminHeroPage() {
 
   if (!config) {
     return (
-      <div className="min-h-screen bg-[#060a12] flex items-center justify-center text-slate-300">
+      <div className="min-h-screen bg-[#05080E] flex items-center justify-center text-slate-300">
         <div className="flex items-center space-x-3 font-mono text-sm">
-          <div className="h-4 w-4 rounded-full border-2 border-yellow-400 border-t-transparent animate-spin" />
-          <span>Loading Jancy Builders Hero CMS...</span>
+          <div className="h-4 w-4 rounded-full border-2 border-red-500 border-t-transparent animate-spin" />
+          <span>Loading Jancy Builders Admin Portal...</span>
         </div>
       </div>
     );
   }
 
-  // Handle Save
   const handleSave = async () => {
     setIsSaving(true);
     setSaveMessage(null);
@@ -62,7 +57,7 @@ export default function AdminHeroPage() {
         body: JSON.stringify(config),
       });
       if (res.ok) {
-        setSaveMessage("Hero Configuration published successfully!");
+        setSaveMessage("Hero Configuration published live!");
         setTimeout(() => setSaveMessage(null), 4000);
       } else {
         setSaveMessage("Failed to save changes.");
@@ -74,7 +69,6 @@ export default function AdminHeroPage() {
     }
   };
 
-  // Reorder stages
   const moveStage = (index: number, direction: "up" | "down") => {
     const targetIdx = direction === "up" ? index - 1 : index + 1;
     if (targetIdx < 0 || targetIdx >= config.stages.length) return;
@@ -84,7 +78,6 @@ export default function AdminHeroPage() {
     newStages[index] = newStages[targetIdx];
     newStages[targetIdx] = temp;
 
-    // update order numbers
     newStages.forEach((stg, i) => {
       stg.order = i + 1;
       stg.stageNumber = String(i + 1).padStart(2, "0");
@@ -93,14 +86,12 @@ export default function AdminHeroPage() {
     setConfig({ ...config, stages: newStages });
   };
 
-  // Update a single stage field
   const updateStage = (index: number, field: keyof ConstructionStage, value: any) => {
     const newStages = [...config.stages];
     newStages[index] = { ...newStages[index], [field]: value };
     setConfig({ ...config, stages: newStages });
   };
 
-  // Delete a stage
   const deleteStage = (id: number) => {
     if (!confirm("Are you sure you want to delete this construction stage?")) return;
     const newStages = config.stages.filter((s) => s.id !== id);
@@ -111,16 +102,15 @@ export default function AdminHeroPage() {
     setConfig({ ...config, stages: newStages });
   };
 
-  // Add new stage
   const addNewStage = () => {
     const newId = Date.now();
     const newOrder = config.stages.length + 1;
     const newStage: ConstructionStage = {
       id: newId,
       stageNumber: String(newOrder).padStart(2, "0"),
-      name: "New Construction Stage",
-      title: "Title for New Stage",
-      description: "Detailed description of this construction phase.",
+      name: "New Construction Phase",
+      title: "Title for New Phase",
+      description: "Detailed description of this engineering milestone.",
       desktopMediaUrl: "/images/stages/stage-01.jpg",
       mobileMediaUrl: "/images/stages/stage-01.jpg",
       mediaType: "image",
@@ -132,7 +122,6 @@ export default function AdminHeroPage() {
     setConfig({ ...config, stages: [...config.stages, newStage] });
   };
 
-  // Upload file for a stage or global video
   const handleFileUpload = async (
     e: React.ChangeEvent<HTMLInputElement>,
     stageIndex?: number,
@@ -173,36 +162,41 @@ export default function AdminHeroPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#04070E] text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-[#05080E] text-slate-100 flex flex-col font-sans">
       {/* Top Header */}
-      <header className="sticky top-0 z-50 bg-[#060a12]/90 backdrop-blur-xl border-b border-slate-800 px-6 py-4">
+      <header className="sticky top-0 z-50 bg-[#060a12]/95 backdrop-blur-xl border-b border-white/10 px-6 py-4">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center space-x-4">
             <Link
               href="/"
-              className="p-2 rounded-xl bg-slate-900 border border-slate-700 text-slate-400 hover:text-white hover:border-slate-500 transition-all flex items-center space-x-1 text-xs"
+              className="p-2.5 rounded-xl bg-slate-900 border border-white/10 text-slate-400 hover:text-white transition-all flex items-center space-x-1.5 text-xs font-mono"
             >
               <ArrowLeft className="h-4 w-4" />
-              <span className="hidden sm:inline">Back to Live Site</span>
+              <span className="hidden sm:inline">Live Website</span>
             </Link>
-            <div>
-              <div className="flex items-center space-x-2">
-                <h1 className="text-base sm:text-lg font-bold text-white tracking-wide">
-                  ADMIN → HERO / CONSTRUCTION EXPERIENCE
-                </h1>
-                <span className="px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-mono font-bold">
-                  CMS v2.4
-                </span>
-              </div>
-              <p className="text-xs text-slate-400">
-                Manage 12-stage construction timelapse, media assets, durations & hero copy
+
+            <div className="relative h-10 w-44">
+              <Image
+                src="/logo/jancy-logo-darkmode.png"
+                alt="Jancy Builders"
+                fill
+                className="object-contain object-left"
+              />
+            </div>
+
+            <div className="hidden md:block pl-4 border-l border-white/10">
+              <h1 className="text-sm font-bold text-white font-mono">
+                ADMIN → HERO / CONSTRUCTION EXPERIENCE
+              </h1>
+              <p className="text-[11px] text-slate-400">
+                12-Stage Video Timelapse CMS & Global Controls
               </p>
             </div>
           </div>
 
           <div className="flex items-center space-x-3">
             {saveMessage && (
-              <div className="flex items-center space-x-1.5 text-xs text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-lg border border-emerald-500/30">
+              <div className="flex items-center space-x-1.5 text-xs text-emerald-400 bg-emerald-500/10 px-3 py-1.5 rounded-xl border border-emerald-500/30">
                 <CheckCircle className="h-4 w-4" />
                 <span>{saveMessage}</span>
               </div>
@@ -211,30 +205,30 @@ export default function AdminHeroPage() {
             <button
               onClick={handleSave}
               disabled={isSaving}
-              className="px-5 py-2 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-bold text-xs flex items-center space-x-2 shadow-lg shadow-yellow-500/25 active:scale-95 transition-all disabled:opacity-50"
+              className="px-5 py-2.5 rounded-xl btn-brand-primary text-white font-bold text-xs flex items-center space-x-2 shadow-xl active:scale-95 transition-all disabled:opacity-50"
             >
               <Save className="h-4 w-4" />
-              <span>{isSaving ? "Publishing..." : "Save All Changes"}</span>
+              <span>{isSaving ? "Publishing..." : "Publish Changes"}</span>
             </button>
           </div>
         </div>
 
         {/* Tab Navigation */}
-        <div className="max-w-7xl mx-auto mt-4 flex items-center space-x-2 border-t border-slate-800/80 pt-3">
+        <div className="max-w-7xl mx-auto mt-4 flex items-center space-x-2 border-t border-white/5 pt-3">
           {[
             { id: "stages", label: "Construction Stages (12)", icon: Layers },
-            { id: "settings", label: "Experience & Video Settings", icon: Sliders },
+            { id: "settings", label: "Experience & Video Playback", icon: Sliders },
             { id: "content", label: "Hero Copy & CTAs", icon: FileText },
-            { id: "preview", label: "Live Split Preview", icon: Eye },
+            { id: "preview", label: "Live Split Simulator", icon: Eye },
           ].map((tab) => {
             const Icon = tab.icon;
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center space-x-2 transition-all ${
+                className={`px-4 py-2 rounded-xl text-xs font-mono flex items-center space-x-2 transition-all ${
                   activeTab === tab.id
-                    ? "bg-yellow-500 text-slate-950 font-bold shadow-md"
+                    ? "bg-red-600 text-white font-bold shadow-md shadow-red-600/30"
                     : "text-slate-400 hover:text-white hover:bg-slate-900"
                 }`}
               >
@@ -246,46 +240,43 @@ export default function AdminHeroPage() {
         </div>
       </header>
 
-      {/* Main Body */}
+      {/* Main CMS Body */}
       <main className="flex-1 max-w-7xl w-full mx-auto p-6">
-        {/* TAB 1: STAGES CMS */}
+        {/* TAB 1: STAGES */}
         {activeTab === "stages" && (
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-lg font-bold text-white">Construction Stages Sequence</h2>
+                <h2 className="text-lg font-bold text-white font-serif">Construction Stages Sequence</h2>
                 <p className="text-xs text-slate-400">
-                  Manage each individual construction milestone, media, descriptions, and duration.
+                  Manage individual milestone graphics, videos, specifications, and timing.
                 </p>
               </div>
               <button
                 onClick={addNewStage}
-                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-yellow-400 border border-yellow-500/30 font-bold text-xs flex items-center space-x-1.5 transition-all"
+                className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-red-400 border border-red-500/30 font-bold text-xs flex items-center space-x-1.5 transition-all"
               >
                 <Plus className="h-4 w-4" />
                 <span>Add Construction Stage</span>
               </button>
             </div>
 
-            {/* Stages List */}
             <div className="space-y-4">
               {config.stages.map((stage, idx) => (
                 <div
                   key={stage.id}
-                  className={`glass-panel rounded-2xl p-5 border transition-all ${
-                    stage.active ? "border-slate-800" : "border-red-500/30 opacity-60"
+                  className={`glass-card-premium rounded-2xl p-5 border transition-all ${
+                    stage.active ? "border-white/10" : "border-red-500/30 opacity-60"
                   }`}
                 >
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                     {/* Reorder & Thumbnail */}
                     <div className="lg:col-span-3 flex items-start space-x-3">
-                      {/* Up/Down buttons */}
                       <div className="flex flex-col space-y-1">
                         <button
                           disabled={idx === 0}
                           onClick={() => moveStage(idx, "up")}
                           className="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 disabled:opacity-20 text-slate-400"
-                          title="Move Up"
                         >
                           <ChevronUp className="h-4 w-4" />
                         </button>
@@ -293,27 +284,24 @@ export default function AdminHeroPage() {
                           disabled={idx === config.stages.length - 1}
                           onClick={() => moveStage(idx, "down")}
                           className="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 disabled:opacity-20 text-slate-400"
-                          title="Move Down"
                         >
                           <ChevronDown className="h-4 w-4" />
                         </button>
                       </div>
 
-                      {/* Image Preview & Upload */}
-                      <div className="relative h-28 w-44 rounded-xl overflow-hidden bg-slate-900 border border-slate-700 flex-shrink-0 group">
+                      <div className="relative h-28 w-44 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex-shrink-0 group">
                         <Image
                           src={stage.desktopMediaUrl}
                           alt={stage.name}
                           fill
                           className="object-cover"
                         />
-                        <div className="absolute top-1.5 left-1.5 bg-slate-950/80 px-2 py-0.5 rounded text-[10px] font-mono text-yellow-400 font-bold">
+                        <div className="absolute top-1.5 left-1.5 bg-black/80 px-2 py-0.5 rounded text-[10px] font-mono text-red-400 font-bold">
                           STAGE {stage.stageNumber}
                         </div>
 
-                        {/* Hover upload button */}
-                        <label className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white cursor-pointer transition-opacity text-xs font-medium space-y-1">
-                          <Upload className="h-4 w-4 text-yellow-400" />
+                        <label className="absolute inset-0 bg-black/75 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white cursor-pointer transition-opacity text-xs font-medium space-y-1">
+                          <Upload className="h-4 w-4 text-red-500" />
                           <span>Change Image</span>
                           <input
                             type="file"
@@ -325,7 +313,7 @@ export default function AdminHeroPage() {
                       </div>
                     </div>
 
-                    {/* Stage Details Inputs */}
+                    {/* Inputs */}
                     <div className="lg:col-span-7 space-y-3">
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div className="sm:col-span-1">
@@ -336,7 +324,7 @@ export default function AdminHeroPage() {
                             type="text"
                             value={stage.name}
                             onChange={(e) => updateStage(idx, "name", e.target.value)}
-                            className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs font-semibold focus:border-yellow-400 focus:outline-none"
+                            className="w-full px-3 py-1.5 rounded-xl bg-slate-950 border border-white/10 text-white text-xs font-semibold focus:border-red-500 focus:outline-none"
                           />
                         </div>
                         <div className="sm:col-span-2">
@@ -347,7 +335,7 @@ export default function AdminHeroPage() {
                             type="text"
                             value={stage.title}
                             onChange={(e) => updateStage(idx, "title", e.target.value)}
-                            className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs focus:border-yellow-400 focus:outline-none"
+                            className="w-full px-3 py-1.5 rounded-xl bg-slate-950 border border-white/10 text-white text-xs focus:border-red-500 focus:outline-none"
                           />
                         </div>
                       </div>
@@ -360,38 +348,37 @@ export default function AdminHeroPage() {
                           rows={2}
                           value={stage.description}
                           onChange={(e) => updateStage(idx, "description", e.target.value)}
-                          className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs focus:border-yellow-400 focus:outline-none"
+                          className="w-full px-3 py-1.5 rounded-xl bg-slate-950 border border-white/10 text-white text-xs focus:border-red-500 focus:outline-none"
                         />
                       </div>
 
-                      {/* Media URL inputs */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
                         <div>
-                          <label className="block text-[10px] font-mono text-slate-500 uppercase mb-0.5">
+                          <label className="block text-[10px] text-slate-500 uppercase mb-0.5">
                             Desktop Media URL
                           </label>
                           <input
                             type="text"
                             value={stage.desktopMediaUrl}
                             onChange={(e) => updateStage(idx, "desktopMediaUrl", e.target.value)}
-                            className="w-full px-2.5 py-1 rounded bg-slate-950 border border-slate-800 text-slate-300 text-[11px] font-mono"
+                            className="w-full px-2.5 py-1 rounded-lg bg-slate-950 border border-white/5 text-slate-300 text-[11px]"
                           />
                         </div>
                         <div>
-                          <label className="block text-[10px] font-mono text-slate-500 uppercase mb-0.5">
+                          <label className="block text-[10px] text-slate-500 uppercase mb-0.5">
                             Mobile Media URL
                           </label>
                           <input
                             type="text"
                             value={stage.mobileMediaUrl}
                             onChange={(e) => updateStage(idx, "mobileMediaUrl", e.target.value)}
-                            className="w-full px-2.5 py-1 rounded bg-slate-950 border border-slate-800 text-slate-300 text-[11px] font-mono"
+                            className="w-full px-2.5 py-1 rounded-lg bg-slate-950 border border-white/5 text-slate-300 text-[11px]"
                           />
                         </div>
                       </div>
                     </div>
 
-                    {/* Duration & Actions */}
+                    {/* Duration & Toggle */}
                     <div className="lg:col-span-2 flex flex-col justify-between h-full space-y-4 pt-1">
                       <div>
                         <label className="block text-[11px] font-mono text-slate-400 uppercase mb-1">
@@ -403,17 +390,17 @@ export default function AdminHeroPage() {
                           max="15"
                           value={stage.duration}
                           onChange={(e) => updateStage(idx, "duration", Number(e.target.value))}
-                          className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-yellow-400"
+                          className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-red-500"
                         />
                       </div>
 
                       <div className="flex items-center justify-between pt-2">
-                        <label className="flex items-center space-x-2 cursor-pointer text-xs">
+                        <label className="flex items-center space-x-2 cursor-pointer text-xs font-mono">
                           <input
                             type="checkbox"
                             checked={stage.active}
                             onChange={(e) => updateStage(idx, "active", e.target.checked)}
-                            className="rounded bg-slate-900 border-slate-700 text-yellow-500 focus:ring-0"
+                            className="rounded bg-slate-900 border-white/10 text-red-500 focus:ring-0"
                           />
                           <span className={stage.active ? "text-emerald-400 font-semibold" : "text-slate-500"}>
                             {stage.active ? "Active" : "Inactive"}
@@ -436,87 +423,74 @@ export default function AdminHeroPage() {
           </div>
         )}
 
-        {/* TAB 2: SETTINGS & VIDEO */}
+        {/* TAB 2: SETTINGS */}
         {activeTab === "settings" && (
           <div className="max-w-3xl space-y-6">
             <div>
-              <h2 className="text-lg font-bold text-white">Experience & Video Playback Controls</h2>
+              <h2 className="text-lg font-bold text-white font-serif">Playback & Video Settings</h2>
               <p className="text-xs text-slate-400">
-                Configure global animation behavior, fallback modes, and high-definition video paths.
+                Configure autoplay timings, scroll storytelling, and video engine overrides.
               </p>
             </div>
 
-            <div className="glass-panel rounded-2xl p-6 border border-slate-800 space-y-6">
-              {/* Autoplay & Scroll toggles */}
+            <div className="glass-card-premium rounded-2xl p-6 border border-white/10 space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+                <div className="p-4 rounded-xl bg-slate-950 border border-white/5 flex items-center justify-between">
                   <div>
                     <h3 className="text-sm font-bold text-white">Autoplay Timelapse</h3>
-                    <p className="text-xs text-slate-400">Automatically progress through stages</p>
+                    <p className="text-xs text-slate-400">Progress through stages automatically</p>
                   </div>
                   <input
                     type="checkbox"
                     checked={config.settings.autoplay}
                     onChange={(e) =>
-                      setConfig({
-                        ...config,
-                        settings: { ...config.settings, autoplay: e.target.checked },
-                      })
+                      setConfig({ ...config, settings: { ...config.settings, autoplay: e.target.checked } })
                     }
-                    className="h-5 w-5 rounded bg-slate-800 text-yellow-500"
+                    className="h-5 w-5 rounded bg-slate-900 text-red-600"
                   />
                 </div>
 
-                <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+                <div className="p-4 rounded-xl bg-slate-950 border border-white/5 flex items-center justify-between">
                   <div>
-                    <h3 className="text-sm font-bold text-white">Scroll-Based Animation</h3>
-                    <p className="text-xs text-slate-400">Scrub construction as user scrolls</p>
+                    <h3 className="text-sm font-bold text-white">Scroll-Based Storytelling</h3>
+                    <p className="text-xs text-slate-400">Scrub house progress with scroll depth</p>
                   </div>
                   <input
                     type="checkbox"
                     checked={config.settings.scrollAnimation}
                     onChange={(e) =>
-                      setConfig({
-                        ...config,
-                        settings: { ...config.settings, scrollAnimation: e.target.checked },
-                      })
+                      setConfig({ ...config, settings: { ...config.settings, scrollAnimation: e.target.checked } })
                     }
-                    className="h-5 w-5 rounded bg-slate-800 text-yellow-500"
+                    className="h-5 w-5 rounded bg-slate-900 text-red-600"
                   />
                 </div>
 
-                <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+                <div className="p-4 rounded-xl bg-slate-950 border border-white/5 flex items-center justify-between">
                   <div>
                     <h3 className="text-sm font-bold text-white">Pause on Hover</h3>
-                    <p className="text-xs text-slate-400">Pause animation when mouse hovers hero</p>
+                    <p className="text-xs text-slate-400">Freeze timelapse when hovering hero</p>
                   </div>
                   <input
                     type="checkbox"
                     checked={config.settings.pauseOnHover}
                     onChange={(e) =>
-                      setConfig({
-                        ...config,
-                        settings: { ...config.settings, pauseOnHover: e.target.checked },
-                      })
+                      setConfig({ ...config, settings: { ...config.settings, pauseOnHover: e.target.checked } })
                     }
-                    className="h-5 w-5 rounded bg-slate-800 text-yellow-500"
+                    className="h-5 w-5 rounded bg-slate-900 text-red-600"
                   />
                 </div>
 
-                <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+                <div className="p-4 rounded-xl bg-slate-950 border border-white/5 flex items-center justify-between">
                   <div>
-                    <h3 className="text-sm font-bold text-white">Fallback Engine Priority</h3>
-                    <p className="text-xs text-slate-400">Primary visual engine rendering mode</p>
+                    <h3 className="text-sm font-bold text-white">Engine Priority</h3>
+                    <p className="text-xs text-slate-400">Primary visual engine</p>
                   </div>
                   <select
                     value={config.settings.fallbackMode}
                     onChange={(e) =>
-                      setConfig({
-                        ...config,
-                        settings: { ...config.settings, fallbackMode: e.target.value as any },
-                      })
+                      setConfig({ ...config, settings: { ...config.settings, fallbackMode: e.target.value as any } })
                     }
-                    className="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs text-yellow-400 font-semibold focus:outline-none"
+                    className="px-3 py-1.5 rounded-lg bg-slate-900 border border-white/10 text-xs text-red-400 font-mono focus:outline-none"
                   >
                     <option value="auto">Auto Responsive</option>
                     <option value="video">Cinematic Video First</option>
@@ -526,32 +500,27 @@ export default function AdminHeroPage() {
                 </div>
               </div>
 
-              {/* Video URL & Uploads */}
-              <div className="space-y-4 pt-4 border-t border-slate-800">
+              {/* Video upload */}
+              <div className="space-y-4 pt-4 border-t border-white/10">
                 <h3 className="text-sm font-bold text-white flex items-center space-x-2">
-                  <Video className="h-4 w-4 text-yellow-500" />
-                  <span>Desktop & Mobile Video Assets</span>
+                  <Video className="h-4 w-4 text-red-500" />
+                  <span>Desktop & Mobile Videos</span>
                 </h3>
 
                 <div>
-                  <label className="block text-xs font-mono text-slate-400 mb-1">
-                    Desktop Construction Video URL (MP4/WebM)
-                  </label>
+                  <label className="block text-xs font-mono text-slate-400 mb-1">Desktop Video URL</label>
                   <div className="flex space-x-2">
                     <input
                       type="text"
                       value={config.settings.desktopVideoUrl}
                       onChange={(e) =>
-                        setConfig({
-                          ...config,
-                          settings: { ...config.settings, desktopVideoUrl: e.target.value },
-                        })
+                        setConfig({ ...config, settings: { ...config.settings, desktopVideoUrl: e.target.value } })
                       }
-                      className="flex-1 px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-mono text-white"
+                      className="flex-1 px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-xs font-mono text-white"
                     />
-                    <label className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-yellow-400 text-xs font-bold cursor-pointer flex items-center space-x-1.5">
+                    <label className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/10 text-red-400 text-xs font-mono font-bold cursor-pointer flex items-center space-x-1.5">
                       <Upload className="h-4 w-4" />
-                      <span>Upload Video</span>
+                      <span>Upload</span>
                       <input
                         type="file"
                         accept="video/*"
@@ -561,61 +530,30 @@ export default function AdminHeroPage() {
                     </label>
                   </div>
                 </div>
-
-                <div>
-                  <label className="block text-xs font-mono text-slate-400 mb-1">
-                    Mobile Vertical Construction Video URL (720x1280)
-                  </label>
-                  <div className="flex space-x-2">
-                    <input
-                      type="text"
-                      value={config.settings.mobileVideoUrl}
-                      onChange={(e) =>
-                        setConfig({
-                          ...config,
-                          settings: { ...config.settings, mobileVideoUrl: e.target.value },
-                        })
-                      }
-                      className="flex-1 px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-mono text-white"
-                    />
-                    <label className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-yellow-400 text-xs font-bold cursor-pointer flex items-center space-x-1.5">
-                      <Upload className="h-4 w-4" />
-                      <span>Upload Mobile Video</span>
-                      <input
-                        type="file"
-                        accept="video/*"
-                        className="hidden"
-                        onChange={(e) => handleFileUpload(e, undefined, "mobileVideoUrl")}
-                      />
-                    </label>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* TAB 3: CONTENT & CTAS */}
+        {/* TAB 3: CONTENT */}
         {activeTab === "content" && (
           <div className="max-w-3xl space-y-6">
             <div>
-              <h2 className="text-lg font-bold text-white">Hero Branding & Call-to-Action Content</h2>
+              <h2 className="text-lg font-bold text-white font-serif">Branding & Hero Typography</h2>
               <p className="text-xs text-slate-400">
-                Customize the persistent hero typography, logo path, and call-to-action buttons.
+                Customize titles, brand slogan, logo path, and call-to-action destinations.
               </p>
             </div>
 
-            <div className="glass-panel rounded-2xl p-6 border border-slate-800 space-y-4">
+            <div className="glass-card-premium rounded-2xl p-6 border border-white/10 space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-mono text-slate-400 uppercase mb-1">Company Name</label>
                   <input
                     type="text"
                     value={config.hero.companyName}
-                    onChange={(e) =>
-                      setConfig({ ...config, hero: { ...config.hero, companyName: e.target.value } })
-                    }
-                    className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-bold text-white"
+                    onChange={(e) => setConfig({ ...config, hero: { ...config.hero, companyName: e.target.value } })}
+                    className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-xs font-bold text-white"
                   />
                 </div>
                 <div>
@@ -623,97 +561,66 @@ export default function AdminHeroPage() {
                   <input
                     type="text"
                     value={config.hero.brandTagline}
-                    onChange={(e) =>
-                      setConfig({ ...config, hero: { ...config.hero, brandTagline: e.target.value } })
-                    }
-                    className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-bold text-yellow-400"
+                    onChange={(e) => setConfig({ ...config, hero: { ...config.hero, brandTagline: e.target.value } })}
+                    className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-xs font-bold text-red-500 font-mono"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-mono text-slate-400 uppercase mb-1">Hero Main Title</label>
+                <label className="block text-xs font-mono text-slate-400 uppercase mb-1">Main Hero Headline</label>
                 <input
                   type="text"
                   value={config.hero.mainTitle}
-                  onChange={(e) =>
-                    setConfig({ ...config, hero: { ...config.hero, mainTitle: e.target.value } })
-                  }
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-semibold text-white"
+                  onChange={(e) => setConfig({ ...config, hero: { ...config.hero, mainTitle: e.target.value } })}
+                  className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-xs font-semibold text-white"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-mono text-slate-400 uppercase mb-1">Hero Subtitle</label>
+                <label className="block text-xs font-mono text-slate-400 uppercase mb-1">Subtitle</label>
                 <textarea
                   rows={2}
                   value={config.hero.subTitle}
-                  onChange={(e) =>
-                    setConfig({ ...config, hero: { ...config.hero, subTitle: e.target.value } })
-                  }
-                  className="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white"
+                  onChange={(e) => setConfig({ ...config, hero: { ...config.hero, subTitle: e.target.value } })}
+                  className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-xs text-white"
                 />
               </div>
 
-              {/* CTAs */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-800">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-white/10">
                 <div className="space-y-2">
-                  <label className="block text-xs font-mono text-yellow-400 uppercase font-bold">
-                    Primary CTA (Button 1)
-                  </label>
+                  <label className="block text-xs font-mono text-red-400 uppercase font-bold">Primary CTA</label>
                   <input
                     type="text"
                     placeholder="Button Text"
                     value={config.hero.ctaPrimaryText}
-                    onChange={(e) =>
-                      setConfig({
-                        ...config,
-                        hero: { ...config.hero, ctaPrimaryText: e.target.value },
-                      })
-                    }
-                    className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white"
+                    onChange={(e) => setConfig({ ...config, hero: { ...config.hero, ctaPrimaryText: e.target.value } })}
+                    className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-white/10 text-xs text-white"
                   />
                   <input
                     type="text"
-                    placeholder="Button Link / URL"
+                    placeholder="URL Link"
                     value={config.hero.ctaPrimaryLink}
-                    onChange={(e) =>
-                      setConfig({
-                        ...config,
-                        hero: { ...config.hero, ctaPrimaryLink: e.target.value },
-                      })
-                    }
-                    className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono text-slate-300"
+                    onChange={(e) => setConfig({ ...config, hero: { ...config.hero, ctaPrimaryLink: e.target.value } })}
+                    className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-white/10 text-xs font-mono text-slate-300"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-xs font-mono text-sky-400 uppercase font-bold">
-                    Secondary CTA (Button 2)
-                  </label>
+                  <label className="block text-xs font-mono text-sky-400 uppercase font-bold">Secondary CTA</label>
                   <input
                     type="text"
                     placeholder="Button Text"
                     value={config.hero.ctaSecondaryText}
-                    onChange={(e) =>
-                      setConfig({
-                        ...config,
-                        hero: { ...config.hero, ctaSecondaryText: e.target.value },
-                      })
-                    }
-                    className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white"
+                    onChange={(e) => setConfig({ ...config, hero: { ...config.hero, ctaSecondaryText: e.target.value } })}
+                    className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-white/10 text-xs text-white"
                   />
                   <input
                     type="text"
-                    placeholder="Button Link / URL"
+                    placeholder="URL Link"
                     value={config.hero.ctaSecondaryLink}
-                    onChange={(e) =>
-                      setConfig({
-                        ...config,
-                        hero: { ...config.hero, ctaSecondaryLink: e.target.value },
-                      })
-                    }
-                    className="w-full px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono text-slate-300"
+                    onChange={(e) => setConfig({ ...config, hero: { ...config.hero, ctaSecondaryLink: e.target.value } })}
+                    className="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-white/10 text-xs font-mono text-slate-300"
                   />
                 </div>
               </div>
@@ -721,39 +628,35 @@ export default function AdminHeroPage() {
           </div>
         )}
 
-        {/* TAB 4: LIVE PREVIEW SIMULATOR */}
+        {/* TAB 4: PREVIEW */}
         {activeTab === "preview" && (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-lg font-bold text-white">Live Hero Timelapse Simulator</h2>
+                <h2 className="text-lg font-bold text-white font-serif">Live Hero Simulator</h2>
                 <p className="text-xs text-slate-400">
-                  Scrub or test your staged changes directly in real-time.
+                  Inspect how each stage renders in real-time.
                 </p>
               </div>
-              <div className="flex items-center space-x-2">
-                <span className="text-xs font-mono text-yellow-400">
-                  Previewing Stage {previewStageIdx + 1} of {config.stages.length}
-                </span>
-              </div>
+              <span className="text-xs font-mono text-red-400 font-bold">
+                Stage {previewStageIdx + 1} of {config.stages.length}
+              </span>
             </div>
 
-            {/* Simulated Hero Container */}
-            <div className="relative h-[600px] w-full rounded-2xl overflow-hidden border border-slate-700 bg-slate-950 shadow-2xl">
+            <div className="relative h-[550px] w-full rounded-3xl overflow-hidden border border-white/10 bg-slate-950 shadow-2xl">
               <Image
                 src={config.stages[previewStageIdx]?.desktopMediaUrl || "/images/stages/stage-01.jpg"}
                 alt="Stage preview"
                 fill
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
 
-              {/* Overlay simulation */}
               <div className="absolute bottom-16 left-8 max-w-xl space-y-2">
-                <div className="inline-block px-3 py-1 rounded-full bg-yellow-500/20 border border-yellow-500/40 text-yellow-400 text-xs font-mono font-bold">
+                <div className="inline-block px-3 py-1 rounded-full bg-red-600/30 border border-red-500/50 text-white text-xs font-mono font-bold">
                   STAGE {config.stages[previewStageIdx]?.stageNumber} — {config.stages[previewStageIdx]?.name}
                 </div>
-                <h3 className="text-2xl font-bold text-white">
+                <h3 className="text-2xl font-bold text-white font-serif">
                   "{config.stages[previewStageIdx]?.title}"
                 </h3>
                 <p className="text-xs text-slate-300">
@@ -761,8 +664,7 @@ export default function AdminHeroPage() {
                 </p>
               </div>
 
-              {/* Slider controls inside simulator */}
-              <div className="absolute bottom-4 left-8 right-8 flex items-center space-x-4 bg-slate-900/90 backdrop-blur-md p-3 rounded-xl border border-slate-800">
+              <div className="absolute bottom-4 left-8 right-8 flex items-center space-x-4 bg-slate-950/85 backdrop-blur-md p-3 rounded-2xl border border-white/10">
                 <span className="text-xs font-mono text-slate-400">Scrub Stage:</span>
                 <input
                   type="range"
@@ -770,7 +672,7 @@ export default function AdminHeroPage() {
                   max={config.stages.length - 1}
                   value={previewStageIdx}
                   onChange={(e) => setPreviewStageIdx(Number(e.target.value))}
-                  className="flex-1 h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-yellow-400"
+                  className="flex-1 h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-red-500"
                 />
                 <span className="text-xs font-mono text-white font-bold">
                   {config.stages[previewStageIdx]?.name}

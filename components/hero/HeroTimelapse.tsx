@@ -12,8 +12,9 @@ interface HeroTimelapseProps {
   onStageChange: (newIndex: number) => void;
   isPlaying: boolean;
   onTogglePlay: () => void;
-  progressPercent: number; // 0 to 100 within active stage
+  progressPercent: number;
   preferVideo?: boolean;
+  isBlueprintMode?: boolean;
 }
 
 export default function HeroTimelapse({
@@ -22,15 +23,14 @@ export default function HeroTimelapse({
   currentStageIndex,
   onStageChange,
   isPlaying,
-  progressPercent,
   preferVideo = false,
+  isBlueprintMode = false,
 }: HeroTimelapseProps) {
   const [useVideo, setUseVideo] = useState(preferVideo && !!settings.desktopVideoUrl);
   const [videoError, setVideoError] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  // Responsive device detection
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -54,12 +54,10 @@ export default function HeroTimelapse({
     });
   }, [currentStageIndex, stages, isMobile]);
 
-  // Video playback control
   useEffect(() => {
     if (!videoRef.current || !useVideo) return;
     if (isPlaying) {
       videoRef.current.play().catch(() => {
-        // Autoplay policy prevented video; fallback to image timelapse
         setVideoError(true);
         setUseVideo(false);
       });
@@ -68,7 +66,6 @@ export default function HeroTimelapse({
     }
   }, [isPlaying, useVideo]);
 
-  // Track video progress if video is running
   const handleVideoTimeUpdate = () => {
     if (!videoRef.current || !stages.length) return;
     const duration = videoRef.current.duration;
@@ -83,15 +80,16 @@ export default function HeroTimelapse({
   };
 
   const currentStage = stages[currentStageIndex] || stages[0];
-  const nextStage = stages[(currentStageIndex + 1) % stages.length] || stages[0];
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-[#04070E]">
-      {/* 1. Background Video Layer (Optional toggle / high-speed timelapse) */}
+      {/* 1. Background Video Layer */}
       {useVideo && !videoError ? (
         <video
           ref={videoRef}
-          className="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000"
+          className={`absolute inset-0 h-full w-full object-cover transition-all duration-1000 ${
+            isBlueprintMode ? "filter saturate-50 contrast-125 brightness-75" : ""
+          }`}
           src={isMobile && settings.mobileVideoUrl ? settings.mobileVideoUrl : settings.desktopVideoUrl}
           autoPlay
           muted
@@ -99,21 +97,19 @@ export default function HeroTimelapse({
           playsInline
           onTimeUpdate={handleVideoTimeUpdate}
           onError={() => {
-            console.warn("Video failed to play, falling back to cinematic photo sequence");
             setVideoError(true);
             setUseVideo(false);
           }}
           poster={currentStage?.desktopMediaUrl || "/images/stages/stage-01.jpg"}
         />
       ) : (
-        /* 2. Cinematic Multi-Layer Image Crossfade Sequence with Ken Burns Animation */
+        /* 2. Photorealistic Multi-Layer Image Crossfade Sequence with Ken Burns Camera Motion */
         <div className="absolute inset-0 h-full w-full">
           {stages.map((stage, idx) => {
             const isActive = idx === currentStageIndex;
             const isNext = idx === (currentStageIndex + 1) % stages.length;
             const mediaUrl = isMobile && stage.mobileMediaUrl ? stage.mobileMediaUrl : stage.desktopMediaUrl;
 
-            // Only mount active and next for optimal DOM performance
             if (!isActive && !isNext) return null;
 
             return (
@@ -121,11 +117,11 @@ export default function HeroTimelapse({
                 key={stage.id || idx}
                 className={`absolute inset-0 h-full w-full transition-opacity duration-1000 ease-in-out ${
                   isActive ? "opacity-100 z-1" : "opacity-0 z-0"
-                }`}
+                } ${isBlueprintMode ? "filter saturate-50 contrast-125 brightness-75" : ""}`}
               >
                 <div
                   className={`relative h-full w-full transform ${
-                    isActive ? "scale-105 transition-transform duration-[6000ms] ease-out" : "scale-100"
+                    isActive ? "scale-105 transition-transform duration-[7000ms] ease-out" : "scale-100"
                   }`}
                   style={{
                     transformOrigin: idx % 2 === 0 ? "center bottom" : "center top",
@@ -147,51 +143,36 @@ export default function HeroTimelapse({
       )}
 
       {/* 3. Architectural Blueprint & Atmospheric Particle Canvas */}
-      <BlueprintCanvas currentStageNumber={currentStage?.id || currentStageIndex + 1} />
+      <BlueprintCanvas
+        currentStageNumber={currentStage?.id || currentStageIndex + 1}
+        isBlueprintMode={isBlueprintMode}
+      />
 
-      {/* 4. Cinematic Vignette & Deep Architectural Gradient Overlay (Ensures WCAG AAA contrast) */}
-      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-[#060a12] via-[#0a1128]/60 to-[#060a12]/75" />
-      <div className="pointer-events-none absolute inset-0 z-10 bg-radial-vignette opacity-80" />
-      
-      {/* 5. Subtle Blueprint CAD Corner Markers */}
-      <div className="pointer-events-none absolute top-6 left-6 z-20 hidden md:block">
-        <div className="flex items-center space-x-2 text-[10px] tracking-widest text-sky-400/60 font-mono">
-          <div className="h-1.5 w-1.5 bg-sky-400 animate-ping rounded-full" />
-          <span>GEO-LOC: 13.0827° N, 80.2707° E</span>
-          <span className="text-slate-600">|</span>
-          <span>ELEV: +12.4m</span>
-        </div>
-      </div>
+      {/* 4. Luxury Vignette & Deep Obsidian Architectural Gradient Overlays */}
+      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-[#05080E] via-transparent to-[#05080E]/70" />
+      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-r from-[#05080E]/80 via-transparent to-[#05080E]/40" />
 
-      <div className="pointer-events-none absolute top-6 right-6 z-20 hidden md:block">
-        <div className="flex items-center space-x-2 text-[10px] tracking-widest text-yellow-500/70 font-mono">
-          <span>STRUCTURAL FIDELITY: 100%</span>
-          <span className="text-slate-600">|</span>
-          <span>PHASE: {currentStage?.stageNumber}/12</span>
-        </div>
-      </div>
-
-      {/* 6. Mode Switcher (Video vs Frame Timelapse) in Bottom Right */}
-      <div className="absolute bottom-24 right-6 z-30 hidden lg:flex items-center space-x-2 bg-slate-900/80 backdrop-blur-md border border-slate-700/60 rounded-full px-3 py-1.5 text-xs text-slate-300">
-        <span className="text-[10px] uppercase font-mono text-slate-400">Engine:</span>
+      {/* 5. Minimalist Engine Mode Switcher in Bottom Right */}
+      <div className="absolute top-24 right-6 z-30 hidden xl:flex items-center space-x-1.5 bg-[#080E1A]/80 backdrop-blur-md border border-white/10 rounded-full px-2.5 py-1 text-[11px] text-slate-300">
+        <span className="text-[9px] uppercase font-mono text-slate-400">ENGINE:</span>
         <button
           onClick={() => setUseVideo(false)}
-          className={`px-2.5 py-0.5 rounded-full transition-all font-medium text-[11px] ${
-            !useVideo ? "bg-yellow-500 text-slate-950 font-semibold shadow-sm" : "hover:text-white"
+          className={`px-2 py-0.5 rounded-full transition-all font-mono text-[10px] ${
+            !useVideo ? "bg-red-600 text-white font-bold" : "hover:text-white"
           }`}
         >
-          Photo Timelapse
+          PHOTO TIMELAPSE
         </button>
         <button
           onClick={() => {
             setVideoError(false);
             setUseVideo(true);
           }}
-          className={`px-2.5 py-0.5 rounded-full transition-all font-medium text-[11px] ${
-            useVideo ? "bg-yellow-500 text-slate-950 font-semibold shadow-sm" : "hover:text-white"
+          className={`px-2 py-0.5 rounded-full transition-all font-mono text-[10px] ${
+            useVideo ? "bg-sky-600 text-white font-bold" : "hover:text-white"
           }`}
         >
-          Cinematic Video
+          CINEMATIC VIDEO
         </button>
       </div>
     </div>

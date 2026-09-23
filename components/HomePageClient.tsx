@@ -1,14 +1,16 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { HeroConfig } from "@/types/hero";
 import HeroTimelapse from "@/components/hero/HeroTimelapse";
 import HeroOverlay from "@/components/hero/HeroOverlay";
 import ProgressIndicator from "@/components/hero/ProgressIndicator";
 import ScrollTimelapseSection from "@/components/hero/ScrollTimelapseSection";
+import StageFilmstripSection from "@/components/sections/StageFilmstripSection";
 import StageExplorerModal from "@/components/stages/StageExplorerModal";
 import QuoteModal from "@/components/quote/QuoteModal";
 import ProjectsSection from "@/components/sections/ProjectsSection";
+import EstimatorSection from "@/components/sections/EstimatorSection";
 import EngineeringPillars from "@/components/sections/EngineeringPillars";
 import Footer from "@/components/sections/Footer";
 
@@ -26,6 +28,7 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
   const [isExplorerModalOpen, setIsExplorerModalOpen] = useState<boolean>(false);
   const [explorerInitialIdx, setExplorerInitialIdx] = useState<number>(0);
   const [isScrollModeActive, setIsScrollModeActive] = useState<boolean>(false);
+  const [isBlueprintMode, setIsBlueprintMode] = useState<boolean>(false);
 
   const activeStages = config.stages.filter((s) => s.active);
   const currentStage = activeStages[currentStageIndex] || activeStages[0];
@@ -48,13 +51,12 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
     if (!isPlaying || isHovered || activeStages.length === 0) return;
 
     const stageDurationSeconds = currentStage?.duration || config.settings.defaultDuration || 5;
-    const intervalMs = 50; // smooth 20fps progress increments
+    const intervalMs = 50;
     const stepIncrement = 100 / ((stageDurationSeconds * 1000) / intervalMs);
 
     const timer = setInterval(() => {
       setProgressPercent((prev) => {
         if (prev >= 100) {
-          // Advance to next stage
           setCurrentStageIndex((prevIdx) => (prevIdx + 1) % activeStages.length);
           return 0;
         }
@@ -98,8 +100,16 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
     }
   };
 
+  const handleSelectAndJumpToHero = (index: number) => {
+    handleSelectStage(index);
+    const heroElem = document.getElementById("timelapse");
+    if (heroElem) {
+      heroElem.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <main className="relative min-h-screen bg-[#060a12] text-slate-100 selection:bg-yellow-500/30 selection:text-yellow-200">
+    <main className="relative min-h-screen bg-[#05080E] text-slate-100 selection:bg-red-600/30 selection:text-white">
       {/* 1. HERO SECTION: CINEMATIC CONSTRUCTION TIMELAPSE */}
       <section
         id="timelapse"
@@ -111,7 +121,7 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
           if (config.settings.pauseOnHover) setIsHovered(false);
         }}
       >
-        {/* Background Visual Engine (Video / Image Sequence / Blueprint Fallback) */}
+        {/* Background Visual Engine (Video / Photographic Sequence / Blueprint Fallback) */}
         <div className="absolute inset-0 z-0 h-full w-full">
           <HeroTimelapse
             stages={activeStages}
@@ -122,18 +132,21 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
             onTogglePlay={handleTogglePlay}
             progressPercent={progressPercent}
             preferVideo={config.settings.fallbackMode === "video"}
+            isBlueprintMode={isBlueprintMode}
           />
         </div>
 
-        {/* Foreground Content & Navigation Overlay */}
+        {/* Foreground Content & Navigation HUD */}
         <HeroOverlay
           hero={config.hero}
           currentStage={currentStage}
           onOpenQuote={() => setIsQuoteModalOpen(true)}
           onOpenExplorer={() => handleOpenExplorer(currentStageIndex)}
+          isBlueprintMode={isBlueprintMode}
+          onToggleBlueprintMode={() => setIsBlueprintMode((prev) => !prev)}
         />
 
-        {/* Bottom Interactive Construction Progress Indicator */}
+        {/* Bottom Floating Island Glass Capsule Progress Dock */}
         <ProgressIndicator
           stages={activeStages}
           currentStageIndex={currentStageIndex}
@@ -149,7 +162,14 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
         />
       </section>
 
-      {/* 2. SCROLL-BASED CINEMATIC TIMELAPSE SECTION */}
+      {/* 2. THE 12-STAGE ARCHITECTURAL FILMSTRIP SECTION */}
+      <StageFilmstripSection
+        stages={activeStages}
+        onSelectAndJumpToHero={handleSelectAndJumpToHero}
+        onOpenExplorer={(idx) => handleOpenExplorer(idx)}
+      />
+
+      {/* 3. SCROLL-BASED CINEMATIC TIMELAPSE SECTION */}
       {config.settings.scrollAnimation && (
         <ScrollTimelapseSection
           stages={activeStages}
@@ -158,16 +178,19 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
         />
       )}
 
-      {/* 3. FEATURED PROJECTS PORTFOLIO */}
+      {/* 4. FEATURED ARCHITECTURAL MASTERPIECES */}
       <ProjectsSection onOpenQuote={() => setIsQuoteModalOpen(true)} />
 
-      {/* 4. ENGINEERING RIGOR & QUALITY ASSURANCE */}
+      {/* 5. INTERACTIVE TURNKEY COST ESTIMATOR 2.0 */}
+      <EstimatorSection onOpenQuote={() => setIsQuoteModalOpen(true)} />
+
+      {/* 6. ENGINEERING RIGOR & QUALITY ASSURANCE */}
       <EngineeringPillars />
 
-      {/* 5. LUXURY FOOTER & CREDENTIALS */}
+      {/* 7. MONUMENTAL LUXURY FOOTER & CREDENTIALS */}
       <Footer onOpenQuote={() => setIsQuoteModalOpen(true)} />
 
-      {/* 6. MODALS */}
+      {/* 8. MODALS */}
       <StageExplorerModal
         isOpen={isExplorerModalOpen}
         onClose={() => setIsExplorerModalOpen(false)}

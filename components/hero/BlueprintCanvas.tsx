@@ -4,10 +4,13 @@ import React, { useEffect, useRef } from "react";
 
 interface BlueprintCanvasProps {
   currentStageNumber: number; // 1 to 12
-  isHovered?: boolean;
+  isBlueprintMode?: boolean;
 }
 
-export default function BlueprintCanvas({ currentStageNumber }: BlueprintCanvasProps) {
+export default function BlueprintCanvas({
+  currentStageNumber,
+  isBlueprintMode = false,
+}: BlueprintCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -43,29 +46,28 @@ export default function BlueprintCanvas({ currentStageNumber }: BlueprintCanvasP
     }
 
     const particles: Particle[] = [];
-    const maxParticles = 60;
+    const maxParticles = isBlueprintMode ? 80 : 50;
 
     const createParticle = (): Particle => {
-      // Dust for early stages, sparks for steel/structure, bokeh for finished stages
       let type: "dust" | "spark" | "bokeh" | "grid" = "dust";
-      let color = "rgba(200, 220, 255, ";
+      let color = "rgba(180, 210, 255, ";
       let vy = -0.3 - Math.random() * 0.4;
       let vx = (Math.random() - 0.5) * 0.5;
       let size = 1.5 + Math.random() * 2;
       let maxAlpha = 0.2 + Math.random() * 0.3;
 
       if (currentStageNumber >= 3 && currentStageNumber <= 5) {
-        // Welding sparks & steel particles
-        if (Math.random() > 0.4) {
+        // Welding sparks & steel particles (Brand Red & Amber)
+        if (Math.random() > 0.35) {
           type = "spark";
-          color = "rgba(255, 180, 50, ";
-          vy = 1 + Math.random() * 2.5;
-          vx = (Math.random() - 0.5) * 3;
-          size = 1 + Math.random() * 2;
-          maxAlpha = 0.7 + Math.random() * 0.3;
+          color = Math.random() > 0.5 ? "rgba(229, 9, 20, " : "rgba(255, 180, 40, ";
+          vy = 1.2 + Math.random() * 2.8;
+          vx = (Math.random() - 0.5) * 3.5;
+          size = 1 + Math.random() * 2.5;
+          maxAlpha = 0.75 + Math.random() * 0.25;
         }
       } else if (currentStageNumber >= 10) {
-        // Golden luxury bokeh for finished home
+        // Luxury golden twilight bokeh
         type = "bokeh";
         color = "rgba(245, 200, 80, ";
         vy = -0.15 - Math.random() * 0.25;
@@ -89,7 +91,6 @@ export default function BlueprintCanvas({ currentStageNumber }: BlueprintCanvasP
       };
     };
 
-    // Initialize particles
     for (let i = 0; i < maxParticles; i++) {
       const p = createParticle();
       p.life = Math.random() * p.maxLife;
@@ -98,39 +99,17 @@ export default function BlueprintCanvas({ currentStageNumber }: BlueprintCanvasP
 
     let scanlineY = 0;
     let scanlineDir = 1;
+    let tickCount = 0;
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
+      tickCount++;
 
-      // 1. Subtle Laser Measurement Scanline (Stages 1-4)
-      if (currentStageNumber <= 4) {
-        scanlineY += 1.2 * scanlineDir;
-        if (scanlineY > height * 0.75) scanlineDir = -1;
-        if (scanlineY < height * 0.25) scanlineDir = 1;
-
-        const grad = ctx.createLinearGradient(0, scanlineY, width, scanlineY);
-        grad.addColorStop(0, "rgba(56, 189, 248, 0)");
-        grad.addColorStop(0.3, "rgba(56, 189, 248, 0.18)");
-        grad.addColorStop(0.5, "rgba(212, 175, 55, 0.35)");
-        grad.addColorStop(0.7, "rgba(56, 189, 248, 0.18)");
-        grad.addColorStop(1, "rgba(56, 189, 248, 0)");
-
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, scanlineY - 1, width, 2);
-
-        // Subtle crosshair at laser center
-        ctx.strokeStyle = "rgba(56, 189, 248, 0.3)";
+      // 1. Full Holographic CAD Blueprint Mode (if active)
+      if (isBlueprintMode) {
+        ctx.strokeStyle = "rgba(2, 132, 199, 0.25)";
         ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.arc(width * 0.5, scanlineY, 12, 0, Math.PI * 2);
-        ctx.stroke();
-      }
-
-      // 2. Blueprint Architectural Grid Overlay (Subtle)
-      if (currentStageNumber <= 5) {
-        ctx.strokeStyle = "rgba(56, 189, 248, 0.04)";
-        ctx.lineWidth = 1;
-        const gridSize = 64;
+        const gridSize = 48;
         for (let x = 0; x < width; x += gridSize) {
           ctx.beginPath();
           ctx.moveTo(x, 0);
@@ -143,7 +122,40 @@ export default function BlueprintCanvas({ currentStageNumber }: BlueprintCanvasP
           ctx.lineTo(width, y);
           ctx.stroke();
         }
+
+        // Concentric radar circles in center
+        ctx.strokeStyle = "rgba(229, 9, 20, 0.35)";
+        ctx.beginPath();
+        ctx.arc(width * 0.5, height * 0.5, 120, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.strokeStyle = "rgba(56, 189, 248, 0.3)";
+        ctx.beginPath();
+        ctx.arc(width * 0.5, height * 0.5, 240, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Architectural Dimension Labels
+        ctx.font = "10px 'JetBrains Mono', monospace";
+        ctx.fillStyle = "rgba(56, 189, 248, 0.7)";
+        ctx.fillText("AXIS-X: 24,850mm [TOLERANCE ±0.5mm]", width * 0.2, height * 0.25);
+        ctx.fillText("AXIS-Y: 18,200mm [BEARING 240kN/m²]", width * 0.65, height * 0.35);
+        ctx.fillText("DATUM LEVEL: +12.450m AMSL", width * 0.15, height * 0.75);
       }
+
+      // 2. High-Tech Precision Laser Level Line
+      scanlineY += 1.4 * scanlineDir;
+      if (scanlineY > height * 0.8) scanlineDir = -1;
+      if (scanlineY < height * 0.2) scanlineDir = 1;
+
+      const grad = ctx.createLinearGradient(0, scanlineY, width, scanlineY);
+      grad.addColorStop(0, "rgba(229, 9, 20, 0)");
+      grad.addColorStop(0.3, "rgba(229, 9, 20, 0.25)");
+      grad.addColorStop(0.5, "rgba(56, 189, 248, 0.45)");
+      grad.addColorStop(0.7, "rgba(229, 9, 20, 0.25)");
+      grad.addColorStop(1, "rgba(229, 9, 20, 0)");
+
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, scanlineY - 1, width, 2);
 
       // 3. Render Particles
       for (let i = 0; i < particles.length; i++) {
@@ -152,7 +164,6 @@ export default function BlueprintCanvas({ currentStageNumber }: BlueprintCanvasP
         p.x += p.vx;
         p.y += p.vy;
 
-        // Fade in and out
         const progress = p.life / p.maxLife;
         if (progress < 0.2) {
           p.alpha = (progress / 0.2) * p.maxAlpha;
@@ -181,12 +192,14 @@ export default function BlueprintCanvas({ currentStageNumber }: BlueprintCanvasP
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [currentStageNumber]);
+  }, [currentStageNumber, isBlueprintMode]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none absolute inset-0 z-10 h-full w-full opacity-80"
+      className={`pointer-events-none absolute inset-0 z-10 h-full w-full transition-opacity duration-500 ${
+        isBlueprintMode ? "opacity-95" : "opacity-75"
+      }`}
     />
   );
 }

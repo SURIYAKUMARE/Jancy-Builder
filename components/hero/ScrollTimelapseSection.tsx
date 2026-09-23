@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { ConstructionStage } from "@/types/hero";
 import BlueprintCanvas from "./BlueprintCanvas";
-import { ArrowDown, HardHat, CheckCircle2, Ruler, Sparkles } from "lucide-react";
+import { ArrowDown, HardHat, Ruler, ShieldCheck, Sparkles, Layers } from "lucide-react";
 
 interface ScrollTimelapseSectionProps {
   stages: ConstructionStage[];
@@ -30,12 +30,10 @@ export default function ScrollTimelapseSection({
 
       if (totalScrollableDistance <= 0) return;
 
-      // Calculate how far the top of the container has scrolled past the top of the viewport
       const scrolled = -rect.top;
       const progress = Math.max(0, Math.min(1, scrolled / totalScrollableDistance));
       setScrollProgress(progress);
 
-      // Map progress to stages (0 to stages.length - 1)
       const rawIdx = progress * (stages.length - 1);
       const stageIdx = Math.min(stages.length - 1, Math.floor(rawIdx));
       setActiveStageIdx(stageIdx);
@@ -58,11 +56,10 @@ export default function ScrollTimelapseSection({
       ref={containerRef}
       className="relative w-full h-[500vh] bg-[#04070E]"
     >
-      {/* Sticky Fullscreen Cinematic Viewport */}
+      {/* Sticky Fullscreen Viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between">
-        {/* Background Stage Image Layers with Cross-Fade */}
+        {/* Background Images with Fractional Cross-Fade */}
         <div className="absolute inset-0 h-full w-full">
-          {/* Current Stage */}
           <div className="absolute inset-0 h-full w-full">
             <Image
               src={currentStage.desktopMediaUrl}
@@ -74,7 +71,6 @@ export default function ScrollTimelapseSection({
             />
           </div>
 
-          {/* Next Stage fading in as user scrolls through fractional step */}
           {activeStageIdx < stages.length - 1 && (
             <div
               className="absolute inset-0 h-full w-full pointer-events-none transition-opacity duration-150"
@@ -91,67 +87,66 @@ export default function ScrollTimelapseSection({
           )}
         </div>
 
-        {/* Blueprint & Atmospheric Particles */}
+        {/* Blueprint Canvas Overlay */}
         <BlueprintCanvas currentStageNumber={currentStage.id} />
 
-        {/* Cinematic Vignette and Dark Gradients */}
-        <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-[#060a12] via-[#060a12]/50 to-[#060a12]/80" />
+        {/* Deep Gradients */}
+        <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-[#05080E] via-transparent to-[#05080E]/70" />
+        <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-r from-[#05080E]/85 via-transparent to-transparent" />
 
-        {/* Top Scroll Indicator & HUD */}
+        {/* Top HUD Bar */}
         <div className="relative z-20 w-full max-w-7xl mx-auto px-6 pt-6 flex items-center justify-between">
-          <div className="glass-panel px-4 py-2 rounded-xl flex items-center space-x-2 border border-slate-700/60">
-            <HardHat className="h-4 w-4 text-yellow-500" />
+          <div className="glass-hud px-4 py-2 rounded-xl flex items-center space-x-2.5">
+            <HardHat className="h-4 w-4 text-red-500" />
             <span className="text-xs font-mono tracking-widest text-slate-300 uppercase">
-              Scroll Storytelling Engine
+              SCROLL STORYTELLING ENGINE
             </span>
-            <span className="text-xs font-mono text-yellow-400 font-bold">
+            <span className="text-xs font-mono text-red-400 font-bold">
               {Math.round(scrollProgress * 100)}%
             </span>
           </div>
 
-          {/* Right: Technical Blueprint Specs Snippet */}
           {currentStage.blueprintSpecs && (
-            <div className="hidden md:flex items-center space-x-4 glass-panel px-4 py-2 rounded-xl text-xs font-mono text-slate-300 border border-slate-700/60">
+            <div className="hidden md:flex items-center space-x-4 glass-hud px-4 py-2 rounded-xl text-xs font-mono text-slate-300">
               <span className="text-sky-400 font-semibold flex items-center space-x-1">
                 <Ruler className="h-3.5 w-3.5 mr-1" />
                 {Object.keys(currentStage.blueprintSpecs)[0]}:
               </span>
-              <span className="text-slate-200">
+              <span className="text-slate-100 font-bold">
                 {Object.values(currentStage.blueprintSpecs)[0]}
               </span>
             </div>
           )}
         </div>
 
-        {/* Center Stage Narrative Overlay */}
-        <div className="relative z-20 w-full max-w-5xl mx-auto px-6 py-6 text-center md:text-left flex flex-col items-center md:items-start">
-          {/* Milestone Badge */}
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full glass-panel-gold border border-yellow-500/30 text-yellow-400 text-xs font-mono tracking-widest uppercase mb-3 shadow-lg">
-            <span className="h-2 w-2 rounded-full bg-yellow-400 animate-ping" />
-            <span className="font-bold">STAGE {currentStage.stageNumber} OF 12</span>
-            <span className="text-slate-500">•</span>
-            <span className="text-slate-200">{currentStage.name}</span>
+        {/* Center/Left Content Overlay */}
+        <div className="relative z-20 w-full max-w-4xl mx-auto md:mx-0 px-6 sm:px-12 py-6 text-left">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full glass-hud text-xs font-mono tracking-widest uppercase mb-3 shadow-lg">
+            <span className="h-2 w-2 rounded-full bg-red-500 animate-ping" />
+            <span className="text-red-400 font-bold">STAGE {currentStage.stageNumber} OF 12</span>
+            <span className="text-slate-600">•</span>
+            <span className="text-slate-100">{currentStage.name}</span>
           </div>
 
           {isFinalStage ? (
-            <div className="animate-in fade-in zoom-in-95 duration-500">
+            <div className="animate-in fade-in duration-500">
               <h2 className="text-4xl sm:text-6xl font-black uppercase text-white font-serif tracking-tight drop-shadow-2xl">
                 YOUR VISION. <br />
-                <span className="text-gold-gradient">OUR CRAFT.</span>
+                <span className="text-brand-gradient">OUR CRAFT.</span>
               </h2>
-              <p className="mt-3 text-lg sm:text-xl font-bold tracking-wider text-slate-200 uppercase font-mono">
+              <p className="mt-2 text-lg sm:text-xl font-bold tracking-wider text-slate-200 uppercase font-mono">
                 JANCY BUILDERS — BUILD THE WORLD
               </p>
-              <div className="mt-6 flex flex-wrap gap-4">
+              <div className="mt-6 flex flex-wrap gap-3">
                 <button
                   onClick={onOpenQuote}
-                  className="px-6 py-3 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-bold text-sm tracking-wider uppercase transition-all shadow-xl shadow-yellow-500/30"
+                  className="px-6 py-3 rounded-xl btn-brand-primary text-white font-bold text-xs uppercase tracking-wider transition-all shadow-xl"
                 >
                   Start Your Project
                 </button>
                 <a
                   href="#projects"
-                  className="px-6 py-3 rounded-xl glass-panel text-white hover:border-yellow-500/50 font-bold text-sm tracking-wider uppercase transition-all"
+                  className="px-6 py-3 rounded-xl glass-hud text-white hover:border-red-500/50 font-bold text-xs uppercase tracking-wider transition-all"
                 >
                   Explore Portfolio
                 </a>
@@ -159,58 +154,42 @@ export default function ScrollTimelapseSection({
             </div>
           ) : (
             <div>
-              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight drop-shadow-xl max-w-3xl leading-tight">
+              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight drop-shadow-xl max-w-3xl leading-tight font-serif">
                 "{currentStage.title}"
               </h2>
-              <p className="mt-3 max-w-2xl text-xs sm:text-base text-slate-300 leading-relaxed drop-shadow">
+              <p className="mt-3 max-w-2xl text-xs sm:text-base text-slate-300/90 leading-relaxed drop-shadow">
                 {currentStage.description}
               </p>
               <div className="mt-5 flex items-center space-x-3">
                 <button
                   onClick={() => onOpenExplorer(activeStageIdx)}
-                  className="px-3.5 py-1.5 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-yellow-400 border border-yellow-500/30 text-xs font-mono tracking-wider transition-all"
+                  className="px-3.5 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-sky-400 border border-sky-500/30 text-xs font-mono tracking-wider transition-all"
                 >
-                  Inspect Specifications & Blueprints ↗
+                  Inspect Specifications ↗
                 </button>
               </div>
             </div>
           )}
         </div>
 
-        {/* Bottom Horizontal Interactive Scrubber */}
+        {/* Bottom Progress Scrubber */}
         <div className="relative z-20 w-full max-w-5xl mx-auto px-6 pb-6">
-          <div className="glass-panel p-3.5 rounded-2xl border border-slate-700/60 shadow-2xl">
-            {/* Scroll instruction indicator */}
+          <div className="glass-pill p-3.5 rounded-2xl shadow-2xl">
             <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 mb-2">
-              <span className="flex items-center space-x-1.5 text-yellow-400 font-semibold">
+              <span className="flex items-center space-x-1.5 text-red-400 font-semibold">
                 <ArrowDown className="h-3.5 w-3.5 animate-bounce" />
                 <span>SCROLL DOWN TO ADVANCE TIMELAPSE</span>
               </span>
               <span>
-                STAGE: <strong className="text-white">{currentStage.name}</strong>
+                CURRENT: <strong className="text-white">{currentStage.name}</strong>
               </span>
             </div>
 
-            {/* Continuous Track */}
             <div className="relative h-2 w-full bg-slate-800 rounded-full overflow-hidden">
               <div
-                className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-sky-400 via-yellow-400 to-amber-500 rounded-full transition-all duration-75"
+                className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-red-600 via-sky-400 to-amber-400 rounded-full transition-all duration-75"
                 style={{ width: `${scrollProgress * 100}%` }}
               />
-            </div>
-
-            {/* Stage Grid Marks */}
-            <div className="flex justify-between items-center mt-2 text-[10px] font-mono text-slate-500">
-              {stages.map((stg, i) => (
-                <span
-                  key={stg.id}
-                  className={`transition-colors ${
-                    i === activeStageIdx ? "text-yellow-400 font-bold" : i < activeStageIdx ? "text-slate-400" : ""
-                  }`}
-                >
-                  {stg.stageNumber}
-                </span>
-              ))}
             </div>
           </div>
         </div>

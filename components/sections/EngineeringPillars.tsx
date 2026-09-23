@@ -1,60 +1,67 @@
 "use client";
 
 import React from "react";
-import { ShieldCheck, Layers, Cpu, Award, Ruler, Hammer } from "lucide-react";
+import { ShieldCheck, Layers, Cpu, Award, Ruler, Hammer, Sparkles, CheckCircle2 } from "lucide-react";
 
 export default function EngineeringPillars() {
   const pillars = [
     {
       icon: ShieldCheck,
       title: "Geotechnical & Soil Profiling",
-      desc: "Comprehensive standard penetration test (SPT), borehole analysis, and plate load tests ensure footings are anchored to virgin rock layers.",
-      code: "IS 1892 / IS 2131 Compliant",
+      desc: "Standard Penetration Tests (SPT), borehole extraction, and plate load tests guarantee footings anchor directly into virgin bedrock layers.",
+      code: "IS 1892 / IS 2131 COMPLIANT",
+      tag: "SITE SAFETY",
     },
     {
       icon: Layers,
-      title: "Earthquake-Resistant RCC Framing",
-      desc: "Special ductile detailing with Fe550D TMT reinforcement, high-grade M30/M35 self-compacting concrete, and beam-column joint confining ties.",
-      code: "IS 13920 Ductile Seismic Design",
+      title: "Earthquake-Resistant RCC Skeleton",
+      desc: "Fe550D high-ductility TMT rebars, M30/M35 self-compacting concrete, and confining joint ties engineered to withstand seismic shocks.",
+      code: "IS 13920 SEISMIC DUCTILE SPEC",
+      tag: "STRUCTURE",
     },
     {
       icon: Cpu,
-      title: "Smart Concealed MEP Engineering",
-      desc: "Engineered multi-layer plumbing manifolds with pressure testing up to 15 bar and halogen-free low-smoke conduits routed via 3D BIM coordination.",
-      code: "Zero Leakage Lifetime Guarantee",
+      title: "3D BIM Concealed MEP Engineering",
+      desc: "Pressure-tested multi-layer plumbing manifolds up to 15 bar and halogen-free low-smoke conduits mapped with zero clashes.",
+      code: "ZERO LEAKAGE GUARANTEE",
+      tag: "SERVICES",
     },
     {
       icon: Ruler,
-      title: "Laser Level & Digital Alignment",
-      desc: "Sub-millimeter total-station optical surveys guarantee flawless plumb walls, perfectly orthogonal corners, and true level floor planes.",
-      code: "Class-A Dimensional Tolerance",
+      title: "Sub-Millimeter Laser Alignment",
+      desc: "Digital total-station optical surveys guarantee flawless plumb walls, orthogonal 90° corners, and true level floor planes.",
+      code: "CLASS-A DIMENSIONAL ACCURACY",
+      tag: "PRECISION",
     },
     {
       icon: Award,
-      title: "10-Year Waterproofing Warranty",
-      desc: "Dual-layer elastomeric crystalline polyurethane barrier membranes on basements, sunken slabs, and exposed terrace slabs.",
-      code: "ASTM D412 Waterproofing Spec",
+      title: "10-Year Crystalline Waterproofing",
+      desc: "Dual elastomeric polyurethane membranes on basements, retaining structures, sunken bathrooms, and terrace slabs.",
+      code: "ASTM D412 WATERPROOFING SPEC",
+      tag: "DURABILITY",
     },
     {
       icon: Hammer,
-      title: "Transparent Digital Milestone Audits",
-      desc: "Daily high-definition drone progress scans and stage-by-stage laboratory slump test certificates shared transparently via client portal.",
-      code: "100% Quality Assurance Traceability",
+      title: "Digital Milestone Audits & Drone Scans",
+      desc: "High-definition weekly drone photogrammetry and third-party laboratory compression cube test certificates provided to every homeowner.",
+      code: "100% QUALITY TRACEABILITY",
+      tag: "TRANSPARENCY",
     },
   ];
 
   return (
-    <section className="py-24 bg-[#05080E] border-t border-slate-900 relative">
+    <section className="py-24 bg-[#05080E] border-t border-white/5 relative">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-mono uppercase tracking-[0.25em] text-yellow-400 font-bold">
-            The Jancy Engineering Standard
-          </span>
-          <h2 className="mt-2 text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Built With Precision. Engineered For Generations.
+          <div className="inline-flex items-center space-x-2 text-sky-400 text-xs font-mono tracking-widest uppercase mb-2">
+            <Sparkles className="h-3.5 w-3.5" />
+            <span>THE JANCY BUILDERS CREDO</span>
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight font-serif">
+            Precision Civil Engineering Behind Every Wall
           </h2>
           <p className="mt-4 text-sm sm:text-base text-slate-400 leading-relaxed">
-            True luxury is not just what you see on the surface; it is the uncompromising structural discipline embedded inside every column, beam, and footing.
+            True architectural luxury is not merely surface finishes; it is the mathematical rigor, soil mechanics, and seismic strength embedded within every structural footing.
           </p>
         </div>
 
@@ -64,15 +71,29 @@ export default function EngineeringPillars() {
             return (
               <div
                 key={idx}
-                className="glass-panel p-6 rounded-2xl border border-slate-800 hover:border-yellow-500/40 transition-all duration-300 group hover:-translate-y-1"
+                className="glass-card-premium p-7 rounded-3xl border border-white/10 flex flex-col justify-between group"
               >
-                <div className="h-12 w-12 rounded-xl bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center text-yellow-400 mb-4 group-hover:bg-yellow-500 group-hover:text-slate-950 transition-all">
-                  <Icon className="h-6 w-6" />
+                <div>
+                  <div className="flex items-center justify-between mb-5">
+                    <div className="h-12 w-12 rounded-2xl bg-red-600/10 border border-red-500/25 flex items-center justify-center text-red-500 group-hover:bg-red-600 group-hover:text-white transition-all shadow-md">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <span className="text-[10px] font-mono tracking-wider px-2.5 py-1 rounded-full bg-slate-900 border border-white/5 text-slate-400">
+                      {p.tag}
+                    </span>
+                  </div>
+
+                  <h3 className="text-lg font-bold text-white mb-2 font-serif group-hover:text-red-400 transition-colors">
+                    {p.title}
+                  </h3>
+                  <p className="text-xs text-slate-300/80 leading-relaxed mb-6">
+                    {p.desc}
+                  </p>
                 </div>
-                <h3 className="text-base font-bold text-white mb-2">{p.title}</h3>
-                <p className="text-xs text-slate-400 leading-relaxed mb-4">{p.desc}</p>
-                <div className="pt-3 border-t border-slate-800 text-[10px] font-mono text-sky-400/80">
-                  {p.code}
+
+                <div className="pt-4 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-sky-400">
+                  <span>{p.code}</span>
+                  <CheckCircle2 className="h-4 w-4 text-emerald-400" />
                 </div>
               </div>
             );
