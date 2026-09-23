@@ -38,6 +38,7 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
 
   const navLinks = [
     { name: "Home", href: "#" },
+    { name: "About", href: "#about" },
     { name: "Services", href: "#services" },
     { name: "Estimator", href: "#estimator" },
     { name: "Engineering", href: "#engineering" },

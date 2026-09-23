@@ -13,6 +13,9 @@ import EstimatorSection from "@/components/sections/EstimatorSection";
 import EngineeringPillars from "@/components/sections/EngineeringPillars";
 import StageExplorerModal from "@/components/stages/StageExplorerModal";
 import QuoteModal from "@/components/quote/QuoteModal";
+import BrandIntro from "@/components/intro/BrandIntro";
+import AboutEditorial from "@/components/sections/AboutEditorial";
+import MobileBottomBar from "@/components/mobile/MobileBottomBar";
 
 interface HomePageClientProps {
   initialConfig: HeroConfig;
@@ -80,6 +83,9 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
 
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans selection:bg-[#DC2626]/20 selection:text-[#DC2626]">
+      {/* 0. ARCHITECTURAL HAIRLINE INTRO ANIMATION */}
+      <BrandIntro />
+
       {/* 1. EXACT WHITE NAVBAR */}
       <NavbarExact onOpenQuote={() => setIsQuoteModalOpen(true)} />
 
@@ -95,6 +101,9 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
           onOpenQuote={() => setIsQuoteModalOpen(true)}
           onOpenExplorer={handleOpenExplorer}
         />
+
+        {/* 2.5 EDITORIAL ABOUT & CIVIL ENGINEERING PILLARS */}
+        <AboutEditorial onOpenQuote={() => setIsQuoteModalOpen(true)} />
 
         {/* 3. EXACT SERVICES SECTION */}
         <ServicesExact onOpenQuote={() => setIsQuoteModalOpen(true)} />
@@ -120,7 +129,10 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
       {/* 9. EXACT DARK FOOTER */}
       <FooterExact />
 
-      {/* 10. INTERACTIVE MODALS */}
+      {/* 10. MOBILE STICKY BOTTOM ACTION BAR */}
+      <MobileBottomBar onOpenQuote={() => setIsQuoteModalOpen(true)} />
+
+      {/* 11. INTERACTIVE MODALS */}
       <StageExplorerModal
         isOpen={isExplorerModalOpen}
         onClose={() => setIsExplorerModalOpen(false)}

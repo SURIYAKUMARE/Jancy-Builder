@@ -11,6 +11,28 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        // Architectural Luxury Design System
+        charcoal: {
+          DEFAULT: "#111318",
+          dark: "#0C0E12",
+          light: "#1A1D24",
+        },
+        ivory: {
+          DEFAULT: "#F7F4EE",
+          dark: "#EFECE5",
+          light: "#FCFAF6",
+        },
+        beige: {
+          DEFAULT: "#E8DFD1",
+          dark: "#D6CABA",
+          light: "#F2ECE2",
+        },
+        gold: {
+          DEFAULT: "#B88746",
+          light: "#D8A868",
+          dark: "#966830",
+          glow: "rgba(184, 135, 70, 0.25)",
+        },
         jancy: {
           red: "#E50914",
           "red-light": "#FF4B4B",
@@ -18,10 +40,10 @@ const config: Config = {
           blue: "#0066CC",
           "blue-light": "#38BDF8",
           "blue-dark": "#034078",
-          gold: "#D4AF37",
-          "gold-light": "#F3E5AB",
-          carbon: "#06080D",
-          obsidian: "#0A0E17",
+          gold: "#B88746",
+          "gold-light": "#D8A868",
+          carbon: "#111318",
+          obsidian: "#0C0E12",
           steel: "#475569",
           concrete: "#94A3B8",
         },

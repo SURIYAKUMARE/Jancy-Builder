@@ -31,12 +31,27 @@ export default function EstimatorSection({ onOpenQuote }: EstimatorSectionProps)
   const [typology, setTypology] = useState<"villa" | "house" | "commercial">("villa");
   const [areaSqFt, setAreaSqFt] = useState<number>(4500);
   const [packageType, setPackageType] = useState<"classic" | "premium" | "ultra">("ultra");
+  const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
 
   // Rates per sq.ft
   const rates = {
     classic: 2400,
     premium: 3200,
     ultra: 4400,
+  };
+
+  // Optional turnkey upgrades
+  const addonsList = [
+    { id: "kitchen", name: "Modular Kitchen & Wardrobes", cost: 350000 },
+    { id: "landscape", name: "Architectural Landscaping", cost: 200000 },
+    { id: "smarthome", name: "Smart Home & Video Security", cost: 180000 },
+    { id: "solar", name: "5kW Hybrid Rooftop Solar", cost: 320000 },
+  ];
+
+  const toggleAddon = (id: string) => {
+    setSelectedAddons((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
   };
 
   // Typologies data
@@ -81,21 +96,31 @@ export default function EstimatorSection({ onOpenQuote }: EstimatorSectionProps)
   ];
 
   // Dynamic calculations
-  const totalCost = areaSqFt * rates[packageType];
+  const addonsTotal = selectedAddons.reduce((acc, id) => {
+    const item = addonsList.find((a) => a.id === id);
+    return acc + (item ? item.cost : 0);
+  }, 0);
+
+  const baseCost = areaSqFt * rates[packageType];
+  const totalCost = baseCost + addonsTotal;
   const costInCrores = (totalCost / 10000000).toFixed(2);
   const costInLakhs = Math.round(totalCost / 100000);
 
   // Category distributions
-  const civilLakhs = Math.round((totalCost * 0.45) / 100000);
-  const mepLakhs = Math.round((totalCost * 0.20) / 100000);
-  const interiorLakhs = Math.round((totalCost * 0.25) / 100000);
-  const facadeLakhs = Math.round((totalCost * 0.10) / 100000);
+  const civilLakhs = Math.round((baseCost * 0.45) / 100000);
+  const mepLakhs = Math.round((baseCost * 0.20) / 100000);
+  const interiorLakhs = Math.round(((baseCost * 0.25) + addonsTotal) / 100000);
+  const facadeLakhs = Math.round((baseCost * 0.10) / 100000);
 
   // Automatically compose and send WhatsApp message with full configuration
   const handleRequestBOQ = () => {
     const typologyName = typologies.find((t) => t.id === typology)?.name || "Luxury Villa";
     const packageName = packages.find((p) => p.id === packageType)?.name || "Ultra Craft";
     const packageRate = packages.find((p) => p.id === packageType)?.rate || "₹4,400/sq.ft";
+
+    const addonsText = selectedAddons.length > 0
+      ? `\n✨ *Optional Upgrades Included:*\n` + selectedAddons.map(id => `• ${addonsList.find(a => a.id === id)?.name}`).join('\n')
+      : "";
 
     const message = `🏗️ *Turnkey Construction Estimate Request*
 *Jancy Builders — BUILD THE WORLD*
@@ -104,12 +129,13 @@ export default function EstimatorSection({ onOpenQuote }: EstimatorSectionProps)
 📐 *Built-Up Area:* ${areaSqFt.toLocaleString()} sq.ft
 💎 *Specification Package:* ${packageName} (${packageRate})
 💰 *Estimated Turnkey Investment:* ₹${costInCrores} Crores (Approx. ₹${costInLakhs} Lakhs)
+${addonsText}
 
 📊 *Category Cost Breakdown:*
 • Civil & Skeleton (45%): ₹${civilLakhs} Lakhs
 • MEP Services (20%): ₹${mepLakhs} Lakhs
-• Interiors & Tiles (25%): ₹${interiorLakhs} Lakhs
-• Facade & Landscaping (10%): ₹${facadeLakhs} Lakhs
+• Interiors & Finishes: ₹${interiorLakhs} Lakhs
+• Facade & Landscaping: ₹${facadeLakhs} Lakhs
 
 ✅ *Guaranteed Inclusions:*
 • Soil Testing, RCC Raft & Fe550D TMT
@@ -323,9 +349,39 @@ Hello Er. Sakay Antony Stalin, I configured this project on the Jancy Builders w
                   <label className="text-xs font-bold text-slate-900">
                     2. Built-up Area (Sq.Ft)
                   </label>
-                  <div className="bg-[#FAF8F5] border border-slate-300 px-3 py-1 rounded-lg text-xs font-mono font-bold text-slate-900">
-                    {areaSqFt.toLocaleString()} sq.ft
+                  <div className="flex items-center gap-1.5 bg-[#FAF8F5] border border-slate-300 px-3 py-1 rounded-lg">
+                    <input
+                      type="number"
+                      min="500"
+                      max="30000"
+                      step="50"
+                      value={areaSqFt}
+                      onChange={(e) => {
+                        const val = Number(e.target.value);
+                        if (!isNaN(val) && val >= 0) setAreaSqFt(val);
+                      }}
+                      className="w-20 bg-transparent text-right text-xs font-mono font-bold text-slate-900 focus:outline-none"
+                    />
+                    <span className="text-xs font-mono font-semibold text-slate-500">sq.ft</span>
                   </div>
+                </div>
+
+                {/* Quick Area Presets */}
+                <div className="flex items-center gap-1.5 mb-2 overflow-x-auto pb-1 scrollbar-none">
+                  {[1500, 2500, 3500, 5000, 7500].map((preset) => (
+                    <button
+                      key={preset}
+                      type="button"
+                      onClick={() => setAreaSqFt(preset)}
+                      className={`text-[11px] font-mono px-2.5 py-1 rounded-md transition-all flex-shrink-0 ${
+                        areaSqFt === preset
+                          ? "bg-[#C29061] text-white font-bold shadow-sm"
+                          : "bg-slate-100 hover:bg-slate-200 text-slate-600"
+                      }`}
+                    >
+                      {preset.toLocaleString()} sq.ft
+                    </button>
+                  ))}
                 </div>
 
                 <div className="relative py-2">
@@ -385,6 +441,50 @@ Hello Er. Sakay Antony Stalin, I configured this project on the Jancy Builders w
                             <Check className="w-2.5 h-2.5 stroke-[3]" />
                           </div>
                         )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* 4. Optional Turnkey Inclusions */}
+              <div>
+                <div className="flex items-center justify-between mb-2.5">
+                  <label className="text-xs font-bold text-slate-900">
+                    4. Optional Turnkey Inclusions
+                  </label>
+                  <span className="text-[11px] text-slate-500 font-medium">Customizable</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {addonsList.map((addon) => {
+                    const isChecked = selectedAddons.includes(addon.id);
+                    return (
+                      <div
+                        key={addon.id}
+                        onClick={() => toggleAddon(addon.id)}
+                        className={`p-2.5 rounded-xl border cursor-pointer transition-all flex items-center justify-between ${
+                          isChecked
+                            ? "border-[#C29061] bg-[#FAF8F5] shadow-sm"
+                            : "border-slate-200 bg-white hover:border-slate-300"
+                        }`}
+                      >
+                        <div className="flex items-center gap-2 min-w-0">
+                          <div
+                            className={`w-4 h-4 rounded flex items-center justify-center border transition-colors ${
+                              isChecked
+                                ? "bg-[#C29061] border-[#C29061] text-white"
+                                : "border-slate-300 bg-white"
+                            }`}
+                          >
+                            {isChecked && <Check className="w-3 h-3 stroke-[3]" />}
+                          </div>
+                          <span className="text-xs font-semibold text-slate-800 truncate">
+                            {addon.name}
+                          </span>
+                        </div>
+                        <span className="text-[11px] font-mono font-medium text-slate-500 flex-shrink-0 ml-2">
+                          +₹{(addon.cost / 100000).toFixed(1)}L
+                        </span>
                       </div>
                     );
                   })}
