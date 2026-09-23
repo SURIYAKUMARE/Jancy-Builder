@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Search, ArrowRight, Menu, X, Phone } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface NavbarExactProps {
   onOpenQuote: () => void;
@@ -24,7 +25,12 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
   ];
 
   return (
-    <header className="absolute top-3 sm:top-5 inset-x-0 z-50 max-w-[1440px] mx-auto px-3 sm:px-6">
+    <motion.header
+      initial={{ y: -40, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      className="absolute top-3 sm:top-5 inset-x-0 z-50 max-w-[1440px] mx-auto px-3 sm:px-6"
+    >
       {/* Floating Capsule Container from Reference Crop media_1790167543176.png */}
       <div className="w-full bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-2xl shadow-xl shadow-black/10 border border-white/60 px-4 sm:px-6 h-[72px] sm:h-20 flex items-center justify-between transition-all">
         
@@ -58,7 +64,11 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
               >
                 {link.name}
                 {isActive && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-[3px] bg-[#E50914] rounded-full" />
+                  <motion.span
+                    layoutId="navbar-active-indicator"
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-[3px] bg-[#E50914] rounded-full"
+                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                  />
                 )}
               </a>
             );
@@ -120,13 +130,15 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
           </a>
 
           {/* Red Pill CTA Button (From Reference Crop) */}
-          <button
+          <motion.button
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.96 }}
             onClick={onOpenQuote}
-            className="group relative inline-flex items-center gap-2 bg-[#E50914] hover:bg-[#DC2626] text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-full shadow-md shadow-red-600/30 active:scale-95 transition-all duration-200"
+            className="group relative inline-flex items-center gap-2 bg-[#E50914] hover:bg-[#DC2626] text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-full shadow-md shadow-red-600/30 transition-all duration-200"
           >
             <span>Get a Quote</span>
             <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
-          </button>
+          </motion.button>
         </div>
 
         {/* Mobile Hamburger Button */}
@@ -193,6 +205,6 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
           </div>
         </div>
       )}
-    </header>
+    </motion.header>
   );
 }

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { ArrowRight, ChevronLeft, ChevronRight, MapPin, Plus } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface ProjectsExactProps {
   onOpenQuote: () => void;
@@ -58,9 +59,14 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
     <section id="projects" className="w-full bg-white py-10 sm:py-14">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* The Signature Dark Projects Container Card from Mockup */}
-        <div className="bg-[#111827] text-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl relative border border-slate-800">
-          
+        {/* The Signature Dark Projects Container Card from Mockup with Reveal */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="bg-[#111827] text-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl relative border border-slate-800"
+        >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
             {/* Left Info Column (3.5 cols) */}
@@ -79,13 +85,15 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
               </div>
 
               <div>
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={onOpenQuote}
-                  className="inline-flex items-center gap-2 bg-[#DC2626] hover:bg-[#B91C1C] text-white text-xs font-semibold px-4 py-2.5 rounded-full transition-all duration-200 shadow-md shadow-red-600/30 active:scale-95"
+                  className="inline-flex items-center gap-2 bg-[#DC2626] hover:bg-[#B91C1C] text-white text-xs font-semibold px-4 py-2.5 rounded-full transition-all duration-200 shadow-md shadow-red-600/30"
                 >
                   <span>View All Projects</span>
                   <ArrowRight className="w-3.5 h-3.5" />
-                </button>
+                </motion.button>
               </div>
             </div>
 
@@ -95,27 +103,32 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
               <div className="flex items-center justify-end gap-2 mb-4">
                 <button
                   onClick={handlePrev}
-                  className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors"
+                  className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors active:scale-90"
                   aria-label="Previous Project"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
                 <button
                   onClick={handleNext}
-                  className="w-8 h-8 rounded-full bg-[#DC2626] hover:bg-[#B91C1C] text-white flex items-center justify-center transition-colors"
+                  className="w-8 h-8 rounded-full bg-[#DC2626] hover:bg-[#B91C1C] text-white flex items-center justify-center transition-colors active:scale-90 shadow-md shadow-red-600/20"
                   aria-label="Next Project"
                 >
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
 
-              {/* 4 Projects Grid / Horizontal View */}
+              {/* 4 Projects Grid / Horizontal View with Stagger & Interactive Hover */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {projects.map((proj, idx) => (
-                  <div
+                  <motion.div
                     key={proj.id}
+                    initial={{ opacity: 0, y: 25 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1, duration: 0.5 }}
+                    whileHover={{ y: -6 }}
                     onClick={onOpenQuote}
-                    className="group cursor-pointer bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-slate-700 transition-all duration-300 flex flex-col"
+                    className="group cursor-pointer bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-slate-700 transition-all duration-300 flex flex-col shadow-lg"
                   >
                     {/* Project Photo */}
                     <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-800">
@@ -123,12 +136,12 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                         src={proj.image}
                         alt={proj.title}
                         fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="object-cover group-hover:scale-110 transition-transform duration-700"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
                       
                       {/* Plus Action Button on bottom right of photo */}
-                      <div className="absolute bottom-2.5 right-2.5 w-7 h-7 rounded-full bg-white/20 backdrop-blur-md group-hover:bg-[#DC2626] group-hover:text-white text-white flex items-center justify-center transition-colors">
+                      <div className="absolute bottom-2.5 right-2.5 w-7 h-7 rounded-full bg-white/20 backdrop-blur-md group-hover:bg-[#DC2626] group-hover:text-white text-white flex items-center justify-center transition-all duration-300 group-hover:rotate-90">
                         <Plus className="w-4 h-4" />
                       </div>
                     </div>
@@ -145,7 +158,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
 
@@ -153,7 +166,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
 
           </div>
 
-        </div>
+        </motion.div>
 
       </div>
     </section>

@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { ArrowRight, Home, Building2, Hammer, Compass, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface ServicesExactProps {
   onOpenQuote: () => void;
@@ -48,7 +49,13 @@ export default function ServicesExact({ onOpenQuote }: ServicesExactProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 items-stretch pt-4">
           
           {/* Header Block / Column 1 */}
-          <div className="lg:col-span-1 flex flex-col justify-between py-2 pr-2">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-1 flex flex-col justify-between py-2 pr-2"
+          >
             <div>
               <span className="text-[11px] font-bold tracking-[0.2em] text-[#DC2626] uppercase block mb-2">
                 OUR SERVICES
@@ -71,21 +78,26 @@ export default function ServicesExact({ onOpenQuote }: ServicesExactProps) {
                 <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
               </button>
             </div>
-          </div>
+          </motion.div>
 
           {/* 4 Service Cards */}
-          {services.map((item) => {
+          {services.map((item, idx) => {
             const Icon = item.icon;
             return (
-              <div
+              <motion.div
                 key={item.id}
+                initial={{ opacity: 0, y: 35 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.12, duration: 0.6, ease: "easeOut" }}
+                whileHover={{ y: -8, boxShadow: "0 20px 35px -10px rgba(0,0,0,0.12)" }}
                 onClick={onOpenQuote}
-                className="group cursor-pointer bg-white rounded-2xl border border-gray-100 p-5 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                className="group cursor-pointer bg-white rounded-2xl border border-gray-100 p-5 shadow-sm transition-all duration-300 flex flex-col justify-between"
               >
                 {/* Top: Icon + Title + Subtitle */}
                 <div>
-                  <div className="w-9 h-9 rounded-lg flex items-center justify-center text-[#DC2626] mb-3">
-                    <Icon className="w-6 h-6 stroke-[1.75]" />
+                  <div className="w-10 h-10 rounded-xl bg-red-50/60 group-hover:bg-red-50 flex items-center justify-center text-[#DC2626] mb-3 transition-colors">
+                    <Icon className="w-5 h-5 stroke-[1.8] group-hover:scale-110 transition-transform duration-300" />
                   </div>
                   <h3 className="text-sm font-bold text-slate-900 group-hover:text-[#DC2626] transition-colors leading-snug">
                     {item.title}
@@ -101,13 +113,13 @@ export default function ServicesExact({ onOpenQuote }: ServicesExactProps) {
                     src={item.image}
                     alt={item.title}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover group-hover:scale-108 transition-transform duration-500"
                   />
                   <div className="absolute bottom-2.5 right-2.5 w-6 h-6 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-slate-800 shadow-sm group-hover:bg-[#DC2626] group-hover:text-white transition-colors">
                     <ChevronRight className="w-3.5 h-3.5" />
                   </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
 
