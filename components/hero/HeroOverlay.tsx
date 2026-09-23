@@ -4,7 +4,18 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ConstructionStage, HeroContent } from "@/types/hero";
-import { ArrowRight, Phone, Sparkles, Compass, ShieldCheck, Layers, Eye } from "lucide-react";
+import {
+  ArrowRight,
+  Phone,
+  Sparkles,
+  Compass,
+  ShieldCheck,
+  Layers,
+  Maximize2,
+  Minimize2,
+  Info,
+  Sliders
+} from "lucide-react";
 
 interface HeroOverlayProps {
   hero: HeroContent;
@@ -13,6 +24,10 @@ interface HeroOverlayProps {
   onOpenExplorer: () => void;
   isBlueprintMode: boolean;
   onToggleBlueprintMode: () => void;
+  isHotspotsVisible: boolean;
+  onToggleHotspots: () => void;
+  isCinemaMode: boolean;
+  onToggleCinemaMode: () => void;
 }
 
 export default function HeroOverlay({
@@ -22,11 +37,31 @@ export default function HeroOverlay({
   onOpenExplorer,
   isBlueprintMode,
   onToggleBlueprintMode,
+  isHotspotsVisible,
+  onToggleHotspots,
+  isCinemaMode,
+  onToggleCinemaMode,
 }: HeroOverlayProps) {
   const isFinalStage = currentStage?.order === 12;
 
+  // If Cinema Mode is active, show only a floating exit button
+  if (isCinemaMode) {
+    return (
+      <div className="relative z-30 flex justify-end p-6 pointer-events-none">
+        <button
+          onClick={onToggleCinemaMode}
+          className="pointer-events-auto px-4 py-2 rounded-2xl glass-pill border border-white/20 text-white font-mono text-xs flex items-center space-x-2 shadow-2xl hover:bg-slate-900 transition-all active:scale-95"
+          title="Exit Fullscreen Cinema Mode"
+        >
+          <Minimize2 className="h-4 w-4 text-red-500" />
+          <span>EXIT CINEMA</span>
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <div className="relative z-20 flex flex-col justify-between h-full min-h-[92vh] p-4 sm:p-8 md:p-10 pointer-events-none">
+    <div className="relative z-20 flex flex-col justify-between h-full min-h-[92vh] p-4 sm:p-8 md:p-10 pointer-events-none transition-opacity duration-500">
       {/* 1. TOP ARCHITECTURAL HUD NAVBAR */}
       <nav className="pointer-events-auto flex items-center justify-between w-full max-w-7xl mx-auto glass-hud px-5 py-3 rounded-2xl shadow-2xl">
         {/* Brand Logo: Official Jancy Builders Logo */}
@@ -43,15 +78,15 @@ export default function HeroOverlay({
         </Link>
 
         {/* Minimalist Navigation */}
-        <div className="hidden lg:flex items-center space-x-7 text-[11px] font-mono tracking-widest text-slate-300 uppercase">
+        <div className="hidden lg:flex items-center space-x-6 text-[11px] font-mono tracking-widest text-slate-300 uppercase">
           <Link href="#timelapse" className="hover:text-red-400 transition-colors flex items-center space-x-1">
             <span className="text-red-500 font-bold">01</span>
             <span>TIMELAPSE</span>
           </Link>
-          <button onClick={onOpenExplorer} className="hover:text-sky-400 transition-colors flex items-center space-x-1 uppercase">
+          <Link href="#stages-filmstrip" className="hover:text-sky-400 transition-colors flex items-center space-x-1">
             <span className="text-sky-400 font-bold">02</span>
-            <span>BLUEPRINTS</span>
-          </button>
+            <span>12 PHASES</span>
+          </Link>
           <Link href="#projects" className="hover:text-red-400 transition-colors flex items-center space-x-1">
             <span className="text-red-500 font-bold">03</span>
             <span>PORTFOLIO</span>
@@ -69,32 +104,46 @@ export default function HeroOverlay({
           </Link>
         </div>
 
-        {/* Top Right Quick Actions: Blueprint Mode Toggle & Quote Button */}
-        <div className="flex items-center space-x-2.5">
+        {/* Top Right Quick Actions */}
+        <div className="flex items-center space-x-2">
+          {/* Hotspots Pin Toggle */}
+          <button
+            onClick={onToggleHotspots}
+            className={`px-2.5 py-1.5 rounded-xl border text-[11px] font-mono tracking-wider flex items-center space-x-1 transition-all ${
+              isHotspotsVisible
+                ? "bg-red-500/20 border-red-500 text-red-300 shadow-[0_0_12px_rgba(229,9,20,0.4)]"
+                : "bg-slate-900/60 border-white/10 text-slate-400 hover:text-slate-200"
+            }`}
+            title="Toggle Structural Blueprint Pins"
+          >
+            <Info className="h-3.5 w-3.5" />
+            <span className="hidden xl:inline">{isHotspotsVisible ? "PINS: ON" : "HOTSPOTS"}</span>
+          </button>
+
           {/* Blueprint X-Ray Toggle */}
           <button
             onClick={onToggleBlueprintMode}
-            className={`px-3 py-1.5 rounded-xl border text-[11px] font-mono tracking-wider flex items-center space-x-1.5 transition-all ${
+            className={`px-2.5 py-1.5 rounded-xl border text-[11px] font-mono tracking-wider flex items-center space-x-1 transition-all ${
               isBlueprintMode
-                ? "bg-sky-500/20 border-sky-400 text-sky-300 shadow-[0_0_15px_rgba(56,189,248,0.4)]"
+                ? "bg-sky-500/20 border-sky-400 text-sky-300 shadow-[0_0_12px_rgba(56,189,248,0.4)]"
                 : "bg-slate-900/60 border-white/10 text-slate-400 hover:text-slate-200"
             }`}
             title="Toggle CAD Holographic Blueprint Overlay"
           >
             <Layers className="h-3.5 w-3.5" />
-            <span className="hidden sm:inline">{isBlueprintMode ? "CAD BLUEPRINT: ON" : "CAD X-RAY"}</span>
+            <span className="hidden xl:inline">{isBlueprintMode ? "CAD: ON" : "CAD X-RAY"}</span>
           </button>
 
-          {/* Call button */}
-          <a
-            href="tel:+919876543210"
-            className="hidden xl:flex items-center space-x-1.5 text-[11px] font-mono text-slate-300 hover:text-white px-3 py-1.5 rounded-xl bg-slate-900/60 border border-white/10 transition-colors"
+          {/* Cinema Mode Toggle */}
+          <button
+            onClick={onToggleCinemaMode}
+            className="p-1.5 rounded-xl bg-slate-900/60 hover:bg-slate-800 border border-white/10 text-slate-300 hover:text-white transition-colors"
+            title="Enter Fullscreen Cinema Mode"
           >
-            <Phone className="h-3.5 w-3.5 text-red-500" />
-            <span>+91 98765 43210</span>
-          </a>
+            <Maximize2 className="h-3.5 w-3.5 text-slate-300" />
+          </button>
 
-          {/* Premium CTA Button with Brand Red Gradient */}
+          {/* Premium CTA Button */}
           <button
             onClick={onOpenQuote}
             className="px-4 py-2 rounded-xl btn-brand-primary text-white font-bold text-xs tracking-wider uppercase transition-all active:scale-95 flex items-center space-x-1.5"
@@ -110,7 +159,7 @@ export default function HeroOverlay({
         <div className="flex items-center space-x-3 text-[10px] font-mono text-slate-400 tracking-widest">
           <span className="flex items-center space-x-1 text-sky-400">
             <span className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
-            <span>LAT 13.0827°N, LON 80.2707°E</span>
+            <span>GEO-LOC: 13.0827°N, 80.2707°E</span>
           </span>
           <span className="text-slate-600">|</span>
           <span>ELEV: +12.4m AMSL</span>
@@ -128,7 +177,7 @@ export default function HeroOverlay({
         </div>
       </div>
 
-      {/* 3. BOTTOM-LEFT EDITORIAL TYPOGRAPHY (UNOBSTRUCTED HERO VIEW) */}
+      {/* 3. BOTTOM-LEFT EDITORIAL TYPOGRAPHY */}
       <div className="w-full max-w-4xl mx-auto md:mx-0 my-auto md:my-0 md:mt-auto pt-8 pb-4 text-left pointer-events-none">
         {/* Stage Milestone Badge */}
         <div className="pointer-events-auto inline-flex items-center space-x-2.5 px-3 py-1 rounded-full glass-hud border border-white/10 text-xs font-mono tracking-widest uppercase mb-3 shadow-xl">
@@ -145,7 +194,6 @@ export default function HeroOverlay({
 
         {/* Headline */}
         {isFinalStage ? (
-          /* Final Stage Celebratory Brand Showcase */
           <div className="animate-in fade-in duration-700">
             <div className="inline-flex items-center space-x-2 text-amber-400 text-xs font-mono uppercase tracking-widest mb-2 font-bold">
               <Sparkles className="h-4 w-4" />
@@ -165,7 +213,6 @@ export default function HeroOverlay({
             </p>
           </div>
         ) : (
-          /* Progressive Stage Editorial Headline */
           <div className="transition-all duration-700">
             <p className="text-xs sm:text-sm font-bold tracking-[0.25em] uppercase text-red-500 mb-1 font-mono flex items-center space-x-2">
               <span>{hero.companyName}</span>

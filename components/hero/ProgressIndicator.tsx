@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { ConstructionStage } from "@/types/hero";
-import { Play, Pause, ChevronLeft, ChevronRight, Layers, Sliders, Maximize2 } from "lucide-react";
+import { Play, Pause, ChevronLeft, ChevronRight, Layers, Sliders, Gauge } from "lucide-react";
 
 interface ProgressIndicatorProps {
   stages: ConstructionStage[];
@@ -14,9 +14,11 @@ interface ProgressIndicatorProps {
   isPlaying: boolean;
   onTogglePlay: () => void;
   onOpenExplorer: () => void;
-  progressPercent: number; // 0 to 100 within current stage
+  progressPercent: number;
   isScrollMode?: boolean;
   onToggleScrollMode?: () => void;
+  playbackSpeed?: number;
+  onChangeSpeed?: (speed: number) => void;
 }
 
 export default function ProgressIndicator({
@@ -31,15 +33,18 @@ export default function ProgressIndicator({
   progressPercent,
   isScrollMode = false,
   onToggleScrollMode,
+  playbackSpeed = 1,
+  onChangeSpeed,
 }: ProgressIndicatorProps) {
   const [hoveredStageIdx, setHoveredStageIdx] = useState<number | null>(null);
 
   const currentStage = stages[currentStageIndex] || stages[0];
 
-  // Circular progress calculations
   const radius = 18;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (progressPercent / 100) * circumference;
+
+  const speeds = [0.5, 1, 2];
 
   return (
     <div className="relative z-30 w-full max-w-5xl mx-auto px-4 pb-6">
@@ -62,7 +67,6 @@ export default function ProgressIndicator({
                 className="relative p-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-white transition-all active:scale-95 border border-white/10 group"
                 title={isPlaying ? "Pause Construction Timelapse" : "Play Construction Timelapse"}
               >
-                {/* Mini circular progress ring around play button */}
                 <svg className="absolute inset-0 h-full w-full -rotate-90 pointer-events-none p-0.5" viewBox="0 0 44 44">
                   <circle
                     cx="22"
@@ -101,6 +105,25 @@ export default function ProgressIndicator({
               >
                 <ChevronRight className="h-4 w-4" />
               </button>
+
+              {/* Speed Toggles */}
+              {onChangeSpeed && (
+                <div className="hidden sm:flex items-center space-x-1 pl-1">
+                  {speeds.map((s) => (
+                    <button
+                      key={s}
+                      onClick={() => onChangeSpeed(s)}
+                      className={`px-1.5 py-0.5 rounded text-[10px] font-mono transition-colors ${
+                        playbackSpeed === s
+                          ? "bg-red-600 text-white font-bold"
+                          : "text-slate-500 hover:text-slate-300"
+                      }`}
+                    >
+                      {s}x
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Current Stage Display */}
@@ -108,7 +131,7 @@ export default function ProgressIndicator({
               <span className="text-xs text-red-500 font-bold tracking-wider">
                 {currentStage?.stageNumber}/12
               </span>
-              <span className="text-xs text-slate-200 font-semibold truncate max-w-[130px] sm:max-w-[180px]">
+              <span className="text-xs text-slate-200 font-semibold truncate max-w-[120px] sm:max-w-[170px]">
                 {currentStage?.name}
               </span>
             </div>
@@ -117,7 +140,6 @@ export default function ProgressIndicator({
           {/* Center: Stage Milestone Track Dots */}
           <div className="flex-1 w-full md:px-6">
             <div className="relative flex justify-between items-center py-1">
-              {/* Background connecting track */}
               <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 bg-slate-800/80 rounded-full" />
               <div
                 className="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-gradient-to-r from-red-600 via-sky-400 to-amber-400 rounded-full transition-all duration-300"
@@ -126,7 +148,6 @@ export default function ProgressIndicator({
                 }}
               />
 
-              {/* 12 Interactive Stage Dots */}
               {stages.map((stage, idx) => {
                 const isActive = idx === currentStageIndex;
                 const isPast = idx < currentStageIndex;
@@ -151,7 +172,6 @@ export default function ProgressIndicator({
                       {isActive && <div className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />}
                     </div>
 
-                    {/* Popover Thumbnail Card */}
                     {hoveredStageIdx === idx && (
                       <div className="absolute bottom-9 -left-20 z-50 w-48 rounded-xl overflow-hidden glass-hud p-2.5 pointer-events-none shadow-2xl border border-red-500/30 animate-in fade-in zoom-in-95 duration-200">
                         <div className="relative h-24 w-full rounded-lg overflow-hidden mb-2 bg-slate-900">
@@ -178,18 +198,17 @@ export default function ProgressIndicator({
               })}
             </div>
 
-              {/* Milestone Summary Names */}
-              <div className="flex justify-between items-center text-[9px] font-mono text-slate-400 tracking-wider pt-1">
-                <span className={currentStageIndex >= 0 ? "text-red-400 font-bold" : ""}>01 LAND</span>
-                <span className={currentStageIndex >= 2 ? "text-sky-400 font-bold" : ""}>03 FOUNDATION</span>
-                <span className={currentStageIndex >= 4 ? "text-slate-200 font-bold" : ""}>05 STRUCTURE</span>
-                <span className={currentStageIndex >= 5 ? "text-red-400 font-bold" : ""}>06 WALLS</span>
-                <span className={currentStageIndex >= 8 ? "text-sky-400 font-bold" : ""}>09 INTERIOR</span>
-                <span className={currentStageIndex >= 11 ? "text-amber-400 font-bold" : ""}>12 FINISHED</span>
-              </div>
+            <div className="flex justify-between items-center text-[9px] font-mono text-slate-400 tracking-wider pt-1">
+              <span className={currentStageIndex >= 0 ? "text-red-400 font-bold" : ""}>01 LAND</span>
+              <span className={currentStageIndex >= 2 ? "text-sky-400 font-bold" : ""}>03 FOUNDATION</span>
+              <span className={currentStageIndex >= 4 ? "text-slate-200 font-bold" : ""}>05 STRUCTURE</span>
+              <span className={currentStageIndex >= 5 ? "text-red-400 font-bold" : ""}>06 WALLS</span>
+              <span className={currentStageIndex >= 8 ? "text-sky-400 font-bold" : ""}>09 INTERIOR</span>
+              <span className={currentStageIndex >= 11 ? "text-amber-400 font-bold" : ""}>12 FINISHED</span>
+            </div>
           </div>
 
-          {/* Right: Scroll Mode & Detailed Explorer Button */}
+          {/* Right: Actions */}
           <div className="hidden lg:flex items-center space-x-2">
             {onToggleScrollMode && (
               <button

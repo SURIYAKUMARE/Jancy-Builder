@@ -5,6 +5,9 @@ import { HeroConfig } from "@/types/hero";
 import HeroTimelapse from "@/components/hero/HeroTimelapse";
 import HeroOverlay from "@/components/hero/HeroOverlay";
 import ProgressIndicator from "@/components/hero/ProgressIndicator";
+import HouseHotspots from "@/components/hero/HouseHotspots";
+import StickyMiniPlayer from "@/components/hero/StickyMiniPlayer";
+import BeforeAfterSlider from "@/components/hero/BeforeAfterSlider";
 import ScrollTimelapseSection from "@/components/hero/ScrollTimelapseSection";
 import StageFilmstripSection from "@/components/sections/StageFilmstripSection";
 import StageExplorerModal from "@/components/stages/StageExplorerModal";
@@ -24,11 +27,14 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
   const [isPlaying, setIsPlaying] = useState<boolean>(initialConfig.settings.autoplay);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [progressPercent, setProgressPercent] = useState<number>(0);
+  const [playbackSpeed, setPlaybackSpeed] = useState<number>(1);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState<boolean>(false);
   const [isExplorerModalOpen, setIsExplorerModalOpen] = useState<boolean>(false);
   const [explorerInitialIdx, setExplorerInitialIdx] = useState<number>(0);
   const [isScrollModeActive, setIsScrollModeActive] = useState<boolean>(false);
   const [isBlueprintMode, setIsBlueprintMode] = useState<boolean>(false);
+  const [isHotspotsVisible, setIsHotspotsVisible] = useState<boolean>(false);
+  const [isCinemaMode, setIsCinemaMode] = useState<boolean>(false);
 
   const activeStages = config.stages.filter((s) => s.active);
   const currentStage = activeStages[currentStageIndex] || activeStages[0];
@@ -46,11 +52,11 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
       .catch((err) => console.log("Using initial static config:", err));
   }, []);
 
-  // Timer loop for autoplay timelapse
+  // Timer loop for autoplay timelapse respecting playbackSpeed
   useEffect(() => {
     if (!isPlaying || isHovered || activeStages.length === 0) return;
 
-    const stageDurationSeconds = currentStage?.duration || config.settings.defaultDuration || 5;
+    const stageDurationSeconds = (currentStage?.duration || config.settings.defaultDuration || 5) / playbackSpeed;
     const intervalMs = 50;
     const stepIncrement = 100 / ((stageDurationSeconds * 1000) / intervalMs);
 
@@ -65,9 +71,8 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
     }, intervalMs);
 
     return () => clearInterval(timer);
-  }, [isPlaying, isHovered, currentStageIndex, currentStage, activeStages.length, config.settings.defaultDuration]);
+  }, [isPlaying, isHovered, currentStageIndex, currentStage, activeStages.length, config.settings.defaultDuration, playbackSpeed]);
 
-  // Stage navigation handlers
   const handleSelectStage = (idx: number) => {
     setCurrentStageIndex(idx);
     setProgressPercent(0);
@@ -100,8 +105,7 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
     }
   };
 
-  const handleSelectAndJumpToHero = (index: number) => {
-    handleSelectStage(index);
+  const handleScrollToHero = () => {
     const heroElem = document.getElementById("timelapse");
     if (heroElem) {
       heroElem.scrollIntoView({ behavior: "smooth" });
@@ -136,6 +140,9 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
           />
         </div>
 
+        {/* Interactive Architectural House Hotspots Layer */}
+        <HouseHotspots isVisible={isHotspotsVisible && !isCinemaMode} />
+
         {/* Foreground Content & Navigation HUD */}
         <HeroOverlay
           hero={config.hero}
@@ -144,32 +151,43 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
           onOpenExplorer={() => handleOpenExplorer(currentStageIndex)}
           isBlueprintMode={isBlueprintMode}
           onToggleBlueprintMode={() => setIsBlueprintMode((prev) => !prev)}
+          isHotspotsVisible={isHotspotsVisible}
+          onToggleHotspots={() => setIsHotspotsVisible((prev) => !prev)}
+          isCinemaMode={isCinemaMode}
+          onToggleCinemaMode={() => setIsCinemaMode((prev) => !prev)}
         />
 
         {/* Bottom Floating Island Glass Capsule Progress Dock */}
-        <ProgressIndicator
-          stages={activeStages}
-          currentStageIndex={currentStageIndex}
-          onSelectStage={handleSelectStage}
-          onPrevStage={handlePrevStage}
-          onNextStage={handleNextStage}
-          isPlaying={isPlaying}
-          onTogglePlay={handleTogglePlay}
-          onOpenExplorer={() => handleOpenExplorer(currentStageIndex)}
-          progressPercent={progressPercent}
-          isScrollMode={isScrollModeActive}
-          onToggleScrollMode={handleToggleScrollMode}
-        />
+        {!isCinemaMode && (
+          <ProgressIndicator
+            stages={activeStages}
+            currentStageIndex={currentStageIndex}
+            onSelectStage={handleSelectStage}
+            onPrevStage={handlePrevStage}
+            onNextStage={handleNextStage}
+            isPlaying={isPlaying}
+            onTogglePlay={handleTogglePlay}
+            onOpenExplorer={() => handleOpenExplorer(currentStageIndex)}
+            progressPercent={progressPercent}
+            isScrollMode={isScrollModeActive}
+            onToggleScrollMode={handleToggleScrollMode}
+            playbackSpeed={playbackSpeed}
+            onChangeSpeed={(spd) => setPlaybackSpeed(spd)}
+          />
+        )}
       </section>
 
-      {/* 2. THE 12-STAGE ARCHITECTURAL FILMSTRIP SECTION */}
+      {/* 2. INTERACTIVE BEFORE / AFTER SLIDER */}
+      <BeforeAfterSlider />
+
+      {/* 3. THE 12-STAGE ARCHITECTURAL FILMSTRIP SECTION */}
       <StageFilmstripSection
         stages={activeStages}
-        onSelectAndJumpToHero={handleSelectAndJumpToHero}
+        onSelectAndJumpToHero={handleSelectStage}
         onOpenExplorer={(idx) => handleOpenExplorer(idx)}
       />
 
-      {/* 3. SCROLL-BASED CINEMATIC TIMELAPSE SECTION */}
+      {/* 4. SCROLL-BASED CINEMATIC TIMELAPSE SECTION */}
       {config.settings.scrollAnimation && (
         <ScrollTimelapseSection
           stages={activeStages}
@@ -178,19 +196,29 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
         />
       )}
 
-      {/* 4. FEATURED ARCHITECTURAL MASTERPIECES */}
+      {/* 5. FEATURED ARCHITECTURAL MASTERPIECES */}
       <ProjectsSection onOpenQuote={() => setIsQuoteModalOpen(true)} />
 
-      {/* 5. INTERACTIVE TURNKEY COST ESTIMATOR 2.0 */}
+      {/* 6. INTERACTIVE TURNKEY COST ESTIMATOR 2.0 */}
       <EstimatorSection onOpenQuote={() => setIsQuoteModalOpen(true)} />
 
-      {/* 6. ENGINEERING RIGOR & QUALITY ASSURANCE */}
+      {/* 7. ENGINEERING RIGOR & QUALITY ASSURANCE */}
       <EngineeringPillars />
 
-      {/* 7. MONUMENTAL LUXURY FOOTER & CREDENTIALS */}
+      {/* 8. MONUMENTAL LUXURY FOOTER & CREDENTIALS */}
       <Footer onOpenQuote={() => setIsQuoteModalOpen(true)} />
 
-      {/* 8. MODALS */}
+      {/* 9. FLOATING STICKY MINI-PLAYER (APPEARS ON SCROLL) */}
+      <StickyMiniPlayer
+        stages={activeStages}
+        currentStageIndex={currentStageIndex}
+        onSelectStage={handleSelectStage}
+        isPlaying={isPlaying}
+        onTogglePlay={handleTogglePlay}
+        onScrollToHero={handleScrollToHero}
+      />
+
+      {/* 10. MODALS */}
       <StageExplorerModal
         isOpen={isExplorerModalOpen}
         onClose={() => setIsExplorerModalOpen(false)}

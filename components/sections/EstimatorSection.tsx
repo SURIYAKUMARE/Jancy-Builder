@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { Calculator, ArrowRight, CheckCircle2, Sparkles, ShieldCheck } from "lucide-react";
+import { Calculator, ArrowRight, CheckCircle2, Sparkles, ShieldCheck, Download, Layers } from "lucide-react";
 
 export default function EstimatorSection({ onOpenQuote }: { onOpenQuote: () => void }) {
-  const [areaSqFt, setAreaSqFt] = useState(4000);
+  const [areaSqFt, setAreaSqFt] = useState(4500);
   const [tier, setTier] = useState<"standard" | "premium" | "luxury">("luxury");
   const [projectType, setProjectType] = useState("Luxury Villa");
 
@@ -18,6 +18,12 @@ export default function EstimatorSection({ onOpenQuote }: { onOpenQuote: () => v
   const formattedEstimateCrores = (estimatedTotal / 10000000).toFixed(2);
   const formattedEstimateLakhs = Math.round(estimatedTotal / 100000);
 
+  // Cost Allocation Breakdown
+  const civilCost = (estimatedTotal * 0.45) / 100000; // Lakhs
+  const mepCost = (estimatedTotal * 0.20) / 100000;
+  const finishCost = (estimatedTotal * 0.25) / 100000;
+  const facadeCost = (estimatedTotal * 0.10) / 100000;
+
   return (
     <section id="estimator" className="py-24 bg-[#05080E] border-t border-white/5 relative">
       <div className="max-w-7xl mx-auto px-6">
@@ -30,15 +36,15 @@ export default function EstimatorSection({ onOpenQuote }: { onOpenQuote: () => v
             Interactive Turnkey Cost Estimator
           </h2>
           <p className="mt-3 text-slate-400 text-sm max-w-xl mx-auto leading-relaxed">
-            Configure your dream architectural residence and calculate immediate turnkey budgets including structural framing, MEP services, and luxury finishes.
+            Configure your dream architectural residence and calculate immediate turnkey budgets with comprehensive category breakdown.
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto glass-card-premium rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            {/* Left Controls */}
-            <div className="space-y-6">
-              {/* 1. Project Type Selector */}
+        <div className="max-w-5xl mx-auto glass-card-premium rounded-3xl p-6 sm:p-10 border border-white/10 shadow-2xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* Left Controls (7 cols) */}
+            <div className="lg:col-span-7 space-y-6">
+              {/* 1. Project Type */}
               <div>
                 <label className="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-2">
                   1. Architectural Typology
@@ -114,12 +120,37 @@ export default function EstimatorSection({ onOpenQuote }: { onOpenQuote: () => v
                   ))}
                 </div>
               </div>
+
+              {/* 4. Cost Allocation Distribution Bars */}
+              <div className="pt-2 border-t border-white/5 space-y-2">
+                <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">
+                  Category Cost Distribution Breakdown:
+                </span>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono">
+                  <div className="p-2 rounded-xl bg-slate-950 border border-white/5">
+                    <p className="text-[10px] text-slate-400">Civil & Skeleton</p>
+                    <p className="text-xs font-bold text-white mt-0.5">₹{Math.round(civilCost)}L (45%)</p>
+                  </div>
+                  <div className="p-2 rounded-xl bg-slate-950 border border-white/5">
+                    <p className="text-[10px] text-slate-400">MEP Services</p>
+                    <p className="text-xs font-bold text-sky-400 mt-0.5">₹{Math.round(mepCost)}L (20%)</p>
+                  </div>
+                  <div className="p-2 rounded-xl bg-slate-950 border border-white/5">
+                    <p className="text-[10px] text-slate-400">Interiors & Tiles</p>
+                    <p className="text-xs font-bold text-amber-400 mt-0.5">₹{Math.round(finishCost)}L (25%)</p>
+                  </div>
+                  <div className="p-2 rounded-xl bg-slate-950 border border-white/5">
+                    <p className="text-[10px] text-slate-400">Facade & Landscaping</p>
+                    <p className="text-xs font-bold text-emerald-400 mt-0.5">₹{Math.round(facadeCost)}L (10%)</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Right Result Card */}
-            <div className="bg-slate-950/80 rounded-2xl p-6 sm:p-8 border border-white/10 flex flex-col justify-between space-y-6">
+            {/* Right Summary Card (5 cols) */}
+            <div className="lg:col-span-5 bg-slate-950/90 rounded-2xl p-6 sm:p-7 border border-white/10 flex flex-col justify-between space-y-6 h-full">
               <div>
-                <span className="text-[11px] font-mono uppercase text-slate-400 tracking-widest font-bold">
+                <span className="text-[10px] font-mono uppercase text-slate-400 tracking-widest font-bold">
                   Estimated Turnkey Investment
                 </span>
                 <div className="mt-2">
@@ -135,14 +166,14 @@ export default function EstimatorSection({ onOpenQuote }: { onOpenQuote: () => v
                 </p>
               </div>
 
-              <div className="space-y-2 text-xs font-mono text-slate-300 pt-2 border-t border-white/5">
+              <div className="space-y-2 text-xs font-mono text-slate-300 pt-3 border-t border-white/5">
                 <div className="flex items-center space-x-2 text-emerald-400">
                   <CheckCircle2 className="h-4 w-4 flex-shrink-0" />
-                  <span>Includes Soil Testing, RCC Skeleton & Interior MEP</span>
+                  <span>Soil Testing, RCC Raft & Fe550D TMT</span>
                 </div>
                 <div className="flex items-center space-x-2 text-sky-400">
                   <ShieldCheck className="h-4 w-4 flex-shrink-0" />
-                  <span>100% Guaranteed Handover Timeline or Penalty Clause</span>
+                  <span>100% On-Time Delivery Guarantee</span>
                 </div>
               </div>
 
