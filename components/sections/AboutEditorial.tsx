@@ -13,6 +13,9 @@ import {
   MessageCircle,
   HardHat,
   FileCheck,
+  MapPin,
+  ExternalLink,
+  Sparkles,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -225,11 +228,69 @@ export default function AboutEditorial({ onOpenQuote }: AboutEditorialProps) {
               </div>
             </div>
           </div>
+        </div>
 
+        {/* Active Work Sites Live Bar */}
+        <div className="mt-16 p-6 sm:p-8 rounded-3xl bg-white border border-[#E8DFD1] shadow-xl shadow-black/5">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
+            <div className="flex items-center gap-2.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#B88746]">
+                ACTIVE WORK SITES • TIRUNELVELI DISTRICT
+              </span>
+            </div>
+            <a
+              href="https://www.facebook.com/JancyBuilder/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1877F2] hover:text-[#0e5fc7] transition-colors"
+            >
+              <span>Follow Live Construction on Facebook</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="p-4 rounded-2xl bg-[#F7F4EE]/80 border border-[#E8DFD1]/60">
+              <div className="flex items-center gap-1.5 text-[11px] font-bold text-amber-700 font-mono">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                <span>RCC SLAB POURING</span>
+              </div>
+              <h5 className="text-sm font-bold text-slate-900 mt-1">Durainagar Site</h5>
+              <p className="text-xs text-slate-600 mt-0.5">Mr. Praveen &amp; Naveen Residence</p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-[#F7F4EE]/80 border border-[#E8DFD1]/60">
+              <div className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-700 font-mono">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                <span>POROTHERM BRICKS</span>
+              </div>
+              <h5 className="text-sm font-bold text-slate-900 mt-1">Samugarengapuram Site</h5>
+              <p className="text-xs text-slate-600 mt-0.5">Mr. Srinivas Eco Thermal Villa</p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-[#F7F4EE]/80 border border-[#E8DFD1]/60">
+              <div className="flex items-center gap-1.5 text-[11px] font-bold text-blue-700 font-mono">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                <span>BOOMI POOJA &amp; FOOTING</span>
+              </div>
+              <h5 className="text-sm font-bold text-slate-900 mt-1">Ammachikovil Site</h5>
+              <p className="text-xs text-slate-600 mt-0.5">Samugarengapuram Villa Groundbreaking</p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-[#F7F4EE]/80 border border-[#E8DFD1]/60">
+              <div className="flex items-center gap-1.5 text-[11px] font-bold text-emerald-700 font-mono">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span>COMPLETED HANDOVER</span>
+              </div>
+              <h5 className="text-sm font-bold text-slate-900 mt-1">Silathikulam Site</h5>
+              <p className="text-xs text-slate-600 mt-0.5">Mr. Murugan Residence Handover</p>
+            </div>
+          </div>
         </div>
 
         {/* 4 Stats Grid Bar */}
-        <div className="mt-20 pt-10 border-t border-[#E8DFD1]">
+        <div className="mt-16 pt-10 border-t border-[#E8DFD1]">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {stats.map((s, idx) => (
               <div key={idx} className="p-4 rounded-2xl bg-white/60 border border-[#E8DFD1]/80">

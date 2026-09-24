@@ -39,6 +39,9 @@ interface ProjectItem {
   floors: string;
   timeline: string;
   status: "Completed" | "Under Construction";
+  isLiveWorkSite?: boolean;
+  workStage?: string;
+  fbPostUrl?: string;
   features: string[];
   engineering: string;
   clientStory: string;
@@ -52,124 +55,188 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
 
   const projects: ProjectItem[] = [
     {
-      id: "samugarengapuram-villa",
-      title: "Samugarengapuram Luxury Villa",
+      id: "durainagar-praveen-naveen",
+      title: "Mr. Praveen & Naveen Residence (Durainagar Site)",
+      category: "ongoing",
+      categoryLabel: "Live Work Site • Durainagar",
+      location: "Durainagar, Tirunelveli",
+      image: "/images/projects/site-durainagar-praveen.jpg",
+      area: "2,850 sq.ft",
+      floors: "G+1 Duplex Villa",
+      timeline: "Active Site • 2024",
+      status: "Under Construction",
+      isLiveWorkSite: true,
+      workStage: "RCC Roof Slab Pouring & Framework",
+      fbPostUrl: "https://www.facebook.com/JancyBuilder/videos/jancy-builders-mrpraveen-naveen-homedurainagar-siteer-stalin-antony-a-httpswamec/1478905302834039/",
+      features: [
+        "Mechanized Concrete Boom Placer Slab Pouring",
+        "High-Yield Fe550D TMT Earthquake-Resistant Rebars",
+        "3D Laser-Optical Leveling & Concrete Cover Spacers",
+        "Direct On-Site Supervision by Er. Sahaya Antony Stalin",
+      ],
+      engineering: "Precision-engineered RCC roof slab using IS 456 M25 design mix, needle vibrator compaction, and continuous 28-day water ponding curing for an impervious crack-free structure.",
+      clientStory: "Captured live from our Durainagar site for clients Mr. Praveen & Naveen. This modern duplex features expansive living spaces and earthquake-resistant column-to-beam detailing.",
+    },
+    {
+      id: "samugarengapuram-porotherm-srinivas",
+      title: "Mr. Srinivas Residence (Porotherm Brick Site)",
+      category: "ongoing",
+      categoryLabel: "Eco-Thermal Villa • Samugarengapuram",
+      location: "Samugarengapuram, Tirunelveli",
+      image: "/images/projects/site-samugarengapuram-porotherm.jpg",
+      area: "3,400 sq.ft",
+      floors: "G+1 Thermal Villa",
+      timeline: "Active Site • Precision Brickwork",
+      status: "Under Construction",
+      isLiveWorkSite: true,
+      workStage: "Porotherm Clay Hollow Brick Masonry",
+      fbPostUrl: "https://www.facebook.com/Stalinsaw/posts/%E0%AE%A4%E0%AE%BF%E0%AE%B0%E0%AF%81%E0%AE%B6%E0%AF%8D%E0%AE%B0%E0%AF%80%E0%AE%A8%E0%AE%BF%E0%AE%B5%E0%AE%BE%E0%AE%B8%E0%AF%8D-%E0%AE%85%E0%AE%B5%E0%AE%B0%E0%AF%8D%E0%AE%95%E0%AE%B3%E0%AE%BF%E0%AE%A9%E0%AF%8D-%E0%AE%AA%E0%AF%8B%E0%AE%B0%E0%AF%8B%E0%AE%A4%E0%AF%8B%E0%AE%AE%E0%AF%8D-%E0%AE%AA%E0%AE%BF%E0%AE%B0%E0%AE%BF%E0%AE%95%E0%AF%8D-%E0%AE%AE%E0%AF%82%E0%AE%B2%E0%AE%AE%E0%AF%8D-%E0%AE%95%E0%AE%9F%E0%AF%8D%E0%AE%9F%E0%AE%AA%E0%AF%8D%E0%AE%AA%E0%AE%9F%E0%AF%8D%E0%AE%9F-%E0%AE%B5%E0%AF%80%E0%AE%9F%E0%AE%BF%E0%AE%A9%E0%AF%8D-%E0%AE%B5%E0%AF%87%E0%AE%B2%E0%AF%88-%E0%AE%9A%E0%AE%AE%E0%AF%81%E0%AE%95%E0%AE%B0%E0%AF%86%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%AA/6819041638196279/",
+      features: [
+        "Wienerberger Porotherm Perforated Hollow Clay Bricks",
+        "6°C Cooler Indoor Temperature via Natural Thermal Insulation",
+        "60% Lighter Masonry Reducing Seismic Load on Footings",
+        "Laser-Aligned Thin-Bed Polymer Mortar Bedding",
+      ],
+      engineering: "Constructed with specialized hollow terracotta Porotherm clay blocks for maximum climatic comfort during hot South Indian summers, delivering superior U-values and zero chemical emissions.",
+      clientStory: "திரு.ஶ்ரீநிவாஸ் அவர்களின் போரோதெர்ம் பிரிக் மூலம் கட்டப்பட்ட வீட்டின் வேலை சமுகரெங்கபுரம். Documented from our flagship eco-thermal villa site in Samugarengapuram.",
+    },
+    {
+      id: "ammachikovil-boomi-pooja",
+      title: "Ammachikovil Site (Boomi Pooja & Foundation)",
+      category: "ongoing",
+      categoryLabel: "New Site Inception • Samugarengapuram",
+      location: "Ammachikovil, Samugarengapuram",
+      image: "/images/projects/site-ammachikovil-pooja.jpg",
+      area: "4,100 sq.ft",
+      floors: "G+2 Contemporary Villa",
+      timeline: "Foundation Phase • 2024",
+      status: "Under Construction",
+      isLiveWorkSite: true,
+      workStage: "Boomi Pooja & Isolated Footing Excavation",
+      fbPostUrl: "https://www.facebook.com/Stalinsaw/posts/jancy-builders-new-site-booming-poojasamugarengapuram-ammachikovil-siteerstalin-/25328419630165199/",
+      features: [
+        "Traditional Auspicious Boomi Pooja with Client Family",
+        "Heavy Hydraulic Excavator Footing & Trench Marking",
+        "Laser-Surveyed Grid Alignment & Peg Layout",
+        "Pre-Construction Subterranean Anti-Termite Soil Barrier",
+      ],
+      engineering: "Substructure engineered with isolated pad footings on dense gravel strata (tested SBC 250 kN/m²), anti-corrosive epoxy rebar coating, and M30 grade concrete pedestals.",
+      clientStory: "Ceremonial ground breaking and site inauguration at Ammachikovil, Samugarengapuram. Led personally on site by Er. Sahaya Antony Stalin with the client family.",
+    },
+    {
+      id: "silathikulam-murugan-residence",
+      title: "Mr. Murugan Residence (Silathikulam Site)",
+      category: "residential",
+      categoryLabel: "Turnkey Handover • Silathikulam",
+      location: "Silathikulam, Tirunelveli",
+      image: "/images/projects/site-silathikulam-murugan.jpg",
+      area: "2,650 sq.ft",
+      floors: "G+1 Modern Villa",
+      timeline: "11 Months • Delivered on Time",
+      status: "Completed",
+      isLiveWorkSite: false,
+      workStage: "Completed & Key Handed Over",
+      fbPostUrl: "https://www.facebook.com/JancyBuilder/",
+      features: [
+        "Double-Height Portico with Burma Teakwood Entrance",
+        "Cantilevered Balcony with Frameless Toughened Glass",
+        "Warm Dusk LED Architectural Linear Facade Lighting",
+        "Interlocking Granite Cobblestone Paved Driveway",
+      ],
+      engineering: "Raft foundation design with elastomeric waterproof exterior texture coatings, concealed CPVC plumbing pressure-tested to 15 Bar, and zero maintenance requirements.",
+      clientStory: "Delivered turnkey to Mr. Murugan and family at Silathikulam with zero cost escalations, 100% promised specifications, and certified key handover.",
+    },
+    {
+      id: "kavalkinaru-villa",
+      title: "Kavalkinaru Modern Architectural Villa",
       category: "villas",
-      categoryLabel: "Luxury Villa",
+      categoryLabel: "Modern Villa • Kavalkinaru",
+      location: "Kavalkinaru, Tirunelveli",
+      image: "/images/projects/site-kavalkinaru-villa.jpg",
+      area: "3,800 sq.ft",
+      floors: "G+2 Luxury Duplex",
+      timeline: "12 Months • Completed 2024",
+      status: "Completed",
+      isLiveWorkSite: false,
+      workStage: "Architectural Masterpiece",
+      fbPostUrl: "https://www.facebook.com/JancyBuilder/",
+      features: [
+        "Floating Cantilevered Roof Slab with Soffit Lighting",
+        "Vertical Kiln-Dried Wood Louver Solar Sunshade Screen",
+        "Double-Height Panoramic Living Room Glass Glazing",
+        "Covered Multi-Vehicle Portico & Tropical Garden",
+      ],
+      engineering: "Post-tensioned cantilever beams with sub-millimeter laser optical surveys, acoustic insulated party walls, and rooftop rainwater harvesting recharge pits.",
+      clientStory: "An architectural landmark in Kavalkinaru crafted for expansive cross-ventilation, generous natural light, and serene privacy for a distinguished family.",
+    },
+    {
+      id: "samugarengapuram-villa",
+      title: "Samugarengapuram Signature Luxury Estate",
+      category: "villas",
+      categoryLabel: "Signature Estate • Samugarengapuram",
       location: "Samugarengapuram, Tirunelveli",
       image: "/images/projects/luxury-villa.jpg",
       area: "6,500 sq.ft",
       floors: "G+2 Luxury Villa",
-      timeline: "12 Months • Completed 2024",
+      timeline: "14 Months • Completed 2024",
       status: "Completed",
+      isLiveWorkSite: false,
+      workStage: "Flagship Landmark",
+      fbPostUrl: "https://www.facebook.com/JancyBuilder/",
       features: [
-        "Infinity Swimming Pool with Stone Deck",
         "Italian Statuario Marble Slabs (1600x3200mm)",
-        "KNX Smart Home Automation & Ambient Lighting",
-        "Landscape Lawn with Automated Drip System",
+        "KNX Smart Home Automation & Perimeter Security",
+        "Reflective Water Body & Paved Granite Driveway",
+        "Automated Drip Irrigation & Solar Water Heating",
       ],
       engineering: "Engineered with raft foundation, Fe550D TMT high-ductility rebars, and IS 13920 seismic confinement.",
-      clientStory: "A bespoke residence blending contemporary tropical architecture with ultimate privacy and structural resilience.",
+      clientStory: "Our flagship residential estate in Samugarengapuram blending contemporary luxury with ultimate structural permanence.",
     },
     {
-      id: "vallioor-residence",
-      title: "Vallioor Modern Hillside Home",
-      category: "residential",
-      categoryLabel: "Modern Residence",
-      location: "Vallioor, Tirunelveli",
-      image: "/images/projects/modern-home.jpg",
-      area: "4,200 sq.ft",
-      floors: "G+1 Contemporary Home",
-      timeline: "10 Months • Completed 2023",
-      status: "Completed",
-      features: [
-        "Cantilevered Balconies & Glass Railings",
-        "Canadian Cedar Accent Wall Cladding",
-        "Double-Height Skylight Living Atrium",
-        "Solar Energy Ready & Rainwater Harvesting",
-      ],
-      engineering: "M30 self-compacting concrete, sub-millimeter laser optical surveys, and concealed 3D BIM MEP manifolds.",
-      clientStory: "Designed for seamless natural cross-ventilation and timeless aesthetic appeal for a modern family.",
-    },
-    {
-      id: "tirunelveli-corporate-hub",
-      title: "Skyline Corporate Commercial Landmark",
+      id: "vallioor-commercial-hub",
+      title: "Valliyur Commercial Landmark & Retail Complex",
       category: "commercial",
-      categoryLabel: "Commercial Hub",
-      location: "Tirunelveli High Road",
+      categoryLabel: "Commercial Landmark • Valliyur",
+      location: "Main Road, Valliyur, Tirunelveli",
       image: "/images/projects/office-building.jpg",
-      area: "48,000 sq.ft",
-      floors: "G+5 Commercial Landmark",
-      timeline: "18 Months • Completed 2024",
+      area: "18,500 sq.ft",
+      floors: "G+3 Commercial & Retail Center",
+      timeline: "14 Months • Completed 2024",
       status: "Completed",
+      isLiveWorkSite: false,
+      workStage: "Commercial Complex",
+      fbPostUrl: "https://www.facebook.com/JancyBuilder/",
       features: [
         "Double-Glazed Acoustic Structural Curtain Wall",
-        "High-Efficiency Central VRF HVAC Grid",
-        "100-Vehicle Automated Basement Parking",
-        "100% Power Backup & NFPA Fire Safety System",
+        "Basement Parking & 3-Phase Commercial Power Grid",
+        "High-Speed Passenger Lift & Automatic Generator Backup",
+        "Zero-Maintenance Aluminum Composite Panel Cladding",
       ],
-      engineering: "Post-tensioned beam grid with IS 1892 boreholes anchored to virgin bedrock layers.",
-      clientStory: "A flagship commercial headquarters built to the highest safety and corporate productivity benchmarks.",
+      engineering: "Continuous pile foundation into hard strata with heavy ISMB steel beam supports and fire-resistant emergency exits.",
+      clientStory: "A prime commercial investment property on the main road in Valliyur, hosting high-footfall retail and corporate offices.",
     },
     {
       id: "palayamkottai-apartments",
-      title: "Palayamkottai Elite Apartments",
+      title: "Palayamkottai Elite Residential Enclave",
       category: "residential",
-      categoryLabel: "Multi-Unit Living",
+      categoryLabel: "Multi-Unit Living • Palayamkottai",
       location: "Palayamkottai, Tirunelveli",
       image: "/images/projects/apartment-complex.jpg",
       area: "32,000 sq.ft",
       floors: "G+4 Luxury Apartments (16 Units)",
       timeline: "16 Months • Completed 2023",
       status: "Completed",
+      isLiveWorkSite: false,
+      workStage: "Delivered Enclave",
+      fbPostUrl: "https://www.facebook.com/JancyBuilder/",
       features: [
         "High-Speed Automatic Passenger Elevators",
-        "Rooftop Infinity Community Garden & Gym",
+        "Rooftop Community Garden & Fitness Lounge",
         "Dedicated EV Charging Stations in Stilt Level",
         "24x7 Multi-Tier Biometric & CCTV Security",
       ],
       engineering: "Dual elastomeric polyurethane waterproofing with zero-leakage guarantee and acoustic drain piping.",
       clientStory: "A premium community development providing serene community life in the heart of Tirunelveli.",
-    },
-    {
-      id: "kanyakumari-waterfront-villa",
-      title: "Coastal Horizon Waterfront Estate",
-      category: "villas",
-      categoryLabel: "Oceanfront Villa",
-      location: "Kanyakumari Coast, Tamil Nadu",
-      image: "/images/hero-sunset-villa.jpg",
-      area: "5,850 sq.ft",
-      floors: "G+2 Coastal Villa",
-      timeline: "14 Months • Completed 2024",
-      status: "Completed",
-      features: [
-        "Panoramic Ocean Views from All Master Suites",
-        "Saline-Resistant Marine Architectural Coatings",
-        "Infinity Pool Reflecting Sunset Golden Horizon",
-        "Outdoor Barbecue Lounge & Sunset Deck",
-      ],
-      engineering: "Sulfate-resistant high-grade concrete, 15 Bar pressure-tested plumbing, and IP67 architectural lighting.",
-      clientStory: "Engineered specifically to withstand high coastal humidity and sea winds while delivering unrivaled luxury.",
-    },
-    {
-      id: "coimbatore-estate",
-      title: "Coimbatore Architectural Hillside Estate",
-      category: "ongoing",
-      categoryLabel: "Ongoing Turnkey",
-      location: "Race Course, Coimbatore",
-      image: "/images/stages/stage-11.jpg",
-      area: "7,200 sq.ft",
-      floors: "G+2 Modern Estate",
-      timeline: "Under Construction • Handover Dec 2026",
-      status: "Under Construction",
-      features: [
-        "Central Courtyard with Heritage Water Body",
-        "Private 12-Seat Dolby Atmos Home Cinema",
-        "Zero-Net Energy Ready Solar Integration",
-        "Custom Automated Perimeter Glass Louvers",
-      ],
-      engineering: "Leica Geosystems 3D laser aligned masonry with third-party NABL concrete laboratory testing certificates.",
-      clientStory: "Currently progressing under weekly drone photogrammetry milestone tracking for the homeowner.",
     },
   ];
 
@@ -189,7 +256,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
   // WhatsApp helper for specific project
   const getProjectWhatsappUrl = (p: ProjectItem) => {
     const text = encodeURIComponent(
-      `Hello Er. Sahaya Antony Stalin, I am interested in building a project similar to "${p.title}" (${p.location}, ${p.area}). Please share floor plans, specifications, and turnkey budget details.`
+      `Hello Er. Sahaya Antony Stalin, I reviewed the project "${p.title}" (${p.location}, ${p.area}) from Jancy Builders. Please share detailed floor plans, structural BOQ, and turnkey cost estimate for a similar construction.`
     );
     return `https://wa.me/917708247124?text=${text}`;
   };
@@ -277,11 +344,11 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
         {/* Interactive Filter Tabs */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none">
           {[
-            { id: "all", label: "All Works (6)" },
-            { id: "villas", label: "Luxury Villas" },
-            { id: "residential", label: "Modern Residences" },
-            { id: "commercial", label: "Commercial Landmarks" },
-            { id: "ongoing", label: "Ongoing Construction" },
+            { id: "all", label: `All Works (${projects.length})` },
+            { id: "ongoing", label: `Live Work Sites (${projects.filter(p => p.isLiveWorkSite).length})` },
+            { id: "villas", label: `Luxury Villas (${projects.filter(p => p.category === 'villas').length})` },
+            { id: "residential", label: `Modern Residences (${projects.filter(p => p.category === 'residential').length})` },
+            { id: "commercial", label: `Commercial (${projects.filter(p => p.category === 'commercial').length})` },
           ].map((tab) => {
             const isActive = activeFilter === tab.id;
             return (
@@ -338,20 +405,37 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
 
                     {/* Top Badges */}
                     <div className="absolute top-4 inset-x-4 flex items-center justify-between pointer-events-none">
-                      <span className="text-[10px] font-mono font-bold tracking-wider uppercase px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white">
+                      <span className="text-[10px] font-mono font-bold tracking-wider uppercase px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-white">
                         {project.categoryLabel}
                       </span>
-                      <span
-                        className={`text-[10px] font-mono font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5 backdrop-blur-md ${
-                          project.status === "Completed"
-                            ? "bg-emerald-950/80 border border-emerald-500/40 text-emerald-400"
-                            : "bg-amber-950/80 border border-amber-500/40 text-amber-400"
-                        }`}
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
-                        <span>{project.status}</span>
-                      </span>
+                      {project.isLiveWorkSite ? (
+                        <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5 backdrop-blur-md bg-amber-500/95 border border-amber-300 text-slate-950 shadow-lg shadow-amber-500/25">
+                          <span className="w-2 h-2 rounded-full bg-red-600 animate-ping" />
+                          <span>LIVE WORK SITE</span>
+                        </span>
+                      ) : (
+                        <span
+                          className={`text-[10px] font-mono font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5 backdrop-blur-md ${
+                            project.status === "Completed"
+                              ? "bg-emerald-950/80 border border-emerald-500/40 text-emerald-400"
+                              : "bg-amber-950/80 border border-amber-500/40 text-amber-400"
+                          }`}
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
+                          <span>{project.status}</span>
+                        </span>
+                      )}
                     </div>
+
+                    {/* Bottom Work Stage Ribbon on Image */}
+                    {project.workStage && (
+                      <div className="absolute bottom-3 left-4 right-4 pointer-events-none">
+                        <span className="text-[11px] font-semibold tracking-wide px-3 py-1 rounded-lg bg-black/80 backdrop-blur-md border border-white/15 text-[#E8C59A] inline-flex items-center gap-1.5">
+                          <Sparkles className="w-3 h-3 text-[#E8C59A]" />
+                          <span className="truncate">{project.workStage}</span>
+                        </span>
+                      </div>
+                    )}
 
                     {/* Quick View Button on Image Hover */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/30 backdrop-blur-[2px]">
@@ -388,7 +472,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                 </div>
 
                 {/* Card Footer Action Bar */}
-                <div className="p-6 pt-0 flex items-center justify-between gap-3">
+                <div className="p-6 pt-0 flex items-center justify-between gap-2.5">
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -400,12 +484,27 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
 
+                  {project.fbPostUrl && (
+                    <a
+                      href={project.fbPostUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="w-9 h-9 rounded-full bg-[#1877F2]/20 hover:bg-[#1877F2] text-[#1877F2] hover:text-white border border-[#1877F2]/40 flex items-center justify-center transition-all shadow-md flex-shrink-0"
+                      title="View on Facebook"
+                    >
+                      <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                      </svg>
+                    </a>
+                  )}
+
                   <a
                     href={getProjectWhatsappUrl(project)}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="w-10 h-10 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white flex items-center justify-center transition-colors shadow-md flex-shrink-0"
+                    className="w-9 h-9 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white flex items-center justify-center transition-colors shadow-md flex-shrink-0"
                     title="Enquire on WhatsApp about this project"
                   >
                     <MessageCircle className="w-4 h-4 fill-current" />
@@ -440,17 +539,34 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                       className="object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
-                    <span className="absolute top-4 left-4 text-[10px] font-mono font-bold tracking-wider uppercase px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-white">
-                      {project.categoryLabel}
-                    </span>
+                    
+                    <div className="absolute top-4 inset-x-4 flex items-center justify-between pointer-events-none">
+                      <span className="text-[10px] font-mono font-bold tracking-wider uppercase px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-white">
+                        {project.categoryLabel}
+                      </span>
+                      {project.isLiveWorkSite && (
+                        <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full flex items-center gap-1 backdrop-blur-md bg-amber-500/95 text-slate-950 shadow-md">
+                          <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-ping" />
+                          <span>LIVE</span>
+                        </span>
+                      )}
+                    </div>
+
+                    {project.workStage && (
+                      <div className="absolute bottom-2 left-3 right-3 pointer-events-none">
+                        <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded bg-black/80 backdrop-blur-md border border-white/15 text-[#E8C59A] inline-block truncate max-w-full">
+                          {project.workStage}
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   <div className="p-6">
                     <div className="flex items-center gap-1.5 text-xs text-[#E8C59A] font-medium mb-1">
-                      <MapPin className="w-3.5 h-3.5" />
-                      <span>{project.location}</span>
+                      <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
+                      <span className="truncate">{project.location}</span>
                     </div>
-                    <h3 className="text-lg font-bold text-white group-hover:text-[#E8C59A] transition-colors">
+                    <h3 className="text-lg font-bold text-white group-hover:text-[#E8C59A] transition-colors line-clamp-1">
                       {project.title}
                     </h3>
                     <p className="text-xs text-slate-400 mt-2 line-clamp-2">
@@ -461,10 +577,18 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
 
                 <div className="p-6 pt-0 flex items-center justify-between text-xs border-t border-white/10 pt-4">
                   <span className="font-mono text-[#E8C59A] font-bold">{project.area}</span>
-                  <span className="inline-flex items-center gap-1 text-slate-300 group-hover:text-[#E8C59A] font-bold transition-colors">
-                    <span>Explore</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
+                  <div className="flex items-center gap-2">
+                    {project.fbPostUrl && (
+                      <span className="text-[11px] font-semibold text-[#1877F2] bg-[#1877F2]/10 px-2 py-0.5 rounded-md flex items-center gap-1">
+                        <span>Facebook</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </span>
+                    )}
+                    <span className="inline-flex items-center gap-1 text-slate-300 group-hover:text-[#E8C59A] font-bold transition-colors">
+                      <span>Explore</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -615,8 +739,23 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                     className="w-full sm:flex-1 inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white py-3.5 px-6 rounded-full font-bold text-xs uppercase tracking-wider shadow-lg shadow-[#25D366]/20 transition-all hover:scale-105"
                   >
                     <MessageCircle className="w-4 h-4 fill-current" />
-                    <span>Enquire About Similar Project on WhatsApp</span>
+                    <span>Enquire on WhatsApp</span>
                   </a>
+
+                  {selectedProject.fbPostUrl && (
+                    <a
+                      href={selectedProject.fbPostUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#1877F2] hover:bg-[#166fe5] text-white py-3.5 px-5 rounded-full font-bold text-xs uppercase tracking-wider shadow-lg transition-all"
+                    >
+                      <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                      </svg>
+                      <span>Facebook Post / Video</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  )}
 
                   <button
                     onClick={() => {
@@ -625,7 +764,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                     }}
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#C29061] hover:bg-[#b58354] text-slate-950 py-3.5 px-6 rounded-full font-bold text-xs uppercase tracking-wider transition-all"
                   >
-                    <span>Book Free Site Consultation</span>
+                    <span>Book Free Site Visit</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
