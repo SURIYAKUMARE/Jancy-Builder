@@ -382,9 +382,9 @@ export default function HeroExact({
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.36, duration: 0.7, ease: "easeOut" }}
-            className="flex items-center flex-wrap gap-6 pt-2"
+            className="flex items-center flex-wrap gap-4 sm:gap-6 pt-2"
           >
-            {/* Primary Black Pill Button with upward hover, arrow shift, active scale(0.97) */}
+            {/* Primary Black Pill Button */}
             <motion.button
               whileHover={{
                 y: -2,
@@ -397,34 +397,20 @@ export default function HeroExact({
             >
               {/* Hover light sweep shimmer */}
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
-              <span>Get a Free Quote</span>
+              <span>Start Your Project</span>
               <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
             </motion.button>
 
-            {/* Secondary Circular Play Button + Radiating Radar Pulse */}
-            <motion.button
+            {/* Secondary Outline Button: View Our Projects */}
+            <motion.a
+              href="#projects"
               whileHover={{ y: -2, scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
-              onClick={() => onOpenExplorer(currentStageIndex)}
-              className="inline-flex items-center gap-3.5 group text-left cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/90 hover:bg-white text-slate-900 font-bold text-sm border border-slate-300 shadow-sm hover:shadow-md transition-all duration-200"
             >
-              <div className="relative">
-                {/* Continuous radar pulse ring */}
-                <span className="absolute inset-0 rounded-full bg-[#C29061] animate-ping opacity-25 pointer-events-none" />
-                <div className="relative w-11 h-11 rounded-full bg-white text-slate-950 shadow-md border border-slate-200/80 flex items-center justify-center group-hover:bg-[#C29061] group-hover:text-white group-hover:border-[#C29061] transition-all duration-200 group-hover:shadow-lg">
-                  <Play className="w-4 h-4 fill-current ml-0.5 group-hover:scale-110 transition-transform" />
-                </div>
-              </div>
-
-              <div>
-                <span className="block text-sm font-bold text-slate-900 group-hover:text-[#C29061] transition-colors leading-tight">
-                  Watch Our Story
-                </span>
-                <span className="block text-xs text-slate-400 font-medium leading-tight mt-0.5">
-                  2 min video
-                </span>
-              </div>
-            </motion.button>
+              <span>View Our Projects</span>
+              <ArrowRight className="w-4 h-4 text-[#B88746]" />
+            </motion.a>
           </motion.div>
 
           {/* 4 Stats in Clean Horizontal Row: 650ms delay with viewport trigger */}

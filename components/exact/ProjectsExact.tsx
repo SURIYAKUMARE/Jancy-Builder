@@ -7,243 +7,44 @@ import {
   ChevronLeft,
   ChevronRight,
   MapPin,
-  Building,
-  Calendar,
-  Layers,
   Sparkles,
   CheckCircle2,
   X,
   ExternalLink,
   MessageCircle,
   Eye,
-  SlidersHorizontal,
   Grid3X3,
   Columns,
   Shield,
-  Phone,
+  Layers,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { CANONICAL_PROJECTS, Project } from "@/data/projects-data";
 
 interface ProjectsExactProps {
   onOpenQuote: () => void;
 }
 
-interface ProjectItem {
-  id: string;
-  title: string;
-  category: "all" | "villas" | "residential" | "commercial" | "ongoing";
-  categoryLabel: string;
-  location: string;
-  image: string;
-  area: string;
-  floors: string;
-  timeline: string;
-  status: "Completed" | "Under Construction";
-  isLiveWorkSite?: boolean;
-  workStage?: string;
-  fbPostUrl?: string;
-  features: string[];
-  engineering: string;
-  clientStory: string;
-}
+type FilterType = "all" | "residential" | "commercial" | "completed" | "ongoing";
 
 export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
-  const [activeFilter, setActiveFilter] = useState<"all" | "villas" | "residential" | "commercial" | "ongoing">("all");
+  const [activeFilter, setActiveFilter] = useState<FilterType>("all");
   const [viewMode, setViewMode] = useState<"carousel" | "grid">("carousel");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [modalActiveImage, setModalActiveImage] = useState<string>("");
 
-  const projects: ProjectItem[] = [
-    {
-      id: "durainagar-praveen-naveen",
-      title: "Mr. Praveen & Naveen Residence (Durainagar Site)",
-      category: "ongoing",
-      categoryLabel: "Live Work Site • Durainagar",
-      location: "Durainagar, Tirunelveli",
-      image: "/images/projects/site-durainagar-praveen.jpg",
-      area: "2,850 sq.ft",
-      floors: "G+1 Duplex Villa",
-      timeline: "Active Site • 2024",
-      status: "Under Construction",
-      isLiveWorkSite: true,
-      workStage: "RCC Roof Slab Pouring & Framework",
-      fbPostUrl: "https://www.facebook.com/JancyBuilder/videos/jancy-builders-mrpraveen-naveen-homedurainagar-siteer-stalin-antony-a-httpswamec/1478905302834039/",
-      features: [
-        "Mechanized Concrete Boom Placer Slab Pouring",
-        "High-Yield Fe550D TMT Earthquake-Resistant Rebars",
-        "3D Laser-Optical Leveling & Concrete Cover Spacers",
-        "Direct On-Site Supervision by Er. Sahaya Antony Stalin",
-      ],
-      engineering: "Precision-engineered RCC roof slab using IS 456 M25 design mix, needle vibrator compaction, and continuous 28-day water ponding curing for an impervious crack-free structure.",
-      clientStory: "Captured live from our Durainagar site for clients Mr. Praveen & Naveen. This modern duplex features expansive living spaces and earthquake-resistant column-to-beam detailing.",
-    },
-    {
-      id: "samugarengapuram-porotherm-srinivas",
-      title: "Mr. Srinivas Residence (Porotherm Brick Site)",
-      category: "ongoing",
-      categoryLabel: "Eco-Thermal Villa • Samugarengapuram",
-      location: "Samugarengapuram, Tirunelveli",
-      image: "/images/projects/site-samugarengapuram-porotherm.jpg",
-      area: "3,400 sq.ft",
-      floors: "G+1 Thermal Villa",
-      timeline: "Active Site • Precision Brickwork",
-      status: "Under Construction",
-      isLiveWorkSite: true,
-      workStage: "Porotherm Clay Hollow Brick Masonry",
-      fbPostUrl: "https://www.facebook.com/Stalinsaw/posts/%E0%AE%A4%E0%AE%BF%E0%AE%B0%E0%AF%81%E0%AE%B6%E0%AF%8D%E0%AE%B0%E0%AF%80%E0%AE%A8%E0%AE%BF%E0%AE%B5%E0%AE%BE%E0%AE%B8%E0%AF%8D-%E0%AE%85%E0%AE%B5%E0%AE%B0%E0%AF%8D%E0%AE%95%E0%AE%B3%E0%AE%BF%E0%AE%A9%E0%AF%8D-%E0%AE%AA%E0%AF%8B%E0%AE%B0%E0%AF%8B%E0%AE%A4%E0%AF%8B%E0%AE%AE%E0%AF%8D-%E0%AE%AA%E0%AE%BF%E0%AE%B0%E0%AE%BF%E0%AE%95%E0%AF%8D-%E0%AE%AE%E0%AF%82%E0%AE%B2%E0%AE%AE%E0%AF%8D-%E0%AE%95%E0%AE%9F%E0%AF%8D%E0%AE%9F%E0%AE%AA%E0%AF%8D%E0%AE%AA%E0%AE%9F%E0%AF%8D%E0%AE%9F-%E0%AE%B5%E0%AF%80%E0%AE%9F%E0%AE%BF%E0%AE%A9%E0%AF%8D-%E0%AE%B5%E0%AF%87%E0%AE%B2%E0%AF%88-%E0%AE%9A%E0%AE%AE%E0%AF%81%E0%AE%95%E0%AE%B0%E0%AF%86%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%AA/6819041638196279/",
-      features: [
-        "Wienerberger Porotherm Perforated Hollow Clay Bricks",
-        "6°C Cooler Indoor Temperature via Natural Thermal Insulation",
-        "60% Lighter Masonry Reducing Seismic Load on Footings",
-        "Laser-Aligned Thin-Bed Polymer Mortar Bedding",
-      ],
-      engineering: "Constructed with specialized hollow terracotta Porotherm clay blocks for maximum climatic comfort during hot South Indian summers, delivering superior U-values and zero chemical emissions.",
-      clientStory: "திரு.ஶ்ரீநிவாஸ் அவர்களின் போரோதெர்ம் பிரிக் மூலம் கட்டப்பட்ட வீட்டின் வேலை சமுகரெங்கபுரம். Documented from our flagship eco-thermal villa site in Samugarengapuram.",
-    },
-    {
-      id: "ammachikovil-boomi-pooja",
-      title: "Ammachikovil Site (Boomi Pooja & Foundation)",
-      category: "ongoing",
-      categoryLabel: "New Site Inception • Samugarengapuram",
-      location: "Ammachikovil, Samugarengapuram",
-      image: "/images/projects/site-ammachikovil-pooja.jpg",
-      area: "4,100 sq.ft",
-      floors: "G+2 Contemporary Villa",
-      timeline: "Foundation Phase • 2024",
-      status: "Under Construction",
-      isLiveWorkSite: true,
-      workStage: "Boomi Pooja & Isolated Footing Excavation",
-      fbPostUrl: "https://www.facebook.com/Stalinsaw/posts/jancy-builders-new-site-booming-poojasamugarengapuram-ammachikovil-siteerstalin-/25328419630165199/",
-      features: [
-        "Traditional Auspicious Boomi Pooja with Client Family",
-        "Heavy Hydraulic Excavator Footing & Trench Marking",
-        "Laser-Surveyed Grid Alignment & Peg Layout",
-        "Pre-Construction Subterranean Anti-Termite Soil Barrier",
-      ],
-      engineering: "Substructure engineered with isolated pad footings on dense gravel strata (tested SBC 250 kN/m²), anti-corrosive epoxy rebar coating, and M30 grade concrete pedestals.",
-      clientStory: "Ceremonial ground breaking and site inauguration at Ammachikovil, Samugarengapuram. Led personally on site by Er. Sahaya Antony Stalin with the client family.",
-    },
-    {
-      id: "silathikulam-murugan-residence",
-      title: "Mr. Murugan Residence (Silathikulam Site)",
-      category: "residential",
-      categoryLabel: "Turnkey Handover • Silathikulam",
-      location: "Silathikulam, Tirunelveli",
-      image: "/images/projects/site-silathikulam-murugan.jpg",
-      area: "2,650 sq.ft",
-      floors: "G+1 Modern Villa",
-      timeline: "11 Months • Delivered on Time",
-      status: "Completed",
-      isLiveWorkSite: false,
-      workStage: "Completed & Key Handed Over",
-      fbPostUrl: "https://www.facebook.com/JancyBuilder/",
-      features: [
-        "Double-Height Portico with Burma Teakwood Entrance",
-        "Cantilevered Balcony with Frameless Toughened Glass",
-        "Warm Dusk LED Architectural Linear Facade Lighting",
-        "Interlocking Granite Cobblestone Paved Driveway",
-      ],
-      engineering: "Raft foundation design with elastomeric waterproof exterior texture coatings, concealed CPVC plumbing pressure-tested to 15 Bar, and zero maintenance requirements.",
-      clientStory: "Delivered turnkey to Mr. Murugan and family at Silathikulam with zero cost escalations, 100% promised specifications, and certified key handover.",
-    },
-    {
-      id: "kavalkinaru-villa",
-      title: "Kavalkinaru Modern Architectural Villa",
-      category: "villas",
-      categoryLabel: "Modern Villa • Kavalkinaru",
-      location: "Kavalkinaru, Tirunelveli",
-      image: "/images/projects/site-kavalkinaru-villa.jpg",
-      area: "3,800 sq.ft",
-      floors: "G+2 Luxury Duplex",
-      timeline: "12 Months • Completed 2024",
-      status: "Completed",
-      isLiveWorkSite: false,
-      workStage: "Architectural Masterpiece",
-      fbPostUrl: "https://www.facebook.com/JancyBuilder/",
-      features: [
-        "Floating Cantilevered Roof Slab with Soffit Lighting",
-        "Vertical Kiln-Dried Wood Louver Solar Sunshade Screen",
-        "Double-Height Panoramic Living Room Glass Glazing",
-        "Covered Multi-Vehicle Portico & Tropical Garden",
-      ],
-      engineering: "Post-tensioned cantilever beams with sub-millimeter laser optical surveys, acoustic insulated party walls, and rooftop rainwater harvesting recharge pits.",
-      clientStory: "An architectural landmark in Kavalkinaru crafted for expansive cross-ventilation, generous natural light, and serene privacy for a distinguished family.",
-    },
-    {
-      id: "samugarengapuram-villa",
-      title: "Samugarengapuram Signature Luxury Estate",
-      category: "villas",
-      categoryLabel: "Signature Estate • Samugarengapuram",
-      location: "Samugarengapuram, Tirunelveli",
-      image: "/images/projects/luxury-villa.jpg",
-      area: "6,500 sq.ft",
-      floors: "G+2 Luxury Villa",
-      timeline: "14 Months • Completed 2024",
-      status: "Completed",
-      isLiveWorkSite: false,
-      workStage: "Flagship Landmark",
-      fbPostUrl: "https://www.facebook.com/JancyBuilder/",
-      features: [
-        "Italian Statuario Marble Slabs (1600x3200mm)",
-        "KNX Smart Home Automation & Perimeter Security",
-        "Reflective Water Body & Paved Granite Driveway",
-        "Automated Drip Irrigation & Solar Water Heating",
-      ],
-      engineering: "Engineered with raft foundation, Fe550D TMT high-ductility rebars, and IS 13920 seismic confinement.",
-      clientStory: "Our flagship residential estate in Samugarengapuram blending contemporary luxury with ultimate structural permanence.",
-    },
-    {
-      id: "vallioor-commercial-hub",
-      title: "Valliyur Commercial Landmark & Retail Complex",
-      category: "commercial",
-      categoryLabel: "Commercial Landmark • Valliyur",
-      location: "Main Road, Valliyur, Tirunelveli",
-      image: "/images/projects/office-building.jpg",
-      area: "18,500 sq.ft",
-      floors: "G+3 Commercial & Retail Center",
-      timeline: "14 Months • Completed 2024",
-      status: "Completed",
-      isLiveWorkSite: false,
-      workStage: "Commercial Complex",
-      fbPostUrl: "https://www.facebook.com/JancyBuilder/",
-      features: [
-        "Double-Glazed Acoustic Structural Curtain Wall",
-        "Basement Parking & 3-Phase Commercial Power Grid",
-        "High-Speed Passenger Lift & Automatic Generator Backup",
-        "Zero-Maintenance Aluminum Composite Panel Cladding",
-      ],
-      engineering: "Continuous pile foundation into hard strata with heavy ISMB steel beam supports and fire-resistant emergency exits.",
-      clientStory: "A prime commercial investment property on the main road in Valliyur, hosting high-footfall retail and corporate offices.",
-    },
-    {
-      id: "palayamkottai-apartments",
-      title: "Palayamkottai Elite Residential Enclave",
-      category: "residential",
-      categoryLabel: "Multi-Unit Living • Palayamkottai",
-      location: "Palayamkottai, Tirunelveli",
-      image: "/images/projects/apartment-complex.jpg",
-      area: "32,000 sq.ft",
-      floors: "G+4 Luxury Apartments (16 Units)",
-      timeline: "16 Months • Completed 2023",
-      status: "Completed",
-      isLiveWorkSite: false,
-      workStage: "Delivered Enclave",
-      fbPostUrl: "https://www.facebook.com/JancyBuilder/",
-      features: [
-        "High-Speed Automatic Passenger Elevators",
-        "Rooftop Community Garden & Fitness Lounge",
-        "Dedicated EV Charging Stations in Stilt Level",
-        "24x7 Multi-Tier Biometric & CCTV Security",
-      ],
-      engineering: "Dual elastomeric polyurethane waterproofing with zero-leakage guarantee and acoustic drain piping.",
-      clientStory: "A premium community development providing serene community life in the heart of Tirunelveli.",
-    },
-  ];
+  const projects = CANONICAL_PROJECTS;
 
-  // Filtering
-  const filteredProjects = activeFilter === "all"
-    ? projects
-    : projects.filter((p) => p.category === activeFilter);
+  // Filter logic
+  const filteredProjects = projects.filter((p) => {
+    if (activeFilter === "all") return true;
+    if (activeFilter === "residential") return p.category === "residential";
+    if (activeFilter === "commercial") return p.category === "commercial";
+    if (activeFilter === "completed") return p.status === "Completed";
+    if (activeFilter === "ongoing") return p.status === "Under Construction" || p.isLiveWorkSite;
+    return true;
+  });
 
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
@@ -253,41 +54,54 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
     setCurrentIndex((prev) => (prev + 1) % filteredProjects.length);
   };
 
+  const handleOpenModal = (project: Project) => {
+    setSelectedProject(project);
+    setModalActiveImage(project.coverImage);
+  };
+
   // WhatsApp helper for specific project
-  const getProjectWhatsappUrl = (p: ProjectItem) => {
+  const getProjectWhatsappUrl = (p: Project) => {
     const text = encodeURIComponent(
-      `Hello Er. Sahaya Antony Stalin, I reviewed the project "${p.title}" (${p.location}, ${p.area}) from Jancy Builders. Please share detailed floor plans, structural BOQ, and turnkey cost estimate for a similar construction.`
+      `Hello Er. Sahaya Antony Stalin, I reviewed the project "${p.name}" (${p.location}, ${p.builtUpArea}) from Jancy Builders. Please share detailed floor plans, structural BOQ, and turnkey cost estimate for a similar construction.`
     );
     return `https://wa.me/917708247124?text=${text}`;
   };
 
+  const filterTabs: { id: FilterType; label: string; count: number }[] = [
+    { id: "all", label: "All Projects", count: projects.length },
+    { id: "residential", label: "Residential", count: projects.filter((p) => p.category === "residential").length },
+    { id: "commercial", label: "Commercial", count: projects.filter((p) => p.category === "commercial").length },
+    { id: "completed", label: "Completed", count: projects.filter((p) => p.status === "Completed").length },
+    { id: "ongoing", label: "Ongoing", count: projects.filter((p) => p.status === "Under Construction" || p.isLiveWorkSite).length },
+  ];
+
   return (
-    <section id="projects" className="w-full bg-[#0F172A] py-16 lg:py-24 text-white relative overflow-hidden">
+    <section id="projects" className="w-full bg-[#0F172A] py-16 lg:py-24 text-white relative overflow-hidden scroll-mt-20">
       {/* Background Decorative Ambient Glows */}
       <div className="absolute top-0 right-1/4 w-[600px] h-[400px] bg-[#C29061]/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-0 left-10 w-[500px] h-[350px] bg-[#DC2626]/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header with Live Badges */}
+        {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-6 border-b border-white/10">
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="h-[2px] w-8 bg-[#C29061] block" />
               <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#C29061]">
-                ARCHITECTURAL PORTFOLIO
+                PORTFOLIO OF EXCELLENCE
               </span>
             </div>
 
             <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight font-sans">
-              Signature Architectural Works &amp;<br />
+              Selected Projects &amp;<br />
               <span className="text-[#E8C59A] bg-gradient-to-r from-[#E8C59A] via-[#C29061] to-[#E8C59A] bg-clip-text text-transparent">
                 Turnkey Landmarks
               </span>
             </h2>
 
             <p className="mt-3 text-sm text-slate-400 max-w-xl leading-relaxed">
-              Every project by Jancy Builders is an enduring testament to engineering rigor, soil-tested foundations, and bespoke luxury craftsmanship across Tamil Nadu.
+              Every project by Jancy Builders is an enduring testament to engineering rigor, soil-tested foundations, and bespoke luxury craftsmanship across Tirunelveli and Tamil Nadu.
             </p>
           </div>
 
@@ -341,21 +155,15 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
           </div>
         </div>
 
-        {/* Interactive Filter Tabs */}
+        {/* Interactive Filter Tabs: All, Residential, Commercial, Completed, Ongoing */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none">
-          {[
-            { id: "all", label: `All Works (${projects.length})` },
-            { id: "ongoing", label: `Live Work Sites (${projects.filter(p => p.isLiveWorkSite).length})` },
-            { id: "villas", label: `Luxury Villas (${projects.filter(p => p.category === 'villas').length})` },
-            { id: "residential", label: `Modern Residences (${projects.filter(p => p.category === 'residential').length})` },
-            { id: "commercial", label: `Commercial (${projects.filter(p => p.category === 'commercial').length})` },
-          ].map((tab) => {
+          {filterTabs.map((tab) => {
             const isActive = activeFilter === tab.id;
             return (
               <button
                 key={tab.id}
                 onClick={() => {
-                  setActiveFilter(tab.id as any);
+                  setActiveFilter(tab.id);
                   setCurrentIndex(0);
                 }}
                 className={`relative px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
@@ -371,14 +179,16 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                     transition={{ type: "spring", stiffness: 400, damping: 32 }}
                   />
                 )}
-                <span className="relative z-10">{tab.label}</span>
+                <span className="relative z-10">
+                  {tab.label} ({tab.count})
+                </span>
               </button>
             );
           })}
         </div>
 
         {/* ========================================================================= */}
-        {/* CAROUSEL VIEW                                                             */}
+        {/* CAROUSEL / CARD VIEW                                                      */}
         {/* ========================================================================= */}
         {viewMode === "carousel" && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -387,17 +197,17 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                 key={project.id}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1, duration: 0.5 }}
+                transition={{ delay: idx * 0.08, duration: 0.5 }}
                 whileHover={{ y: -8 }}
-                onClick={() => setSelectedProject(project)}
+                onClick={() => handleOpenModal(project)}
                 className="group relative bg-slate-900 rounded-3xl border border-white/10 overflow-hidden shadow-2xl transition-all duration-300 flex flex-col justify-between cursor-pointer hover:border-[#C29061]/50"
               >
                 <div>
                   {/* Image Container with Zoom */}
                   <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-950">
                     <Image
-                      src={project.image}
-                      alt={project.title}
+                      src={project.coverImage}
+                      alt={project.name}
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                     />
@@ -406,7 +216,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                     {/* Top Badges */}
                     <div className="absolute top-4 inset-x-4 flex items-center justify-between pointer-events-none">
                       <span className="text-[10px] font-mono font-bold tracking-wider uppercase px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-white">
-                        {project.categoryLabel}
+                        {project.category}
                       </span>
                       {project.isLiveWorkSite ? (
                         <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5 backdrop-blur-md bg-amber-500/95 border border-amber-300 text-slate-950 shadow-lg shadow-amber-500/25">
@@ -454,18 +264,18 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                     </div>
 
                     <h3 className="text-xl font-bold text-white group-hover:text-[#E8C59A] transition-colors line-clamp-1 font-sans">
-                      {project.title}
+                      {project.name}
                     </h3>
 
                     {/* Spec Highlights Grid */}
                     <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-white/10 text-xs">
                       <div className="bg-slate-800/60 p-2 rounded-xl">
                         <span className="text-[10px] text-slate-400 block font-mono">BUILT-UP AREA</span>
-                        <span className="font-bold text-white">{project.area}</span>
+                        <span className="font-bold text-white">{project.builtUpArea}</span>
                       </div>
                       <div className="bg-slate-800/60 p-2 rounded-xl">
-                        <span className="text-[10px] text-slate-400 block font-mono">TIMELINE</span>
-                        <span className="font-bold text-white">{project.floors}</span>
+                        <span className="text-[10px] text-slate-400 block font-mono">CONFIG</span>
+                        <span className="font-bold text-white truncate block">{project.configuration}</span>
                       </div>
                     </div>
                   </div>
@@ -476,7 +286,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      setSelectedProject(project);
+                      handleOpenModal(project);
                     }}
                     className="flex-1 inline-flex items-center justify-center gap-1.5 bg-white/5 hover:bg-[#C29061] text-slate-200 hover:text-slate-950 py-2.5 px-4 rounded-full text-xs font-bold border border-white/10 hover:border-[#C29061] transition-all"
                   >
@@ -527,14 +337,14 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: idx * 0.08, duration: 0.4 }}
                 whileHover={{ y: -6 }}
-                onClick={() => setSelectedProject(project)}
+                onClick={() => handleOpenModal(project)}
                 className="group relative bg-slate-900 rounded-3xl border border-white/10 overflow-hidden shadow-2xl transition-all duration-300 cursor-pointer flex flex-col justify-between"
               >
                 <div>
                   <div className="relative h-60 w-full overflow-hidden bg-slate-950">
                     <Image
-                      src={project.image}
-                      alt={project.title}
+                      src={project.coverImage}
+                      alt={project.name}
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-500"
                     />
@@ -542,7 +352,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                     
                     <div className="absolute top-4 inset-x-4 flex items-center justify-between pointer-events-none">
                       <span className="text-[10px] font-mono font-bold tracking-wider uppercase px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-white">
-                        {project.categoryLabel}
+                        {project.category}
                       </span>
                       {project.isLiveWorkSite && (
                         <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full flex items-center gap-1 backdrop-blur-md bg-amber-500/95 text-slate-950 shadow-md">
@@ -567,16 +377,16 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                       <span className="truncate">{project.location}</span>
                     </div>
                     <h3 className="text-lg font-bold text-white group-hover:text-[#E8C59A] transition-colors line-clamp-1">
-                      {project.title}
+                      {project.name}
                     </h3>
                     <p className="text-xs text-slate-400 mt-2 line-clamp-2">
-                      {project.clientStory}
+                      {project.description}
                     </p>
                   </div>
                 </div>
 
                 <div className="p-6 pt-0 flex items-center justify-between text-xs border-t border-white/10 pt-4">
-                  <span className="font-mono text-[#E8C59A] font-bold">{project.area}</span>
+                  <span className="font-mono text-[#E8C59A] font-bold">{project.builtUpArea}</span>
                   <div className="flex items-center gap-2">
                     {project.fbPostUrl && (
                       <span className="text-[11px] font-semibold text-[#1877F2] bg-[#1877F2]/10 px-2 py-0.5 rounded-md flex items-center gap-1">
@@ -599,7 +409,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
         <div className="mt-14 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div className="flex flex-col items-center">
             <span className="text-2xl sm:text-3xl font-black text-[#E8C59A] font-sans">250+</span>
-            <span className="text-xs text-slate-400 mt-0.5">Turnkey Handoves Delivered</span>
+            <span className="text-xs text-slate-400 mt-0.5">Turnkey Handovers Delivered</span>
           </div>
           <div className="flex flex-col items-center">
             <span className="text-2xl sm:text-3xl font-black text-[#E8C59A] font-sans">100%</span>
@@ -618,7 +428,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
       </div>
 
       {/* ========================================================================= */}
-      {/* INTERACTIVE FULL PROJECT CASE STUDY MODAL                                */}
+      {/* INTERACTIVE FULL PROJECT CASE STUDY MODAL WITH GALLERY                    */}
       {/* ========================================================================= */}
       <AnimatePresence>
         {selectedProject && (
@@ -642,20 +452,20 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
               {/* Large Image Header */}
               <div className="relative h-64 sm:h-80 w-full overflow-hidden bg-slate-950">
                 <Image
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
+                  src={modalActiveImage || selectedProject.coverImage}
+                  alt={selectedProject.name}
                   fill
-                  className="object-cover"
+                  className="object-cover transition-all duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-transparent to-black/30" />
 
                 <div className="absolute bottom-4 left-6 right-6 flex items-end justify-between">
                   <div>
                     <span className="text-xs font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#C29061] text-slate-950 inline-block mb-2">
-                      {selectedProject.categoryLabel}
+                      {selectedProject.category}
                     </span>
                     <h3 className="text-2xl sm:text-3xl font-black text-white font-sans">
-                      {selectedProject.title}
+                      {selectedProject.name}
                     </h3>
                     <p className="text-xs text-slate-300 flex items-center gap-1.5 mt-1">
                       <MapPin className="w-3.5 h-3.5 text-[#E8C59A]" />
@@ -672,11 +482,11 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-900/80 p-4 rounded-2xl border border-white/10">
                   <div>
                     <span className="text-[10px] text-slate-400 font-mono block">BUILT-UP AREA</span>
-                    <span className="text-sm font-bold text-white">{selectedProject.area}</span>
+                    <span className="text-sm font-bold text-white">{selectedProject.builtUpArea}</span>
                   </div>
                   <div>
                     <span className="text-[10px] text-slate-400 font-mono block">CONFIGURATION</span>
-                    <span className="text-sm font-bold text-white">{selectedProject.floors}</span>
+                    <span className="text-sm font-bold text-white">{selectedProject.configuration}</span>
                   </div>
                   <div>
                     <span className="text-[10px] text-slate-400 font-mono block">TIMELINE</span>
@@ -688,13 +498,46 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                   </div>
                 </div>
 
+                {/* Gallery Thumbnails inside Modal */}
+                {selectedProject.gallery && selectedProject.gallery.length > 0 && (
+                  <div>
+                    <h4 className="text-xs font-mono uppercase tracking-wider text-[#E8C59A] font-bold mb-3 flex items-center gap-1.5">
+                      <Layers className="w-3.5 h-3.5" />
+                      <span>Project Site Gallery ({selectedProject.gallery.length} Photos)</span>
+                    </h4>
+                    <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
+                      {selectedProject.gallery.map((imgUrl, i) => {
+                        const isCurrent = (modalActiveImage || selectedProject.coverImage) === imgUrl;
+                        return (
+                          <button
+                            key={i}
+                            onClick={() => setModalActiveImage(imgUrl)}
+                            className={`relative aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all ${
+                              isCurrent
+                                ? "border-[#C29061] scale-105 shadow-md shadow-[#C29061]/30"
+                                : "border-white/10 opacity-70 hover:opacity-100"
+                            }`}
+                          >
+                            <Image
+                              src={imgUrl}
+                              alt={`${selectedProject.name} photo ${i + 1}`}
+                              fill
+                              className="object-cover"
+                            />
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
                 {/* Project Description */}
                 <div>
                   <h4 className="text-xs font-mono uppercase tracking-wider text-[#E8C59A] font-bold mb-2">
                     Project Overview
                   </h4>
                   <p className="text-sm text-slate-300 leading-relaxed">
-                    {selectedProject.clientStory}
+                    {selectedProject.description}
                   </p>
                 </div>
 
@@ -752,7 +595,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                       <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                       </svg>
-                      <span>Facebook Post / Video</span>
+                      <span>Facebook Post</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   )}

@@ -6,11 +6,14 @@ import NavbarExact from "@/components/exact/NavbarExact";
 import HeroExact from "@/components/exact/HeroExact";
 import ServicesExact from "@/components/exact/ServicesExact";
 import ProjectsExact from "@/components/exact/ProjectsExact";
+import GallerySection from "@/components/sections/GallerySection";
 import ProcessTestimonialsExact from "@/components/exact/ProcessTestimonialsExact";
 import FooterExact from "@/components/exact/FooterExact";
 import BeforeAfterSlider from "@/components/hero/BeforeAfterSlider";
 import EstimatorSection from "@/components/sections/EstimatorSection";
 import EngineeringPillars from "@/components/sections/EngineeringPillars";
+import ContactSection from "@/components/sections/ContactSection";
+import FloatingWhatsApp from "@/components/common/FloatingWhatsApp";
 import StageExplorerModal from "@/components/stages/StageExplorerModal";
 import QuoteModal from "@/components/quote/QuoteModal";
 import BrandIntro from "@/components/intro/BrandIntro";
@@ -111,6 +114,9 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
         {/* 4. EXACT DARK FEATURED PROJECTS SECTION */}
         <ProjectsExact onOpenQuote={() => setIsQuoteModalOpen(true)} />
 
+        {/* 4.5 DEDICATED AUTHENTIC CONSTRUCTION GALLERY & LIGHTBOX */}
+        <GallerySection />
+
         {/* 5. EXACT HOW IT WORKS & TESTIMONIALS SECTION */}
         <ProcessTestimonialsExact />
 
@@ -124,15 +130,21 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
 
         {/* 8. ENGINEERING RIGOR & QUALITY ASSURANCE */}
         <EngineeringPillars />
+
+        {/* 8.5 DEDICATED IN-PAGE CONSULTATION & OFFICE CONTACT SECTION */}
+        <ContactSection />
       </main>
 
       {/* 9. EXACT DARK FOOTER */}
       <FooterExact />
 
-      {/* 10. MOBILE STICKY BOTTOM ACTION BAR */}
+      {/* 10. FLOATING WHATSAPP BUTTON WITH RADAR PING */}
+      <FloatingWhatsApp />
+
+      {/* 11. MOBILE STICKY BOTTOM ACTION BAR */}
       <MobileBottomBar onOpenQuote={() => setIsQuoteModalOpen(true)} />
 
-      {/* 11. INTERACTIVE MODALS */}
+      {/* 12. INTERACTIVE MODALS */}
       <StageExplorerModal
         isOpen={isExplorerModalOpen}
         onClose={() => setIsExplorerModalOpen(false)}

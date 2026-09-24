@@ -40,11 +40,10 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
     { name: "Home", href: "#" },
     { name: "About", href: "#about" },
     { name: "Services", href: "#services" },
-    { name: "Estimator", href: "#estimator" },
-    { name: "Engineering", href: "#engineering" },
     { name: "Projects", href: "#projects" },
-    { name: "Why Us", href: "#process" },
-    { name: "Contact", href: "#footer" },
+    { name: "Gallery", href: "#gallery" },
+    { name: "Process", href: "#process" },
+    { name: "Contact", href: "#contact" },
   ];
 
   const whatsappMessage = encodeURIComponent(
