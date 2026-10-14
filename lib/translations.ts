@@ -8,9 +8,12 @@ export interface TranslationDict {
     guide: string;
     process: string;
     estimator: string;
+    office: string;
     contact: string;
     callEngineer: string;
     getQuote: string;
+    bookVisit: string;
+    officeLogin: string;
     languageToggle: string;
   };
   hero: {
@@ -110,16 +113,19 @@ export const translations: Record<"en" | "ta", TranslationDict> = {
   en: {
     nav: {
       home: "Home",
-      about: "About Us",
-      services: "Our Services",
+      about: "About",
+      services: "Services",
       packages: "Packages",
-      projects: "Our Projects",
-      guide: "Building Guide",
+      projects: "Projects",
+      guide: "Construction Guide",
       process: "How We Build",
-      estimator: "Cost Calculator",
+      estimator: "Cost Estimator",
+      office: "Visit Office",
       contact: "Contact",
       callEngineer: "Call Er. Stalin",
       getQuote: "Free Estimate",
+      bookVisit: "Book Visit",
+      officeLogin: "Office Login",
       languageToggle: "தமிழ்",
     },
     hero: {
@@ -226,15 +232,18 @@ export const translations: Record<"en" | "ta", TranslationDict> = {
     nav: {
       home: "முகப்பு",
       about: "எங்களைப் பற்றி",
-      services: "எங்கள் சேவைகள்",
+      services: "சேவைகள்",
       packages: "கட்டுமானத் தொகுப்புகள்",
-      projects: "எங்கள் பணிகள்",
+      projects: "கட்டுமானப் பணிகள்",
       guide: "கட்டுமான வழிகாட்டி",
       process: "கட்டுமான முறை",
       estimator: "செலவுக் கணக்கீடு",
+      office: "அலுவலகத்திற்கு வருக",
       contact: "தொடர்பு",
       callEngineer: "பொறியாளரை அழைக்க",
       getQuote: "இலவச மதிப்பீடு",
+      bookVisit: "சந்திப்பு முன்பதிவு",
+      officeLogin: "அலுவலக உள்நுழைவு",
       languageToggle: "English",
     },
     hero: {

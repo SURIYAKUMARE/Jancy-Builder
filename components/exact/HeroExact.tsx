@@ -2,675 +2,316 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import {
   ArrowRight,
-  Play,
-  Star,
-  Building2,
-  Users2,
+  Calculator,
+  HardHat,
+  Phone,
   ShieldCheck,
-  ChevronDown,
-  Home,
-  Armchair,
+  Building,
   Sparkles,
-  Box,
-  Film,
+  ChevronLeft,
+  ChevronRight,
+  CheckCircle2,
+  MapPin,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Stage } from "@/types/hero";
-import Hero3DFallback from "@/components/three/Hero3DFallback";
 import { useLanguage } from "@/context/LanguageContext";
-import { translations } from "@/lib/translations";
-
-const ArchitecturalHeroCanvas = dynamic(
-  () => import("@/components/three/ArchitecturalHeroCanvas"),
-  { ssr: false, loading: () => <Hero3DFallback /> }
-);
 
 interface HeroExactProps {
-  stages: Stage[];
-  currentStageIndex: number;
-  onSelectStage: (idx: number) => void;
-  isPlaying?: boolean;
-  onTogglePlay?: () => void;
-  progressPercent?: number;
   onOpenQuote: () => void;
-  onOpenExplorer: (idx: number) => void;
-}
-
-// Smooth animated rolling integer
-function AnimatedNumber({ value, suffix = "" }: { value: number; suffix?: string }) {
-  const [display, setDisplay] = useState(0);
-
-  useEffect(() => {
-    const duration = 1400;
-    const startTime = performance.now();
-
-    const update = (now: number) => {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      setDisplay(Math.floor(ease * value));
-
-      if (progress < 1) {
-        requestAnimationFrame(update);
-      } else {
-        setDisplay(value);
-      }
-    };
-
-    const handle = requestAnimationFrame(update);
-    return () => cancelAnimationFrame(handle);
-  }, [value]);
-
-  return (
-    <span>
-      {display}
-      {suffix}
-    </span>
-  );
-}
-
-// Smooth animated rolling decimal
-function AnimatedDecimal({ value }: { value: number }) {
-  const [display, setDisplay] = useState(0);
-
-  useEffect(() => {
-    const duration = 1400;
-    const startTime = performance.now();
-
-    const update = (now: number) => {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      setDisplay(Number((ease * value).toFixed(1)));
-
-      if (progress < 1) {
-        requestAnimationFrame(update);
-      } else {
-        setDisplay(value);
-      }
-    };
-
-    const handle = requestAnimationFrame(update);
-    return () => cancelAnimationFrame(handle);
-  }, [value]);
-
-  return <span>{display.toFixed(1)}</span>;
+  onOpenAppointment?: () => void;
 }
 
 export default function HeroExact({
-  currentStageIndex,
   onOpenQuote,
-  onOpenExplorer,
+  onOpenAppointment,
 }: HeroExactProps) {
   const { language, isTamil } = useLanguage();
-  const t = translations[language];
-  const [heroMode, setHeroMode] = useState<"3d" | "photo">("3d");
-  // Featured Project Mini-Slider state matching mockup
-  const [featuredIdx, setFeaturedIdx] = useState(0);
-  const [mouseParallax, setMouseParallax] = useState({ x: 0, y: 0 });
 
-  // Desktop-only mouse parallax (disabled on mobile & when reduced motion is preferred)
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const isDesktop = window.innerWidth >= 1024;
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!isDesktop || prefersReducedMotion) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const { innerWidth, innerHeight } = window;
-      const normX = (e.clientX / innerWidth - 0.5) * 2;
-      const normY = (e.clientY / innerHeight - 0.5) * 2;
-      setMouseParallax({
-        x: normX * 5,
-        y: normY * 3,
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove, { passive: true });
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  const featuredProjects = [
+  // Authentic project showcases from D:\project photo catalog
+  const realHeroSlides = [
     {
-      title: "Modern Living Redefined",
-      subtitle: "Elegance meets functionality in every detail.",
-      thumbnail: "/images/projects/luxury-villa.jpg",
+      id: 1,
+      image: "/images/hero-sunset-villa.jpg",
+      titleEn: "Turnkey Contemporary Villa",
+      titleTa: "டர்ன்கீ நவீன ஆடம்பர வில்லா",
+      locationEn: "Silathikulam Handover",
+      locationTa: "சிலத்திகுளம் பணி நிறைவு",
+      tagEn: "100% Completed Project",
+      tagTa: "முழுமையாக கட்டி முடிக்கப்பட்ட வீடு",
     },
     {
-      title: "Skyline Corporate Hub",
-      subtitle: "Innovative commercial space engineered for growth.",
-      thumbnail: "/images/projects/office-building.jpg",
+      id: 2,
+      image: "/images/fb-projects/fb-2593310028926711/image_001.jpg",
+      titleEn: "Mechanized Concrete Roof Slab Casting",
+      titleTa: "பூம் பிளேசர் மூலம் தளம் அமைக்கும் பணி",
+      locationEn: "Durainagar Site Work",
+      locationTa: "துரைநகர் நேரடி களப் பணி",
+      tagEn: "Active Construction Site",
+      tagTa: "நேரடி கட்டுமான தளம்",
     },
     {
-      title: "Contemporary Hillside Villa",
-      subtitle: "Sustainable architectural craft with panoramic views.",
-      thumbnail: "/images/projects/modern-home.jpg",
+      id: 3,
+      image: "/images/fb-projects/fb-4017946504755476/image_001.jpg",
+      titleEn: "Porotherm Eco-Thermal Brick Masonry",
+      titleTa: "போரோதெர்ம் வெப்பத் தடுப்பு செங்கல் சுவர்",
+      locationEn: "Samugarengapuram Project",
+      locationTa: "சாமுகரெங்கபுரம் பணி",
+      tagEn: "Natural Cooling Technology",
+      tagTa: "இயற்கை குளிர்ச்சி தொழில்நுட்பம்",
+    },
+    {
+      id: 4,
+      image: "/images/fb-projects/fb-2866252757935105/image_001.jpg",
+      titleEn: "Foundation & Plinth Beam Alignment",
+      titleTa: "அடித்தளம் & பேஸ்மென்ட் பீம் கட்டமைப்பு",
+      locationEn: "Tirunelveli Region",
+      locationTa: "திருநெல்வேலி பகுதி",
+      tagEn: "IS 456 Structural Safety",
+      tagTa: "இந்திய தர விதிமுறை கட்டமைப்பு",
     },
   ];
 
-  // Auto-advance featured projects carousel smoothly
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  // Auto-advance cinematic slides smoothly
   useEffect(() => {
     const timer = setInterval(() => {
-      setFeaturedIdx((prev) => (prev + 1) % featuredProjects.length);
-    }, 4500);
+      setActiveSlide((prev) => (prev + 1) % realHeroSlides.length);
+    }, 6000);
     return () => clearInterval(timer);
-  }, [featuredProjects.length]);
+  }, [realHeroSlides.length]);
 
-  const handleNextFeatured = () => {
-    setFeaturedIdx((prev) => (prev + 1) % featuredProjects.length);
-  };
-
-  const currentFeatured = featuredProjects[featuredIdx];
-
-  const handleScrollDown = () => {
-    const nextSection = document.getElementById("services") || document.querySelector("main section:nth-of-type(2)");
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: "smooth" });
-    } else {
-      window.scrollBy({ top: window.innerHeight * 0.85, behavior: "smooth" });
-    }
-  };
+  const currentSlide = realHeroSlides[activeSlide];
 
   return (
-    <section className="relative w-full min-h-[95vh] lg:min-h-screen bg-[#FBF9F5] overflow-hidden flex flex-col justify-between pt-24 sm:pt-28">
+    <section className="relative w-full min-h-[92vh] lg:min-h-screen bg-[#0F172A] text-white flex flex-col justify-between pt-24 sm:pt-28 overflow-hidden">
       
-      {/* 1. RIGHT SIDE REAL-TIME 3D ARCHITECTURAL CANVAS OR VILLA PHOTOGRAPH */}
-      <div
-        className="absolute right-0 top-0 bottom-0 w-full lg:w-[58%] h-full z-0 overflow-hidden"
-        style={{
-          transform: `translate3d(${-mouseParallax.x * 0.4}px, ${-mouseParallax.y * 0.5}px, 0)`,
-        }}
-      >
-        {heroMode === "3d" ? (
-          <div className="w-full h-full relative">
-            <ArchitecturalHeroCanvas />
-          </div>
-        ) : (
+      {/* 1. CINEMATIC REAL PHOTOGRAPHY BACKGROUND (Crossfade) */}
+      <div className="absolute inset-0 z-0">
+        <AnimatePresence mode="wait">
           <motion.div
+            key={currentSlide.id}
             initial={{ opacity: 0, scale: 1.05 }}
-            animate={{
-              opacity: 1,
-              scale: [1.03, 1.07, 1.03],
-              x: [0, -10, 0],
-              y: [0, -5, 0],
-            }}
-            transition={{
-              opacity: { delay: 0.15, duration: 0.9 },
-              scale: { duration: 24, repeat: Infinity, ease: "easeInOut" },
-              x: { duration: 24, repeat: Infinity, ease: "easeInOut" },
-              y: { duration: 24, repeat: Infinity, ease: "easeInOut" },
-            }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
             className="relative w-full h-full"
           >
             <Image
-              src="/images/hero-sunset-villa.jpg"
-              alt="Jancy Builders - Building Dreams Into Reality"
+              src={currentSlide.image}
+              alt={isTamil ? currentSlide.titleTa : currentSlide.titleEn}
               fill
               priority
               className="object-cover object-center"
             />
-            {/* Subtle natural shading overlays */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/25" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#FBF9F5]/75 via-transparent to-transparent lg:hidden" />
+            {/* Cinematic architectural overlays for contrast and readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/60 to-[#0F172A]/40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0F172A]/90 via-[#0F172A]/50 to-transparent" />
           </motion.div>
-        )}
+        </AnimatePresence>
       </div>
 
-      {/* TOP-RIGHT MODE SWITCHER: 3D AUTO-BUILD / VILLA PHOTOGRAPH */}
-      <div className="absolute top-28 sm:top-32 right-6 sm:right-12 z-20 hidden sm:flex items-center bg-black/75 backdrop-blur-md p-1 rounded-full border border-white/20 shadow-2xl">
-        <button
-          onClick={() => setHeroMode("3d")}
-          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
-            heroMode === "3d"
-              ? "bg-[#B88746] text-slate-950 shadow-md shadow-[#B88746]/30 font-sans"
-              : "text-slate-300 hover:text-white"
-          }`}
-        >
-          <Box className="w-3.5 h-3.5" />
-          <span>{isTamil ? "3D நேரடி கட்டுமானம்" : "3D Auto Construction"}</span>
-        </button>
-        <button
-          onClick={() => setHeroMode("photo")}
-          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
-            heroMode === "photo"
-              ? "bg-[#B88746] text-slate-950 shadow-md shadow-[#B88746]/30 font-sans"
-              : "text-slate-300 hover:text-white"
-          }`}
-        >
-          <Film className="w-3.5 h-3.5" />
-          <span>{isTamil ? "வீட்டு புகைப்படம்" : "Villa Photograph"}</span>
-        </button>
-      </div>
+      {/* 2. FOREGROUND CONTENT */}
+      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-12 w-full my-auto py-12 lg:py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          
+          {/* Left Column: Headings & 3 Main Buttons (Requested by user) */}
+          <div className="lg:col-span-8 space-y-6 sm:space-y-8 max-w-2xl">
+            
+            {/* Eyebrow badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-[#B78A52]/40"
+            >
+              <HardHat className="w-3.5 h-3.5 text-[#B78A52]" />
+              <span className="text-[11px] sm:text-xs font-mono font-bold tracking-[0.2em] text-[#E7C188] uppercase">
+                {isTamil
+                  ? "நேர்மையான சிவில் பொறியியல் • சாமுகரெங்கபுரம்"
+                  : "PROFESSIONAL CIVIL ENGINEERING • EST. 2016"}
+              </span>
+            </motion.div>
 
-      {/* 2. ELEGANT CONVEX ORGANIC CURVE DIVIDER (Desktop) */}
-      <div className="absolute inset-0 z-[1] pointer-events-none hidden lg:block overflow-hidden">
-        <svg
-          className="absolute left-0 top-0 h-full w-[54%] text-[#FBF9F5] fill-current drop-shadow-sm"
-          viewBox="0 0 750 1000"
-          preserveAspectRatio="none"
-        >
-          <path d="M0,0 L600,0 C680,180 730,360 670,540 C610,720 540,860 480,1000 L0,1000 Z" />
-        </svg>
-      </div>
+            {/* EXACT HEADINGS REQUESTED BY USER */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.7 }}
+              className="space-y-2"
+            >
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.08] font-sans drop-shadow-md">
+                {isTamil ? "உங்கள் கனவு வீடு," : "Your Dream Home,"}
+                <span className="block text-[#E7C188]">
+                  {isTamil ? "எங்கள் பொறுப்பு." : "Our Responsibility."}
+                </span>
+              </h1>
 
-      {/* 3. TOP-RIGHT SKY CURSIVE SCRIPT WITH DELICATE SWAY */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.85, rotate: -8 }}
-        animate={{
-          opacity: 0.95,
-          scale: 1,
-          rotate: [-6, -4, -6],
-          y: [0, -4, 0],
-        }}
-        transition={{
-          delay: 0.5,
-          duration: 7,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="absolute top-28 sm:top-32 right-8 sm:right-16 lg:right-24 z-10 pointer-events-none select-none hidden md:block"
-      >
-        <span className="font-['Caveat',cursive] text-3xl sm:text-4xl lg:text-[40px] text-slate-800 font-bold tracking-wide drop-shadow-sm block leading-tight">
-          {isTamil ? (
-            <>
-              கட்டிடங்கள் மட்டுமல்ல,<br />
-              &nbsp;&nbsp;மகிழ்ச்சியான வாழ்வை அமைக்கிறோம்
-            </>
-          ) : (
-            <>
-              More Than Structures<br />
-              &nbsp;&nbsp;We Build Lives
-            </>
-          )}
-        </span>
-      </motion.div>
+              <p className="text-sm sm:text-base lg:text-lg text-slate-200 leading-relaxed font-normal pt-2 max-w-xl">
+                {isTamil
+                  ? "தலைமை சிவில் பொறியாளர் Er. சகாய அந்தோணி ஸ்டாலின் (B.E. Civil) அவர்களின் நேரடி கள மேற்பார்வையில், உறுதியான அஸ்திவாரம் முதல் அழகான பினிஷிங் வரை முழுமையான டர்ன்கீ கட்டுமானம்."
+                  : "Supervised personally on-site by Er. Sahaya Antony Stalin, B.E. (Civil). From structural soil testing and Vastu planning to turnkey construction with Porotherm eco-thermal clay bricks."}
+              </p>
+            </motion.div>
 
-      {/* 4. TOP-RIGHT FLOATING "MODERN LIVING REDEFINED" CARD WITH LEVITATION & CAROUSEL */}
-      <motion.div
-        initial={{ opacity: 0, y: -20, scale: 0.95 }}
-        animate={{
-          opacity: 1,
-          scale: 1,
-          y: [0, -9, 0],
-        }}
-        transition={{
-          y: {
-            repeat: Infinity,
-            duration: 4.8,
-            ease: "easeInOut",
-          },
-          opacity: { delay: 0.5, duration: 0.8 },
-          scale: { delay: 0.5, duration: 0.8 },
-        }}
-        style={{
-          transform: `translate3d(${mouseParallax.x * 0.6}px, ${mouseParallax.y * 0.8}px, 0)`,
-        }}
-        className="absolute top-44 sm:top-48 right-6 sm:right-12 lg:right-16 z-20 hidden md:block"
-      >
-        <div className="bg-white/95 backdrop-blur-md rounded-2xl p-3 shadow-2xl border border-white/80 flex items-center gap-3.5 max-w-[295px] transition-all hover:shadow-black/20 group">
-          <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-slate-100">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentFeatured.thumbnail}
-                initial={{ opacity: 0, scale: 1.1 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4 }}
-                className="relative w-full h-full"
+            {/* EXACT 3 MAIN BUTTONS REQUESTED BY USER */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.7 }}
+              className="flex items-center flex-wrap gap-3.5 sm:gap-4 pt-2"
+            >
+              {/* Button 1: View Our Projects / எங்கள் பணிகளைப் பாருங்கள் */}
+              <a
+                href="#projects"
+                className="group relative inline-flex items-center gap-2.5 bg-[#B78A52] hover:bg-[#a37742] text-slate-950 text-xs sm:text-sm font-bold px-6 py-3.5 rounded-full shadow-lg shadow-[#B78A52]/25 transition-all hover:scale-105 active:scale-95"
               >
-                <Image
-                  src={currentFeatured.thumbnail}
-                  alt={currentFeatured.title}
-                  fill
-                  className="object-cover"
-                />
-              </motion.div>
-            </AnimatePresence>
+                <span>{isTamil ? "எங்கள் பணிகளைப் பாருங்கள்" : "View Our Projects"}</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </a>
+
+              {/* Button 2: Get Construction Estimate / கட்டுமான செலவை அறிய */}
+              <a
+                href="#estimator"
+                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-bold px-6 py-3.5 rounded-full border border-white/20 backdrop-blur-md transition-all hover:scale-105 active:scale-95 shadow-md"
+              >
+                <Calculator className="w-4 h-4 text-[#B78A52]" />
+                <span>{isTamil ? "கட்டுமான செலவை அறிய" : "Get Construction Estimate"}</span>
+              </a>
+
+              {/* Button 3: Contact Our Engineer / எங்கள் பொறியாளரைத் தொடர்புகொள்ள */}
+              <a
+                href="#engineer"
+                className="inline-flex items-center gap-2 bg-slate-900/80 hover:bg-slate-900 text-slate-200 hover:text-white text-xs sm:text-sm font-semibold px-5 py-3.5 rounded-full border border-slate-700 transition-all hover:scale-105 active:scale-95"
+              >
+                <Phone className="w-4 h-4 text-[#B78A52]" />
+                <span>{isTamil ? "எங்கள் பொறியாளரைத் தொடர்புகொள்ள" : "Contact Our Engineer"}</span>
+              </a>
+            </motion.div>
+
+            {/* Verified Engineer Credential Strip */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.35, duration: 0.8 }}
+              className="pt-4 flex items-center flex-wrap gap-4 sm:gap-6 border-t border-white/10 text-xs text-slate-300"
+            >
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <span className="font-semibold text-white">Er. Sahaya Antony Stalin, B.E. (Civil)</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-[#B78A52]" />
+                <span>8+ Years Direct Supervision</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-slate-400" />
+                <span>Jancy Home, Samugarengapuram</span>
+              </div>
+            </motion.div>
+
           </div>
 
-          <div className="flex-1 min-w-0">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentFeatured.title}
-                initial={{ opacity: 0, x: 8 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -8 }}
-                transition={{ duration: 0.3 }}
-              >
-                <h4 className="text-xs font-bold text-slate-900 truncate">
-                  {currentFeatured.title}
+          {/* Right Column: Active Project Snapshot Card with Slide Controls */}
+          <div className="lg:col-span-4 hidden sm:block">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.25, duration: 0.8 }}
+              className="bg-black/60 backdrop-blur-md p-5 rounded-3xl border border-white/20 shadow-2xl max-w-sm ml-auto space-y-4"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#B78A52]/20 text-[#E7C188] border border-[#B78A52]/40">
+                  {isTamil ? currentSlide.tagTa : currentSlide.tagEn}
+                </span>
+                <span className="text-xs font-mono text-slate-400">
+                  {activeSlide + 1} / {realHeroSlides.length}
+                </span>
+              </div>
+
+              <div>
+                <h4 className="text-base font-bold text-white leading-tight">
+                  {isTamil ? currentSlide.titleTa : currentSlide.titleEn}
                 </h4>
-                <p className="text-[10px] text-slate-500 line-clamp-1 mt-0.5">
-                  {currentFeatured.subtitle}
+                <p className="text-xs text-slate-300 mt-1 flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-[#B78A52]" />
+                  <span>{isTamil ? currentSlide.locationTa : currentSlide.locationEn}</span>
                 </p>
-              </motion.div>
-            </AnimatePresence>
+              </div>
 
-            {/* 3 Carousel Dots */}
-            <div className="flex items-center gap-1.5 mt-2">
-              {featuredProjects.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setFeaturedIdx(i)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    featuredIdx === i ? "w-4 bg-slate-900" : "w-1.5 bg-slate-300 hover:bg-slate-400"
-                  }`}
-                  aria-label={`Go to slide ${i + 1}`}
-                />
-              ))}
-            </div>
+              {/* Progress bar dots and nav buttons */}
+              <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                <div className="flex items-center gap-1.5">
+                  {realHeroSlides.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setActiveSlide(i)}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        activeSlide === i ? "w-6 bg-[#B78A52]" : "w-1.5 bg-white/30 hover:bg-white/50"
+                      }`}
+                      aria-label={`Go to photo ${i + 1}`}
+                    />
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={() =>
+                      setActiveSlide(
+                        (prev) => (prev - 1 + realHeroSlides.length) % realHeroSlides.length
+                      )
+                    }
+                    className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+                    aria-label="Previous photograph"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => setActiveSlide((prev) => (prev + 1) % realHeroSlides.length)}
+                    className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+                    aria-label="Next photograph"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            </motion.div>
           </div>
 
-          <motion.button
-            whileHover={{ scale: 1.12, rotate: 5 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={handleNextFeatured}
-            className="w-8 h-8 rounded-full bg-slate-950 text-white flex items-center justify-center hover:bg-[#C29061] transition-colors flex-shrink-0 shadow-md"
-            title="Next Featured Project"
-          >
-            <ArrowRight className="w-3.5 h-3.5" />
-          </motion.button>
-        </div>
-      </motion.div>
-
-      {/* 5. MAIN LEFT HERO FOREGROUND CONTENT WITH STAGGERED ENTRANCES */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 w-full my-auto py-10 lg:py-16">
-        <div className="max-w-xl sm:max-w-2xl space-y-6 sm:space-y-8">
-          
-          {/* Eyebrow Line: 0ms delay */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0, duration: 0.55, ease: "easeOut" }}
-            className="flex items-center gap-3"
-          >
-            <motion.span
-              initial={{ width: 0 }}
-              animate={{ width: 32 }}
-              transition={{ delay: 0.15, duration: 0.5 }}
-              className="h-[2px] bg-[#B88746] block"
-            />
-            <span className="text-[11px] sm:text-xs font-bold tracking-[0.22em] text-[#B88746] font-mono uppercase">
-              {t.hero.badge}
-            </span>
-          </motion.div>
-
-          {/* Grand Brand Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.12, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl sm:text-6xl lg:text-[4.75rem] font-black text-[#17191B] tracking-tight leading-[1.04] font-sans"
-          >
-            {isTamil ? "ஜான்சி பில்டர்ஸ்" : "JANCY BUILDERS"}
-            <span className="block text-xl sm:text-2xl lg:text-3xl font-serif italic text-slate-800 font-normal mt-2">
-              {isTamil ? "உங்கள் கனவு இல்லம். " : "Engineering Dreams. "}
-              <span className="text-[#B78A52] font-semibold not-italic">
-                {isTamil ? "இங்கே தொடங்குகிறது." : "Building Tomorrow."}
-              </span>
-            </span>
-          </motion.h1>
-
-          {/* Supporting text */}
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.24, duration: 0.7, ease: "easeOut" }}
-            className="text-slate-600 text-sm sm:text-base max-w-lg leading-relaxed font-normal"
-          >
-            {t.hero.subtitle}
-          </motion.p>
-
-          {/* CTA Buttons Row: Start Building & Check Construction Cost */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.36, duration: 0.7, ease: "easeOut" }}
-            className="flex items-center flex-wrap gap-4 sm:gap-6 pt-2"
-          >
-            {/* Primary Pill Button: Start Building Your Home */}
-            <motion.a
-              href="#starter"
-              whileHover={{
-                y: -2,
-                scale: 1.02,
-                boxShadow: "0 15px 35px rgba(23, 25, 27, 0.2)",
-              }}
-              whileTap={{ scale: 0.97 }}
-              className="group relative inline-flex items-center gap-2.5 bg-[#17191B] hover:bg-[#25282B] text-white text-sm font-bold px-7 py-3.5 rounded-full shadow-lg transition-all duration-200 overflow-hidden"
-            >
-              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
-              <span>{t.hero.btnStart}</span>
-              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-            </motion.a>
-
-            {/* Secondary Bronze Pill Button: Check Construction Cost */}
-            <motion.a
-              href="#estimator"
-              whileHover={{ y: -2, scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#B78A52] hover:bg-[#966E3A] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer"
-            >
-              <Sparkles className="w-4 h-4 text-white" />
-              <span>{t.hero.btnCost}</span>
-            </motion.a>
-          </motion.div>
-
-          {/* 4 Stats in Clean Horizontal Row: 650ms delay with viewport trigger */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.65, duration: 0.75, ease: "easeOut" }}
-            className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-5 sm:gap-6 border-t border-slate-200/80 max-w-xl"
-          >
-            {/* Stat 1 */}
-            <motion.div whileHover={{ y: -2 }} className="flex flex-col cursor-default">
-              <div className="flex items-center gap-1.5 text-slate-400 mb-1">
-                <Building2 className="w-4 h-4 text-slate-500" />
-              </div>
-              <span className="text-2xl font-black text-slate-950 font-sans tracking-tight leading-none">
-                <AnimatedNumber value={250} suffix="+" />
-              </span>
-              <span className="text-[11px] text-slate-500 font-medium mt-1">
-                {t.hero.statsProjects}
-              </span>
-            </motion.div>
-
-            {/* Stat 2 */}
-            <motion.div whileHover={{ y: -2 }} className="flex flex-col cursor-default">
-              <div className="flex items-center gap-1.5 text-slate-400 mb-1">
-                <Users2 className="w-4 h-4 text-slate-500" />
-              </div>
-              <span className="text-2xl font-black text-slate-950 font-sans tracking-tight leading-none">
-                <AnimatedNumber value={500} suffix="+" />
-              </span>
-              <span className="text-[11px] text-slate-500 font-medium mt-1">
-                {isTamil ? "குடும்பங்கள்" : "Happy Families"}
-              </span>
-            </motion.div>
-
-            {/* Stat 3 */}
-            <motion.div whileHover={{ y: -2 }} className="flex flex-col cursor-default">
-              <div className="flex items-center gap-1.5 text-slate-400 mb-1">
-                <Star className="w-4 h-4 text-[#C29061] fill-[#C29061]" />
-              </div>
-              <span className="text-2xl font-black text-slate-950 font-sans tracking-tight leading-none flex items-center gap-0.5">
-                <AnimatedDecimal value={4.8} /><span className="text-base text-[#C29061]">★</span>
-              </span>
-              <span className="text-[11px] text-slate-500 font-medium mt-1">
-                {t.hero.statsQuality}
-              </span>
-            </motion.div>
-
-            {/* Stat 4 */}
-            <motion.div whileHover={{ y: -2 }} className="flex flex-col cursor-default">
-              <div className="flex items-center gap-1.5 text-slate-400 mb-1">
-                <ShieldCheck className="w-4 h-4 text-slate-500" />
-              </div>
-              <span className="text-2xl font-black text-slate-950 font-sans tracking-tight leading-none">
-                <AnimatedNumber value={8} suffix="+" />
-              </span>
-              <span className="text-[11px] text-slate-500 font-medium mt-1">
-                {t.hero.statsYears}
-              </span>
-            </motion.div>
-          </motion.div>
-
-          {/* Bottom-Left Script Text: Spaces for a Brighter Tomorrow with Draw-In Underline */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.95, duration: 0.8 }}
-            className="pt-2 select-none"
-          >
-            <span className="font-['Caveat',cursive] text-2xl sm:text-3xl text-[#C29061] block leading-none tracking-wide">
-              {isTamil ? (
-                <>
-                  சிறந்த எதிர்காலத்திற்கான<br />
-                  &nbsp;&nbsp;அழகான இல்லங்கள்
-                </>
-              ) : (
-                <>
-                  Spaces for<br />
-                  &nbsp;&nbsp;a Brighter Tomorrow
-                </>
-              )}
-            </span>
-            <svg
-              className="w-36 h-3 text-[#C29061]/60 mt-1"
-              viewBox="0 0 140 10"
-              fill="none"
-            >
-              <motion.path
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ delay: 1.1, duration: 1.2, ease: "easeOut" }}
-                d="M2 7 C35 1, 95 2, 138 7"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
-          </motion.div>
-
         </div>
       </div>
 
-      {/* 6. FLOATING BOTTOM CAPSULE OVER THE POOL WITH GENTLE LEVITATION & HOVER SPRING */}
-      <div className="relative z-20 w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 pb-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          
-          {/* Centered/Right Floating 3-Category Capsule with Continuous Ambient Float */}
-          <motion.div
-            initial={{ opacity: 0, y: 35 }}
-            animate={{
-              opacity: 1,
-              y: [0, -6, 0],
-            }}
-            transition={{
-              y: {
-                repeat: Infinity,
-                duration: 5.6,
-                ease: "easeInOut",
-              },
-              opacity: { delay: 0.85, duration: 0.8 },
-            }}
-            className="w-full md:w-auto md:ml-auto md:mr-16 bg-white/95 backdrop-blur-md rounded-2xl md:rounded-full py-3.5 px-6 sm:px-8 shadow-2xl border border-white/80 flex flex-col sm:flex-row items-center gap-6 sm:gap-8"
-          >
-            {/* Category 1: Residential */}
-            <motion.div
-              whileHover={{ scale: 1.04, y: -2 }}
-              transition={{ duration: 0.2 }}
-              className="flex items-center gap-3 w-full sm:w-auto cursor-pointer group"
-            >
-              <div className="w-9 h-9 rounded-xl bg-slate-100 group-hover:bg-[#C29061] group-hover:text-white flex items-center justify-center text-slate-700 flex-shrink-0 transition-colors">
-                <Home className="w-4 h-4" />
-              </div>
-              <div className="text-left">
-                <h5 className="text-xs font-bold text-slate-900 group-hover:text-[#C29061] transition-colors leading-tight">
-                  Residential
-                </h5>
-                <p className="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">
-                  Homes for every story
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Divider */}
-            <div className="hidden sm:block h-7 w-[1px] bg-slate-200" />
-
-            {/* Category 2: Commercial */}
-            <motion.div
-              whileHover={{ scale: 1.04, y: -2 }}
-              transition={{ duration: 0.2 }}
-              className="flex items-center gap-3 w-full sm:w-auto cursor-pointer group"
-            >
-              <div className="w-9 h-9 rounded-xl bg-slate-100 group-hover:bg-[#C29061] group-hover:text-white flex items-center justify-center text-slate-700 flex-shrink-0 transition-colors">
-                <Building2 className="w-4 h-4" />
-              </div>
-              <div className="text-left">
-                <h5 className="text-xs font-bold text-slate-900 group-hover:text-[#C29061] transition-colors leading-tight">
-                  Commercial
-                </h5>
-                <p className="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">
-                  Spaces for growth
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Divider */}
-            <div className="hidden sm:block h-7 w-[1px] bg-slate-200" />
-
-            {/* Category 3: Interior Design */}
-            <motion.div
-              whileHover={{ scale: 1.04, y: -2 }}
-              transition={{ duration: 0.2 }}
-              className="flex items-center gap-3 w-full sm:w-auto cursor-pointer group"
-            >
-              <div className="w-9 h-9 rounded-xl bg-slate-100 group-hover:bg-[#C29061] group-hover:text-white flex items-center justify-center text-slate-700 flex-shrink-0 transition-colors">
-                <Armchair className="w-4 h-4" />
-              </div>
-              <div className="text-left">
-                <h5 className="text-xs font-bold text-slate-900 group-hover:text-[#C29061] transition-colors leading-tight">
-                  Interior Design
-                </h5>
-                <p className="text-[11px] text-slate-500 font-normal leading-tight mt-0.5">
-                  Beauty in every corner
-                </p>
-              </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Far Right: SCROLL TO EXPLORE WITH CONTINUOUS BOUNCE */}
-          <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            onClick={handleScrollDown}
-            className="hidden lg:flex flex-col items-center gap-1.5 text-slate-400 hover:text-slate-900 transition-colors group cursor-pointer"
-          >
-            <span className="text-[9px] font-mono tracking-widest uppercase">
-              SCROLL TO EXPLORE
+      {/* Bottom Bar: Quick links strip */}
+      <div className="relative z-10 bg-slate-950/80 backdrop-blur-md border-t border-white/10 py-3 px-4 sm:px-8">
+        <div className="max-w-[1440px] mx-auto flex items-center justify-between text-xs text-slate-300 flex-wrap gap-2">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-semibold text-white">
+              {isTamil ? "அலுவலக நேரம்: " : "Office Hours: "}
             </span>
-            <motion.div
-              animate={{ y: [0, 5, 0] }}
-              transition={{
-                repeat: Infinity,
-                duration: 1.6,
-                ease: "easeInOut",
-              }}
-              className="w-7 h-7 rounded-full border border-slate-300 flex items-center justify-center group-hover:border-slate-800 transition-colors"
-            >
-              <ChevronDown className="w-4 h-4" />
-            </motion.div>
-          </motion.button>
+            <span>Mon – Sat: 9:00 AM – 7:30 PM (Sun: By Appointment)</span>
+          </div>
 
+          <div className="flex items-center gap-4">
+            <a
+              href="tel:+917708247124"
+              className="hover:text-[#E7C188] transition-colors font-mono font-bold"
+            >
+              +91 77082 47124
+            </a>
+            <span className="text-slate-600">|</span>
+            <a
+              href="#office"
+              className="text-[#E7C188] hover:underline font-semibold"
+            >
+              {isTamil ? "அலுவலகத்திற்கு வருக →" : "Visit Jancy Home →"}
+            </a>
+          </div>
         </div>
       </div>
+
     </section>
   );
 }

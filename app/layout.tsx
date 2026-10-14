@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import ArchitecturalCursor from "@/components/common/ArchitecturalCursor";
 import { LanguageProvider } from "@/context/LanguageContext";
-import HomeBuildingGuide from "@/components/guide/HomeBuildingGuide";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jancy-builder.vercel.app"),
@@ -146,7 +145,6 @@ export default function RootLayout({
         <LanguageProvider>
           <ArchitecturalCursor />
           {children}
-          <HomeBuildingGuide />
         </LanguageProvider>
       </body>
     </html>
