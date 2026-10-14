@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import {
   MapPin,
   Sparkles,
@@ -17,12 +18,19 @@ import {
   Building,
   X,
   Maximize2,
+  Box,
 } from "lucide-react";
 import NavbarExact from "@/components/exact/NavbarExact";
 import FooterExact from "@/components/exact/FooterExact";
 import FloatingWhatsApp from "@/components/common/FloatingWhatsApp";
 import QuoteModal from "@/components/quote/QuoteModal";
+import Hero3DFallback from "@/components/three/Hero3DFallback";
 import { Project } from "@/data/projects-data";
+
+const ArchitecturalHeroCanvas = dynamic(
+  () => import("@/components/three/ArchitecturalHeroCanvas"),
+  { ssr: false, loading: () => <Hero3DFallback /> }
+);
 
 interface ProjectDetailClientProps {
   project: Project;
@@ -33,6 +41,7 @@ export default function ProjectDetailClient({ project, relatedProjects }: Projec
   const [activeImage, setActiveImage] = useState<string>(project.coverImage);
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
+  const [mediaMode, setMediaMode] = useState<"photo" | "3d">("photo");
 
   const whatsappMessage = encodeURIComponent(
     `Hello Er. Sahaya Antony Stalin, I am viewing the project "${project.name}" (${project.location}, ${project.builtUpArea}) on Jancy Builders. Please share detailed floor plans, structural details, and estimated cost for a similar construction.`
@@ -127,33 +136,80 @@ export default function ProjectDetailClient({ project, relatedProjects }: Projec
               </div>
             </div>
 
-            {/* Main Interactive High-Res Photo View */}
-            <div className="mt-8 relative aspect-[16/9] w-full rounded-2xl overflow-hidden bg-slate-950 shadow-2xl group">
-              <Image
-                src={activeImage}
-                alt={project.name}
-                fill
-                priority
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+            {/* View Mode Switcher: Real Site Photo vs 3D Structural Simulation */}
+            <div className="mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="inline-flex items-center gap-1.5 p-1 bg-slate-100 rounded-full border border-slate-200 self-start">
+                <button
+                  type="button"
+                  onClick={() => setMediaMode("photo")}
+                  className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
+                    mediaMode === "photo"
+                      ? "bg-slate-950 text-white shadow-sm"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                >
+                  <span>Authentic Site Photo</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMediaMode("3d")}
+                  className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
+                    mediaMode === "3d"
+                      ? "bg-[#B88746] text-slate-950 shadow-sm"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                >
+                  <Box className="w-3.5 h-3.5" />
+                  <span>3D Structural View</span>
+                </button>
+              </div>
 
-              {/* Fullscreen Button */}
-              <button
-                onClick={() => setLightboxImage(activeImage)}
-                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center transition-all backdrop-blur-md"
-                title="View Fullscreen"
-              >
-                <Maximize2 className="w-4 h-4" />
-              </button>
-
-              {project.workStage && (
-                <div className="absolute bottom-4 left-4 pointer-events-none">
-                  <span className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-black/80 backdrop-blur-md border border-white/20 text-[#E8C59A] inline-flex items-center gap-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-[#E8C59A]" />
-                    <span>Current Stage: {project.workStage}</span>
-                  </span>
+              {mediaMode === "3d" ? (
+                <div className="text-[11px] font-mono text-[#B88746] bg-[#B88746]/10 px-3 py-1 rounded-full border border-[#B88746]/30 self-start sm:self-auto">
+                  Architectural 3D Model • Rotate 360° to inspect structure
                 </div>
+              ) : (
+                <div className="text-[11px] font-mono text-slate-500 self-start sm:self-auto">
+                  * Genuine unedited construction photo from Jancy Builders archive
+                </div>
+              )}
+            </div>
+
+            {/* Main Interactive High-Res Photo View OR 3D Architectural Canvas */}
+            <div className="mt-4 relative aspect-[16/9] min-h-[360px] w-full rounded-2xl overflow-hidden bg-slate-950 shadow-2xl group">
+              {mediaMode === "3d" ? (
+                <div className="w-full h-full relative">
+                  <ArchitecturalHeroCanvas />
+                </div>
+              ) : (
+                <>
+                  <Image
+                    src={activeImage}
+                    alt={project.name}
+                    fill
+                    priority
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+
+                  {/* Fullscreen Button */}
+                  <button
+                    onClick={() => setLightboxImage(activeImage)}
+                    className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/60 hover:bg-black/90 text-white flex items-center justify-center transition-all backdrop-blur-md"
+                    title="View Fullscreen"
+                  >
+                    <Maximize2 className="w-4 h-4" />
+                  </button>
+
+                  {project.workStage && (
+                    <div className="absolute bottom-4 left-4 pointer-events-none">
+                      <span className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-black/80 backdrop-blur-md border border-white/20 text-[#E8C59A] inline-flex items-center gap-1.5">
+                        <Sparkles className="w-3.5 h-3.5 text-[#E8C59A]" />
+                        <span>Current Stage: {project.workStage}</span>
+                      </span>
+                    </div>
+                  )}
+                </>
               )}
             </div>
 

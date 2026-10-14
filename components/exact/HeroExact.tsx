@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import {
   ArrowRight,
   Play,
@@ -13,9 +14,17 @@ import {
   Home,
   Armchair,
   Sparkles,
+  Box,
+  Film,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Stage } from "@/types/hero";
+import Hero3DFallback from "@/components/three/Hero3DFallback";
+
+const ArchitecturalHeroCanvas = dynamic(
+  () => import("@/components/three/ArchitecturalHeroCanvas"),
+  { ssr: false, loading: () => <Hero3DFallback /> }
+);
 
 interface HeroExactProps {
   stages: Stage[];
@@ -94,6 +103,7 @@ export default function HeroExact({
   onOpenQuote,
   onOpenExplorer,
 }: HeroExactProps) {
+  const [heroMode, setHeroMode] = useState<"3d" | "photo">("3d");
   // Featured Project Mini-Slider state matching mockup
   const [featuredIdx, setFeaturedIdx] = useState(0);
   const [mouseParallax, setMouseParallax] = useState({ x: 0, y: 0 });
@@ -163,40 +173,72 @@ export default function HeroExact({
   return (
     <section className="relative w-full min-h-[95vh] lg:min-h-screen bg-[#FBF9F5] overflow-hidden flex flex-col justify-between pt-24 sm:pt-28">
       
-      {/* 1. RIGHT SIDE VILLA BACKGROUND VISUAL WITH CONTINUOUS CINEMATIC KEN BURNS + SUBTLE DESKTOP PARALLAX */}
+      {/* 1. RIGHT SIDE REAL-TIME 3D ARCHITECTURAL CANVAS OR VILLA PHOTOGRAPH */}
       <div
-        className="absolute right-0 top-0 bottom-0 w-full lg:w-[58%] h-full z-0 overflow-hidden pointer-events-none transition-transform duration-300 ease-out"
+        className="absolute right-0 top-0 bottom-0 w-full lg:w-[58%] h-full z-0 overflow-hidden"
         style={{
           transform: `translate3d(${-mouseParallax.x * 0.4}px, ${-mouseParallax.y * 0.5}px, 0)`,
         }}
       >
-        <motion.div
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{
-            opacity: 1,
-            scale: [1.03, 1.07, 1.03],
-            x: [0, -10, 0],
-            y: [0, -5, 0],
-          }}
-          transition={{
-            opacity: { delay: 0.15, duration: 0.9 },
-            scale: { duration: 24, repeat: Infinity, ease: "easeInOut" },
-            x: { duration: 24, repeat: Infinity, ease: "easeInOut" },
-            y: { duration: 24, repeat: Infinity, ease: "easeInOut" },
-          }}
-          className="relative w-full h-full"
+        {heroMode === "3d" ? (
+          <div className="w-full h-full relative">
+            <ArchitecturalHeroCanvas />
+          </div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{
+              opacity: 1,
+              scale: [1.03, 1.07, 1.03],
+              x: [0, -10, 0],
+              y: [0, -5, 0],
+            }}
+            transition={{
+              opacity: { delay: 0.15, duration: 0.9 },
+              scale: { duration: 24, repeat: Infinity, ease: "easeInOut" },
+              x: { duration: 24, repeat: Infinity, ease: "easeInOut" },
+              y: { duration: 24, repeat: Infinity, ease: "easeInOut" },
+            }}
+            className="relative w-full h-full"
+          >
+            <Image
+              src="/images/hero-sunset-villa.jpg"
+              alt="Jancy Builders - Building Dreams Into Reality"
+              fill
+              priority
+              className="object-cover object-center"
+            />
+            {/* Subtle natural shading overlays */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/25" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#FBF9F5]/75 via-transparent to-transparent lg:hidden" />
+          </motion.div>
+        )}
+      </div>
+
+      {/* TOP-RIGHT MODE SWITCHER: 3D AUTO-BUILD / VILLA PHOTOGRAPH */}
+      <div className="absolute top-28 sm:top-32 right-6 sm:right-12 z-20 hidden sm:flex items-center bg-black/75 backdrop-blur-md p-1 rounded-full border border-white/20 shadow-2xl">
+        <button
+          onClick={() => setHeroMode("3d")}
+          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+            heroMode === "3d"
+              ? "bg-[#B88746] text-slate-950 shadow-md shadow-[#B88746]/30 font-sans"
+              : "text-slate-300 hover:text-white"
+          }`}
         >
-          <Image
-            src="/images/hero-sunset-villa.jpg"
-            alt="Jancy Builders - Building Dreams Into Reality"
-            fill
-            priority
-            className="object-cover object-center"
-          />
-          {/* Subtle natural shading overlays */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/25" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#FBF9F5]/75 via-transparent to-transparent lg:hidden" />
-        </motion.div>
+          <Box className="w-3.5 h-3.5" />
+          <span>3D Auto Construction</span>
+        </button>
+        <button
+          onClick={() => setHeroMode("photo")}
+          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all ${
+            heroMode === "photo"
+              ? "bg-[#B88746] text-slate-950 shadow-md shadow-[#B88746]/30 font-sans"
+              : "text-slate-300 hover:text-white"
+          }`}
+        >
+          <Film className="w-3.5 h-3.5" />
+          <span>Villa Photograph</span>
+        </button>
       </div>
 
       {/* 2. ELEGANT CONVEX ORGANIC CURVE DIVIDER (Desktop) */}
