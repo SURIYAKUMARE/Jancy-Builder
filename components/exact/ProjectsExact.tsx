@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowRight,
   ChevronLeft,
@@ -405,6 +406,17 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
           </div>
         )}
 
+        {/* Link to Full Multipage Portfolio */}
+        <div className="mt-12 text-center">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-white/10 hover:bg-[#C29061] text-white hover:text-slate-950 font-bold text-xs uppercase tracking-wider border border-white/20 hover:border-[#C29061] transition-all shadow-xl hover:scale-105"
+          >
+            <span>Explore All 8 Verified Project Sites &amp; Case Studies</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
         {/* Bottom Trust Guarantee Strip */}
         <div className="mt-14 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div className="flex flex-col items-center">
@@ -610,6 +622,14 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                     <span>Book Free Site Visit</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
+
+                  <Link
+                    href={`/projects/${selectedProject.id}`}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white py-3.5 px-5 rounded-full font-bold text-xs uppercase tracking-wider border border-white/20 transition-all"
+                  >
+                    <span>Case Study Page</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
                 </div>
 
               </div>

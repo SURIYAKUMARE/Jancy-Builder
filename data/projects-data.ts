@@ -255,6 +255,18 @@ export function getCanonicalProjects(): Project[] {
   });
 }
 
+export function getProjectById(id: string): Project | undefined {
+  return CANONICAL_PROJECTS.find((p) => p.id === id);
+}
+
+export function getAllProjectIds(): string[] {
+  return CANONICAL_PROJECTS.map((p) => p.id);
+}
+
+export function getRelatedProjects(currentId: string, limit: number = 3): Project[] {
+  return CANONICAL_PROJECTS.filter((p) => p.id !== currentId).slice(0, limit);
+}
+
 // Flat gallery items for the dedicated Gallery Section
 export interface GalleryItem {
   id: string;

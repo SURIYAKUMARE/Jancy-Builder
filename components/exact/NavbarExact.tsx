@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Search,
   ArrowRight,
@@ -19,9 +20,9 @@ interface NavbarExactProps {
 
 export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("Home");
   const [searchOpen, setSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
   // Monitor scroll for smooth floating glass transition
   useEffect(() => {
@@ -37,13 +38,14 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "#" },
-    { name: "About", href: "#about" },
-    { name: "Services", href: "#services" },
-    { name: "Projects", href: "#projects" },
-    { name: "Gallery", href: "#gallery" },
-    { name: "Process", href: "#process" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Services", href: "/services" },
+    { name: "Projects", href: "/projects" },
+    { name: "Gallery", href: "/gallery" },
+    { name: "Process", href: "/process" },
+    { name: "Estimator", href: "/estimator" },
+    { name: "Contact", href: "/contact" },
   ];
 
   const whatsappMessage = encodeURIComponent(
@@ -80,14 +82,17 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
         </Link>
 
         {/* Center Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+        <nav className="hidden lg:flex items-center gap-5 xl:gap-7">
           {navLinks.map((link) => {
-            const isActive = activeTab === link.name;
+            const isActive =
+              link.href === "/"
+                ? pathname === "/"
+                : pathname?.startsWith(link.href);
+
             return (
-              <a
+              <Link
                 key={link.name}
                 href={link.href}
-                onClick={() => setActiveTab(link.name)}
                 className={`group relative py-2 text-sm font-semibold tracking-tight transition-colors duration-200 ${
                   isActive
                     ? "text-slate-950 font-bold"
@@ -95,57 +100,26 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
                 }`}
               >
                 <span>{link.name}</span>
-                {/* Hover underline expands smoothly from center */}
-                <span className={`absolute bottom-0 inset-x-0 h-[2px] bg-[#B88746] transition-transform duration-250 origin-center ${
-                  isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                }`} />
-              </a>
+                {/* Hover / Active underline */}
+                <span
+                  className={`absolute bottom-0 inset-x-0 h-[2px] bg-[#B88746] transition-transform duration-250 origin-center ${
+                    isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                  }`}
+                />
+              </Link>
             );
           })}
         </nav>
 
         {/* Right CTA Group (Search + Divider + Phone + WhatsApp + Red Pill Button) */}
         <div className="hidden md:flex items-center gap-3.5">
-          {/* Search Trigger */}
-          <div className="relative">
-            {searchOpen ? (
-              <div className="flex items-center bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5 animate-fadeIn">
-                <input
-                  type="text"
-                  placeholder="Search projects..."
-                  autoFocus
-                  onBlur={() => setSearchOpen(false)}
-                  className="bg-transparent text-xs text-slate-800 placeholder-slate-400 focus:outline-none w-36"
-                />
-                <button
-                  onClick={() => setSearchOpen(false)}
-                  className="text-slate-400 hover:text-slate-600"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            ) : (
-              <button
-                onClick={() => setSearchOpen(true)}
-                className="w-8 h-8 flex items-center justify-center rounded-full text-slate-600 hover:text-slate-900 hover:bg-gray-100 transition-colors"
-                title="Search"
-                aria-label="Search"
-              >
-                <Search className="w-4 h-4" />
-              </button>
-            )}
-          </div>
-
-          {/* Thin Vertical Divider */}
-          <div className="h-6 w-[1px] bg-slate-200 hidden lg:block" />
-
           {/* Phone Call with "Talk to Our Expert" */}
           <a
             href="tel:+917708247124"
-            className="hidden xl:flex items-center gap-2 text-slate-800 hover:text-[#C29061] transition-colors group/phone"
+            className="hidden xl:flex items-center gap-2 text-slate-800 hover:text-[#B88746] transition-colors group/phone"
             title="Call Er. Sahaya Antony Stalin (+91 77082 47124)"
           >
-            <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 group-hover/phone:bg-[#C29061] group-hover/phone:text-white transition-colors">
+            <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 group-hover/phone:bg-[#B88746] group-hover/phone:text-white transition-colors">
               <Phone className="w-3.5 h-3.5 stroke-[2.2]" />
             </div>
             <div className="flex flex-col text-left">
@@ -153,17 +127,20 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
                 +91 77082 47124
               </span>
               <span className="text-[10px] text-slate-500 font-medium leading-tight">
-                Talk to Our Expert
+                Er. Stalin (Chief Civil Eng.)
               </span>
             </div>
           </a>
+
+          {/* Thin Vertical Divider */}
+          <div className="h-6 w-[1px] bg-slate-200 hidden xl:block" />
 
           {/* Direct WhatsApp Action Button */}
           <a
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 bg-[#25D366] hover:bg-[#20ba5a] text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-md shadow-[#25D366]/20 transition-all hover:scale-105"
+            className="inline-flex items-center gap-1.5 bg-[#25D366] hover:bg-[#20ba5a] text-white px-3.5 py-2 rounded-full text-xs font-bold shadow-md shadow-[#25D366]/20 transition-all hover:scale-105"
             title="Chat directly on WhatsApp"
           >
             <MessageCircle className="w-3.5 h-3.5 fill-current" />
@@ -211,7 +188,7 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
 
       </div>
 
-      {/* Mobile Fullscreen Sliding Menu Panel (translateX(100%) -> translateX(0)) */}
+      {/* Mobile Fullscreen Sliding Menu Panel */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -240,27 +217,34 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
               </button>
             </div>
 
-            {/* Staggered Navigation Items (opacity 0 -> 1, translateX 20px -> 0) */}
-            <nav className="flex flex-col space-y-4 my-auto py-8">
-              {navLinks.map((link, idx) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 + idx * 0.05, duration: 0.35, ease: "easeOut" }}
-                  onClick={() => {
-                    setActiveTab(link.name);
-                    setMobileMenuOpen(false);
-                  }}
-                  className={`text-xl sm:text-2xl font-bold font-sans tracking-tight transition-colors flex items-center justify-between ${
-                    activeTab === link.name ? "text-[#B88746]" : "text-slate-300 hover:text-white"
-                  }`}
-                >
-                  <span>{link.name}</span>
-                  <ArrowRight className="w-4 h-4 opacity-40" />
-                </motion.a>
-              ))}
+            {/* Staggered Navigation Items */}
+            <nav className="flex flex-col space-y-3.5 my-auto py-6">
+              {navLinks.map((link, idx) => {
+                const isActive =
+                  link.href === "/"
+                    ? pathname === "/"
+                    : pathname?.startsWith(link.href);
+
+                return (
+                  <motion.div
+                    key={link.name}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.08 + idx * 0.04, duration: 0.3, ease: "easeOut" }}
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`text-xl sm:text-2xl font-bold font-sans tracking-tight transition-colors flex items-center justify-between py-1 ${
+                        isActive ? "text-[#B88746]" : "text-slate-300 hover:text-white"
+                      }`}
+                    >
+                      <span>{link.name}</span>
+                      <ArrowRight className="w-4 h-4 opacity-40" />
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </nav>
 
             {/* Bottom Actions inside Menu */}
@@ -288,7 +272,7 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
                   setMobileMenuOpen(false);
                   onOpenQuote();
                 }}
-                className="w-full bg-[#B88746] hover:bg-[#a3753b] text-slate-950 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2"
+                className="w-full bg-[#E50914] hover:bg-[#DC2626] text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2"
               >
                 <span>Get a Free Quote</span>
                 <ArrowRight className="w-4 h-4" />
