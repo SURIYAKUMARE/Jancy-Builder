@@ -378,81 +378,72 @@ export default function HeroExact({
               initial={{ width: 0 }}
               animate={{ width: 32 }}
               transition={{ delay: 0.15, duration: 0.5 }}
-              className="h-[2px] bg-slate-400 block"
+              className="h-[2px] bg-[#B88746] block"
             />
-            <span className="text-[11px] sm:text-xs font-bold tracking-[0.22em] text-slate-500 uppercase">
-              ARCHITECTURE &nbsp;/&nbsp; CONSTRUCTION &nbsp;/&nbsp; INTERIORS
+            <span className="text-[11px] sm:text-xs font-bold tracking-[0.22em] text-[#B88746] font-mono uppercase">
+              ARCHITECTURAL STUDIO &amp; CIVIL ENGINEERING • EST. 2016
             </span>
           </motion.div>
 
-          {/* Grand Headline: 120ms delay */}
+          {/* Grand Brand Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.12, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl sm:text-6xl lg:text-[4.5rem] font-black text-slate-950 tracking-tight leading-[1.06] font-sans"
+            className="text-4xl sm:text-6xl lg:text-[4.75rem] font-black text-slate-950 tracking-tight leading-[1.04] font-sans"
           >
-            Building Dreams<br />
-            Into{" "}
-            <span className="relative inline-block">
-              <span className="text-[#C29061] bg-gradient-to-r from-[#C29061] via-[#E8C59A] to-[#B07F50] bg-clip-text text-transparent">
-                Reality
+            JANCY BUILDERS
+            <span className="block text-xl sm:text-2xl lg:text-3xl font-serif italic text-slate-800 font-normal mt-2">
+              Engineering Dreams.{" "}
+              <span className="text-[#C29061] bg-gradient-to-r from-[#C29061] via-[#E8C59A] to-[#B07F50] bg-clip-text text-transparent font-semibold not-italic">
+                Building Tomorrow.
               </span>
-              {/* Subtle sparkle icon floating near the dot of the i */}
-              <motion.span
-                animate={{ rotate: [0, 180, 360], scale: [0.9, 1.15, 0.9] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-                className="absolute -top-1 -right-4 hidden sm:inline-block text-[#C29061]"
-              >
-                <Sparkles className="w-4 h-4 fill-current opacity-80" />
-              </motion.span>
             </span>
           </motion.h1>
 
-          {/* Subtitle: 240ms delay */}
+          {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.24, duration: 0.7, ease: "easeOut" }}
             className="text-slate-600 text-sm sm:text-base max-w-lg leading-relaxed font-normal"
           >
-            We create modern homes, commercial spaces and infrastructure that inspire a better tomorrow.
+            Under the structural leadership of Er. Sahaya Antony Stalin, we engineer modern residential villas, Porotherm eco-thermal homes, and turnkey commercial landmarks across Tamil Nadu.
           </motion.p>
 
-          {/* CTA Buttons Row: 360ms delay */}
+          {/* CTA Buttons Row: Explore Projects & Get Free Consultation */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.36, duration: 0.7, ease: "easeOut" }}
             className="flex items-center flex-wrap gap-4 sm:gap-6 pt-2"
           >
-            {/* Primary Black Pill Button */}
-            <motion.button
+            {/* Primary Pill Button: Explore Projects */}
+            <motion.a
+              href="#projects"
               whileHover={{
                 y: -2,
                 scale: 1.02,
                 boxShadow: "0 15px 35px rgba(0, 0, 0, 0.25)",
               }}
               whileTap={{ scale: 0.97 }}
-              onClick={onOpenQuote}
               className="group relative inline-flex items-center gap-2.5 bg-slate-950 hover:bg-slate-800 text-white text-sm font-bold px-7 py-3.5 rounded-full shadow-lg shadow-black/15 transition-all duration-200 overflow-hidden"
             >
-              {/* Hover light sweep shimmer */}
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
-              <span>Start Your Project</span>
+              <span>Explore Projects</span>
               <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-            </motion.button>
+            </motion.a>
 
-            {/* Secondary Outline Button: View Our Projects */}
-            <motion.a
-              href="#projects"
+            {/* Secondary Gold Pill Button: Get Free Consultation */}
+            <motion.button
               whileHover={{ y: -2, scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/90 hover:bg-white text-slate-900 font-bold text-sm border border-slate-300 shadow-sm hover:shadow-md transition-all duration-200"
+              onClick={onOpenQuote}
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#B88746] hover:bg-[#a67435] text-slate-950 font-bold text-sm shadow-md hover:shadow-lg transition-all duration-200"
             >
-              <span>View Our Projects</span>
-              <ArrowRight className="w-4 h-4 text-[#B88746]" />
-            </motion.a>
+              <Sparkles className="w-4 h-4 text-slate-950" />
+              <span>Get Free Consultation</span>
+            </motion.button>
           </motion.div>
 
           {/* 4 Stats in Clean Horizontal Row: 650ms delay with viewport trigger */}

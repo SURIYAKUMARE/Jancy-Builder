@@ -19,6 +19,7 @@ import QuoteModal from "@/components/quote/QuoteModal";
 import BrandIntro from "@/components/intro/BrandIntro";
 import AboutEditorial from "@/components/sections/AboutEditorial";
 import MobileBottomBar from "@/components/mobile/MobileBottomBar";
+import EngineerWelcomeModal from "@/components/engineer/EngineerWelcomeModal";
 
 interface HomePageClientProps {
   initialConfig: HeroConfig;
@@ -33,6 +34,15 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState<boolean>(false);
   const [isExplorerModalOpen, setIsExplorerModalOpen] = useState<boolean>(false);
   const [explorerInitialIdx, setExplorerInitialIdx] = useState<number>(0);
+  const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    // Automatically trigger the realistic engineer welcome animation on page load
+    const timer = setTimeout(() => {
+      setIsWelcomeModalOpen(true);
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, []);
 
   const activeStages = config.stages.filter((s) => s.active);
   const currentStage = activeStages[currentStageIndex] || activeStages[0];
@@ -156,6 +166,18 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
       <QuoteModal
         isOpen={isQuoteModalOpen}
         onClose={() => setIsQuoteModalOpen(false)}
+      />
+
+      {/* 13. REALISTIC 3D CIVIL ENGINEER WELCOMING MODAL */}
+      <EngineerWelcomeModal
+        isOpen={isWelcomeModalOpen}
+        onClose={() => setIsWelcomeModalOpen(false)}
+        onExploreProjects={() => {
+          const el = document.getElementById("projects");
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+          else window.location.href = "/projects";
+        }}
+        onStartDreamHome={() => setIsQuoteModalOpen(true)}
       />
     </div>
   );

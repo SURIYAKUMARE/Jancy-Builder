@@ -19,6 +19,7 @@ import NavbarExact from "@/components/exact/NavbarExact";
 import FooterExact from "@/components/exact/FooterExact";
 import FloatingWhatsApp from "@/components/common/FloatingWhatsApp";
 import QuoteModal from "@/components/quote/QuoteModal";
+import Process3DVisualizer from "@/components/process/Process3DVisualizer";
 
 export default function ProcessPageClient() {
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
@@ -161,6 +162,11 @@ export default function ProcessPageClient() {
               We eliminate the stress of building a home with a structured, transparent 6-stage engineering roadmap designed to deliver uncompromised quality on schedule.
             </p>
           </div>
+        </section>
+
+        {/* Interactive 3D Process Visualizer */}
+        <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+          <Process3DVisualizer />
         </section>
 
         {/* 6 Process Stages */}

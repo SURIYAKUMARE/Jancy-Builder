@@ -13,10 +13,18 @@ import {
   ChevronRight,
   CheckCircle2,
   Sparkles,
+  Box,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import dynamic from "next/dynamic";
+
+const Process3DVisualizer = dynamic(
+  () => import("@/components/process/Process3DVisualizer"),
+  { ssr: false }
+);
 
 export default function ProcessTestimonialsExact() {
+  const [show3DVisualizer, setShow3DVisualizer] = useState(false);
   const steps = [
     {
       num: "01",
@@ -180,6 +188,31 @@ export default function ProcessTestimonialsExact() {
               );
             })}
           </div>
+
+          {/* Interactive 3D Process Visualizer Expander */}
+          <div className="mt-8 text-center">
+            <button
+              onClick={() => setShow3DVisualizer((prev) => !prev)}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-950 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg hover:scale-105 active:scale-95"
+            >
+              <Box className="w-4 h-4 text-[#B88746]" />
+              <span>{show3DVisualizer ? "Close 3D Simulation" : "Explore 3D Architectural Simulation (6 Stages)"}</span>
+            </button>
+          </div>
+
+          <AnimatePresence>
+            {show3DVisualizer && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4 }}
+                className="mt-8"
+              >
+                <Process3DVisualizer />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* ========================================================================= */}

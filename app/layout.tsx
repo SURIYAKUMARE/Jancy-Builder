@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import ArchitecturalCursor from "@/components/common/ArchitecturalCursor";
+import FloatingEngineerAssistant from "@/components/engineer/FloatingEngineerAssistant";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jancy-builder.vercel.app"),
@@ -140,7 +142,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-white text-slate-900 antialiased selection:bg-[#E50914]/20 selection:text-[#E50914]">
+        <ArchitecturalCursor />
         {children}
+        <FloatingEngineerAssistant />
       </body>
     </html>
   );

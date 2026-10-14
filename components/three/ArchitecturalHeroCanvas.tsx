@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef, Suspense } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, ContactShadows } from "@react-three/drei";
 import * as THREE from "three";
-import { Play, RotateCcw, Eye, Sparkles, Layers, Box } from "lucide-react";
+import { Play, Pause, RotateCcw, Eye, Sparkles, Layers, Box, FastForward } from "lucide-react";
 import BuildingModel from "./BuildingModel";
 import Hero3DFallback from "./Hero3DFallback";
 
@@ -269,11 +269,33 @@ export default function ArchitecturalHeroCanvas() {
               <Layers className="w-3.5 h-3.5" />
             </button>
 
+            {/* Play / Pause Toggle */}
+            <button
+              onClick={() => setIsPlaying((prev) => !prev)}
+              className="p-1.5 rounded-full bg-black/60 text-slate-300 hover:text-white border border-white/15 transition-all"
+              title={isPlaying ? "Pause 3D Construction" : "Play 3D Construction"}
+            >
+              {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
+            </button>
+
+            {/* Skip to Finished Villa */}
+            <button
+              onClick={() => {
+                setProgress(1.0);
+                setIsInteractive(true);
+              }}
+              className="p-1.5 rounded-full bg-black/60 text-[#E8C59A] hover:text-white border border-white/15 transition-all"
+              title="Skip to Completed Villa"
+            >
+              <FastForward className="w-3.5 h-3.5" />
+            </button>
+
             {/* Reset / Replay */}
             <button
               onClick={() => {
                 setProgress(0);
                 setIsInteractive(false);
+                setIsPlaying(true);
               }}
               className="p-1.5 rounded-full bg-black/60 text-slate-300 hover:text-white border border-white/15 transition-all"
               title="Restart 3D Construction Sequence"
