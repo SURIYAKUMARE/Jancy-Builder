@@ -12,6 +12,11 @@ import GallerySection from "@/components/sections/GallerySection";
 import ConstructionProcessUnified from "@/components/sections/ConstructionProcessUnified";
 import EstimatorSection from "@/components/sections/EstimatorSection";
 import ContactSection from "@/components/sections/ContactSection";
+import HousePlanningStarter from "@/components/sections/HousePlanningStarter";
+import MaterialsExplained from "@/components/sections/MaterialsExplained";
+import DocumentGuidance from "@/components/sections/DocumentGuidance";
+import CustomerTrust from "@/components/sections/CustomerTrust";
+import CustomerFAQ from "@/components/sections/CustomerFAQ";
 import FooterExact from "@/components/exact/FooterExact";
 import FloatingWhatsApp from "@/components/common/FloatingWhatsApp";
 import StageExplorerModal from "@/components/stages/StageExplorerModal";
@@ -19,7 +24,6 @@ import QuoteModal from "@/components/quote/QuoteModal";
 import BrandIntro from "@/components/intro/BrandIntro";
 import MobileBottomBar from "@/components/mobile/MobileBottomBar";
 import EngineerWelcomeModal from "@/components/engineer/EngineerWelcomeModal";
-import FloatingEngineerAssistant from "@/components/engineer/FloatingEngineerAssistant";
 
 interface HomePageClientProps {
   initialConfig: HeroConfig;
@@ -108,7 +112,7 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
       {/* 1. EXACT WHITE NAVBAR */}
       <NavbarExact onOpenQuote={() => handleOpenQuoteWithTier()} />
 
-      {/* CANONICAL 8-SECTION ARCHITECTURAL STRUCTURE */}
+      {/* COMPLETE CUSTOMER-FRIENDLY & ARCHITECTURAL STRUCTURE */}
       <main className="flex-grow">
         {/* 1. HOME: FULLSCREEN 3D CONSTRUCTING VILLA HERO */}
         <HeroExact
@@ -122,38 +126,50 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
           onOpenExplorer={handleOpenExplorer}
         />
 
-        {/* 2. ABOUT JANCY BUILDERS: EDITORIAL FOUNDER CREED & PILLARS */}
+        {/* 2. HOUSE PLANNING STARTER: 5-STEP HOMEOWNER HELPER & ROADMAP */}
+        <HousePlanningStarter onOpenQuote={() => handleOpenQuoteWithTier()} />
+
+        {/* 3. ABOUT JANCY BUILDERS: EDITORIAL FOUNDER CREED & PILLARS */}
         <AboutEditorial onOpenQuote={() => handleOpenQuoteWithTier()} />
 
-        {/* 3. SERVICES: 4 ARCHITECTURAL DISCIPLINES */}
+        {/* 4. SERVICES: 4 ARCHITECTURAL DISCIPLINES */}
         <ServicesExact onOpenQuote={() => handleOpenQuoteWithTier()} />
 
-        {/* 4. CONSTRUCTION PACKAGES: DEEJOS-INSPIRED COMPARISON & SPECS */}
+        {/* 5. CONSTRUCTION PACKAGES: DEEJOS-INSPIRED COMPARISON & SPECS */}
         <ConstructionPackages onOpenQuote={handleOpenQuoteWithTier} />
 
-        {/* 5. OUR PROJECTS: 257 AUTHENTIC SITE PHOTOS & BEFORE/AFTER */}
+        {/* 6. OUR PROJECTS: 257 AUTHENTIC SITE PHOTOS & BEFORE/AFTER */}
         <ProjectsExact onOpenQuote={() => handleOpenQuoteWithTier()} />
 
-        {/* 6. CONSTRUCTION PROCESS: CONSOLIDATED 6-STAGE WORKFLOW & TESTIMONIALS */}
+        {/* 7. CONSTRUCTION PROCESS: 8-STAGE WORKFLOW WITH AUDIO & TESTIMONIALS */}
         <ConstructionProcessUnified onOpenQuote={() => handleOpenQuoteWithTier()} />
 
-        {/* 7. COST ESTIMATOR: INTERACTIVE SLIDER & INSTANT BOQ GENERATOR */}
+        {/* 8. MATERIALS EXPLAINED SIMPLY: WHAT GOES INTO YOUR HOME */}
+        <MaterialsExplained />
+
+        {/* 9. DOCUMENT GUIDANCE: ESSENTIAL LAND & APPROVAL RECORDS */}
+        <DocumentGuidance />
+
+        {/* 10. CUSTOMER TRUST & PROTECTIONS: WHAT YOU MUST KNOW BEFORE BUILDING */}
+        <CustomerTrust />
+
+        {/* 11. COST ESTIMATOR: INTERACTIVE SLIDER & INSTANT BOQ GENERATOR */}
         <EstimatorSection onOpenQuote={() => handleOpenQuoteWithTier()} />
 
-        {/* 8. CONTACT: SAMUGARENGAPURAM HQ & DIRECT ENGINEER LINE */}
+        {/* 12. CUSTOMER FAQ: HONEST ANSWERS FOR FIRST-TIME BUILDERS */}
+        <CustomerFAQ />
+
+        {/* 13. CONTACT: SAMUGARENGAPURAM HQ & DIRECT ENGINEER LINE */}
         <ContactSection />
       </main>
 
-      {/* 9. EXACT DARK FOOTER */}
+      {/* 14. EXACT DARK FOOTER */}
       <FooterExact />
 
-      {/* 10. FLOATING WHATSAPP BUTTON WITH RADAR PING */}
+      {/* 15. FLOATING WHATSAPP BUTTON WITH RADAR PING */}
       <FloatingWhatsApp />
 
-      {/* 11. FLOATING 3D CIVIL ENGINEER GUIDE (TAMIL & ENGLISH CONTEXTUAL ASSISTANT) */}
-      <FloatingEngineerAssistant onOpenQuote={() => handleOpenQuoteWithTier()} />
-
-      {/* 12. MOBILE STICKY BOTTOM ACTION BAR */}
+      {/* 16. MOBILE STICKY BOTTOM ACTION BAR */}
       <MobileBottomBar onOpenQuote={() => handleOpenQuoteWithTier()} />
 
       {/* 13. INTERACTIVE MODALS */}

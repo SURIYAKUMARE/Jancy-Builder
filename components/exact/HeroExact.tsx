@@ -20,6 +20,8 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { Stage } from "@/types/hero";
 import Hero3DFallback from "@/components/three/Hero3DFallback";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/lib/translations";
 
 const ArchitecturalHeroCanvas = dynamic(
   () => import("@/components/three/ArchitecturalHeroCanvas"),
@@ -103,6 +105,8 @@ export default function HeroExact({
   onOpenQuote,
   onOpenExplorer,
 }: HeroExactProps) {
+  const { language, isTamil } = useLanguage();
+  const t = translations[language];
   const [heroMode, setHeroMode] = useState<"3d" | "photo">("3d");
   // Featured Project Mini-Slider state matching mockup
   const [featuredIdx, setFeaturedIdx] = useState(0);
@@ -226,7 +230,7 @@ export default function HeroExact({
           }`}
         >
           <Box className="w-3.5 h-3.5" />
-          <span>3D Auto Construction</span>
+          <span>{isTamil ? "3D நேரடி கட்டுமானம்" : "3D Auto Construction"}</span>
         </button>
         <button
           onClick={() => setHeroMode("photo")}
@@ -237,7 +241,7 @@ export default function HeroExact({
           }`}
         >
           <Film className="w-3.5 h-3.5" />
-          <span>Villa Photograph</span>
+          <span>{isTamil ? "வீட்டு புகைப்படம்" : "Villa Photograph"}</span>
         </button>
       </div>
 
@@ -269,9 +273,18 @@ export default function HeroExact({
         }}
         className="absolute top-28 sm:top-32 right-8 sm:right-16 lg:right-24 z-10 pointer-events-none select-none hidden md:block"
       >
-        <span className="font-['Caveat',cursive] text-3xl sm:text-4xl lg:text-[42px] text-slate-800 font-bold tracking-wide drop-shadow-sm block leading-tight">
-          More Than Structures<br />
-          &nbsp;&nbsp;We Build Lives
+        <span className="font-['Caveat',cursive] text-3xl sm:text-4xl lg:text-[40px] text-slate-800 font-bold tracking-wide drop-shadow-sm block leading-tight">
+          {isTamil ? (
+            <>
+              கட்டிடங்கள் மட்டுமல்ல,<br />
+              &nbsp;&nbsp;மகிழ்ச்சியான வாழ்வை அமைக்கிறோம்
+            </>
+          ) : (
+            <>
+              More Than Structures<br />
+              &nbsp;&nbsp;We Build Lives
+            </>
+          )}
         </span>
       </motion.div>
 
@@ -381,7 +394,7 @@ export default function HeroExact({
               className="h-[2px] bg-[#B88746] block"
             />
             <span className="text-[11px] sm:text-xs font-bold tracking-[0.22em] text-[#B88746] font-mono uppercase">
-              ARCHITECTURAL STUDIO &amp; CIVIL ENGINEERING • EST. 2016
+              {t.hero.badge}
             </span>
           </motion.div>
 
@@ -392,11 +405,11 @@ export default function HeroExact({
             transition={{ delay: 0.12, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="text-4xl sm:text-6xl lg:text-[4.75rem] font-black text-[#17191B] tracking-tight leading-[1.04] font-sans"
           >
-            JANCY BUILDERS
+            {isTamil ? "ஜான்சி பில்டர்ஸ்" : "JANCY BUILDERS"}
             <span className="block text-xl sm:text-2xl lg:text-3xl font-serif italic text-slate-800 font-normal mt-2">
-              Engineering Dreams.{" "}
+              {isTamil ? "உங்கள் கனவு இல்லம். " : "Engineering Dreams. "}
               <span className="text-[#B78A52] font-semibold not-italic">
-                Building Tomorrow.
+                {isTamil ? "இங்கே தொடங்குகிறது." : "Building Tomorrow."}
               </span>
             </span>
           </motion.h1>
@@ -408,19 +421,19 @@ export default function HeroExact({
             transition={{ delay: 0.24, duration: 0.7, ease: "easeOut" }}
             className="text-slate-600 text-sm sm:text-base max-w-lg leading-relaxed font-normal"
           >
-            Thoughtfully designed spaces. Professionally engineered. Built for generations.
+            {t.hero.subtitle}
           </motion.p>
 
-          {/* CTA Buttons Row: Explore Our Work & Start Your Project */}
+          {/* CTA Buttons Row: Start Building & Check Construction Cost */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.36, duration: 0.7, ease: "easeOut" }}
             className="flex items-center flex-wrap gap-4 sm:gap-6 pt-2"
           >
-            {/* Primary Pill Button: Explore Our Work */}
+            {/* Primary Pill Button: Start Building Your Home */}
             <motion.a
-              href="#projects"
+              href="#starter"
               whileHover={{
                 y: -2,
                 scale: 1.02,
@@ -430,20 +443,20 @@ export default function HeroExact({
               className="group relative inline-flex items-center gap-2.5 bg-[#17191B] hover:bg-[#25282B] text-white text-sm font-bold px-7 py-3.5 rounded-full shadow-lg transition-all duration-200 overflow-hidden"
             >
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
-              <span>Explore Our Work</span>
+              <span>{t.hero.btnStart}</span>
               <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
             </motion.a>
 
-            {/* Secondary Bronze Pill Button: Start Your Project */}
-            <motion.button
+            {/* Secondary Bronze Pill Button: Check Construction Cost */}
+            <motion.a
+              href="#estimator"
               whileHover={{ y: -2, scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
-              onClick={onOpenQuote}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#B78A52] hover:bg-[#966E3A] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all duration-200"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#B78A52] hover:bg-[#966E3A] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer"
             >
               <Sparkles className="w-4 h-4 text-white" />
-              <span>Start Your Project</span>
-            </motion.button>
+              <span>{t.hero.btnCost}</span>
+            </motion.a>
           </motion.div>
 
           {/* 4 Stats in Clean Horizontal Row: 650ms delay with viewport trigger */}
@@ -463,7 +476,7 @@ export default function HeroExact({
                 <AnimatedNumber value={250} suffix="+" />
               </span>
               <span className="text-[11px] text-slate-500 font-medium mt-1">
-                Projects Completed
+                {t.hero.statsProjects}
               </span>
             </motion.div>
 
@@ -476,7 +489,7 @@ export default function HeroExact({
                 <AnimatedNumber value={500} suffix="+" />
               </span>
               <span className="text-[11px] text-slate-500 font-medium mt-1">
-                Happy Clients
+                {isTamil ? "குடும்பங்கள்" : "Happy Families"}
               </span>
             </motion.div>
 
@@ -489,7 +502,7 @@ export default function HeroExact({
                 <AnimatedDecimal value={4.8} /><span className="text-base text-[#C29061]">★</span>
               </span>
               <span className="text-[11px] text-slate-500 font-medium mt-1">
-                Client Satisfaction
+                {t.hero.statsQuality}
               </span>
             </motion.div>
 
@@ -502,7 +515,7 @@ export default function HeroExact({
                 <AnimatedNumber value={8} suffix="+" />
               </span>
               <span className="text-[11px] text-slate-500 font-medium mt-1">
-                Years of Experience
+                {t.hero.statsYears}
               </span>
             </motion.div>
           </motion.div>
@@ -515,8 +528,17 @@ export default function HeroExact({
             className="pt-2 select-none"
           >
             <span className="font-['Caveat',cursive] text-2xl sm:text-3xl text-[#C29061] block leading-none tracking-wide">
-              Spaces for<br />
-              &nbsp;&nbsp;a Brighter Tomorrow
+              {isTamil ? (
+                <>
+                  சிறந்த எதிர்காலத்திற்கான<br />
+                  &nbsp;&nbsp;அழகான இல்லங்கள்
+                </>
+              ) : (
+                <>
+                  Spaces for<br />
+                  &nbsp;&nbsp;a Brighter Tomorrow
+                </>
+              )}
             </span>
             <svg
               className="w-36 h-3 text-[#C29061]/60 mt-1"

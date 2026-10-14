@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import ArchitecturalCursor from "@/components/common/ArchitecturalCursor";
-import FloatingEngineerAssistant from "@/components/engineer/FloatingEngineerAssistant";
+import { LanguageProvider } from "@/context/LanguageContext";
+import HomeBuildingGuide from "@/components/guide/HomeBuildingGuide";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jancy-builder.vercel.app"),
@@ -133,7 +134,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cinzel:wght@500;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Outfit:wght@400;500;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cinzel:wght@500;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Outfit:wght@400;500;600;700;800&display=swap"
           rel="stylesheet"
         />
         <script
@@ -142,9 +143,11 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-[#F8F6F1] text-[#202124] antialiased selection:bg-[#B78A52]/20 selection:text-[#B78A52]">
-        <ArchitecturalCursor />
-        {children}
-        <FloatingEngineerAssistant />
+        <LanguageProvider>
+          <ArchitecturalCursor />
+          {children}
+          <HomeBuildingGuide />
+        </LanguageProvider>
       </body>
     </html>
   );

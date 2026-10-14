@@ -11,14 +11,19 @@ import {
   X,
   Phone,
   MessageCircle,
+  Globe,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
+import { translations } from "@/lib/translations";
 
 interface NavbarExactProps {
   onOpenQuote: () => void;
 }
 
 export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
+  const { language, setLanguage, isTamil } = useLanguage();
+  const t = translations[language];
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -38,18 +43,20 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Services", href: "/services" },
-    { name: "Packages", href: "/packages" },
-    { name: "Projects", href: "/projects" },
-    { name: "Process", href: "/process" },
-    { name: "Estimator", href: "/estimator" },
-    { name: "Contact", href: "/contact" },
+    { name: t.nav.home, href: "/" },
+    { name: t.nav.about, href: "/about" },
+    { name: t.nav.services, href: "/services" },
+    { name: t.nav.packages, href: "/packages" },
+    { name: t.nav.projects, href: "/projects" },
+    { name: t.nav.process, href: "/process" },
+    { name: t.nav.estimator, href: "/estimator" },
+    { name: t.nav.contact, href: "/contact" },
   ];
 
   const whatsappMessage = encodeURIComponent(
-    "Hello Jancy Builders, I visited your website and would like to consult with Chief Engineer Er. Sahaya Antony Stalin regarding a new construction project."
+    isTamil
+      ? "வணக்கம் ஜான்சி பில்டர்ஸ், உங்கள் இணையதளத்தைப் பார்த்தேன். புதிய வீடு கட்டுமானம் தொடர்பாக தலைமைப் பொறியாளர் Er. சகாய அந்தோணி ஸ்டாலின் அவர்களுடன் பேச விரும்புகிறேன்."
+      : "Hello Jancy Builders, I visited your website and would like to consult with Chief Engineer Er. Sahaya Antony Stalin regarding a new construction project."
   );
   const whatsappUrl = `https://wa.me/917708247124?text=${whatsappMessage}`;
 
@@ -111,8 +118,22 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
           })}
         </nav>
 
-        {/* Right CTA Group (Search + Divider + Phone + WhatsApp + Red Pill Button) */}
-        <div className="hidden md:flex items-center gap-3.5">
+        {/* Right CTA Group (Language Toggle + Phone + WhatsApp + Red Pill Button) */}
+        <div className="hidden md:flex items-center gap-3">
+          {/* Dynamic Language Toggle Button (தமிழ் / English) */}
+          <button
+            onClick={() => setLanguage(language === "en" ? "ta" : "en")}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-[#B88746]/10 hover:bg-[#B88746]/20 text-[#8B5E28] border border-[#B88746]/30 shadow-sm transition-all hover:scale-105 active:scale-95"
+            title={isTamil ? "Switch to English" : "தமிழுக்கு மாறவும்"}
+            aria-label="Toggle language"
+          >
+            <Globe className="w-3.5 h-3.5 text-[#B88746]" />
+            <span className="font-semibold">{language === "en" ? "தமிழ்" : "English"}</span>
+          </button>
+
+          {/* Thin Vertical Divider */}
+          <div className="h-6 w-[1px] bg-slate-200 hidden xl:block" />
+
           {/* Phone Call with "Talk to Our Expert" */}
           <a
             href="tel:+917708247124"
@@ -127,7 +148,7 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
                 +91 77082 47124
               </span>
               <span className="text-[10px] text-slate-500 font-medium leading-tight">
-                Er. Stalin (Chief Civil Eng.)
+                {isTamil ? "Er. ஸ்டாலின் (சிவில் இன்ஜினியர்)" : "Er. Stalin (Chief Civil Eng.)"}
               </span>
             </div>
           </a>
@@ -154,13 +175,23 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
             onClick={onOpenQuote}
             className="group relative inline-flex items-center gap-2 bg-[#17191B] hover:bg-[#B78A52] text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-full shadow-lg shadow-black/10 transition-all duration-300 border border-[#B78A52]/30 hover:border-[#B78A52]"
           >
-            <span>Get a Quote</span>
+            <span>{t.nav.getQuote}</span>
             <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1 text-[#B78A52] group-hover:text-white" />
           </motion.button>
         </div>
 
-        {/* Mobile Action Controls (WhatsApp + Phone + Hamburger) */}
-        <div className="flex lg:hidden items-center gap-2">
+        {/* Mobile Action Controls (Language + WhatsApp + Phone + Hamburger) */}
+        <div className="flex lg:hidden items-center gap-1.5">
+          {/* Quick Mobile Language Toggle Button */}
+          <button
+            onClick={() => setLanguage(language === "en" ? "ta" : "en")}
+            className="px-2.5 py-1 text-xs font-bold rounded-full bg-[#B88746]/10 text-[#8B5E28] border border-[#B88746]/40 transition-all active:scale-95 flex items-center gap-1"
+            title="Switch Language"
+          >
+            <Globe className="w-3 h-3 text-[#B88746]" />
+            <span>{language === "en" ? "தமிழ்" : "EN"}</span>
+          </button>
+
           <a
             href={whatsappUrl}
             target="_blank"
@@ -249,6 +280,19 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
 
             {/* Bottom Actions inside Menu */}
             <div className="pt-6 border-t border-white/10 space-y-3">
+              {/* Full width language toggle in mobile menu */}
+              <button
+                onClick={() => setLanguage(language === "en" ? "ta" : "en")}
+                className="w-full bg-white/10 hover:bg-white/20 text-[#E7C188] py-3 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 border border-[#B88746]/30 transition-colors"
+              >
+                <Globe className="w-4 h-4 text-[#B88746]" />
+                <span>
+                  {language === "en"
+                    ? "தமிழ் மொழிக்கு மாற்றவும் (Switch to Tamil)"
+                    : "Switch to English"}
+                </span>
+              </button>
+
               <a
                 href={whatsappUrl}
                 target="_blank"
@@ -256,7 +300,11 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
                 className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg"
               >
                 <MessageCircle className="w-4 h-4 fill-current" />
-                <span>Chat on WhatsApp (+91 77082 47124)</span>
+                <span>
+                  {isTamil
+                    ? "வாட்ஸ்அப்பில் பேசவும் (+91 77082 47124)"
+                    : "Chat on WhatsApp (+91 77082 47124)"}
+                </span>
               </a>
 
               <a
@@ -264,7 +312,11 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
                 className="w-full bg-white/10 hover:bg-white/20 text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 border border-white/10"
               >
                 <Phone className="w-4 h-4 text-[#B88746]" />
-                <span>Call Er. Sahaya Antony Stalin</span>
+                <span>
+                  {isTamil
+                    ? "பொறியாளர் ஸ்டாலினை அழைக்க"
+                    : "Call Er. Sahaya Antony Stalin"}
+                </span>
               </a>
 
               <button
@@ -274,7 +326,7 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
                 }}
                 className="w-full bg-[#B78A52] hover:bg-[#a17845] text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2"
               >
-                <span>Get a Free Quote</span>
+                <span>{t.nav.getQuote}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
