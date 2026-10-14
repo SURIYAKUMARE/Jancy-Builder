@@ -96,7 +96,7 @@ export default function EstimatorPageClient() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F7F4EE] text-slate-900 flex flex-col font-sans selection:bg-[#E50914]/20 selection:text-[#E50914]">
+    <div className="min-h-screen bg-[#F8F6F1] text-[#202124] flex flex-col font-sans selection:bg-[#B78A52]/20 selection:text-[#B78A52]">
       {/* Navbar */}
       <NavbarExact onOpenQuote={() => setIsQuoteOpen(true)} />
 
@@ -106,18 +106,18 @@ export default function EstimatorPageClient() {
         <section className="relative px-4 sm:px-6 lg:px-8 py-16 lg:py-20 max-w-[1440px] mx-auto">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 mb-3">
-              <span className="h-[2px] w-8 bg-[#B88746] block" />
-              <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#B88746]">
+              <span className="h-[2px] w-8 bg-[#B78A52] block" />
+              <span className="text-xs font-mono font-semibold uppercase tracking-[0.25em] text-[#B78A52]">
                 TRANSPARENT PRICING CALCULATOR
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl font-black text-slate-950 tracking-tight font-sans">
+            <h1 className="text-4xl sm:text-6xl font-black text-[#17191B] tracking-tight font-sans">
               Turnkey Construction<br />
-              <span className="text-[#B88746]">Cost Estimator</span>
+              <span className="text-[#B78A52] font-serif italic font-normal">Cost Estimator</span>
             </h1>
 
-            <p className="mt-4 text-base sm:text-lg text-slate-700 leading-relaxed">
+            <p className="mt-4 text-base sm:text-lg text-[#202124]/75 leading-relaxed">
               Calculate an itemized turnkey construction estimate based on verified South Tamil Nadu market rates, foundation engineering, and quality material tiers.
             </p>
           </div>
@@ -128,7 +128,7 @@ export default function EstimatorPageClient() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             
             {/* Controls (7 Cols) */}
-            <div className="lg:col-span-7 bg-white p-6 sm:p-10 rounded-3xl border border-[#E8DFD1] shadow-2xl shadow-black/5 space-y-8">
+            <div className="lg:col-span-7 bg-white p-6 sm:p-10 rounded-3xl border border-[#E2D9CC] shadow-2xl shadow-black/5 space-y-8">
               
               {/* Built-up Area Slider */}
               <div className="space-y-3">
@@ -136,7 +136,7 @@ export default function EstimatorPageClient() {
                   <label className="text-sm font-bold text-slate-950 uppercase tracking-wider font-mono">
                     Total Built-up Area (Sq.Ft)
                   </label>
-                  <span className="text-2xl font-black text-[#B88746] font-mono">
+                  <span className="text-2xl font-black text-[#B78A52] font-mono">
                     {area.toLocaleString()} sq.ft
                   </span>
                 </div>
@@ -148,7 +148,7 @@ export default function EstimatorPageClient() {
                   step={50}
                   value={area}
                   onChange={(e) => setArea(Number(e.target.value))}
-                  className="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#B88746]"
+                  className="w-full h-3 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#B78A52]"
                 />
 
                 <div className="flex justify-between text-[11px] text-slate-400 font-mono">
@@ -203,17 +203,17 @@ export default function EstimatorPageClient() {
                         onClick={() => setPackageType(p.id as any)}
                         className={`p-4 rounded-2xl border-2 cursor-pointer transition-all ${
                           isSelected
-                            ? "border-[#B88746] bg-[#B88746]/5 shadow-md"
+                            ? "border-[#B78A52] bg-[#B78A52]/5 shadow-md"
                             : "border-slate-200 hover:border-slate-300 bg-white"
                         }`}
                       >
                         <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full inline-block mb-2 ${
-                          p.highlight ? "bg-[#B88746] text-white" : "bg-slate-100 text-slate-600"
+                          p.highlight ? "bg-[#B78A52] text-white" : "bg-slate-100 text-slate-600"
                         }`}>
                           {p.badge}
                         </span>
                         <h4 className="text-base font-bold text-slate-950">{p.name}</h4>
-                        <p className="text-xs text-[#B88746] font-mono font-bold mt-1">{p.rate}</p>
+                        <p className="text-xs text-[#B78A52] font-mono font-bold mt-1">{p.rate}</p>
                       </div>
                     );
                   })}
@@ -223,9 +223,9 @@ export default function EstimatorPageClient() {
             </div>
 
             {/* Live Cost Output & Breakdown (5 Cols) */}
-            <div className="lg:col-span-5 bg-slate-900 text-white p-6 sm:p-10 rounded-3xl border border-white/10 shadow-2xl space-y-6">
+            <div className="lg:col-span-5 bg-[#17191B] text-white p-6 sm:p-10 rounded-3xl border border-white/10 shadow-2xl space-y-6">
               <div>
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#B88746] block">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#B78A52] block">
                   INDICATIVE ESTIMATE
                 </span>
                 <div className="text-3xl sm:text-5xl font-black text-white font-sans mt-1">
@@ -248,7 +248,7 @@ export default function EstimatorPageClient() {
                     <span className="font-mono font-bold text-white">{formatINR(costBreakdown.structure)}</span>
                   </div>
                   <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                    <div className="w-1/2 h-full bg-[#B88746]" />
+                    <div className="w-1/2 h-full bg-[#B78A52]" />
                   </div>
 
                   <div className="flex justify-between pt-1">
@@ -280,7 +280,7 @@ export default function EstimatorPageClient() {
               <div className="pt-2">
                 <button
                   onClick={() => setIsQuoteOpen(true)}
-                  className="w-full py-4 rounded-full bg-[#E50914] hover:bg-[#DC2626] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-red-600/30 flex items-center justify-center gap-2"
+                  className="w-full py-4 rounded-full bg-[#B78A52] hover:bg-[#a17845] text-white font-semibold text-xs uppercase tracking-wider transition-all shadow-lg shadow-[#B78A52]/20 border border-[#B78A52]/40 flex items-center justify-center gap-2 hover:scale-[1.02]"
                 >
                   <span>Request Official Itemized BOQ</span>
                   <ArrowRight className="w-4 h-4" />
@@ -297,7 +297,7 @@ export default function EstimatorPageClient() {
 
         {/* Package Comparison Table */}
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-          <div className="bg-white rounded-3xl border border-[#E8DFD1] p-6 sm:p-10 shadow-xl overflow-x-auto">
+          <div className="bg-white rounded-3xl border border-[#E2D9CC] p-6 sm:p-10 shadow-xl overflow-x-auto">
             <h3 className="text-2xl font-black text-slate-950 font-sans mb-6">
               Compare Construction Specifications
             </h3>
@@ -307,7 +307,7 @@ export default function EstimatorPageClient() {
                 <tr className="border-b border-slate-200">
                   <th className="py-4 font-bold text-slate-500 uppercase font-mono">Specification</th>
                   <th className="py-4 font-bold text-slate-900">Classic (₹2,400)</th>
-                  <th className="py-4 font-bold text-[#B88746]">Premium (₹3,200)</th>
+                  <th className="py-4 font-bold text-[#B78A52]">Premium (₹3,200)</th>
                   <th className="py-4 font-bold text-slate-900">Ultra Luxury (₹4,400)</th>
                 </tr>
               </thead>
@@ -316,7 +316,7 @@ export default function EstimatorPageClient() {
                   <tr key={i} className="hover:bg-slate-50">
                     <td className="py-3.5 font-bold text-slate-800 pr-4">{spec.feature}</td>
                     <td className="py-3.5 text-slate-600 pr-4">{spec.classic}</td>
-                    <td className="py-3.5 text-slate-900 font-semibold pr-4 bg-[#B88746]/5">{spec.premium}</td>
+                    <td className="py-3.5 text-slate-900 font-semibold pr-4 bg-[#B78A52]/5">{spec.premium}</td>
                     <td className="py-3.5 text-slate-600">{spec.ultra}</td>
                   </tr>
                 ))}

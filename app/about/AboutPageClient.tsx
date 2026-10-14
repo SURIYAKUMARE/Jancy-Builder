@@ -57,7 +57,7 @@ export default function AboutPageClient() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F7F4EE] text-slate-900 flex flex-col font-sans selection:bg-[#E50914]/20 selection:text-[#E50914]">
+    <div className="min-h-screen bg-[#F8F6F1] text-[#202124] flex flex-col font-sans selection:bg-[#B78A52]/20 selection:text-[#B78A52]">
       {/* Navbar */}
       <NavbarExact onOpenQuote={() => setIsQuoteOpen(true)} />
 
@@ -67,35 +67,35 @@ export default function AboutPageClient() {
         <section className="relative px-4 sm:px-6 lg:px-8 py-16 lg:py-24 max-w-[1440px] mx-auto">
           <div className="max-w-4xl">
             <div className="flex items-center gap-2 mb-3">
-              <span className="h-[2px] w-8 bg-[#B88746] block" />
-              <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#B88746]">
+              <span className="h-[2px] w-8 bg-[#B78A52] block" />
+              <span className="text-xs font-mono font-semibold uppercase tracking-[0.25em] text-[#B78A52]">
                 ABOUT JANCY BUILDERS • EST. 2016
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-950 tracking-tight leading-[1.05] font-sans">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-[#17191B] tracking-tight leading-[1.05] font-sans">
               Engineering Trust.<br />
-              <span className="text-[#B88746]">Building Architectural</span> Permanence.
+              <span className="text-[#B78A52] font-serif italic font-normal">Building Architectural</span> Permanence.
             </h1>
 
-            <p className="mt-6 text-base sm:text-xl text-slate-700 leading-relaxed max-w-3xl">
+            <p className="mt-6 text-base sm:text-xl text-[#202124]/80 leading-relaxed max-w-3xl">
               Jancy Builders is a specialized civil engineering and architectural studio headquartered in Samugarengapuram, Tirunelveli. Led personally on-site by <strong>Er. Sahaya Antony Stalin</strong>, we bridge the gap between bespoke architectural elegance and unyielding structural permanence.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <button
                 onClick={() => setIsQuoteOpen(true)}
-                className="inline-flex items-center gap-2 bg-[#E50914] hover:bg-[#DC2626] text-white px-7 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider shadow-lg shadow-red-600/20 transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 bg-[#17191B] hover:bg-[#B78A52] text-white px-7 py-3.5 rounded-full font-semibold text-xs uppercase tracking-wider shadow-lg shadow-black/10 transition-all border border-[#B78A52]/30 hover:scale-105"
               >
                 <span>Request Site Consultation</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-[#B78A52] group-hover:text-white" />
               </button>
 
               <a
                 href="https://wa.me/917708247124?text=Hello%20Er.%20Sahaya%20Antony%20Stalin,%20I%20would%20like%20to%20discuss%20a%20construction%20project."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white px-6 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider shadow-md transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white px-6 py-3.5 rounded-full font-semibold text-xs uppercase tracking-wider shadow-md transition-all hover:scale-105"
               >
                 <MessageCircle className="w-4 h-4 fill-current" />
                 <span>Chat on WhatsApp</span>
@@ -108,12 +108,12 @@ export default function AboutPageClient() {
             {stats.map((s, idx) => (
               <div
                 key={idx}
-                className="bg-white p-6 rounded-3xl border border-[#E8DFD1] shadow-xl shadow-black/5"
+                className="bg-white p-6 rounded-3xl border border-[#E2D9CC] shadow-xl shadow-black/5"
               >
-                <div className="text-3xl sm:text-4xl font-black text-slate-950 font-sans">
+                <div className="text-3xl sm:text-4xl font-black text-[#17191B] font-sans">
                   {s.value}
                 </div>
-                <div className="text-xs sm:text-sm font-bold text-slate-900 mt-1">
+                <div className="text-xs sm:text-sm font-bold text-[#17191B] mt-1">
                   {s.label}
                 </div>
                 <div className="text-[11px] text-slate-500 font-mono mt-0.5">
@@ -125,8 +125,8 @@ export default function AboutPageClient() {
         </section>
 
         {/* Founder & Chief Engineer Editorial Section */}
-        <section className="bg-[#111318] text-white py-20 lg:py-28 relative overflow-hidden">
-          <div className="absolute top-0 right-10 w-[500px] h-[500px] bg-[#B88746]/10 rounded-full blur-[140px] pointer-events-none" />
+        <section className="bg-[#17191B] text-white py-20 lg:py-28 relative overflow-hidden">
+          <div className="absolute top-0 right-10 w-[500px] h-[500px] bg-[#B78A52]/10 rounded-full blur-[140px] pointer-events-none" />
 
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -141,7 +141,7 @@ export default function AboutPageClient() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   <div className="absolute bottom-6 inset-x-6">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#B88746] font-bold px-3 py-1 bg-black/60 rounded-full backdrop-blur-md inline-block mb-2">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#B78A52] font-bold px-3 py-1 bg-black/60 rounded-full backdrop-blur-md inline-block mb-2">
                       FOUNDER &amp; CHIEF ENGINEER
                     </span>
                     <h2 className="text-2xl font-black text-white font-sans">
@@ -157,8 +157,8 @@ export default function AboutPageClient() {
               {/* Founder Statement & Technical Rigor */}
               <div className="lg:col-span-7 space-y-6">
                 <div className="flex items-center gap-2">
-                  <span className="h-[2px] w-8 bg-[#B88746] block" />
-                  <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#B88746]">
+                  <span className="h-[2px] w-8 bg-[#B78A52] block" />
+                  <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#B78A52]">
                     FOUNDER&apos;S CREED
                   </span>
                 </div>
@@ -174,7 +174,7 @@ export default function AboutPageClient() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
                   <div className="bg-slate-900/80 p-5 rounded-2xl border border-white/10">
                     <div className="flex items-center gap-2.5 text-white font-bold text-sm mb-1.5">
-                      <Shield className="w-4 h-4 text-[#B88746]" />
+                      <Shield className="w-4 h-4 text-[#B78A52]" />
                       <span>Certified Fe550D TMT Steel</span>
                     </div>
                     <p className="text-xs text-slate-400 leading-relaxed">
@@ -184,7 +184,7 @@ export default function AboutPageClient() {
 
                   <div className="bg-slate-900/80 p-5 rounded-2xl border border-white/10">
                     <div className="flex items-center gap-2.5 text-white font-bold text-sm mb-1.5">
-                      <Award className="w-4 h-4 text-[#B88746]" />
+                      <Award className="w-4 h-4 text-[#B78A52]" />
                       <span>28-Day Curing Protocol</span>
                     </div>
                     <p className="text-xs text-slate-400 leading-relaxed">
@@ -196,7 +196,7 @@ export default function AboutPageClient() {
                 <div className="pt-4 flex items-center gap-4">
                   <a
                     href="tel:+917708247124"
-                    className="inline-flex items-center gap-2 text-sm font-bold text-[#B88746] hover:text-white transition-colors"
+                    className="inline-flex items-center gap-2 text-sm font-bold text-[#B78A52] hover:text-white transition-colors"
                   >
                     <Phone className="w-4 h-4" />
                     <span>Direct Call: +91 77082 47124</span>
@@ -211,8 +211,8 @@ export default function AboutPageClient() {
         <section className="py-20 lg:py-28 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-14">
             <div className="flex items-center gap-2 mb-2">
-              <span className="h-[2px] w-8 bg-[#B88746] block" />
-              <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#B88746]">
+              <span className="h-[2px] w-8 bg-[#B78A52] block" />
+              <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#B78A52]">
                 COMPANY HISTORY
               </span>
             </div>
@@ -225,16 +225,16 @@ export default function AboutPageClient() {
             {milestones.map((m, i) => (
               <div
                 key={i}
-                className="bg-white p-7 rounded-3xl border border-[#E8DFD1] shadow-xl shadow-black/5 flex flex-col justify-between"
+                className="bg-white p-7 rounded-3xl border border-[#E2D9CC] shadow-xl shadow-black/5 flex flex-col justify-between hover:border-[#B78A52]/40 transition-colors"
               >
                 <div>
-                  <span className="text-2xl font-black text-[#B88746] font-mono block mb-3">
+                  <span className="text-2xl font-black text-[#B78A52] font-mono block mb-3">
                     {m.year}
                   </span>
-                  <h3 className="text-lg font-bold text-slate-950 font-sans mb-2">
+                  <h3 className="text-lg font-bold text-[#17191B] font-sans mb-2">
                     {m.title}
                   </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
+                  <p className="text-xs text-[#202124]/70 leading-relaxed">
                     {m.desc}
                   </p>
                 </div>
@@ -244,9 +244,9 @@ export default function AboutPageClient() {
         </section>
 
         {/* Active District Work Sites Banner */}
-        <section className="bg-slate-950 text-white py-16 border-t border-white/10">
+        <section className="bg-[#17191B] text-white py-16 border-t border-white/10">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#B88746] font-bold block">
+            <span className="text-xs font-mono uppercase tracking-widest text-[#B78A52] font-bold block">
               REGIONAL COVERAGE &amp; ACTIVE PRESENCE
             </span>
             <h2 className="text-2xl sm:text-4xl font-black text-white font-sans max-w-2xl mx-auto">
@@ -266,9 +266,9 @@ export default function AboutPageClient() {
               ].map((loc, i) => (
                 <span
                   key={i}
-                  className="px-3.5 py-1.5 rounded-full bg-slate-900 border border-white/10 text-xs font-semibold text-slate-300 flex items-center gap-1.5"
+                  className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-slate-300 flex items-center gap-1.5"
                 >
-                  <MapPin className="w-3 h-3 text-[#B88746]" />
+                  <MapPin className="w-3 h-3 text-[#B78A52]" />
                   <span>{loc}</span>
                 </span>
               ))}
@@ -277,24 +277,24 @@ export default function AboutPageClient() {
         </section>
 
         {/* CTA Banner */}
-        <section className="py-20 bg-[#F7F4EE]">
+        <section className="py-20 bg-[#F8F6F1] border-t border-[#E2D9CC]">
           <div className="max-w-4xl mx-auto px-4 text-center space-y-6">
-            <h2 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight font-sans">
+            <h2 className="text-3xl sm:text-5xl font-black text-[#17191B] tracking-tight font-sans">
               Plan Your Dream Home With Chief Engineer Stalin
             </h2>
-            <p className="text-sm sm:text-base text-slate-600 max-w-xl mx-auto">
+            <p className="text-sm sm:text-base text-[#202124]/70 max-w-xl mx-auto">
               Book a complimentary on-site soil and boundary evaluation with Er. Sahaya Antony Stalin today.
             </p>
             <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
               <button
                 onClick={() => setIsQuoteOpen(true)}
-                className="bg-[#E50914] hover:bg-[#DC2626] text-white px-8 py-4 rounded-full font-bold text-xs uppercase tracking-wider shadow-lg transition-all hover:scale-105"
+                className="bg-[#17191B] hover:bg-[#B78A52] text-white px-8 py-4 rounded-full font-semibold text-xs uppercase tracking-wider shadow-lg shadow-black/10 transition-all border border-[#B78A52]/30 hover:scale-105"
               >
                 <span>Book Free Site Visit</span>
               </button>
               <Link
                 href="/projects"
-                className="bg-white hover:bg-slate-100 text-slate-950 border border-slate-300 px-8 py-4 rounded-full font-bold text-xs uppercase tracking-wider transition-all"
+                className="bg-white hover:bg-[#F8F6F1] text-[#17191B] border border-[#E2D9CC] px-8 py-4 rounded-full font-semibold text-xs uppercase tracking-wider transition-all shadow-sm"
               >
                 <span>View Real Project Sites</span>
               </Link>

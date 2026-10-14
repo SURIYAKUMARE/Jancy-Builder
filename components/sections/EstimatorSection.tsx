@@ -59,7 +59,7 @@ export default function EstimatorSection({ onOpenQuote }: EstimatorSectionProps)
     {
       id: "villa" as const,
       name: "Luxury Villa",
-      image: "/images/projects/luxury-villa.jpg",
+      image: "/images/projects/site-silathikulam-murugan.jpg",
     },
     {
       id: "house" as const,
@@ -158,9 +158,9 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
   };
 
   return (
-    <section id="estimator" className="relative py-20 lg:py-28 bg-[#FAF8F5] overflow-hidden">
+    <section id="estimator" className="relative py-20 lg:py-28 bg-[#F8F6F1] border-b border-[#E2D9CC] overflow-hidden scroll-mt-20">
       {/* Subtle background ambient blur */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#C29061]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#B78A52]/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
         
@@ -170,29 +170,29 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
             <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-[0.25em] text-slate-400 mb-2">
               <span>BUILD YOUR WORLD</span>
             </div>
-            <div className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#C29061] mb-2">
+            <div className="text-xs font-mono font-semibold uppercase tracking-[0.2em] text-[#B78A52] mb-2">
               PLAN. SMART. BUILD BETTER.
             </div>
-            <h2 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight font-sans">
+            <h2 className="text-3xl sm:text-5xl font-black text-[#17191B] tracking-tight font-sans">
               Interactive Turnkey<br />
-              <span className="text-[#C29061]">Cost Estimator</span>
+              <span className="text-[#B78A52] font-serif italic font-normal">Cost Estimator</span>
             </h2>
-            <p className="mt-3 text-slate-600 text-sm sm:text-base max-w-xl leading-relaxed">
+            <p className="mt-3 text-[#202124]/75 text-sm sm:text-base max-w-xl leading-relaxed">
               Configure your dream architectural space and get an instant turnkey budget with a detailed category breakdown.
             </p>
 
             {/* 3 Value Badges */}
             <div className="flex items-center flex-wrap gap-4 sm:gap-6 mt-6">
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 bg-white/80 border border-slate-200/80 px-3.5 py-1.5 rounded-full shadow-sm">
-                <Zap className="w-3.5 h-3.5 text-[#C29061] fill-[#C29061]" />
+              <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 bg-white/90 border border-[#E2D9CC] px-3.5 py-1.5 rounded-full shadow-sm">
+                <Zap className="w-3.5 h-3.5 text-[#B78A52] fill-[#B78A52]" />
                 <span>Instant Estimation</span>
               </div>
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 bg-white/80 border border-slate-200/80 px-3.5 py-1.5 rounded-full shadow-sm">
-                <FileText className="w-3.5 h-3.5 text-[#C29061]" />
+              <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 bg-white/90 border border-[#E2D9CC] px-3.5 py-1.5 rounded-full shadow-sm">
+                <FileText className="w-3.5 h-3.5 text-[#B78A52]" />
                 <span>Transparent Breakdown</span>
               </div>
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 bg-white/80 border border-slate-200/80 px-3.5 py-1.5 rounded-full shadow-sm">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#C29061]" />
+              <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 bg-white/90 border border-[#E2D9CC] px-3.5 py-1.5 rounded-full shadow-sm">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#B78A52]" />
                 <span>Reliable &amp; Accurate</span>
               </div>
             </div>
@@ -204,10 +204,10 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
               Your Vision Our Expertise
             </div>
 
-            <div className="bg-[#0F172A] text-white rounded-2xl p-3.5 shadow-2xl border border-white/10 flex items-center gap-3.5 max-w-xs">
+            <div className="bg-[#17191B] text-white rounded-2xl p-3.5 shadow-2xl border border-white/10 flex items-center gap-3.5 max-w-xs">
               <div className="relative w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-slate-800">
                 <Image
-                  src="/images/projects/luxury-villa.jpg"
+                  src="/images/projects/site-silathikulam-murugan.jpg"
                   alt="Turn Your Dream Into a Reality"
                   fill
                   className="object-cover"
@@ -223,7 +223,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
               </div>
               <button
                 onClick={onOpenQuote}
-                className="w-8 h-8 rounded-full bg-[#C29061] text-slate-950 flex items-center justify-center hover:bg-[#d8a573] transition-colors flex-shrink-0 shadow-md"
+                className="w-8 h-8 rounded-full bg-[#B78A52] text-slate-950 flex items-center justify-center hover:bg-[#d8a573] transition-colors flex-shrink-0 shadow-md"
                 title="Play Video"
               >
                 <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
@@ -244,7 +244,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
                   onClick={() => setActiveStep(1)}
                   className="flex items-start gap-3 cursor-pointer group"
                 >
-                  <div className="w-8 h-8 rounded-full bg-[#C29061] text-white font-bold text-xs flex items-center justify-center flex-shrink-0 shadow-md">
+                  <div className="w-8 h-8 rounded-full bg-[#B78A52] text-white font-bold text-xs flex items-center justify-center flex-shrink-0 shadow-md">
                     1
                   </div>
                   <div>
@@ -290,7 +290,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
 
               {/* Bottom Quote inside sidebar */}
               <div className="pt-8 select-none">
-                <Quote className="w-5 h-5 text-[#C29061]/50 mb-1" />
+                <Quote className="w-5 h-5 text-[#B78A52]/50 mb-1" />
                 <span className="font-['Caveat',cursive] text-lg text-slate-600 block leading-tight">
                   &ldquo;Better Spaces,<br />
                   &nbsp;&nbsp;Brighter Tomorrows&rdquo;
@@ -303,23 +303,23 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
 
               {/* Progress Indicator Bar (Section 13) */}
               <div className="flex items-center justify-between text-[11px] font-mono font-bold text-slate-400 pb-3 border-b border-slate-100 overflow-x-auto scrollbar-none gap-2">
-                <span className="text-[#C29061] flex items-center gap-1.5 flex-shrink-0">
-                  <span className="w-5 h-5 rounded-full bg-[#C29061] text-white flex items-center justify-center text-[10px]">01</span>
+                <span className="text-[#B78A52] flex items-center gap-1.5 flex-shrink-0">
+                  <span className="w-5 h-5 rounded-full bg-[#B78A52] text-white flex items-center justify-center text-[10px]">01</span>
                   <span>PROJECT TYPE</span>
                 </span>
-                <span className="h-[1px] w-4 sm:w-8 bg-[#C29061]/50 flex-shrink-0" />
-                <span className="text-[#C29061] flex items-center gap-1.5 flex-shrink-0">
-                  <span className="w-5 h-5 rounded-full bg-[#C29061] text-white flex items-center justify-center text-[10px]">02</span>
+                <span className="h-[1px] w-4 sm:w-8 bg-[#B78A52]/50 flex-shrink-0" />
+                <span className="text-[#B78A52] flex items-center gap-1.5 flex-shrink-0">
+                  <span className="w-5 h-5 rounded-full bg-[#B78A52] text-white flex items-center justify-center text-[10px]">02</span>
                   <span>AREA</span>
                 </span>
-                <span className="h-[1px] w-4 sm:w-8 bg-[#C29061]/50 flex-shrink-0" />
-                <span className="text-[#C29061] flex items-center gap-1.5 flex-shrink-0">
-                  <span className="w-5 h-5 rounded-full bg-[#C29061] text-white flex items-center justify-center text-[10px]">03</span>
+                <span className="h-[1px] w-4 sm:w-8 bg-[#B78A52]/50 flex-shrink-0" />
+                <span className="text-[#B78A52] flex items-center gap-1.5 flex-shrink-0">
+                  <span className="w-5 h-5 rounded-full bg-[#B78A52] text-white flex items-center justify-center text-[10px]">03</span>
                   <span>PACKAGE</span>
                 </span>
-                <span className="h-[1px] w-4 sm:w-8 bg-[#C29061]/50 flex-shrink-0" />
-                <span className="text-[#C29061] flex items-center gap-1.5 flex-shrink-0">
-                  <span className="w-5 h-5 rounded-full bg-[#C29061] text-white flex items-center justify-center text-[10px]">04</span>
+                <span className="h-[1px] w-4 sm:w-8 bg-[#B78A52]/50 flex-shrink-0" />
+                <span className="text-[#B78A52] flex items-center gap-1.5 flex-shrink-0">
+                  <span className="w-5 h-5 rounded-full bg-[#B78A52] text-white flex items-center justify-center text-[10px]">04</span>
                   <span>INCLUSIONS</span>
                 </span>
               </div>
@@ -338,7 +338,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
                         onClick={() => setTypology(t.id)}
                         className={`relative rounded-2xl overflow-hidden cursor-pointer border-2 transition-all group ${
                           isSelected
-                            ? "border-[#C29061] shadow-lg shadow-[#C29061]/15"
+                            ? "border-[#B78A52] shadow-lg shadow-[#B78A52]/15"
                             : "border-slate-200/80 hover:border-slate-300 opacity-90 hover:opacity-100"
                         }`}
                       >
@@ -350,7 +350,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
                             className="object-cover group-hover:scale-105 transition-transform duration-300"
                           />
                           {isSelected && (
-                            <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-[#C29061] text-white flex items-center justify-center shadow-md">
+                            <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-[#B78A52] text-white flex items-center justify-center shadow-md">
                               <Check className="w-3 h-3 stroke-[3]" />
                             </div>
                           )}
@@ -360,7 +360,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
                             {t.name}
                           </span>
                           {isSelected && (
-                            <div className="w-4 h-4 rounded-full bg-[#C29061] text-white flex items-center justify-center flex-shrink-0">
+                            <div className="w-4 h-4 rounded-full bg-[#B78A52] text-white flex items-center justify-center flex-shrink-0">
                               <Check className="w-2.5 h-2.5 stroke-[3]" />
                             </div>
                           )}
@@ -403,7 +403,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
                       onClick={() => setAreaSqFt(preset)}
                       className={`text-[11px] font-mono px-2.5 py-1 rounded-md transition-all flex-shrink-0 ${
                         areaSqFt === preset
-                          ? "bg-[#C29061] text-white font-bold shadow-sm"
+                          ? "bg-[#B78A52] text-white font-bold shadow-sm"
                           : "bg-slate-100 hover:bg-slate-200 text-slate-600"
                       }`}
                     >
@@ -420,7 +420,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
                     step="250"
                     value={areaSqFt}
                     onChange={(e) => setAreaSqFt(Number(e.target.value))}
-                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#C29061]"
+                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#B78A52]"
                   />
                   <div className="flex justify-between text-[11px] font-medium text-slate-400 mt-1.5">
                     <span>1,000 sq.ft</span>
@@ -445,7 +445,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
                         onClick={() => setPackageType(pkg.id)}
                         className={`p-3.5 rounded-2xl border-2 cursor-pointer transition-all flex items-center justify-between ${
                           isSelected
-                            ? "border-[#C29061] bg-[#FAF8F5] shadow-sm"
+                            ? "border-[#B78A52] bg-[#FAF8F5] shadow-sm"
                             : "border-slate-200/80 bg-white hover:border-slate-300"
                         }`}
                       >
@@ -453,7 +453,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
                           <div
                             className={`w-8 h-8 rounded-xl flex items-center justify-center ${
                               isSelected
-                                ? "bg-[#C29061] text-white"
+                                ? "bg-[#B78A52] text-white"
                                 : "bg-slate-100 text-slate-600"
                             }`}
                           >
@@ -465,7 +465,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
                           </div>
                         </div>
                         {isSelected && (
-                          <div className="w-4 h-4 rounded-full bg-[#C29061] text-white flex items-center justify-center flex-shrink-0">
+                          <div className="w-4 h-4 rounded-full bg-[#B78A52] text-white flex items-center justify-center flex-shrink-0">
                             <Check className="w-2.5 h-2.5 stroke-[3]" />
                           </div>
                         )}
@@ -492,7 +492,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
                         onClick={() => toggleAddon(addon.id)}
                         className={`p-2.5 rounded-xl border cursor-pointer transition-all flex items-center justify-between ${
                           isChecked
-                            ? "border-[#C29061] bg-[#FAF8F5] shadow-sm"
+                            ? "border-[#B78A52] bg-[#FAF8F5] shadow-sm"
                             : "border-slate-200 bg-white hover:border-slate-300"
                         }`}
                       >
@@ -500,7 +500,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
                           <div
                             className={`w-4 h-4 rounded flex items-center justify-center border transition-colors ${
                               isChecked
-                                ? "bg-[#C29061] border-[#C29061] text-white"
+                                ? "bg-[#B78A52] border-[#B78A52] text-white"
                                 : "border-slate-300 bg-white"
                             }`}
                           >
@@ -527,7 +527,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                   {/* Category 1 */}
                   <div className="bg-[#FAF8F5] border border-slate-200/80 rounded-xl p-2.5 text-center">
-                    <ClipboardCheck className="w-4 h-4 text-[#C29061] mx-auto mb-1" />
+                    <ClipboardCheck className="w-4 h-4 text-[#B78A52] mx-auto mb-1" />
                     <div className="text-[10px] text-slate-500 font-medium">Civil &amp; Skeleton</div>
                     <div className="text-xs font-bold text-slate-900 mt-0.5">
                       ₹{civilLakhs}L <span className="text-[10px] text-slate-400 font-normal">(45%)</span>
@@ -536,7 +536,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
 
                   {/* Category 2 */}
                   <div className="bg-[#FAF8F5] border border-slate-200/80 rounded-xl p-2.5 text-center">
-                    <Cog className="w-4 h-4 text-[#C29061] mx-auto mb-1" />
+                    <Cog className="w-4 h-4 text-[#B78A52] mx-auto mb-1" />
                     <div className="text-[10px] text-slate-500 font-medium">MEP Services</div>
                     <div className="text-xs font-bold text-slate-900 mt-0.5">
                       ₹{mepLakhs}L <span className="text-[10px] text-slate-400 font-normal">(20%)</span>
@@ -545,7 +545,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
 
                   {/* Category 3 */}
                   <div className="bg-[#FAF8F5] border border-slate-200/80 rounded-xl p-2.5 text-center">
-                    <Armchair className="w-4 h-4 text-[#C29061] mx-auto mb-1" />
+                    <Armchair className="w-4 h-4 text-[#B78A52] mx-auto mb-1" />
                     <div className="text-[10px] text-slate-500 font-medium">Interiors &amp; Tiles</div>
                     <div className="text-xs font-bold text-slate-900 mt-0.5">
                       ₹{interiorLakhs}L <span className="text-[10px] text-slate-400 font-normal">(25%)</span>
@@ -554,7 +554,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
 
                   {/* Category 4 */}
                   <div className="bg-[#FAF8F5] border border-slate-200/80 rounded-xl p-2.5 text-center">
-                    <Trees className="w-4 h-4 text-[#C29061] mx-auto mb-1" />
+                    <Trees className="w-4 h-4 text-[#B78A52] mx-auto mb-1" />
                     <div className="text-[10px] text-slate-500 font-medium">Facade &amp; Landscaping</div>
                     <div className="text-xs font-bold text-slate-900 mt-0.5">
                       ₹{facadeLakhs}L <span className="text-[10px] text-slate-400 font-normal">(10%)</span>
@@ -566,9 +566,9 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
             </div>
 
             {/* Right Summary Dark Card (4 Cols) */}
-            <div className="lg:col-span-4 bg-[#0F172A] text-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden">
+            <div className="lg:col-span-4 bg-[#17191B] text-white rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden">
               {/* Subtle gold glow inside card */}
-              <div className="absolute top-0 right-0 w-44 h-44 bg-[#C29061]/10 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute top-0 right-0 w-44 h-44 bg-[#B78A52]/10 rounded-full blur-2xl pointer-events-none" />
 
               <div className="space-y-6">
                 <div>
@@ -595,28 +595,28 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
                 {/* Checklist */}
                 <div className="space-y-3 pt-3 border-t border-white/10">
                   <div className="flex items-center gap-2.5 text-xs text-slate-200">
-                    <div className="w-4 h-4 rounded-full bg-[#C29061]/20 text-[#E8C59A] flex items-center justify-center flex-shrink-0">
+                    <div className="w-4 h-4 rounded-full bg-[#B78A52]/20 text-[#B78A52] flex items-center justify-center flex-shrink-0">
                       <Check className="w-2.5 h-2.5 stroke-[3]" />
                     </div>
                     <span>Soil Testing, RCC Raft &amp; Fe550D TMT</span>
                   </div>
 
                   <div className="flex items-center gap-2.5 text-xs text-slate-200">
-                    <div className="w-4 h-4 rounded-full bg-[#C29061]/20 text-[#E8C59A] flex items-center justify-center flex-shrink-0">
+                    <div className="w-4 h-4 rounded-full bg-[#B78A52]/20 text-[#B78A52] flex items-center justify-center flex-shrink-0">
                       <Check className="w-2.5 h-2.5 stroke-[3]" />
                     </div>
                     <span>100% On-Time Delivery Guarantee</span>
                   </div>
 
                   <div className="flex items-center gap-2.5 text-xs text-slate-200">
-                    <div className="w-4 h-4 rounded-full bg-[#C29061]/20 text-[#E8C59A] flex items-center justify-center flex-shrink-0">
+                    <div className="w-4 h-4 rounded-full bg-[#B78A52]/20 text-[#B78A52] flex items-center justify-center flex-shrink-0">
                       <Check className="w-2.5 h-2.5 stroke-[3]" />
                     </div>
                     <span>Complete Project Management</span>
                   </div>
 
                   <div className="flex items-center gap-2.5 text-xs text-slate-200">
-                    <div className="w-4 h-4 rounded-full bg-[#C29061]/20 text-[#E8C59A] flex items-center justify-center flex-shrink-0">
+                    <div className="w-4 h-4 rounded-full bg-[#B78A52]/20 text-[#B78A52] flex items-center justify-center flex-shrink-0">
                       <Check className="w-2.5 h-2.5 stroke-[3]" />
                     </div>
                     <span>Customizable as per your needs</span>
@@ -628,7 +628,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={handleRequestBOQ}
-                  className="w-full inline-flex items-center justify-center gap-2 bg-[#C29061] hover:bg-[#b58354] text-slate-950 font-bold text-xs sm:text-sm py-3.5 px-5 rounded-full shadow-lg shadow-[#C29061]/20 transition-all duration-200"
+                  className="w-full inline-flex items-center justify-center gap-2 bg-[#B78A52] hover:bg-[#b58354] text-slate-950 font-bold text-xs sm:text-sm py-3.5 px-5 rounded-full shadow-lg shadow-[#B78A52]/20 transition-all duration-200"
                 >
                   <span>Request Comprehensive BOQ Estimate</span>
                   <ArrowRight className="w-4 h-4" />
@@ -658,7 +658,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
                 <div className="flex items-center gap-2">
                   <a
                     href="tel:+917708247124"
-                    className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#C29061] text-white hover:text-slate-950 flex items-center justify-center transition-colors shadow-sm"
+                    className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#B78A52] text-white hover:text-slate-950 flex items-center justify-center transition-colors shadow-sm"
                     title="Call Er. Sahaya Antony Stalin (+91 77082 47124)"
                   >
                     <Phone className="w-3.5 h-3.5" />
@@ -712,7 +712,7 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
             </div>
 
             <div className="flex items-center gap-2.5">
-              <div className="w-5 h-5 rounded-full bg-[#C29061]/20 flex items-center justify-center text-[#C29061] text-xs font-bold">
+              <div className="w-5 h-5 rounded-full bg-[#B78A52]/20 flex items-center justify-center text-[#B78A52] text-xs font-bold">
                 ★
               </div>
               <div>
@@ -724,11 +724,11 @@ Hello Er. Sahaya Antony Stalin, I configured this project on the Jancy Builders 
 
           {/* Right Cursive */}
           <div className="select-none text-right">
-            <span className="font-['Caveat',cursive] text-2xl sm:text-3xl text-[#C29061] block leading-none">
+            <span className="font-['Caveat',cursive] text-2xl sm:text-3xl text-[#B78A52] block leading-none">
               Spaces for a Brighter Tomorrow
             </span>
             <svg
-              className="w-36 h-3 text-[#C29061]/60 mt-1 ml-auto"
+              className="w-36 h-3 text-[#B78A52]/60 mt-1 ml-auto"
               viewBox="0 0 140 10"
               fill="none"
             >

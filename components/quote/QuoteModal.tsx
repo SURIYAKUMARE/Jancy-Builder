@@ -127,19 +127,19 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.96, y: 15 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
-        className="relative w-full max-w-xl rounded-3xl bg-[#0C1019] text-white shadow-2xl border border-white/15 overflow-hidden my-auto"
+        className="relative w-full max-w-xl rounded-3xl bg-[#17191B] text-white shadow-2xl border border-[#E2D9CC]/20 overflow-hidden my-auto"
       >
-        {/* Modal Header Matching media_1790183200649.png */}
-        <div className="flex items-center justify-between px-6 pt-6 pb-4">
+        {/* Modal Header */}
+        <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-white/10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#F59E0B]/20 border border-[#F59E0B]/30 flex items-center justify-center text-[#F59E0B]">
+            <div className="w-10 h-10 rounded-2xl bg-[#B78A52]/20 border border-[#B78A52]/30 flex items-center justify-center text-[#B78A52]">
               <Calculator className="w-5 h-5 stroke-[2.2]" />
             </div>
             <div>
               <h3 className="text-base sm:text-lg font-bold text-white font-sans leading-tight">
                 Get a Free Construction Estimate
               </h3>
-              <p className="text-xs text-slate-400 leading-tight mt-0.5">
+              <p className="text-xs text-[#A5A5A2] leading-tight mt-0.5">
                 Precision architectural consultation with Jancy Builders
               </p>
             </div>
@@ -147,7 +147,7 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
 
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-slate-400 hover:text-white flex items-center justify-center transition-colors"
             aria-label="Close Modal"
           >
             <X className="w-4 h-4" />
@@ -164,10 +164,10 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
             <p className="text-sm text-slate-300 max-w-md mx-auto">
               Thank you. Our construction expert will contact you shortly.
             </p>
-            <div className="inline-block px-5 py-2.5 rounded-xl bg-slate-900 border border-[#F59E0B]/40 font-mono text-lg font-bold text-[#F59E0B] tracking-wider">
+            <div className="inline-block px-5 py-2.5 rounded-xl bg-[#1F2226] border border-[#B78A52]/40 font-mono text-lg font-bold text-[#B78A52] tracking-wider">
               {submittedQuoteId}
             </div>
-            <p className="text-xs text-slate-400 max-w-md mx-auto">
+            <p className="text-xs text-[#A5A5A2] max-w-md mx-auto">
               Our Chief Structural Engineer, <strong>Er. Sahaya Antony Stalin</strong>, will review your project and contact you at <strong className="text-slate-200">{phone}</strong> within 24 hours with a comprehensive site evaluation.
             </p>
 
@@ -183,19 +183,19 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
               </a>
               <button
                 onClick={onClose}
-                className="w-full sm:w-auto px-6 py-3 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs uppercase tracking-wider"
+                className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#1F2226] hover:bg-[#282B30] text-slate-200 font-bold text-xs uppercase tracking-wider border border-white/10"
               >
                 Close
               </button>
             </div>
           </div>
         ) : (
-          /* Form Content Matching media_1790183200649.png */
-          <form onSubmit={handleSubmit} className="px-6 pb-6 space-y-5">
+          /* Form Content */
+          <form onSubmit={handleSubmit} className="px-6 pt-5 pb-6 space-y-5">
             
             {/* 1. PROJECT TYPE */}
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-2">
+              <label className="block text-[11px] font-mono uppercase tracking-wider text-[#A5A5A2] mb-2">
                 1. PROJECT TYPE
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -208,8 +208,8 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
                       onClick={() => setProjectType(type)}
                       className={`py-2 px-2.5 rounded-xl text-xs font-semibold border transition-all text-center ${
                         isSelected
-                          ? "bg-[#1E190E] border-[#F59E0B] text-[#F59E0B] shadow-sm font-bold"
-                          : "bg-slate-900/60 border-white/10 text-slate-300 hover:text-white hover:border-white/20"
+                          ? "bg-[#B78A52]/15 border-[#B78A52] text-[#B78A52] shadow-sm font-bold"
+                          : "bg-[#1F2226] border-white/10 text-slate-300 hover:text-white hover:border-white/20"
                       }`}
                     >
                       {type}
@@ -222,10 +222,10 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
             {/* 2. BUILT-UP AREA (SQ.FT) */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-[11px] font-mono uppercase tracking-wider text-slate-400">
+                <label className="text-[11px] font-mono uppercase tracking-wider text-[#A5A5A2]">
                   2. BUILT-UP AREA (SQ.FT)
                 </label>
-                <span className="text-sm font-bold font-mono text-[#F59E0B]">
+                <span className="text-sm font-bold font-mono text-[#B78A52]">
                   {areaSqFt.toLocaleString()} sq.ft
                 </span>
               </div>
@@ -236,13 +236,13 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
                 step="250"
                 value={areaSqFt}
                 onChange={(e) => setAreaSqFt(Number(e.target.value))}
-                className="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-[#F59E0B]"
+                className="w-full h-1.5 bg-[#1F2226] rounded-lg appearance-none cursor-pointer accent-[#B78A52]"
               />
             </div>
 
             {/* 3. SPECIFICATION GRADE */}
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-2">
+              <label className="block text-[11px] font-mono uppercase tracking-wider text-[#A5A5A2] mb-2">
                 3. SPECIFICATION GRADE
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
@@ -258,31 +258,31 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
                       onClick={() => setGrade(pkg.id)}
                       className={`p-3 rounded-2xl border cursor-pointer transition-all ${
                         isSelected
-                          ? "bg-[#1E190E] border-[#F59E0B] shadow-md"
-                          : "bg-slate-900/60 border-white/10 hover:border-white/20"
+                          ? "bg-[#B78A52]/15 border-[#B78A52] shadow-md"
+                          : "bg-[#1F2226] border-white/10 hover:border-white/20"
                       }`}
                     >
                       <h5 className="text-xs font-bold text-white">{pkg.title}</h5>
-                      <p className="text-[11px] text-slate-400 font-mono mt-0.5">{pkg.rate}</p>
+                      <p className="text-[11px] text-[#A5A5A2] font-mono mt-0.5">{pkg.rate}</p>
                     </div>
                   );
                 })}
               </div>
             </div>
 
-            {/* TENTATIVE TURNKEY BUDGET BOX Matching media_1790183200649.png */}
-            <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-inner">
+            {/* TENTATIVE TURNKEY BUDGET BOX */}
+            <div className="p-4 rounded-2xl bg-[#1F2226] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-inner">
               <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#A5A5A2] block">
                   TENTATIVE TURNKEY BUDGET
                 </span>
-                <div className="text-2xl sm:text-3xl font-black text-[#F59E0B] font-sans tracking-tight mt-0.5">
+                <div className="text-2xl sm:text-3xl font-black text-[#B78A52] font-sans tracking-tight mt-0.5">
                   ₹{formattedEstimateCrores} Crores
                 </div>
               </div>
 
               <div className="text-left sm:text-right">
-                <span className="text-[11px] text-slate-400 block">
+                <span className="text-[11px] text-[#A5A5A2] block">
                   Includes Structural + MEP + Finishing
                 </span>
                 <span className="text-xs font-bold text-emerald-400 block mt-0.5">
@@ -310,7 +310,7 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. John Doe"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B]/40 transition-all"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#1F2226] border border-white/15 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#B78A52] focus:ring-1 focus:ring-[#B78A52]/40 transition-all"
                   />
                 </div>
 
@@ -331,7 +331,7 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+91 98765 43210"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B]/40 transition-all"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#1F2226] border border-white/15 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#B78A52] focus:ring-1 focus:ring-[#B78A52]/40 transition-all"
                   />
                 </div>
               </div>
@@ -352,7 +352,7 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   placeholder="e.g. Samugarengapuram / Tirunelveli / Coimbatore"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#F59E0B] focus:ring-1 focus:ring-[#F59E0B]/40 transition-all"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#1F2226] border border-white/15 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#B78A52] focus:ring-1 focus:ring-[#B78A52]/40 transition-all"
                 />
               </div>
             </div>
@@ -364,13 +364,13 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
               </div>
             )}
 
-            {/* Vibrant Gold CTA Button with Section 16 Submitting... text */}
+            {/* Architectural Bronze CTA Button */}
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               disabled={isSubmitting}
               type="submit"
-              className="w-full py-3.5 px-6 rounded-full bg-[#F59E0B] hover:bg-[#D97706] text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-[#F59E0B]/25 flex items-center justify-center gap-2 transition-all disabled:opacity-60"
+              className="w-full py-3.5 px-6 rounded-full bg-[#B78A52] hover:bg-[#a37742] text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-[#B78A52]/25 flex items-center justify-center gap-2 transition-all disabled:opacity-60"
             >
               {isSubmitting ? (
                 <>
@@ -379,20 +379,20 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
                 </>
               ) : (
                 <>
-                  <span>REQUEST FULL BOQ & SITE INSPECTION</span>
+                  <span>REQUEST FULL BOQ &amp; SITE INSPECTION</span>
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}
             </motion.button>
 
-            {/* Footer Note Matching media_1790183200649.png */}
+            {/* Footer Note */}
             <div className="text-center pt-1">
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-[#A5A5A2]">
                 Prefer speaking directly? Call Er. Sahaya Antony Stalin at{" "}
                 <a
                   href="tel:+917708247124"
                   onClick={() => trackEvent("expert_call_click", { source: "quote_modal" })}
-                  className="text-[#F59E0B] font-bold hover:underline"
+                  className="text-[#B78A52] font-bold hover:underline"
                 >
                   +91 77082 47124
                 </a>{" "}

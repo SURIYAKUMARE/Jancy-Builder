@@ -159,10 +159,10 @@ export default function EngineerWelcomeModal({
               <div className="w-3 h-3 rounded-full bg-emerald-400 animate-ping flex-shrink-0" />
               <div className="min-w-0">
                 <h4 className="text-xs font-bold text-white truncate">
-                  Er. Sahaya Antony Stalin, B.E. (Civil)
+                  Virtual Civil Engineer &amp; Guide
                 </h4>
                 <p className="text-[10px] text-slate-400 font-mono">
-                  Chief Civil Engineer & Founder
+                  Jancy Builders Technical Project Guide
                 </p>
               </div>
             </div>
@@ -173,35 +173,35 @@ export default function EngineerWelcomeModal({
             <div className="space-y-4">
               {/* Eyebrow badge */}
               <div className="flex items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B88746]/15 text-[#8C5D24] text-[11px] font-bold tracking-wider font-mono uppercase">
-                  <Sparkles className="w-3 h-3 text-[#B88746]" />
-                  <span>Jancy Builders • Tirunelveli</span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B78A52]/15 text-[#966E3A] text-[11px] font-bold tracking-wider font-mono uppercase">
+                  <Sparkles className="w-3 h-3 text-[#B78A52]" />
+                  <span>Jancy Builders • Virtual Guide</span>
                 </span>
                 <span className="text-[11px] text-slate-500 font-mono hidden sm:inline">
-                  Est. 2016
+                  Supervised by Er. Stalin, B.E. (Civil)
                 </span>
               </div>
 
               {/* Main Welcome Headline */}
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-950 font-sans tracking-tight leading-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#17191B] font-sans tracking-tight leading-tight">
                 {lang === "en" ? (
                   <>
-                    Welcome to <span className="text-[#B88746]">Jancy Builders</span>.
+                    Welcome to <span className="text-[#B78A52]">Jancy Builders</span>.
                   </>
                 ) : (
                   <>
-                    <span className="text-[#B88746]">ஜான்சி பில்டர்ஸ்</span>-க்கு அன்புடன் வரவேற்கிறோம்.
+                    <span className="text-[#B78A52]">ஜான்சி பில்டர்ஸ்</span>-க்கு அன்புடன் வரவேற்கிறோம்.
                   </>
                 )}
               </h2>
 
-              {/* Welcome Quote / Message */}
-              <div className="p-4 rounded-2xl bg-[#F8F5EE] border border-[#E8DFD1] relative">
-                <p className="text-slate-800 text-base sm:text-lg font-medium leading-relaxed italic">
+              {/* Welcome Quote / Speech Bubble */}
+              <div className="p-4 rounded-2xl bg-[#F8F6F1] border border-[#E6E1D8] relative">
+                <p className="text-[#202124] text-base sm:text-lg font-medium leading-relaxed italic">
                   {lang === "en" ? (
-                    `"Let us build your dream into reality. From structural precision and thermal Porotherm brickwork to turnkey handover, our engineering team is here to guide your journey."`
+                    `"Welcome to Jancy Builders. Let's bring your dream project to life. From architectural planning and thermal Porotherm brickwork to turnkey handover, I am here to guide your journey."`
                   ) : (
-                    `"உங்கள் கனவு இல்லத்தை மிகச் சிறந்த பொறியியல் தரத்துடன் நிஜமாக்குவோம். அஸ்திவாரம் முதல் சாவி ஒப்படைப்பு வரை உங்களுக்கு வழிகாட்ட தயாராக உள்ளோம்."`
+                    `"ஜான்சி பில்டர்ஸுக்கு அன்புடன் வரவேற்கிறோம். உங்கள் கனவு இல்லத்தை மிகச் சிறந்த பொறியியல் தரத்துடன் நிஜமாக்குவோம். அஸ்திவாரம் முதல் சாவி ஒப்படைப்பு வரை உங்களுக்கு வழிகாட்ட தயாராக உள்ளேன்."`
                   )}
                 </p>
               </div>

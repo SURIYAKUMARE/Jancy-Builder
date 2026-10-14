@@ -86,7 +86,7 @@ export default function EngineeringPillars() {
   ];
 
   return (
-    <section id="engineering" className="relative py-20 lg:py-28 bg-[#FBF9F5] overflow-hidden">
+    <section id="engineering" className="relative py-20 lg:py-28 bg-[#F8F6F1] border-b border-[#E2D9CC] overflow-hidden scroll-mt-20">
       {/* Background Architectural Villa Overlay on Right */}
       <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[45%] h-full opacity-10 pointer-events-none overflow-hidden">
         <Image
@@ -102,60 +102,60 @@ export default function EngineeringPillars() {
         {/* Section Header */}
         <div className="max-w-3xl mb-8">
           <div className="flex items-center gap-3 mb-2">
-            <span className="h-[2px] w-8 bg-[#C29061] block" />
-            <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-slate-500">
+            <span className="h-[2px] w-8 bg-[#B78A52] block" />
+            <span className="text-xs font-mono font-semibold uppercase tracking-[0.25em] text-[#B78A52]">
               OUR EXPERTISE
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight font-sans">
+          <h2 className="text-3xl sm:text-5xl font-black text-[#17191B] tracking-tight font-sans">
             Precision Civil Engineering<br />
-            <span className="text-[#C29061]">Behind Every Wall</span>
+            <span className="text-[#B78A52] font-serif italic font-normal">Behind Every Wall</span>
           </h2>
 
-          <p className="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed">
+          <p className="mt-4 text-[#202124]/75 text-sm sm:text-base leading-relaxed">
             True architectural luxury is not merely surface finishes; it is the mathematical rigor, soil mechanics, and seismic strength embedded within every structural footing.
           </p>
         </div>
 
-        {/* 4 Stats in Horizontal Row with Red Accent Icons */}
-        <div className="flex items-center flex-wrap gap-8 sm:gap-14 py-4 mb-12 border-b border-slate-200">
+        {/* 4 Stats in Horizontal Row with Bronze Accent Icons */}
+        <div className="flex items-center flex-wrap gap-8 sm:gap-14 py-4 mb-12 border-b border-[#E2D9CC]">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center flex-shrink-0">
-              <Building2 className="w-5 h-5 text-red-600" />
+            <div className="w-10 h-10 rounded-xl bg-[#B78A52]/10 text-[#B78A52] flex items-center justify-center flex-shrink-0">
+              <Building2 className="w-5 h-5 text-[#B78A52]" />
             </div>
             <div>
-              <span className="text-xl font-black text-slate-950 block leading-tight">250+</span>
+              <span className="text-xl font-black text-[#17191B] block leading-tight">250+</span>
               <span className="text-xs text-slate-500 font-medium">Projects Completed</span>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center flex-shrink-0">
-              <Users2 className="w-5 h-5 text-red-600" />
+            <div className="w-10 h-10 rounded-xl bg-[#B78A52]/10 text-[#B78A52] flex items-center justify-center flex-shrink-0">
+              <Users2 className="w-5 h-5 text-[#B78A52]" />
             </div>
             <div>
-              <span className="text-xl font-black text-slate-950 block leading-tight">500+</span>
+              <span className="text-xl font-black text-[#17191B] block leading-tight">500+</span>
               <span className="text-xs text-slate-500 font-medium">Happy Clients</span>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center flex-shrink-0">
-              <ShieldCheck className="w-5 h-5 text-red-600" />
+            <div className="w-10 h-10 rounded-xl bg-[#B78A52]/10 text-[#B78A52] flex items-center justify-center flex-shrink-0">
+              <ShieldCheck className="w-5 h-5 text-[#B78A52]" />
             </div>
             <div>
-              <span className="text-xl font-black text-slate-950 block leading-tight">8+</span>
+              <span className="text-xl font-black text-[#17191B] block leading-tight">8+</span>
               <span className="text-xs text-slate-500 font-medium">Years of Experience</span>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center flex-shrink-0">
-              <Trophy className="w-5 h-5 text-red-600" />
+            <div className="w-10 h-10 rounded-xl bg-[#B78A52]/10 text-[#B78A52] flex items-center justify-center flex-shrink-0">
+              <Trophy className="w-5 h-5 text-[#B78A52]" />
             </div>
             <div>
-              <span className="text-xl font-black text-slate-950 block leading-tight">4.8+</span>
+              <span className="text-xl font-black text-[#17191B] block leading-tight">4.8+</span>
               <span className="text-xs text-slate-500 font-medium">Client Satisfaction</span>
             </div>
           </div>
@@ -190,11 +190,11 @@ export default function EngineeringPillars() {
                         <span className="text-xs font-mono font-bold text-slate-400">
                           {pillar.num}
                         </span>
-                        <div className="w-6 h-6 rounded-full bg-[#C29061]/15 text-[#C29061] flex items-center justify-center flex-shrink-0">
+                        <div className="w-6 h-6 rounded-full bg-[#B78A52]/15 text-[#B78A52] flex items-center justify-center flex-shrink-0">
                           <Icon className="w-3.5 h-3.5" />
                         </div>
                       </div>
-                      <h3 className="text-sm font-bold text-slate-950 leading-snug group-hover:text-[#C29061] transition-colors line-clamp-2">
+                      <h3 className="text-sm font-bold text-slate-950 leading-snug group-hover:text-[#B78A52] transition-colors line-clamp-2">
                         {pillar.title}
                       </h3>
                     </div>
@@ -211,7 +211,7 @@ export default function EngineeringPillars() {
                   <span className="text-[10px] font-mono font-bold tracking-wider text-slate-600 bg-slate-100 px-2.5 py-1 rounded-full uppercase">
                     {pillar.tag}
                   </span>
-                  <div className="w-7 h-7 rounded-full border border-slate-200 group-hover:border-[#C29061] group-hover:bg-[#C29061] group-hover:text-white text-slate-600 flex items-center justify-center transition-colors">
+                  <div className="w-7 h-7 rounded-full border border-slate-200 group-hover:border-[#B78A52] group-hover:bg-[#B78A52] group-hover:text-white text-slate-600 flex items-center justify-center transition-colors">
                     <ArrowRight className="w-3.5 h-3.5" />
                   </div>
                 </div>
@@ -258,7 +258,7 @@ export default function EngineeringPillars() {
                       <span className="text-xs font-mono font-bold text-slate-400">
                         {active.num}
                       </span>
-                      <span className="text-xs font-mono font-bold text-[#C29061] bg-[#C29061]/10 px-2.5 py-1 rounded-full">
+                      <span className="text-xs font-mono font-bold text-[#B78A52] bg-[#B78A52]/10 px-2.5 py-1 rounded-full">
                         {active.tag}
                       </span>
                     </div>

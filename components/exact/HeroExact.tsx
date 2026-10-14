@@ -390,59 +390,59 @@ export default function HeroExact({
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.12, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl sm:text-6xl lg:text-[4.75rem] font-black text-slate-950 tracking-tight leading-[1.04] font-sans"
+            className="text-4xl sm:text-6xl lg:text-[4.75rem] font-black text-[#17191B] tracking-tight leading-[1.04] font-sans"
           >
             JANCY BUILDERS
             <span className="block text-xl sm:text-2xl lg:text-3xl font-serif italic text-slate-800 font-normal mt-2">
               Engineering Dreams.{" "}
-              <span className="text-[#C29061] bg-gradient-to-r from-[#C29061] via-[#E8C59A] to-[#B07F50] bg-clip-text text-transparent font-semibold not-italic">
+              <span className="text-[#B78A52] font-semibold not-italic">
                 Building Tomorrow.
               </span>
             </span>
           </motion.h1>
 
-          {/* Subtitle */}
+          {/* Supporting text */}
           <motion.p
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.24, duration: 0.7, ease: "easeOut" }}
             className="text-slate-600 text-sm sm:text-base max-w-lg leading-relaxed font-normal"
           >
-            Under the structural leadership of Er. Sahaya Antony Stalin, we engineer modern residential villas, Porotherm eco-thermal homes, and turnkey commercial landmarks across Tamil Nadu.
+            Thoughtfully designed spaces. Professionally engineered. Built for generations.
           </motion.p>
 
-          {/* CTA Buttons Row: Explore Projects & Get Free Consultation */}
+          {/* CTA Buttons Row: Explore Our Work & Start Your Project */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.36, duration: 0.7, ease: "easeOut" }}
             className="flex items-center flex-wrap gap-4 sm:gap-6 pt-2"
           >
-            {/* Primary Pill Button: Explore Projects */}
+            {/* Primary Pill Button: Explore Our Work */}
             <motion.a
               href="#projects"
               whileHover={{
                 y: -2,
                 scale: 1.02,
-                boxShadow: "0 15px 35px rgba(0, 0, 0, 0.25)",
+                boxShadow: "0 15px 35px rgba(23, 25, 27, 0.2)",
               }}
               whileTap={{ scale: 0.97 }}
-              className="group relative inline-flex items-center gap-2.5 bg-slate-950 hover:bg-slate-800 text-white text-sm font-bold px-7 py-3.5 rounded-full shadow-lg shadow-black/15 transition-all duration-200 overflow-hidden"
+              className="group relative inline-flex items-center gap-2.5 bg-[#17191B] hover:bg-[#25282B] text-white text-sm font-bold px-7 py-3.5 rounded-full shadow-lg transition-all duration-200 overflow-hidden"
             >
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
-              <span>Explore Projects</span>
+              <span>Explore Our Work</span>
               <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
             </motion.a>
 
-            {/* Secondary Gold Pill Button: Get Free Consultation */}
+            {/* Secondary Bronze Pill Button: Start Your Project */}
             <motion.button
               whileHover={{ y: -2, scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
               onClick={onOpenQuote}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#B88746] hover:bg-[#a67435] text-slate-950 font-bold text-sm shadow-md hover:shadow-lg transition-all duration-200"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#B78A52] hover:bg-[#966E3A] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all duration-200"
             >
-              <Sparkles className="w-4 h-4 text-slate-950" />
-              <span>Get Free Consultation</span>
+              <Sparkles className="w-4 h-4 text-white" />
+              <span>Start Your Project</span>
             </motion.button>
           </motion.div>
 

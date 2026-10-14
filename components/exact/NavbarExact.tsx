@@ -147,15 +147,15 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
             <span className="hidden sm:inline">WhatsApp</span>
           </a>
 
-          {/* Signature Red Pill CTA Button */}
+          {/* Signature Bronze / Charcoal Luxury CTA Button */}
           <motion.button
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.96 }}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
             onClick={onOpenQuote}
-            className="group relative inline-flex items-center gap-2 bg-[#E50914] hover:bg-[#DC2626] text-white text-xs sm:text-sm font-bold px-5 py-2.5 rounded-full shadow-md shadow-red-600/25 transition-all duration-200"
+            className="group relative inline-flex items-center gap-2 bg-[#17191B] hover:bg-[#B78A52] text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-full shadow-lg shadow-black/10 transition-all duration-300 border border-[#B78A52]/30 hover:border-[#B78A52]"
           >
             <span>Get a Quote</span>
-            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1 text-[#B78A52] group-hover:text-white" />
           </motion.button>
         </div>
 
@@ -172,7 +172,7 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
           </a>
           <a
             href="tel:+917708247124"
-            className="p-2 text-[#E50914] hover:bg-red-50 rounded-full"
+            className="p-2 text-[#B78A52] hover:bg-[#B78A52]/10 rounded-full"
             title="Call"
           >
             <Phone className="w-4 h-4" />
@@ -272,7 +272,7 @@ export default function NavbarExact({ onOpenQuote }: NavbarExactProps) {
                   setMobileMenuOpen(false);
                   onOpenQuote();
                 }}
-                className="w-full bg-[#E50914] hover:bg-[#DC2626] text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2"
+                className="w-full bg-[#B78A52] hover:bg-[#a17845] text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2"
               >
                 <span>Get a Free Quote</span>
                 <ArrowRight className="w-4 h-4" />

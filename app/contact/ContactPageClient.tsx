@@ -61,7 +61,7 @@ export default function ContactPageClient() {
   const whatsappUrl = `https://wa.me/917708247124?text=${whatsappMessage}`;
 
   return (
-    <div className="min-h-screen bg-[#F7F4EE] text-slate-900 flex flex-col font-sans selection:bg-[#E50914]/20 selection:text-[#E50914]">
+    <div className="min-h-screen bg-[#F8F6F1] text-[#202124] flex flex-col font-sans selection:bg-[#B78A52]/20 selection:text-[#B78A52]">
       {/* Navbar */}
       <NavbarExact onOpenQuote={() => setIsQuoteOpen(true)} />
 
@@ -71,17 +71,17 @@ export default function ContactPageClient() {
         <section className="relative px-4 sm:px-6 lg:px-8 py-16 lg:py-20 max-w-[1440px] mx-auto">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 mb-3">
-              <span className="h-[2px] w-8 bg-[#B88746] block" />
-              <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#B88746]">
+              <span className="h-[2px] w-8 bg-[#B78A52] block" />
+              <span className="text-xs font-mono font-semibold uppercase tracking-[0.25em] text-[#B78A52]">
                 GET IN TOUCH • SAMUGARENGAPURAM
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl font-black text-slate-950 tracking-tight font-sans">
+            <h1 className="text-4xl sm:text-6xl font-black text-[#17191B] tracking-tight font-sans">
               Contact Jancy Builders
             </h1>
 
-            <p className="mt-4 text-base sm:text-lg text-slate-700 leading-relaxed">
+            <p className="mt-4 text-base sm:text-lg text-[#202124]/75 leading-relaxed">
               Speak directly with Chief Civil Engineer <strong>Er. Sahaya Antony Stalin</strong> to plan your turnkey residential or commercial construction in Tirunelveli and South Tamil Nadu.
             </p>
           </div>
@@ -95,13 +95,13 @@ export default function ContactPageClient() {
             <div className="lg:col-span-5 space-y-6">
               
               {/* Headquarters Card */}
-              <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8DFD1] shadow-xl shadow-black/5 space-y-4">
-                <span className="text-xs font-mono uppercase tracking-wider text-[#B88746] font-bold block">
+              <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E2D9CC] shadow-xl shadow-black/5 space-y-4">
+                <span className="text-xs font-mono uppercase tracking-wider text-[#B78A52] font-bold block">
                   REGISTERED HEADQUARTERS
                 </span>
 
                 <div className="flex items-start gap-3 text-slate-700">
-                  <MapPin className="w-5 h-5 text-[#B88746] flex-shrink-0 mt-1" />
+                  <MapPin className="w-5 h-5 text-[#B78A52] flex-shrink-0 mt-1" />
                   <div className="text-sm leading-relaxed">
                     <h3 className="font-bold text-slate-950 text-base">Jancy Home</h3>
                     <p>Perumal Kovil Street,</p>
@@ -112,14 +112,14 @@ export default function ContactPageClient() {
 
                 <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-semibold">
                   <div className="flex items-center gap-1.5 text-slate-600">
-                    <Clock className="w-4 h-4 text-[#B88746]" />
+                    <Clock className="w-4 h-4 text-[#B78A52]" />
                     <span>Open 24 Hours • Mon – Sun</span>
                   </div>
                   <a
                     href="https://maps.google.com/?q=8.337495,77.698087"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#B88746] hover:underline flex items-center gap-1"
+                    className="text-[#B78A52] hover:underline flex items-center gap-1"
                   >
                     <span>Google Maps</span>
                     <ExternalLink className="w-3 h-3" />
@@ -129,20 +129,20 @@ export default function ContactPageClient() {
 
               {/* Direct Client Lines */}
               <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E8DFD1] shadow-xl shadow-black/5 space-y-4">
-                <span className="text-xs font-mono uppercase tracking-wider text-[#B88746] font-bold block">
+                <span className="text-xs font-mono uppercase tracking-wider text-[#B78A52] font-bold block">
                   DIRECT CLIENT LINES
                 </span>
 
                 <div className="flex items-center justify-between gap-4 flex-wrap">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-[#B88746]/10 text-[#B88746] flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-[#B78A52]/10 text-[#B78A52] flex items-center justify-center flex-shrink-0">
                       <Phone className="w-5 h-5" />
                     </div>
                     <div>
                       <span className="text-[11px] text-slate-500 font-mono block">PHONE / DIRECT CALL</span>
                       <a
                         href="tel:+917708247124"
-                        className="text-base font-bold text-slate-950 hover:text-[#B88746] transition-colors"
+                        className="text-base font-bold text-slate-950 hover:text-[#B78A52] transition-colors"
                       >
                         +91 77082 47124
                       </a>
@@ -206,7 +206,7 @@ export default function ContactPageClient() {
             </div>
 
             {/* In-Page Consultation Request Form (7 Cols) */}
-            <div className="lg:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-[#E8DFD1] shadow-2xl shadow-black/5">
+            <div className="lg:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-[#E2D9CC] shadow-2xl shadow-black/5">
               {isSubmitted ? (
                 <div className="py-12 text-center space-y-4">
                   <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
@@ -247,7 +247,7 @@ export default function ContactPageClient() {
                         placeholder="e.g. S. Murugan"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-[#B88746] bg-slate-50/50"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-[#B78A52] bg-slate-50/50"
                       />
                     </div>
 
@@ -259,7 +259,7 @@ export default function ContactPageClient() {
                         placeholder="e.g. +91 98765 43210"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-[#B88746] bg-slate-50/50"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-[#B78A52] bg-slate-50/50"
                       />
                     </div>
                   </div>
@@ -272,7 +272,7 @@ export default function ContactPageClient() {
                         placeholder="e.g. name@domain.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-[#B88746] bg-slate-50/50"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-[#B78A52] bg-slate-50/50"
                       />
                     </div>
 
@@ -281,7 +281,7 @@ export default function ContactPageClient() {
                       <select
                         value={formData.projectType}
                         onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-[#B88746] bg-slate-50/50"
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-[#B78A52] bg-slate-50/50"
                       >
                         <option value="Luxury Villa">Luxury Villa</option>
                         <option value="Contemporary Duplex">Contemporary Duplex</option>
@@ -301,7 +301,7 @@ export default function ContactPageClient() {
                       placeholder="e.g. Samugarengapuram / Durainagar / Valliyur / Tirunelveli"
                       value={formData.location}
                       onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-[#B88746] bg-slate-50/50"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-[#B78A52] bg-slate-50/50"
                     />
                   </div>
 
@@ -312,21 +312,21 @@ export default function ContactPageClient() {
                       placeholder="Tell us about your plot size, preferred number of floors, budget, or architectural style..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-[#B88746] bg-slate-50/50 resize-none"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-[#B78A52] bg-slate-50/50 resize-none"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-4 rounded-full bg-[#E50914] hover:bg-[#DC2626] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-red-600/25 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                    className="w-full py-4 rounded-full bg-[#17191B] hover:bg-[#B78A52] text-white font-semibold text-xs uppercase tracking-wider transition-all shadow-lg shadow-black/10 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 border border-[#B78A52]/30 hover:scale-[1.01]"
                   >
                     {isSubmitting ? (
                       <span>Submitting Request...</span>
                     ) : (
                       <>
                         <span>Submit Consultation Request</span>
-                        <Send className="w-4 h-4" />
+                        <Send className="w-4 h-4 text-[#B78A52] group-hover:text-white" />
                       </>
                     )}
                   </button>

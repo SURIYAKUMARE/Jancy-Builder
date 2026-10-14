@@ -77,9 +77,9 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
   ];
 
   return (
-    <section id="projects" className="w-full bg-[#0F172A] py-16 lg:py-24 text-white relative overflow-hidden scroll-mt-20">
+    <section id="projects" className="w-full bg-[#17191B] py-16 lg:py-24 text-white relative overflow-hidden scroll-mt-20">
       {/* Background Decorative Ambient Glows */}
-      <div className="absolute top-0 right-1/4 w-[600px] h-[400px] bg-[#C29061]/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-[600px] h-[400px] bg-[#B78A52]/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-0 left-10 w-[500px] h-[350px] bg-[#DC2626]/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -88,15 +88,15 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 pb-6 border-b border-white/10">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="h-[2px] w-8 bg-[#C29061] block" />
-              <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#C29061]">
+              <span className="h-[2px] w-8 bg-[#B78A52] block" />
+              <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#B78A52]">
                 PORTFOLIO OF EXCELLENCE
               </span>
             </div>
 
             <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight font-sans">
               Selected Projects &amp;<br />
-              <span className="text-[#E8C59A] bg-gradient-to-r from-[#E8C59A] via-[#C29061] to-[#E8C59A] bg-clip-text text-transparent">
+              <span className="text-[#B78A52] bg-gradient-to-r from-[#B78A52] via-[#B78A52] to-[#B78A52] bg-clip-text text-transparent">
                 Turnkey Landmarks
               </span>
             </h2>
@@ -114,7 +114,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                 onClick={() => setViewMode("carousel")}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
                   viewMode === "carousel"
-                    ? "bg-[#C29061] text-slate-950 font-bold shadow-md"
+                    ? "bg-[#B78A52] text-slate-950 font-bold shadow-md"
                     : "text-slate-400 hover:text-white"
                 }`}
               >
@@ -125,7 +125,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                 onClick={() => setViewMode("grid")}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
                   viewMode === "grid"
-                    ? "bg-[#C29061] text-slate-950 font-bold shadow-md"
+                    ? "bg-[#B78A52] text-slate-950 font-bold shadow-md"
                     : "text-slate-400 hover:text-white"
                 }`}
               >
@@ -146,7 +146,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                 </button>
                 <button
                   onClick={handleNext}
-                  className="w-10 h-10 rounded-full bg-[#C29061] hover:bg-[#d8a573] text-slate-950 flex items-center justify-center transition-all active:scale-95 shadow-lg shadow-[#C29061]/25"
+                  className="w-10 h-10 rounded-full bg-[#B78A52] hover:bg-[#d8a573] text-slate-950 flex items-center justify-center transition-all active:scale-95 shadow-lg shadow-[#B78A52]/25"
                   aria-label="Next Project"
                 >
                   <ChevronRight className="w-5 h-5" />
@@ -176,7 +176,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                 {isActive && (
                   <motion.div
                     layoutId="active-project-filter"
-                    className="absolute inset-0 bg-[#E8C59A] rounded-full"
+                    className="absolute inset-0 bg-[#B78A52] rounded-full"
                     transition={{ type: "spring", stiffness: 400, damping: 32 }}
                   />
                 )}
@@ -201,7 +201,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                 transition={{ delay: idx * 0.08, duration: 0.5 }}
                 whileHover={{ y: -8 }}
                 onClick={() => handleOpenModal(project)}
-                className="group relative bg-slate-900 rounded-3xl border border-white/10 overflow-hidden shadow-2xl transition-all duration-300 flex flex-col justify-between cursor-pointer hover:border-[#C29061]/50"
+                className="group relative bg-slate-900 rounded-3xl border border-white/10 overflow-hidden shadow-2xl transition-all duration-300 flex flex-col justify-between cursor-pointer hover:border-[#B78A52]/50"
               >
                 <div>
                   {/* Image Container with Zoom */}
@@ -241,8 +241,8 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                     {/* Bottom Work Stage Ribbon on Image */}
                     {project.workStage && (
                       <div className="absolute bottom-3 left-4 right-4 pointer-events-none">
-                        <span className="text-[11px] font-semibold tracking-wide px-3 py-1 rounded-lg bg-black/80 backdrop-blur-md border border-white/15 text-[#E8C59A] inline-flex items-center gap-1.5">
-                          <Sparkles className="w-3 h-3 text-[#E8C59A]" />
+                        <span className="text-[11px] font-semibold tracking-wide px-3 py-1 rounded-lg bg-black/80 backdrop-blur-md border border-white/15 text-[#B78A52] inline-flex items-center gap-1.5">
+                          <Sparkles className="w-3 h-3 text-[#B78A52]" />
                           <span className="truncate">{project.workStage}</span>
                         </span>
                       </div>
@@ -259,12 +259,12 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
 
                   {/* Card Content */}
                   <div className="p-6">
-                    <div className="flex items-center gap-1.5 text-xs text-[#E8C59A] font-medium mb-1.5">
+                    <div className="flex items-center gap-1.5 text-xs text-[#B78A52] font-medium mb-1.5">
                       <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
                       <span className="truncate">{project.location}</span>
                     </div>
 
-                    <h3 className="text-xl font-bold text-white group-hover:text-[#E8C59A] transition-colors line-clamp-1 font-sans">
+                    <h3 className="text-xl font-bold text-white group-hover:text-[#B78A52] transition-colors line-clamp-1 font-sans">
                       {project.name}
                     </h3>
 
@@ -289,7 +289,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                       e.stopPropagation();
                       handleOpenModal(project);
                     }}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 bg-white/5 hover:bg-[#C29061] text-slate-200 hover:text-slate-950 py-2.5 px-4 rounded-full text-xs font-bold border border-white/10 hover:border-[#C29061] transition-all"
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 bg-white/5 hover:bg-[#B78A52] text-slate-200 hover:text-slate-950 py-2.5 px-4 rounded-full text-xs font-bold border border-white/10 hover:border-[#B78A52] transition-all"
                   >
                     <span>Full Specs</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -365,7 +365,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
 
                     {project.workStage && (
                       <div className="absolute bottom-2 left-3 right-3 pointer-events-none">
-                        <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded bg-black/80 backdrop-blur-md border border-white/15 text-[#E8C59A] inline-block truncate max-w-full">
+                        <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded bg-black/80 backdrop-blur-md border border-white/15 text-[#B78A52] inline-block truncate max-w-full">
                           {project.workStage}
                         </span>
                       </div>
@@ -373,11 +373,11 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                   </div>
 
                   <div className="p-6">
-                    <div className="flex items-center gap-1.5 text-xs text-[#E8C59A] font-medium mb-1">
+                    <div className="flex items-center gap-1.5 text-xs text-[#B78A52] font-medium mb-1">
                       <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
                       <span className="truncate">{project.location}</span>
                     </div>
-                    <h3 className="text-lg font-bold text-white group-hover:text-[#E8C59A] transition-colors line-clamp-1">
+                    <h3 className="text-lg font-bold text-white group-hover:text-[#B78A52] transition-colors line-clamp-1">
                       {project.name}
                     </h3>
                     <p className="text-xs text-slate-400 mt-2 line-clamp-2">
@@ -387,7 +387,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                 </div>
 
                 <div className="p-6 pt-0 flex items-center justify-between text-xs border-t border-white/10 pt-4">
-                  <span className="font-mono text-[#E8C59A] font-bold">{project.builtUpArea}</span>
+                  <span className="font-mono text-[#B78A52] font-bold">{project.builtUpArea}</span>
                   <div className="flex items-center gap-2">
                     {project.fbPostUrl && (
                       <span className="text-[11px] font-semibold text-[#1877F2] bg-[#1877F2]/10 px-2 py-0.5 rounded-md flex items-center gap-1">
@@ -395,7 +395,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                         <ExternalLink className="w-3 h-3" />
                       </span>
                     )}
-                    <span className="inline-flex items-center gap-1 text-slate-300 group-hover:text-[#E8C59A] font-bold transition-colors">
+                    <span className="inline-flex items-center gap-1 text-slate-300 group-hover:text-[#B78A52] font-bold transition-colors">
                       <span>Explore</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </span>
@@ -410,7 +410,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
         <div className="mt-12 text-center">
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-white/10 hover:bg-[#C29061] text-white hover:text-slate-950 font-bold text-xs uppercase tracking-wider border border-white/20 hover:border-[#C29061] transition-all shadow-xl hover:scale-105"
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-white/10 hover:bg-[#B78A52] text-white hover:text-slate-950 font-bold text-xs uppercase tracking-wider border border-white/20 hover:border-[#B78A52] transition-all shadow-xl hover:scale-105"
           >
             <span>Explore All 8 Verified Project Sites &amp; Case Studies</span>
             <ArrowRight className="w-4 h-4" />
@@ -420,19 +420,19 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
         {/* Bottom Trust Guarantee Strip */}
         <div className="mt-14 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div className="flex flex-col items-center">
-            <span className="text-2xl sm:text-3xl font-black text-[#E8C59A] font-sans">250+</span>
+            <span className="text-2xl sm:text-3xl font-black text-[#B78A52] font-sans">250+</span>
             <span className="text-xs text-slate-400 mt-0.5">Turnkey Handovers Delivered</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-2xl sm:text-3xl font-black text-[#E8C59A] font-sans">100%</span>
+            <span className="text-2xl sm:text-3xl font-black text-[#B78A52] font-sans">100%</span>
             <span className="text-xs text-slate-400 mt-0.5">NABL Certified Concrete Testing</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-2xl sm:text-3xl font-black text-[#E8C59A] font-sans">10-Year</span>
+            <span className="text-2xl sm:text-3xl font-black text-[#B78A52] font-sans">10-Year</span>
             <span className="text-xs text-slate-400 mt-0.5">Comprehensive Waterproofing</span>
           </div>
           <div className="flex flex-col items-center">
-            <span className="text-2xl sm:text-3xl font-black text-[#E8C59A] font-sans">₹0</span>
+            <span className="text-2xl sm:text-3xl font-black text-[#B78A52] font-sans">₹0</span>
             <span className="text-xs text-slate-400 mt-0.5">Zero Hidden Budget Overruns</span>
           </div>
         </div>
@@ -450,7 +450,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3 }}
-              className="bg-[#0B0F19] text-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-white/15 shadow-2xl relative"
+              className="bg-[#17191B] text-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-white/15 shadow-2xl relative"
             >
               {/* Close Button */}
               <button
@@ -469,18 +469,18 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                   fill
                   className="object-cover transition-all duration-300"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-transparent to-black/30" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#17191B] via-transparent to-black/30" />
 
                 <div className="absolute bottom-4 left-6 right-6 flex items-end justify-between">
                   <div>
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#C29061] text-slate-950 inline-block mb-2">
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#B78A52] text-slate-950 inline-block mb-2">
                       {selectedProject.category}
                     </span>
                     <h3 className="text-2xl sm:text-3xl font-black text-white font-sans">
                       {selectedProject.name}
                     </h3>
                     <p className="text-xs text-slate-300 flex items-center gap-1.5 mt-1">
-                      <MapPin className="w-3.5 h-3.5 text-[#E8C59A]" />
+                      <MapPin className="w-3.5 h-3.5 text-[#B78A52]" />
                       <span>{selectedProject.location}</span>
                     </p>
                   </div>
@@ -513,7 +513,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                 {/* Gallery Thumbnails inside Modal */}
                 {selectedProject.gallery && selectedProject.gallery.length > 0 && (
                   <div>
-                    <h4 className="text-xs font-mono uppercase tracking-wider text-[#E8C59A] font-bold mb-3 flex items-center gap-1.5">
+                    <h4 className="text-xs font-mono uppercase tracking-wider text-[#B78A52] font-bold mb-3 flex items-center gap-1.5">
                       <Layers className="w-3.5 h-3.5" />
                       <span>Project Site Gallery ({selectedProject.gallery.length} Photos)</span>
                     </h4>
@@ -526,7 +526,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                             onClick={() => setModalActiveImage(imgUrl)}
                             className={`relative aspect-[4/3] rounded-xl overflow-hidden border-2 transition-all ${
                               isCurrent
-                                ? "border-[#C29061] scale-105 shadow-md shadow-[#C29061]/30"
+                                ? "border-[#B78A52] scale-105 shadow-md shadow-[#B78A52]/30"
                                 : "border-white/10 opacity-70 hover:opacity-100"
                             }`}
                           >
@@ -545,7 +545,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
 
                 {/* Project Description */}
                 <div>
-                  <h4 className="text-xs font-mono uppercase tracking-wider text-[#E8C59A] font-bold mb-2">
+                  <h4 className="text-xs font-mono uppercase tracking-wider text-[#B78A52] font-bold mb-2">
                     Project Overview
                   </h4>
                   <p className="text-sm text-slate-300 leading-relaxed">
@@ -555,7 +555,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
 
                 {/* Key Architectural & Interior Highlights */}
                 <div>
-                  <h4 className="text-xs font-mono uppercase tracking-wider text-[#E8C59A] font-bold mb-3">
+                  <h4 className="text-xs font-mono uppercase tracking-wider text-[#B78A52] font-bold mb-3">
                     Architectural &amp; Material Highlights
                   </h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -564,7 +564,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                         key={i}
                         className="flex items-start gap-2.5 bg-slate-900/60 p-3 rounded-xl border border-white/5 text-xs text-slate-200"
                       >
-                        <CheckCircle2 className="w-4 h-4 text-[#C29061] flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-[#B78A52] flex-shrink-0 mt-0.5" />
                         <span>{feature}</span>
                       </div>
                     ))}
@@ -574,7 +574,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                 {/* Structural Rigor Specification */}
                 <div className="p-4 bg-slate-900/90 rounded-2xl border border-white/10">
                   <div className="flex items-center gap-2 text-xs font-bold text-white mb-1.5">
-                    <Shield className="w-4 h-4 text-[#C29061]" />
+                    <Shield className="w-4 h-4 text-[#B78A52]" />
                     <span>Civil Engineering &amp; Quality Guarantee</span>
                   </div>
                   <p className="text-xs text-slate-300 leading-relaxed">
@@ -617,7 +617,7 @@ export default function ProjectsExact({ onOpenQuote }: ProjectsExactProps) {
                       setSelectedProject(null);
                       onOpenQuote();
                     }}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#C29061] hover:bg-[#b58354] text-slate-950 py-3.5 px-6 rounded-full font-bold text-xs uppercase tracking-wider transition-all"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#B78A52] hover:bg-[#b58354] text-slate-950 py-3.5 px-6 rounded-full font-bold text-xs uppercase tracking-wider transition-all"
                   >
                     <span>Book Free Site Visit</span>
                     <ArrowRight className="w-4 h-4" />

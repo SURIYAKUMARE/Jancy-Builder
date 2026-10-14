@@ -135,18 +135,18 @@ export default function BeforeAfterSlider({
             onClick={() => setIsAutoAnimating(!isAutoAnimating)}
             className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
               isAutoAnimating
-                ? "bg-[#E50914] text-white shadow-md shadow-red-600/20"
+                ? "bg-[#17191B] text-white shadow-md border border-[#B78A52]/40"
                 : "bg-white text-slate-700 hover:text-slate-950"
             }`}
           >
             {isAutoAnimating ? (
               <>
-                <Pause className="w-3.5 h-3.5 fill-current" />
+                <Pause className="w-3.5 h-3.5 fill-current text-[#B78A52]" />
                 <span>Auto-Scan Active</span>
               </>
             ) : (
               <>
-                <Play className="w-3.5 h-3.5 fill-current" />
+                <Play className="w-3.5 h-3.5 fill-current text-[#B78A52]" />
                 <span>Play Auto-Scan</span>
               </>
             )}
@@ -209,35 +209,35 @@ export default function BeforeAfterSlider({
           />
         </div>
 
-        {/* Top-Left Badge: STAGE 01: EMPTY GROUND (Matching media_1790182531570.jpg) */}
+        {/* Top-Left Badge: STAGE 01: EMPTY GROUND */}
         <div className="absolute top-5 left-5 z-20 pointer-events-none">
-          <div className="bg-[#141A28]/90 backdrop-blur-md px-4 py-1.5 rounded-full border border-red-500/40 text-[#F87171] text-xs sm:text-[13px] font-mono font-bold tracking-wider uppercase shadow-xl flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+          <div className="bg-[#17191B]/90 backdrop-blur-md px-4 py-1.5 rounded-full border border-[#B78A52]/40 text-[#B78A52] text-xs sm:text-[13px] font-mono font-bold tracking-wider uppercase shadow-xl flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[#B78A52] animate-pulse" />
             <span>{beforeLabel}</span>
           </div>
         </div>
 
-        {/* Top-Right Badge: STAGE 12: FINISHED MASTERPIECE (Matching media_1790182531570.jpg) */}
+        {/* Top-Right Badge: STAGE 12: FINISHED MASTERPIECE */}
         <div className="absolute top-5 right-5 z-20 pointer-events-none">
-          <div className="bg-[#141A28]/90 backdrop-blur-md px-4 py-1.5 rounded-full border border-sky-500/40 text-[#38BDF8] text-xs sm:text-[13px] font-mono font-bold tracking-wider uppercase shadow-xl flex items-center gap-1.5">
+          <div className="bg-[#17191B]/90 backdrop-blur-md px-4 py-1.5 rounded-full border border-sky-500/40 text-[#38BDF8] text-xs sm:text-[13px] font-mono font-bold tracking-wider uppercase shadow-xl flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
             <span>{afterLabel}</span>
           </div>
         </div>
 
-        {/* Tactile Dividing Slider Line & Red Oval Handle (Matching media_1790182531570.jpg) */}
+        {/* Tactile Dividing Slider Line & Bronze Oval Handle */}
         <div
           className="absolute top-0 bottom-0 w-[2.5px] bg-white shadow-[0_0_15px_rgba(255,255,255,0.9)] cursor-ew-resize z-30 flex items-center justify-center -translate-x-1/2 pointer-events-none"
           style={{ left: `${sliderPos}%` }}
         >
           {/* Glowing Aura Ring */}
-          <span className="absolute w-10 h-16 rounded-full bg-red-500/30 blur-sm pointer-events-none" />
+          <span className="absolute w-10 h-16 rounded-full bg-[#B78A52]/30 blur-sm pointer-events-none" />
 
-          {/* Red Vertical Pill Handle from media_1790182531570.jpg */}
-          <div className="relative w-7 h-13 sm:w-8 sm:h-14 rounded-full bg-[#E50914] border-2 border-white shadow-[0_0_20px_rgba(229,9,20,0.85)] text-white flex items-center justify-center transform transition-transform group-hover:scale-110 active:scale-95">
+          {/* Bronze & Charcoal Vertical Pill Handle */}
+          <div className="relative w-7 h-13 sm:w-8 sm:h-14 rounded-full bg-[#17191B] border-2 border-[#B78A52] shadow-[0_0_20px_rgba(183,138,82,0.85)] text-[#B78A52] flex items-center justify-center transform transition-transform group-hover:scale-110 active:scale-95">
             {/* White Double Horizontal Arrow */}
             <svg
-              className="w-4 h-4 text-white stroke-[2.8]"
+              className="w-4 h-4 text-[#B78A52] stroke-[2.8]"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"

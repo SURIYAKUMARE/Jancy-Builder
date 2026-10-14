@@ -137,11 +137,11 @@ export default function FloatingEngineerAssistant({
                 </div>
                 <div>
                   <h4 className="text-xs font-bold truncate">
-                    Er. Sahaya Antony Stalin
+                    Senior Civil Engineer • Guide
                   </h4>
-                  <div className="flex items-center gap-1.5 text-[10px] text-emerald-400 font-mono">
+                  <div className="flex items-center gap-1.5 text-[10px] text-[#B78A52] font-mono">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    <span>Active Engineering Guide</span>
+                    <span>Jancy Builders Technical Assistant</span>
                   </div>
                 </div>
               </div>
@@ -160,7 +160,7 @@ export default function FloatingEngineerAssistant({
                   onClick={handleToggleVoice}
                   className={`p-1.5 rounded-md transition-all ${
                     isSpeaking
-                      ? "bg-[#B88746] text-slate-950 animate-pulse"
+                      ? "bg-[#B78A52] text-slate-950 animate-pulse"
                       : "text-slate-400 hover:text-white"
                   }`}
                   title={isSpeaking ? "Mute Voice" : "Play Voice Narration"}
@@ -183,62 +183,81 @@ export default function FloatingEngineerAssistant({
             </div>
 
             {/* Contextual Speech Box */}
-            <div className="p-4 bg-[#FBF9F5] border-b border-slate-100">
+            <div className="p-4 bg-[#F8F6F1] border-b border-slate-100">
               <div className="flex items-start gap-2.5">
-                <Sparkles className="w-4 h-4 text-[#B88746] flex-shrink-0 mt-0.5" />
-                <p className="text-xs text-slate-800 leading-relaxed font-medium">
+                <Sparkles className="w-4 h-4 text-[#B78A52] flex-shrink-0 mt-0.5" />
+                <p className="text-xs text-[#202124] leading-relaxed font-medium">
                   {lang === "en" ? activeMessage.en : activeMessage.ta}
                 </p>
               </div>
             </div>
 
-            {/* Quick Action Navigation Grid */}
+            {/* Quick Action Navigation Grid (5 actions) */}
             <div className="p-3 bg-white space-y-1.5">
               <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block px-1">
-                {lang === "en" ? "Quick Engineering Actions" : "விரைவு இணைப்புகள்"}
+                {lang === "en" ? "Quick Actions" : "விரைவு இணைப்புகள்"}
               </span>
 
               <div className="grid grid-cols-2 gap-2 text-xs">
-                {/* Cost Estimator */}
-                <Link
-                  href="/estimator"
-                  onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-2 p-2 rounded-xl bg-slate-50 hover:bg-[#B88746]/10 text-slate-800 hover:text-[#8C5D24] transition-all border border-slate-200"
-                >
-                  <Calculator className="w-3.5 h-3.5 text-[#B88746]" />
-                  <span className="font-semibold text-[11px]">Cost Estimator</span>
-                </Link>
-
-                {/* Construction Process */}
-                <Link
-                  href="/process"
-                  onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-2 p-2 rounded-xl bg-slate-50 hover:bg-[#B88746]/10 text-slate-800 hover:text-[#8C5D24] transition-all border border-slate-200"
-                >
-                  <Building className="w-3.5 h-3.5 text-[#B88746]" />
-                  <span className="font-semibold text-[11px]">6-Stage Process</span>
-                </Link>
-
-                {/* Projects Portfolio */}
+                {/* 1. Explore Projects */}
                 <Link
                   href="/projects"
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-2 p-2 rounded-xl bg-slate-50 hover:bg-[#B88746]/10 text-slate-800 hover:text-[#8C5D24] transition-all border border-slate-200"
+                  className="flex items-center gap-2 p-2 rounded-xl bg-slate-50 hover:bg-[#B78A52]/10 text-slate-800 hover:text-[#966E3A] transition-all border border-slate-200"
                 >
-                  <Compass className="w-3.5 h-3.5 text-[#B88746]" />
-                  <span className="font-semibold text-[11px]">Real Projects</span>
+                  <Compass className="w-3.5 h-3.5 text-[#B78A52]" />
+                  <span className="font-semibold text-[11px] truncate">
+                    {lang === "en" ? "Explore Projects" : "திட்டங்கள்"}
+                  </span>
                 </Link>
 
-                {/* Direct WhatsApp Consultation */}
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 p-2 rounded-xl bg-[#25D366]/10 hover:bg-[#25D366]/20 text-emerald-800 transition-all border border-[#25D366]/30"
+                {/* 2. Our Services */}
+                <Link
+                  href="/services"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-2 p-2 rounded-xl bg-slate-50 hover:bg-[#B78A52]/10 text-slate-800 hover:text-[#966E3A] transition-all border border-slate-200"
                 >
-                  <MessageSquare className="w-3.5 h-3.5 text-[#25D366]" />
-                  <span className="font-semibold text-[11px]">WhatsApp Er. Stalin</span>
-                </a>
+                  <Building className="w-3.5 h-3.5 text-[#B78A52]" />
+                  <span className="font-semibold text-[11px] truncate">
+                    {lang === "en" ? "Our Services" : "எங்கள் சேவைகள்"}
+                  </span>
+                </Link>
+
+                {/* 3. Construction Process */}
+                <Link
+                  href="/process"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-2 p-2 rounded-xl bg-slate-50 hover:bg-[#B78A52]/10 text-slate-800 hover:text-[#966E3A] transition-all border border-slate-200"
+                >
+                  <HardHat className="w-3.5 h-3.5 text-[#B78A52]" />
+                  <span className="font-semibold text-[11px] truncate">
+                    {lang === "en" ? "Construction Process" : "கட்டுமான முறை"}
+                  </span>
+                </Link>
+
+                {/* 4. Estimate Your Budget */}
+                <Link
+                  href="/estimator"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-2 p-2 rounded-xl bg-slate-50 hover:bg-[#B78A52]/10 text-slate-800 hover:text-[#966E3A] transition-all border border-slate-200"
+                >
+                  <Calculator className="w-3.5 h-3.5 text-[#B78A52]" />
+                  <span className="font-semibold text-[11px] truncate">
+                    {lang === "en" ? "Estimate Budget" : "பட்ஜெட் கணக்கீடு"}
+                  </span>
+                </Link>
+
+                {/* 5. Contact Our Engineer */}
+                <Link
+                  href="/contact"
+                  onClick={() => setIsOpen(false)}
+                  className="col-span-2 flex items-center justify-center gap-2 p-2 rounded-xl bg-[#17191B] hover:bg-[#25282B] text-white transition-all shadow-sm"
+                >
+                  <Phone className="w-3.5 h-3.5 text-[#B78A52]" />
+                  <span className="font-bold text-[11px]">
+                    {lang === "en" ? "Contact Our Engineer (+91 77082 47124)" : "பொறியாளரை தொடர்பு கொள்ள (+91 77082 47124)"}
+                  </span>
+                </Link>
               </div>
 
               {/* Consultation Modal Trigger */}

@@ -136,7 +136,7 @@ export default function ServicesPageClient() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F7F4EE] text-slate-900 flex flex-col font-sans selection:bg-[#E50914]/20 selection:text-[#E50914]">
+    <div className="min-h-screen bg-[#F8F6F1] text-[#202124] flex flex-col font-sans selection:bg-[#B78A52]/20 selection:text-[#B78A52]">
       {/* Navbar */}
       <NavbarExact onOpenQuote={() => setIsQuoteOpen(true)} />
 
@@ -146,18 +146,18 @@ export default function ServicesPageClient() {
         <section className="relative px-4 sm:px-6 lg:px-8 py-16 lg:py-24 max-w-[1440px] mx-auto">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 mb-3">
-              <span className="h-[2px] w-8 bg-[#B88746] block" />
-              <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#B88746]">
+              <span className="h-[2px] w-8 bg-[#B78A52] block" />
+              <span className="text-xs font-mono font-semibold uppercase tracking-[0.25em] text-[#B78A52]">
                 OUR SERVICES • ARCHITECTURAL &amp; CIVIL ENGINEERING
               </span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl font-black text-slate-950 tracking-tight font-sans">
+            <h1 className="text-4xl sm:text-6xl font-black text-[#17191B] tracking-tight font-sans">
               Precision Construction &amp;<br />
-              <span className="text-[#B88746]">Architectural Services</span>
+              <span className="text-[#B78A52] font-serif italic font-normal">Architectural Services</span>
             </h1>
 
-            <p className="mt-4 text-base sm:text-lg text-slate-700 leading-relaxed">
+            <p className="mt-4 text-base sm:text-lg text-[#202124]/75 leading-relaxed">
               Every service offered by Jancy Builders is anchored in certified civil engineering standards, transparent contracts, and hands-on supervision by Er. Sahaya Antony Stalin.
             </p>
           </div>
@@ -173,13 +173,13 @@ export default function ServicesPageClient() {
               <div
                 key={srv.id}
                 id={srv.id}
-                className="bg-white rounded-3xl border border-[#E8DFD1] shadow-2xl shadow-black/5 overflow-hidden p-6 sm:p-10 lg:p-12 scroll-mt-32"
+                className="bg-white rounded-3xl border border-[#E2D9CC] shadow-2xl shadow-black/5 overflow-hidden p-6 sm:p-10 lg:p-12 scroll-mt-32 hover:border-[#B78A52]/40 transition-colors"
               >
                 <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${isReversed ? "lg:flex-row-reverse" : ""}`}>
                   
                   {/* Visual Frame */}
                   <div className={`lg:col-span-5 ${isReversed ? "lg:order-2" : ""}`}>
-                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-900 border border-slate-200 shadow-xl group">
+                    <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-[#17191B] border border-[#E2D9CC] shadow-xl group">
                       <Image
                         src={srv.image}
                         alt={srv.title}
@@ -188,7 +188,7 @@ export default function ServicesPageClient() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                       <div className="absolute bottom-4 left-4 right-4">
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-[#B88746] bg-black/80 px-3 py-1 rounded-full font-bold">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-[#B78A52] bg-black/80 px-3 py-1 rounded-full font-bold border border-[#B78A52]/30">
                           {srv.tagline}
                         </span>
                       </div>
@@ -198,48 +198,48 @@ export default function ServicesPageClient() {
                   {/* Text & Deliverables */}
                   <div className={`lg:col-span-7 space-y-5 ${isReversed ? "lg:order-1" : ""}`}>
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-2xl bg-[#B88746]/10 text-[#B88746] flex items-center justify-center flex-shrink-0">
+                      <div className="w-12 h-12 rounded-2xl bg-[#B78A52]/10 text-[#B78A52] flex items-center justify-center flex-shrink-0">
                         <Icon className="w-6 h-6" />
                       </div>
                       <div>
-                        <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#B88746]">
+                        <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#B78A52]">
                           SERVICE 0{idx + 1}
                         </span>
-                        <h2 className="text-2xl sm:text-3xl font-black text-slate-950 font-sans">
+                        <h2 className="text-2xl sm:text-3xl font-black text-[#17191B] font-sans">
                           {srv.title}
                         </h2>
                       </div>
                     </div>
 
-                    <p className="text-sm text-slate-700 leading-relaxed">
+                    <p className="text-sm text-[#202124]/80 leading-relaxed">
                       {srv.description}
                     </p>
 
                     <div>
-                      <h4 className="text-xs font-mono uppercase tracking-wider text-slate-950 font-bold mb-3">
+                      <h4 className="text-xs font-mono uppercase tracking-wider text-[#17191B] font-bold mb-3">
                         Key Engineering Scope &amp; Deliverables:
                       </h4>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                         {srv.deliverables.map((d, i) => (
-                          <div key={i} className="flex items-start gap-2 text-xs text-slate-700">
-                            <CheckCircle2 className="w-4 h-4 text-[#B88746] flex-shrink-0 mt-0.5" />
+                          <div key={i} className="flex items-start gap-2 text-xs text-[#202124]/80">
+                            <CheckCircle2 className="w-4 h-4 text-[#B78A52] flex-shrink-0 mt-0.5" />
                             <span>{d}</span>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    <div className="pt-2 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100">
+                    <div className="pt-2 flex flex-wrap items-center justify-between gap-4 border-t border-[#E2D9CC]/50">
                       <span className="text-xs text-slate-500 font-mono italic">
                         {srv.pricingNote}
                       </span>
 
                       <button
                         onClick={() => setIsQuoteOpen(true)}
-                        className="inline-flex items-center gap-2 bg-[#E50914] hover:bg-[#DC2626] text-white px-6 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider shadow-md transition-all hover:scale-105"
+                        className="inline-flex items-center gap-2 bg-[#17191B] hover:bg-[#B78A52] text-white px-6 py-2.5 rounded-full font-semibold text-xs uppercase tracking-wider shadow-md transition-all border border-[#B78A52]/30 hover:scale-105"
                       >
                         <span>Enquire for this Service</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
+                        <ArrowRight className="w-3.5 h-3.5 text-[#B78A52] group-hover:text-white" />
                       </button>
                     </div>
 

@@ -59,7 +59,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0F172A",
+  themeColor: "#17191B",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -141,7 +141,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen bg-white text-slate-900 antialiased selection:bg-[#E50914]/20 selection:text-[#E50914]">
+      <body className="min-h-screen bg-[#F8F6F1] text-[#202124] antialiased selection:bg-[#B78A52]/20 selection:text-[#B78A52]">
         <ArchitecturalCursor />
         {children}
         <FloatingEngineerAssistant />

@@ -46,10 +46,10 @@ export default function GallerySection() {
   const activeLightboxItem = lightboxIdx !== null ? filteredItems[lightboxIdx] : null;
 
   return (
-    <section id="gallery" className="py-20 lg:py-28 bg-[#0B0F19] text-white relative overflow-hidden border-t border-white/10 scroll-mt-24">
+    <section id="gallery" className="py-20 lg:py-28 bg-[#17191B] text-white relative overflow-hidden border-t border-[#E2D9CC]/15 scroll-mt-24">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/3 left-0 w-96 h-96 bg-[#C29061]/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-10 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/3 left-0 w-96 h-96 bg-[#B78A52]/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 right-0 w-96 h-96 bg-[#B78A52]/5 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -57,15 +57,15 @@ export default function GallerySection() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-6 border-b border-white/10">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="h-[2px] w-8 bg-[#C29061] block" />
-              <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#C29061]">
+              <span className="h-[2px] w-8 bg-[#B78A52] block" />
+              <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#B78A52]">
                 FIELD DOCUMENTATION &amp; WORK SITES
               </span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight font-sans">
               Authentic Construction Gallery
             </h2>
-            <p className="mt-2 text-sm text-slate-400 max-w-xl leading-relaxed">
+            <p className="mt-2 text-sm text-[#A5A5A2] max-w-xl leading-relaxed">
               Every photo represents actual work by Jancy Builders across Tirunelveli district, from structural slab casting to precision Porotherm brickwork and turnkey villa handovers.
             </p>
           </div>
@@ -88,8 +88,8 @@ export default function GallerySection() {
                   }}
                   className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
                     isActive
-                      ? "bg-[#C29061] text-slate-950 font-bold shadow-md"
-                      : "bg-slate-900/80 text-slate-400 hover:text-white border border-white/10"
+                      ? "bg-[#B78A52] text-[#17191B] font-bold shadow-md"
+                      : "bg-[#1F2226] text-[#A5A5A2] hover:text-white border border-white/10"
                   }`}
                 >
                   {tab.label}
@@ -109,10 +109,10 @@ export default function GallerySection() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.08, duration: 0.5 }}
               onClick={() => setLightboxIdx(idx)}
-              className="group relative rounded-2xl overflow-hidden bg-slate-900 border border-white/10 shadow-xl cursor-pointer hover:border-[#C29061]/50 transition-all duration-300"
+              className="group relative rounded-2xl overflow-hidden bg-[#1F2226] border border-white/10 shadow-xl cursor-pointer hover:border-[#B78A52]/60 transition-all duration-300"
             >
               {/* Image Container with fixed 16:10 aspect ratio */}
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-950">
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#17191B]">
                 <Image
                   src={item.image}
                   alt={item.caption}
@@ -121,11 +121,11 @@ export default function GallerySection() {
                   className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#17191B] via-[#17191B]/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
 
                 {/* Top Location Pill */}
                 <div className="absolute top-3 left-3 pointer-events-none">
-                  <span className="text-[10px] font-mono font-bold tracking-wider uppercase px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-[#E8C59A] flex items-center gap-1">
+                  <span className="text-[10px] font-mono font-bold tracking-wider uppercase px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-[#B78A52] flex items-center gap-1">
                     <MapPin className="w-3 h-3" />
                     <span>{item.location}</span>
                   </span>
@@ -140,7 +140,7 @@ export default function GallerySection() {
 
                 {/* Bottom Caption Overlay */}
                 <div className="absolute bottom-0 inset-x-0 p-4">
-                  <h4 className="text-sm font-bold text-white group-hover:text-[#E8C59A] transition-colors line-clamp-1">
+                  <h4 className="text-sm font-bold text-white group-hover:text-[#B78A52] transition-colors line-clamp-1">
                     {item.projectName}
                   </h4>
                   <p className="text-xs text-slate-300 mt-1 line-clamp-2 leading-relaxed">
@@ -158,7 +158,7 @@ export default function GallerySection() {
             href="https://www.facebook.com/JancyBuilder/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#1877F2]/15 hover:bg-[#1877F2]/25 text-[#1877F2] hover:text-white border border-[#1877F2]/30 text-xs font-bold transition-all shadow-md"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#B78A52]/15 hover:bg-[#B78A52]/25 text-[#B78A52] hover:text-white border border-[#B78A52]/30 text-xs font-bold transition-all shadow-md"
           >
             <span>View 100+ Live Work Site Videos &amp; Photos on Facebook</span>
             <ExternalLink className="w-3.5 h-3.5" />
@@ -176,12 +176,12 @@ export default function GallerySection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-between p-4 sm:p-8"
+            className="fixed inset-0 z-50 bg-[#17191B]/95 backdrop-blur-xl flex flex-col items-center justify-between p-4 sm:p-8"
           >
             {/* Top Lightbox Controls */}
             <div className="w-full max-w-6xl flex items-center justify-between text-white pb-4 border-b border-white/10">
               <div className="flex items-center gap-3">
-                <span className="text-xs font-mono font-bold text-[#E8C59A]">
+                <span className="text-xs font-mono font-bold text-[#B78A52]">
                   PHOTO {lightboxIdx + 1} OF {filteredItems.length}
                 </span>
                 <span className="text-xs text-slate-400">•</span>
@@ -204,7 +204,7 @@ export default function GallerySection() {
                 onClick={() =>
                   setLightboxIdx((prev) => (prev !== null ? (prev - 1 + filteredItems.length) % filteredItems.length : 0))
                 }
-                className="absolute left-2 sm:-left-12 z-20 w-12 h-12 rounded-full bg-slate-900/80 hover:bg-slate-800 text-white flex items-center justify-center transition-all border border-white/20 shadow-xl"
+                className="absolute left-2 sm:-left-12 z-20 w-12 h-12 rounded-full bg-[#1F2226] hover:bg-[#282B30] text-white flex items-center justify-center transition-all border border-white/20 shadow-xl"
                 aria-label="Previous Image"
               >
                 <ChevronLeft className="w-6 h-6" />
@@ -226,7 +226,7 @@ export default function GallerySection() {
                 onClick={() =>
                   setLightboxIdx((prev) => (prev !== null ? (prev + 1) % filteredItems.length : 0))
                 }
-                className="absolute right-2 sm:-right-12 z-20 w-12 h-12 rounded-full bg-slate-900/80 hover:bg-slate-800 text-white flex items-center justify-center transition-all border border-white/20 shadow-xl"
+                className="absolute right-2 sm:-right-12 z-20 w-12 h-12 rounded-full bg-[#1F2226] hover:bg-[#282B30] text-white flex items-center justify-center transition-all border border-white/20 shadow-xl"
                 aria-label="Next Image"
               >
                 <ChevronRight className="w-6 h-6" />
@@ -238,7 +238,7 @@ export default function GallerySection() {
               <p className="text-sm sm:text-base font-semibold text-white">
                 {activeLightboxItem.caption}
               </p>
-              <p className="text-xs text-[#E8C59A] font-mono mt-1">
+              <p className="text-xs text-[#B78A52] font-mono mt-1">
                 Location: {activeLightboxItem.location}, Tirunelveli District • Verified Jancy Builders Project Site
               </p>
             </div>

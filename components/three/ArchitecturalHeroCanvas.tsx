@@ -30,30 +30,50 @@ function CameraRig({
     // 0.85 - 1.00: Full smooth 360 panoramic glide
 
     let radius = 13.5;
-    let angle = progress * Math.PI * 2 * 1.2 + 0.6;
+    let angle = progress * Math.PI * 2 * 1.25 + 0.5;
     let height = 4.5;
 
-    if (progress < 0.22) {
-      radius = 12.0;
-      height = 2.8;
-      targetLookAt.current.lerp(new THREE.Vector3(0, 1.0, 0), delta * 2);
-    } else if (progress < 0.45) {
+    if (progress < 0.10) {
+      radius = 11.5;
+      height = 2.4;
+      targetLookAt.current.lerp(new THREE.Vector3(0, 0.6, 0), delta * 2.2);
+    } else if (progress < 0.20) {
+      radius = 12.2;
+      height = 2.9;
+      targetLookAt.current.lerp(new THREE.Vector3(0, 1.2, 0), delta * 2.2);
+    } else if (progress < 0.32) {
       radius = 13.0;
-      height = 4.2;
-      targetLookAt.current.lerp(new THREE.Vector3(0, 2.2, 0), delta * 2);
-    } else if (progress < 0.68) {
+      height = 4.0;
+      targetLookAt.current.lerp(new THREE.Vector3(0, 2.0, 0), delta * 2.2);
+    } else if (progress < 0.44) {
+      radius = 13.4;
+      height = 4.6;
+      targetLookAt.current.lerp(new THREE.Vector3(0, 2.6, 0), delta * 2.2);
+    } else if (progress < 0.56) {
       radius = 13.8;
       height = 5.0;
-      targetLookAt.current.lerp(new THREE.Vector3(0, 2.8, 0), delta * 2);
-    } else if (progress < 0.85) {
-      radius = 14.5;
+      targetLookAt.current.lerp(new THREE.Vector3(0, 2.8, 0), delta * 2.2);
+    } else if (progress < 0.68) {
+      radius = 14.2;
       height = 5.8;
-      targetLookAt.current.lerp(new THREE.Vector3(0, 3.2, 0), delta * 2);
-    } else {
-      // Finished state 360 orbit
-      radius = 14.0;
+      targetLookAt.current.lerp(new THREE.Vector3(0, 3.4, 0), delta * 2.2);
+    } else if (progress < 0.78) {
+      radius = 13.2;
+      height = 4.2;
+      targetLookAt.current.lerp(new THREE.Vector3(0, 2.4, 0), delta * 2.2);
+    } else if (progress < 0.88) {
+      radius = 13.6;
       height = 4.8;
-      targetLookAt.current.lerp(new THREE.Vector3(0, 2.6, 0), delta * 2);
+      targetLookAt.current.lerp(new THREE.Vector3(0, 2.8, 0), delta * 2.2);
+    } else if (progress < 0.94) {
+      radius = 14.5;
+      height = 5.2;
+      targetLookAt.current.lerp(new THREE.Vector3(0, 2.6, 0), delta * 2.2);
+    } else {
+      // Completed Luxury Villa 360 cinematic panoramic glide
+      radius = 14.0;
+      height = 4.6;
+      targetLookAt.current.lerp(new THREE.Vector3(0, 2.5, 0), delta * 2.2);
     }
 
     const targetX = Math.sin(angle) * radius;
@@ -121,13 +141,18 @@ export default function ArchitecturalHeroCanvas() {
     return () => clearInterval(interval);
   }, [isPlaying, isVisible, isInteractive]);
 
-  // Stage description badge
+  // 10-Stage description badge
   const getStageTitle = (p: number) => {
-    if (p < 0.22) return { step: "01", name: "SOIL MARKING & ISOLATED FOOTINGS", sub: "Optical grid survey & footing excavation" };
-    if (p < 0.45) return { step: "02", name: "Fe550D COLUMNS & LEVEL 1 SLAB", sub: "Seismic rebar confinement & needle vibrator compaction" };
-    if (p < 0.68) return { step: "03", name: "WIENERBERGER POROTHERM MASONRY", sub: "Eco-thermal clay blocks naturally 6°C cooler" };
-    if (p < 0.85) return { step: "04", name: "CANTILEVER ROOF & GLASS BALCONY", sub: "Floating overhang, timber louvers & tinted glazing" };
-    return { step: "05", name: "TURNKEY ARCHITECTURAL MASTERPIECE", sub: "Completed luxury duplex villa in Tamil Nadu" };
+    if (p < 0.10) return { step: "01", name: "EMPTY ARCHITECTURAL SITE", sub: "Survey laser grid & boundary marking" };
+    if (p < 0.20) return { step: "02", name: "FOOTINGS & PLINTH BEAMS", sub: "IS 456 isolated pad footings & substructure tie beams" };
+    if (p < 0.32) return { step: "03", name: "Fe550D RCC COLUMNS RISING", sub: "Seismic column cages with needle vibrator compaction" };
+    if (p < 0.44) return { step: "04", name: "CONNECTING BEAMS & SLAB", sub: "Ground level transfer beams & first floor slab" };
+    if (p < 0.56) return { step: "05", name: "POROTHERM THERMAL BRICK WALLS", sub: "Wienerberger insulating clay blocks naturally 6°C cooler" };
+    if (p < 0.68) return { step: "06", name: "CANTILEVER ROOF & PERGOLA", sub: "Overhanging roof canopy & bronze pergola louvers" };
+    if (p < 0.78) return { step: "07", name: "ARCHITECTURAL GLAZING & DOORS", sub: "Low-iron panoramic curtain glass & Burma teakwood entrance" };
+    if (p < 0.88) return { step: "08", name: "IVORY STUCCO & BRONZE LOUVERS", sub: "Textured architectural finishes & bronze sunshade screens" };
+    if (p < 0.94) return { step: "09", name: "GRANITE PAVING & LANDSCAPING", sub: "Paved granite driveway & tropical manicured turf" };
+    return { step: "10", name: "FINISHED ARCHITECTURAL MASTERPIECE", sub: "Completed luxury residence with warm dusk lighting" };
   };
 
   const currentStage = getStageTitle(progress);

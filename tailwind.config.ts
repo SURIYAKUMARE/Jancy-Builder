@@ -11,41 +11,39 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        // Architectural Luxury Design System
-        charcoal: {
-          DEFAULT: "#111318",
-          dark: "#0C0E12",
-          light: "#1A1D24",
+        // MotionSites AI / Luxury Architectural Design System
+        primary: {
+          DEFAULT: "#17191B", // Deep charcoal
+          dark: "#0F1012",
+          light: "#25282B",
         },
         ivory: {
-          DEFAULT: "#F7F4EE",
-          dark: "#EFECE5",
+          DEFAULT: "#F8F6F1", // Warm ivory background
+          dark: "#EFECE4",
           light: "#FCFAF6",
         },
-        beige: {
-          DEFAULT: "#E8DFD1",
-          dark: "#D6CABA",
-          light: "#F2ECE2",
+        concrete: {
+          DEFAULT: "#A5A5A2", // Concrete gray
+          dark: "#787875",
+          light: "#CECECB",
+        },
+        bronze: {
+          DEFAULT: "#B78A52", // Architectural bronze accent
+          dark: "#966E3A",
+          light: "#D4A870",
+          glow: "rgba(183, 138, 82, 0.2)",
+        },
+        "rich-black": "#202124", // Rich black text
+        charcoal: {
+          DEFAULT: "#17191B",
+          dark: "#0F1012",
+          light: "#25282B",
         },
         gold: {
-          DEFAULT: "#B88746",
-          light: "#D8A868",
-          dark: "#966830",
-          glow: "rgba(184, 135, 70, 0.25)",
-        },
-        jancy: {
-          red: "#E50914",
-          "red-light": "#FF4B4B",
-          "red-dark": "#B91C1C",
-          blue: "#0066CC",
-          "blue-light": "#38BDF8",
-          "blue-dark": "#034078",
-          gold: "#B88746",
-          "gold-light": "#D8A868",
-          carbon: "#111318",
-          obsidian: "#0C0E12",
-          steel: "#475569",
-          concrete: "#94A3B8",
+          DEFAULT: "#B78A52",
+          light: "#D4A870",
+          dark: "#966E3A",
+          glow: "rgba(183, 138, 82, 0.2)",
         },
       },
       fontFamily: {

@@ -64,7 +64,7 @@ export default function ProjectsPageClient() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F7F4EE] text-slate-900 flex flex-col font-sans selection:bg-[#E50914]/20 selection:text-[#E50914]">
+    <div className="min-h-screen bg-[#F8F6F1] text-[#202124] flex flex-col font-sans selection:bg-[#B78A52]/20 selection:text-[#B78A52]">
       {/* Navbar */}
       <NavbarExact onOpenQuote={() => setIsQuoteOpen(true)} />
 
@@ -72,21 +72,21 @@ export default function ProjectsPageClient() {
       <main className="flex-grow pt-28 sm:pt-32">
         {/* Header */}
         <section className="relative px-4 sm:px-6 lg:px-8 py-16 lg:py-20 max-w-[1440px] mx-auto">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-[#E8DFD1]">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-[#E2D9CC]">
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <span className="h-[2px] w-8 bg-[#B88746] block" />
-                <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#B88746]">
+                <span className="h-[2px] w-8 bg-[#B78A52] block" />
+                <span className="text-xs font-mono font-semibold uppercase tracking-[0.25em] text-[#B78A52]">
                   ARCHITECTURAL PORTFOLIO
                 </span>
               </div>
 
-              <h1 className="text-4xl sm:text-6xl font-black text-slate-950 tracking-tight font-sans">
+              <h1 className="text-4xl sm:text-6xl font-black text-[#17191B] tracking-tight font-sans">
                 Selected Works &amp;<br />
-                <span className="text-[#B88746]">Turnkey Landmarks</span>
+                <span className="text-[#B78A52] font-serif italic font-normal">Turnkey Landmarks</span>
               </h1>
 
-              <p className="mt-3 text-sm sm:text-base text-slate-600 max-w-xl leading-relaxed">
+              <p className="mt-3 text-sm sm:text-base text-[#202124]/75 max-w-xl leading-relaxed">
                 Explore verified project sites across Tirunelveli district, from structural slab casting in Durainagar to completed turnkey villas in Silathikulam and commercial hubs in Valliyur.
               </p>
             </div>
@@ -99,7 +99,7 @@ export default function ProjectsPageClient() {
                 placeholder="Search by site or location..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 rounded-full border border-slate-300 bg-white text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#B88746] shadow-sm"
+                className="w-full pl-10 pr-4 py-2.5 rounded-full border border-[#E2D9CC] bg-white text-xs text-[#202124] placeholder-slate-400 focus:outline-none focus:border-[#B78A52] shadow-sm"
               />
             </div>
           </div>
@@ -112,10 +112,10 @@ export default function ProjectsPageClient() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveFilter(tab.id)}
-                  className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
+                  className={`px-4 py-2 rounded-full text-xs font-semibold transition-all whitespace-nowrap ${
                     isActive
-                      ? "bg-[#B88746] text-white shadow-md shadow-[#B88746]/25"
-                      : "bg-white text-slate-700 hover:text-slate-950 border border-slate-200"
+                      ? "bg-[#17191B] text-white shadow-md border border-[#B78A52]"
+                      : "bg-white text-slate-700 hover:text-[#17191B] border border-[#E2D9CC]"
                   }`}
                 >
                   {tab.label} ({tab.count})
@@ -134,11 +134,11 @@ export default function ProjectsPageClient() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.05, duration: 0.4 }}
-                className="bg-white rounded-3xl border border-[#E8DFD1] overflow-hidden shadow-xl shadow-black/5 flex flex-col justify-between group hover:border-[#B88746]/50 transition-all duration-300"
+                className="bg-white rounded-3xl border border-[#E2D9CC] overflow-hidden shadow-xl shadow-black/5 flex flex-col justify-between group hover:border-[#B78A52]/50 transition-all duration-300"
               >
                 <div>
                   {/* Image Container */}
-                  <Link href={`/projects/${p.id}`} className="block relative h-64 sm:h-72 w-full overflow-hidden bg-slate-900">
+                  <Link href={`/projects/${p.id}`} className="block relative h-64 sm:h-72 w-full overflow-hidden bg-[#17191B]">
                     <Image
                       src={p.coverImage}
                       alt={p.name}
@@ -169,8 +169,8 @@ export default function ProjectsPageClient() {
                     {/* Work Stage Ribbon */}
                     {p.workStage && (
                       <div className="absolute bottom-3 left-4 right-4 pointer-events-none">
-                        <span className="text-[11px] font-semibold px-3 py-1 rounded-lg bg-black/80 backdrop-blur-md border border-white/15 text-[#E8C59A] inline-flex items-center gap-1.5">
-                          <Sparkles className="w-3 h-3 text-[#E8C59A]" />
+                        <span className="text-[11px] font-semibold px-3 py-1 rounded-lg bg-black/80 backdrop-blur-md border border-white/15 text-[#B78A52] inline-flex items-center gap-1.5">
+                          <Sparkles className="w-3 h-3 text-[#B78A52]" />
                           <span className="truncate">{p.workStage}</span>
                         </span>
                       </div>
@@ -179,30 +179,30 @@ export default function ProjectsPageClient() {
 
                   {/* Body Content */}
                   <div className="p-6">
-                    <div className="flex items-center gap-1.5 text-xs text-[#B88746] font-medium mb-1.5">
+                    <div className="flex items-center gap-1.5 text-xs text-[#B78A52] font-medium mb-1.5">
                       <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
                       <span className="truncate">{p.location}</span>
                     </div>
 
                     <Link href={`/projects/${p.id}`} className="block">
-                      <h3 className="text-xl font-bold text-slate-950 group-hover:text-[#B88746] transition-colors font-sans line-clamp-1">
+                      <h3 className="text-xl font-bold text-[#17191B] group-hover:text-[#B78A52] transition-colors font-sans line-clamp-1">
                         {p.name}
                       </h3>
                     </Link>
 
-                    <p className="text-xs text-slate-600 mt-2 line-clamp-2 leading-relaxed">
+                    <p className="text-xs text-[#202124]/70 mt-2 line-clamp-2 leading-relaxed">
                       {p.description}
                     </p>
 
                     {/* Metric Badges */}
-                    <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-slate-100 text-xs">
-                      <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                        <span className="text-[10px] text-slate-400 block font-mono">BUILT-UP AREA</span>
-                        <span className="font-bold text-slate-900">{p.builtUpArea}</span>
+                    <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-[#E2D9CC]/50 text-xs">
+                      <div className="bg-[#F8F6F1] p-2.5 rounded-xl border border-[#E2D9CC]">
+                        <span className="text-[10px] text-slate-500 block font-mono">BUILT-UP AREA</span>
+                        <span className="font-bold text-[#17191B]">{p.builtUpArea}</span>
                       </div>
-                      <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                        <span className="text-[10px] text-slate-400 block font-mono">CONFIG</span>
-                        <span className="font-bold text-slate-900 truncate block">{p.configuration}</span>
+                      <div className="bg-[#F8F6F1] p-2.5 rounded-xl border border-[#E2D9CC]">
+                        <span className="text-[10px] text-slate-500 block font-mono">CONFIG</span>
+                        <span className="font-bold text-[#17191B] truncate block">{p.configuration}</span>
                       </div>
                     </div>
                   </div>
@@ -212,10 +212,10 @@ export default function ProjectsPageClient() {
                 <div className="p-6 pt-0 flex items-center justify-between gap-2.5">
                   <Link
                     href={`/projects/${p.id}`}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 bg-slate-900 hover:bg-[#B88746] text-white py-2.5 px-4 rounded-full text-xs font-bold transition-colors"
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 bg-[#17191B] hover:bg-[#B78A52] text-white py-2.5 px-4 rounded-full text-xs font-semibold transition-all border border-[#B78A52]/30"
                   >
                     <span>View Case Study</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <ArrowRight className="w-3.5 h-3.5 text-[#B78A52] group-hover:text-white" />
                   </Link>
 
                   {p.fbPostUrl && (

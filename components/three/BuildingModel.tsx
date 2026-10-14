@@ -5,79 +5,101 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 interface BuildingModelProps {
-  progress: number; // 0.0 to 1.0 representing the 18s construction cycle
+  progress: number; // 0.0 to 1.0 representing the 10-stage construction sequence
   isWireframeMode?: boolean;
 }
 
 export default function BuildingModel({ progress, isWireframeMode = false }: BuildingModelProps) {
   const groupRef = useRef<THREE.Group>(null);
 
-  // Materials designed for high visual realism and smooth stage transitions
+  // Materials tuned for architectural realism with deep charcoal, warm ivory & bronze accents
   const materials = useMemo(() => {
-    // 1. Blueprint wireframe material
+    // 1. Technical Blueprint wireframe
     const blueprintMat = new THREE.MeshBasicMaterial({
       color: new THREE.Color("#38BDF8"),
       wireframe: true,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.5,
     });
 
-    // 2. Concrete foundation material
+    // 2. Concrete Substructure (Pad footings & plinth beams)
     const concreteMat = new THREE.MeshStandardMaterial({
       color: new THREE.Color("#64748B"),
-      roughness: 0.85,
+      roughness: 0.88,
       metalness: 0.1,
     });
 
-    // 3. Porotherm / structural wall material
-    const wallMat = new THREE.MeshStandardMaterial({
-      color: new THREE.Color("#F1EDE6"), // Warm architectural ivory
-      roughness: 0.7,
+    // 3. Structural RCC Columns & Beams
+    const rccMat = new THREE.MeshStandardMaterial({
+      color: new THREE.Color("#475569"),
+      roughness: 0.8,
+      metalness: 0.15,
+    });
+
+    // 4. Porotherm Clay Hollow Bricks (warm terracotta / thermal clay)
+    const porothermMat = new THREE.MeshStandardMaterial({
+      color: new THREE.Color("#B45309"), // Wienerberger clay amber
+      roughness: 0.85,
       metalness: 0.05,
     });
 
-    // 4. Accent wall (charcoal architectural finish)
-    const accentWallMat = new THREE.MeshStandardMaterial({
-      color: new THREE.Color("#1E293B"),
+    // 5. Architectural Ivory Stucco Wall Finish (#F8F6F1)
+    const wallStuccoMat = new THREE.MeshStandardMaterial({
+      color: new THREE.Color("#F8F6F1"),
+      roughness: 0.75,
+      metalness: 0.04,
+    });
+
+    // 6. Deep Charcoal Architectural Cladding (#17191B)
+    const charcoalAccentMat = new THREE.MeshStandardMaterial({
+      color: new THREE.Color("#17191B"),
       roughness: 0.6,
-      metalness: 0.2,
+      metalness: 0.25,
     });
 
-    // 5. Teakwood louvers and soffit
-    const woodMat = new THREE.MeshStandardMaterial({
-      color: new THREE.Color("#8B5A2B"), // Warm Burma teak
-      roughness: 0.45,
+    // 7. Architectural Bronze Louvers & Detailing (#B78A52)
+    const bronzeMat = new THREE.MeshStandardMaterial({
+      color: new THREE.Color("#B78A52"),
+      roughness: 0.35,
+      metalness: 0.75,
+    });
+
+    // 8. Kiln-Dried Burma Teakwood Doors & Soffits
+    const teakwoodMat = new THREE.MeshStandardMaterial({
+      color: new THREE.Color("#78350F"),
+      roughness: 0.5,
       metalness: 0.05,
     });
 
-    // 6. Architectural glazing / glass
+    // 9. Low-Iron High-Transmission Architectural Glazing
     const glassMat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#E0F2FE"),
-      transmission: 0.9,
+      color: new THREE.Color("#E2E8F0"),
+      transmission: 0.92,
       opacity: 0.85,
       transparent: true,
       roughness: 0.05,
-      ior: 1.5,
+      ior: 1.52,
       metalness: 0.1,
     });
 
-    // 7. Warm glowing interior light mesh
-    const glowMat = new THREE.MeshStandardMaterial({
+    // 10. Warm Dusk Interior Light (Golden glow)
+    const warmInteriorMat = new THREE.MeshStandardMaterial({
       color: new THREE.Color("#FEF08A"),
       emissive: new THREE.Color("#F59E0B"),
-      emissiveIntensity: 0.8,
+      emissiveIntensity: 0.9,
       roughness: 0.2,
     });
 
-    // 8. Base ground / terrace slab
-    const groundMat = new THREE.MeshStandardMaterial({
-      color: new THREE.Color("#0F172A"),
+    // 11. Landscaping Granite Pavers & Base Ground
+    const groundPavementMat = new THREE.MeshStandardMaterial({
+      color: new THREE.Color("#1E242B"),
       roughness: 0.9,
       metalness: 0.1,
     });
 
-    const grassMat = new THREE.MeshStandardMaterial({
-      color: new THREE.Color("#15803D"),
+    // 12. Tropical Landscaping Turf / Lawn
+    const lawnTurfMat = new THREE.MeshStandardMaterial({
+      color: new THREE.Color("#14532D"), // Rich deep architectural green
       roughness: 0.95,
       metalness: 0.0,
     });
@@ -85,305 +107,363 @@ export default function BuildingModel({ progress, isWireframeMode = false }: Bui
     return {
       blueprintMat,
       concreteMat,
-      wallMat,
-      accentWallMat,
-      woodMat,
+      rccMat,
+      porothermMat,
+      wallStuccoMat,
+      charcoalAccentMat,
+      bronzeMat,
+      teakwoodMat,
       glassMat,
-      glowMat,
-      groundMat,
-      grassMat,
+      warmInteriorMat,
+      groundPavementMat,
+      lawnTurfMat,
     };
   }, []);
 
-  // Compute sub-stage visibility and scaling based on continuous progress (0 to 1)
-  // Stage 1: 0.00 - 0.22 (Footings, Ground & Rebars)
-  // Stage 2: 0.22 - 0.45 (Columns & First Floor Slab)
-  // Stage 3: 0.45 - 0.68 (Walls & Partitions)
-  // Stage 4: 0.68 - 0.85 (Roof Slab & Glass Balconies)
-  // Stage 5: 0.85 - 1.00 (Finished luxury lighting & 360 orbit)
+  // Compute 10 distinct smooth progress factors (p1 through p10)
+  // Stage 01: 0.00 – 0.10 (Empty Architectural Site & Survey Grid)
+  // Stage 02: 0.10 – 0.20 (Footings & Substructure Plinth)
+  // Stage 03: 0.20 – 0.32 (RCC Columns Rising)
+  // Stage 04: 0.32 – 0.44 (Horizontal Connecting Beams)
+  // Stage 05: 0.44 – 0.56 (Porotherm Hollow Clay Walls)
+  // Stage 06: 0.56 – 0.68 (Cantilever Roof Slabs & Terrace)
+  // Stage 07: 0.68 – 0.78 (Glazing & Burma Teak Doors)
+  // Stage 08: 0.78 – 0.88 (Ivory Stucco & Bronze Louvers)
+  // Stage 09: 0.88 – 0.94 (Granite Pavers & Landscaping)
+  // Stage 10: 0.94 – 1.00 (Finished Luxury Residence with Dusk Lighting)
 
-  const s1 = Math.min(Math.max((progress - 0.0) / 0.2, 0), 1);
-  const s2 = Math.min(Math.max((progress - 0.2) / 0.25, 0), 1);
-  const s3 = Math.min(Math.max((progress - 0.45) / 0.23, 0), 1);
-  const s4 = Math.min(Math.max((progress - 0.68) / 0.17, 0), 1);
-  const s5 = Math.min(Math.max((progress - 0.85) / 0.15, 0), 1);
+  const p1 = Math.min(Math.max((progress - 0.0) / 0.1, 0), 1);
+  const p2 = Math.min(Math.max((progress - 0.1) / 0.1, 0), 1);
+  const p3 = Math.min(Math.max((progress - 0.2) / 0.12, 0), 1);
+  const p4 = Math.min(Math.max((progress - 0.32) / 0.12, 0), 1);
+  const p5 = Math.min(Math.max((progress - 0.44) / 0.12, 0), 1);
+  const p6 = Math.min(Math.max((progress - 0.56) / 0.12, 0), 1);
+  const p7 = Math.min(Math.max((progress - 0.68) / 0.1, 0), 1);
+  const p8 = Math.min(Math.max((progress - 0.78) / 0.1, 0), 1);
+  const p9 = Math.min(Math.max((progress - 0.88) / 0.06, 0), 1);
+  const p10 = Math.min(Math.max((progress - 0.94) / 0.06, 0), 1);
 
-  // Subtle floating idle motion during finished state
+  // Subtle natural architectural breathing / floating when completed
   useFrame((state) => {
     if (groupRef.current) {
-      if (s5 > 0.5) {
-        groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.8) * 0.04;
+      if (p10 > 0.5) {
+        groupRef.current.position.y = -0.55 + Math.sin(state.clock.elapsedTime * 0.7) * 0.035;
       } else {
-        groupRef.current.position.y = 0;
+        groupRef.current.position.y = -0.55;
       }
     }
   });
 
   return (
-    <group ref={groupRef} position={[0, -0.6, 0]}>
+    <group ref={groupRef} position={[0, -0.55, 0]}>
       {/* ===================================================================== */}
-      {/* 0. GROUND PLINTH & BLUEPRINT GRID                                     */}
+      {/* 1. EMPTY ARCHITECTURAL SITE & SURVEY LASER GRID                       */}
       {/* ===================================================================== */}
-      {/* Paved Terrace Base */}
-      <mesh position={[0, -0.05, 0]} receiveShadow>
-        <boxGeometry args={[14, 0.1, 12]} />
-        <primitive object={materials.groundMat} attach="material" />
+      {/* Paved Site Base Platform */}
+      <mesh position={[0, -0.06, 0]} receiveShadow>
+        <boxGeometry args={[15, 0.12, 13]} />
+        <primitive object={isWireframeMode ? materials.blueprintMat : materials.groundPavementMat} attach="material" />
       </mesh>
 
-      {/* Landscaped Green Lawn Borders */}
-      <mesh position={[-5.5, -0.04, 0]} receiveShadow>
-        <boxGeometry args={[2.5, 0.11, 11]} />
-        <primitive object={materials.grassMat} attach="material" />
-      </mesh>
-      <mesh position={[5.5, -0.04, 0]} receiveShadow>
-        <boxGeometry args={[2.5, 0.11, 11]} />
-        <primitive object={materials.grassMat} attach="material" />
-      </mesh>
-
-      {/* Blueprint Laser Marking Grid (Fades out as building finishes) */}
-      {s1 < 0.95 && (
+      {/* Laser Architectural Boundary Survey Grid */}
+      {p8 < 0.95 && (
         <gridHelper
-          args={[16, 16, "#38BDF8", "#0284C7"]}
+          args={[16, 16, "#B78A52", "#38BDF8"]}
           position={[0, 0.01, 0]}
         />
       )}
 
       {/* ===================================================================== */}
-      {/* 1. FOUNDATION FOOTINGS & PLINTH BEAMS (Phase 1)                       */}
+      {/* 2. FOUNDATION FOOTINGS & PLINTH TIE-BEAMS (p2)                        */}
       {/* ===================================================================== */}
-      {s1 > 0 && (
-        <group scale={[1, s1, 1]}>
-          {/* Main 4 Isolated Footings */}
-          {[-3, 3].map((x) =>
+      {p2 > 0 && (
+        <group scale={[1, p2, 1]}>
+          {/* 6 Isolated Reinforced Concrete Footings */}
+          {[-3.5, 0, 3.5].map((x) =>
             [-3, 3].map((z) => (
-              <mesh key={`footing-${x}-${z}`} position={[x, 0.15, z]} castShadow>
-                <boxGeometry args={[1.2, 0.3, 1.2]} />
-                <primitive
-                  object={isWireframeMode || s1 < 0.5 ? materials.blueprintMat : materials.concreteMat}
-                  attach="material"
-                />
+              <mesh key={`footing-${x}-${z}`} position={[x, 0.16, z]} castShadow>
+                <boxGeometry args={[1.3, 0.32, 1.3]} />
+                <primitive object={isWireframeMode ? materials.blueprintMat : materials.concreteMat} attach="material" />
               </mesh>
             ))
           )}
 
-          {/* Plinth Tie Beams */}
-          <mesh position={[0, 0.25, -3]} castShadow>
-            <boxGeometry args={[6.4, 0.25, 0.4]} />
-            <primitive object={materials.concreteMat} attach="material" />
+          {/* Substructure Plinth Tie-Beams */}
+          <mesh position={[0, 0.28, -3]}>
+            <boxGeometry args={[8.4, 0.26, 0.4]} />
+            <primitive object={isWireframeMode ? materials.blueprintMat : materials.concreteMat} attach="material" />
           </mesh>
-          <mesh position={[0, 0.25, 3]} castShadow>
-            <boxGeometry args={[6.4, 0.25, 0.4]} />
-            <primitive object={materials.concreteMat} attach="material" />
+          <mesh position={[0, 0.28, 3]}>
+            <boxGeometry args={[8.4, 0.26, 0.4]} />
+            <primitive object={isWireframeMode ? materials.blueprintMat : materials.concreteMat} attach="material" />
           </mesh>
-          <mesh position={[-3, 0.25, 0]} castShadow>
-            <boxGeometry args={[0.4, 0.25, 6]} />
-            <primitive object={materials.concreteMat} attach="material" />
+          <mesh position={[-3.5, 0.28, 0]}>
+            <boxGeometry args={[0.4, 0.26, 6.2]} />
+            <primitive object={isWireframeMode ? materials.blueprintMat : materials.concreteMat} attach="material" />
           </mesh>
-          <mesh position={[3, 0.25, 0]} castShadow>
-            <boxGeometry args={[0.4, 0.25, 6]} />
-            <primitive object={materials.concreteMat} attach="material" />
-          </mesh>
-
-          {/* Ground Floor Slab Base */}
-          <mesh position={[0, 0.35, 0]} castShadow receiveShadow>
-            <boxGeometry args={[6.8, 0.2, 6.8]} />
-            <primitive object={materials.concreteMat} attach="material" />
+          <mesh position={[3.5, 0.28, 0]}>
+            <boxGeometry args={[0.4, 0.26, 6.2]} />
+            <primitive object={isWireframeMode ? materials.blueprintMat : materials.concreteMat} attach="material" />
           </mesh>
         </group>
       )}
 
       {/* ===================================================================== */}
-      {/* 2. GROUND FLOOR RCC COLUMNS & LEVEL 1 SLAB (Phase 2)                  */}
+      {/* 3. STRUCTURAL COLUMNS RISING (p3)                                     */}
       {/* ===================================================================== */}
-      {s2 > 0 && (
+      {p3 > 0 && (
         <group>
-          {/* 6 Structural Columns */}
-          {[-3, 0, 3].map((x) =>
+          {[-3.5, 0, 3.5].map((x) =>
             [-3, 3].map((z) => (
               <mesh
                 key={`col-${x}-${z}`}
-                position={[x, 0.45 + (1.35 * s2), z]}
-                scale={[1, s2, 1]}
+                position={[x, 0.4 + (p3 * 3.4) / 2, z]}
+                scale={[1, p3, 1]}
                 castShadow
               >
-                <boxGeometry args={[0.35, 2.7, 0.35]} />
-                <primitive
-                  object={s2 < 0.4 ? materials.blueprintMat : materials.concreteMat}
-                  attach="material"
-                />
+                <boxGeometry args={[0.45, 3.4, 0.45]} />
+                <primitive object={isWireframeMode ? materials.blueprintMat : materials.rccMat} attach="material" />
               </mesh>
             ))
           )}
+        </group>
+      )}
 
-          {/* Entrance Portico Twin Pillars */}
-          <mesh position={[-1.2, 0.45 + (1.35 * s2), 4.5]} scale={[1, s2, 1]} castShadow>
-            <boxGeometry args={[0.3, 2.7, 0.3]} />
-            <primitive object={materials.woodMat} attach="material" />
-          </mesh>
-          <mesh position={[1.2, 0.45 + (1.35 * s2), 4.5]} scale={[1, s2, 1]} castShadow>
-            <boxGeometry args={[0.3, 2.7, 0.3]} />
-            <primitive object={materials.woodMat} attach="material" />
+      {/* ===================================================================== */}
+      {/* 4. CONNECTING STRUCTURAL BEAMS & FIRST FLOOR SLAB (p4)                */}
+      {/* ===================================================================== */}
+      {p4 > 0 && (
+        <group scale={[p4, 1, p4]}>
+          {/* Ground Floor Roof / Level 1 Floor Slab */}
+          <mesh position={[0, 3.75, 0]} castShadow receiveShadow>
+            <boxGeometry args={[8.8, 0.28, 7.8]} />
+            <primitive object={isWireframeMode ? materials.blueprintMat : materials.rccMat} attach="material" />
           </mesh>
 
-          {/* First Floor Cantilevered Slab (Drops into place when s2 > 0.7) */}
-          {s2 > 0.5 && (
-            <mesh
-              position={[0, 3.2 - (1 - s2) * 1.5, 0.4]}
-              castShadow
-              receiveShadow
-            >
-              {/* Overhanging cantilever extending forward */}
-              <boxGeometry args={[7.6, 0.28, 8.2]} />
-              <primitive object={materials.concreteMat} attach="material" />
-            </mesh>
+          {/* Level 1 Upper Columns */}
+          {[-3.2, 0, 3.2].map((x) =>
+            [-2.6, 2.6].map((z) => (
+              <mesh key={`col-l1-${x}-${z}`} position={[x, 5.2, z]} castShadow>
+                <boxGeometry args={[0.4, 2.7, 0.4]} />
+                <primitive object={isWireframeMode ? materials.blueprintMat : materials.rccMat} attach="material" />
+              </mesh>
+            ))
           )}
         </group>
       )}
 
       {/* ===================================================================== */}
-      {/* 3. POROTHERM WALLS & RESIDENTIAL ROOM VOLUMES (Phase 3)               */}
+      {/* 5. POROTHERM CLAY HOLLOW BRICK WALLS (p5)                             */}
       {/* ===================================================================== */}
-      {s3 > 0 && (
-        <group scale={[1, s3, 1]}>
-          {/* Ground Floor Rear Main Wall */}
-          <mesh position={[0, 1.75, -2.9]} castShadow>
-            <boxGeometry args={[5.8, 2.6, 0.25]} />
-            <primitive object={materials.wallMat} attach="material" />
+      {p5 > 0 && (
+        <group scale={[1, p5, 1]}>
+          {/* Rear Ground Floor Porotherm Wall */}
+          <mesh position={[0, 2.05, -2.8]} castShadow>
+            <boxGeometry args={[6.8, 3.2, 0.25]} />
+            <primitive
+              object={
+                isWireframeMode
+                  ? materials.blueprintMat
+                  : p8 > 0.5
+                  ? materials.wallStuccoMat
+                  : materials.porothermMat
+              }
+              attach="material"
+            />
           </mesh>
 
-          {/* Ground Floor Left Wall */}
-          <mesh position={[-2.9, 1.75, 0]} castShadow>
-            <boxGeometry args={[0.25, 2.6, 5.8]} />
-            <primitive object={materials.wallMat} attach="material" />
+          {/* Left Wing Porotherm Wall */}
+          <mesh position={[-3.3, 2.05, 0]} castShadow>
+            <boxGeometry args={[0.25, 3.2, 5.8]} />
+            <primitive
+              object={
+                isWireframeMode
+                  ? materials.blueprintMat
+                  : p8 > 0.5
+                  ? materials.wallStuccoMat
+                  : materials.porothermMat
+              }
+              attach="material"
+            />
           </mesh>
 
-          {/* Ground Floor Right Wall with Accent Dark Panel */}
-          <mesh position={[2.9, 1.75, 0]} castShadow>
-            <boxGeometry args={[0.25, 2.6, 5.8]} />
-            <primitive object={materials.accentWallMat} attach="material" />
+          {/* Right Wing Porotherm Wall */}
+          <mesh position={[3.3, 2.05, 0]} castShadow>
+            <boxGeometry args={[0.25, 3.2, 5.8]} />
+            <primitive
+              object={
+                isWireframeMode
+                  ? materials.blueprintMat
+                  : p8 > 0.5
+                  ? materials.wallStuccoMat
+                  : materials.porothermMat
+              }
+              attach="material"
+            />
           </mesh>
 
-          {/* Teakwood Entrance Door */}
-          <mesh position={[0, 1.4, 3.05]} castShadow>
-            <boxGeometry args={[1.4, 2.2, 0.1]} />
-            <primitive object={materials.woodMat} attach="material" />
-          </mesh>
-
-          {/* Ground Floor Panoramic Living Room Glass Wall */}
-          <mesh position={[-1.7, 1.75, 2.95]} castShadow>
-            <boxGeometry args={[2.0, 2.5, 0.05]} />
-            <primitive object={materials.glassMat} attach="material" />
-          </mesh>
-          <mesh position={[1.7, 1.75, 2.95]} castShadow>
-            <boxGeometry args={[2.0, 2.5, 0.05]} />
-            <primitive object={materials.glassMat} attach="material" />
-          </mesh>
-
-          {/* Level 1 Upper Duplex Bedroom Walls */}
-          <mesh position={[0, 4.6, -2.9]} castShadow>
-            <boxGeometry args={[6.6, 2.5, 0.25]} />
-            <primitive object={materials.wallMat} attach="material" />
-          </mesh>
-          <mesh position={[-3.3, 4.6, 0]} castShadow>
-            <boxGeometry args={[0.25, 2.5, 6.2]} />
-            <primitive object={materials.wallMat} attach="material" />
-          </mesh>
-          <mesh position={[3.3, 4.6, -0.8]} castShadow>
-            <boxGeometry args={[0.25, 2.5, 4.6]} />
-            <primitive object={materials.accentWallMat} attach="material" />
-          </mesh>
-
-          {/* Upper Floor Master Bedroom Panoramic Window */}
-          <mesh position={[0, 4.6, 3.4]} castShadow>
-            <boxGeometry args={[4.2, 2.3, 0.05]} />
-            <primitive object={materials.glassMat} attach="material" />
+          {/* Upper Floor Porotherm Walls */}
+          <mesh position={[-1.2, 5.15, -2.4]} castShadow>
+            <boxGeometry args={[4.2, 2.6, 0.25]} />
+            <primitive
+              object={
+                isWireframeMode
+                  ? materials.blueprintMat
+                  : p8 > 0.5
+                  ? materials.wallStuccoMat
+                  : materials.porothermMat
+              }
+              attach="material"
+            />
           </mesh>
         </group>
       )}
 
       {/* ===================================================================== */}
-      {/* 4. CANTILEVERED ROOF SLAB, LOUVERS & BALCONIES (Phase 4)              */}
+      {/* 6. CANTILEVER ROOF SLABS & TERRACE PERGOLA (p6)                       */}
       {/* ===================================================================== */}
-      {s4 > 0 && (
-        <group>
-          {/* Main Floating Cantilevered Roof Slab (Descending smoothly) */}
-          <mesh
-            position={[0, 6.0 + (1 - s4) * 2, 0.3]}
-            castShadow
-            receiveShadow
-          >
-            {/* Deep architectural overhang protecting from harsh sun */}
-            <boxGeometry args={[8.4, 0.32, 9.0]} />
-            <primitive object={materials.concreteMat} attach="material" />
+      {p6 > 0 && (
+        <group scale={[1, 1, p6]}>
+          {/* Main Dramatic Cantilever Overhang Roof Slab */}
+          <mesh position={[0.2, 6.65, 0.3]} castShadow receiveShadow>
+            <boxGeometry args={[9.6, 0.26, 8.4]} />
+            <primitive object={isWireframeMode ? materials.blueprintMat : materials.charcoalAccentMat} attach="material" />
           </mesh>
 
-          {/* Roof Underside Teakwood Soffit */}
-          <mesh position={[0, 5.82 + (1 - s4) * 2, 0.3]}>
-            <boxGeometry args={[8.2, 0.04, 8.8]} />
-            <primitive object={materials.woodMat} attach="material" />
+          {/* Architectural Bronze Soffit Trim */}
+          <mesh position={[0.2, 6.5, 0.3]}>
+            <boxGeometry args={[9.65, 0.04, 8.45]} />
+            <primitive object={materials.bronzeMat} attach="material" />
           </mesh>
 
-          {/* Vertical Timber Sunshade Louvers along East Facade */}
-          {[-1.8, -1.4, -1.0, -0.6, 0.6, 1.0, 1.4, 1.8].map((lx) => (
-            <mesh key={`louver-${lx}`} position={[lx, 4.6, 4.0]} castShadow>
-              <boxGeometry args={[0.08, 2.4, 0.35]} />
-              <primitive object={materials.woodMat} attach="material" />
+          {/* Rooftop Pergola Canopy Louvers */}
+          {[-2.5, -1.5, -0.5, 0.5, 1.5, 2.5].map((lx, idx) => (
+            <mesh key={`pergola-${idx}`} position={[lx, 7.05, 2.2]} castShadow>
+              <boxGeometry args={[0.08, 0.16, 3.2]} />
+              <primitive object={materials.bronzeMat} attach="material" />
             </mesh>
           ))}
+        </group>
+      )}
 
-          {/* Master Balcony Frameless Glass Railing */}
-          <mesh position={[0, 3.8, 4.35]}>
-            <boxGeometry args={[4.8, 0.9, 0.05]} />
-            <primitive object={materials.glassMat} attach="material" />
+      {/* ===================================================================== */}
+      {/* 7. HIGH-TRANSMITTANCE GLAZING & BURMA TEAK ENTRANCE (p7)              */}
+      {/* ===================================================================== */}
+      {p7 > 0 && (
+        <group scale={[p7, 1, 1]}>
+          {/* Ground Floor Double-Height Panoramic Living Room Glass */}
+          <mesh position={[1.4, 2.05, 2.85]}>
+            <boxGeometry args={[3.8, 3.1, 0.06]} />
+            <primitive object={isWireframeMode ? materials.blueprintMat : materials.glassMat} attach="material" />
           </mesh>
-          <mesh position={[-2.4, 3.8, 3.8]}>
-            <boxGeometry args={[0.05, 0.9, 1.1]} />
-            <primitive object={materials.glassMat} attach="material" />
+
+          {/* First Floor Balcony Glazing Curtain Wall */}
+          <mesh position={[1.2, 5.15, 2.55]}>
+            <boxGeometry args={[3.6, 2.4, 0.06]} />
+            <primitive object={isWireframeMode ? materials.blueprintMat : materials.glassMat} attach="material" />
           </mesh>
-          <mesh position={[2.4, 3.8, 3.8]}>
-            <boxGeometry args={[0.05, 0.9, 1.1]} />
-            <primitive object={materials.glassMat} attach="material" />
+
+          {/* Burma Teak Grand Entrance Pivot Door */}
+          <mesh position={[-1.6, 1.85, 2.88]} castShadow>
+            <boxGeometry args={[1.5, 2.8, 0.12]} />
+            <primitive object={materials.teakwoodMat} attach="material" />
+          </mesh>
+
+          {/* Vertical Architectural Bronze Handle */}
+          <mesh position={[-1.0, 1.85, 2.97]}>
+            <cylinderGeometry args={[0.02, 0.02, 1.4, 16]} />
+            <primitive object={materials.bronzeMat} attach="material" />
           </mesh>
         </group>
       )}
 
       {/* ===================================================================== */}
-      {/* 5. FINISHED LUXURY LIGHTING & ARCHITECTURAL ILLUMINATION (Phase 5)    */}
+      {/* 8. ARCHITECTURAL EXTERIOR FINISHES & BRONZE LOUVERS (p8)              */}
       {/* ===================================================================== */}
-      {s5 > 0 && (
+      {p8 > 0 && (
         <group>
-          {/* Interior Warm Dusk Illumination Glow Boxes */}
-          <mesh position={[0, 1.6, 0]}>
-            <boxGeometry args={[4.5, 2.0, 4.5]} />
-            <primitive object={materials.glowMat} attach="material" />
-          </mesh>
-          <mesh position={[0, 4.5, 0]}>
-            <boxGeometry args={[5.0, 2.0, 5.0]} />
-            <primitive object={materials.glowMat} attach="material" />
-          </mesh>
-
-          {/* Soft Downlight Spot Emissives under Roof Cantilever */}
-          {[-2.5, 0, 2.5].map((sx) => (
-            <mesh key={`spot-${sx}`} position={[sx, 5.8, 3.8]}>
-              <cylinderGeometry args={[0.12, 0.12, 0.05, 12]} />
-              <meshBasicMaterial color="#FEF08A" />
+          {/* Vertical Bronze Solar Sunshade Screen Louvers on Master Suite */}
+          {[-3.0, -2.7, -2.4, -2.1, -1.8, -1.5].map((lx, idx) => (
+            <mesh key={`louver-${idx}`} position={[lx, 5.15, 2.65]} castShadow>
+              <boxGeometry args={[0.06, 2.5, 0.22]} />
+              <primitive object={materials.bronzeMat} attach="material" />
             </mesh>
           ))}
 
-          {/* Warm Point Light Casting Dusk Shadow */}
+          {/* Deep Charcoal Textured Feature Portico Wall */}
+          <mesh position={[-2.4, 2.05, 1.5]} castShadow>
+            <boxGeometry args={[0.3, 3.2, 2.8]} />
+            <primitive object={materials.charcoalAccentMat} attach="material" />
+          </mesh>
+        </group>
+      )}
+
+      {/* ===================================================================== */}
+      {/* 9. PRECISION GRANITE PAVERS & LANDSCAPING TURF (p9)                   */}
+      {/* ===================================================================== */}
+      {p9 > 0 && (
+        <group scale={[p9, 1, p9]}>
+          {/* Left Manicured Green Lawn */}
+          <mesh position={[-5.8, -0.04, 0]} receiveShadow>
+            <boxGeometry args={[2.8, 0.1, 12]} />
+            <primitive object={materials.lawnTurfMat} attach="material" />
+          </mesh>
+
+          {/* Right Tropical Garden Bed */}
+          <mesh position={[5.8, -0.04, 0]} receiveShadow>
+            <boxGeometry args={[2.8, 0.1, 12]} />
+            <primitive object={materials.lawnTurfMat} attach="material" />
+          </mesh>
+
+          {/* Low Architectural Concrete Planter Boxes */}
+          <mesh position={[-4.2, 0.25, 3.8]} castShadow>
+            <boxGeometry args={[1.4, 0.45, 0.6]} />
+            <primitive object={materials.charcoalAccentMat} attach="material" />
+          </mesh>
+          <mesh position={[4.2, 0.25, 3.8]} castShadow>
+            <boxGeometry args={[1.4, 0.45, 0.6]} />
+            <primitive object={materials.charcoalAccentMat} attach="material" />
+          </mesh>
+        </group>
+      )}
+
+      {/* ===================================================================== */}
+      {/* 10. FINISHED RESIDENCE: DUSK INTERIOR LIGHTING & GLOW (p10)           */}
+      {/* ===================================================================== */}
+      {p10 > 0 && (
+        <group>
+          {/* Ground Floor Interior Dusk Glow Volume */}
+          <mesh position={[1.4, 2.0, 1.0]}>
+            <boxGeometry args={[3.2, 2.6, 2.4]} />
+            <primitive object={materials.warmInteriorMat} attach="material" />
+          </mesh>
+
+          {/* First Floor Master Suite Glow Volume */}
+          <mesh position={[1.2, 5.1, 1.0]}>
+            <boxGeometry args={[3.0, 2.2, 2.2]} />
+            <primitive object={materials.warmInteriorMat} attach="material" />
+          </mesh>
+
+          {/* Warm Emissive Point Light simulating cozy indoor illumination */}
           <pointLight
-            position={[0, 2.0, 2.0]}
             color="#F59E0B"
-            intensity={1.2 * s5}
+            intensity={1.8 * p10}
             distance={8}
-            decay={2}
+            position={[1.4, 2.4, 1.8]}
           />
           <pointLight
-            position={[0, 5.0, 2.0]}
             color="#FEF08A"
-            intensity={1.0 * s5}
-            distance={8}
-            decay={2}
+            intensity={1.5 * p10}
+            distance={7}
+            position={[1.2, 5.2, 1.6]}
+          />
+
+          {/* Architectural Linear Facade Uplights */}
+          <pointLight
+            color="#B78A52"
+            intensity={1.2 * p10}
+            distance={5}
+            position={[-1.6, 0.2, 3.2]}
           />
         </group>
       )}
