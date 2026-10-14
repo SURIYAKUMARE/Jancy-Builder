@@ -40,6 +40,10 @@ export default function QuoteModal({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [submittedQuoteId, setSubmittedQuoteId] = useState<string | null>(null);
 
+  React.useEffect(() => {
+    if (initialGrade) setGrade(initialGrade);
+  }, [initialGrade, isOpen]);
+
   if (!isOpen) return null;
 
   // Pricing calculations matching exact rates

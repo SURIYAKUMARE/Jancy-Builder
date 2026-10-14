@@ -100,6 +100,7 @@ export default function FooterExact() {
               <Link href="/" className="hover:text-white transition-colors">Home</Link>
               <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
               <Link href="/services" className="hover:text-white transition-colors">Services</Link>
+              <Link href="/packages" className="hover:text-white transition-colors">Packages</Link>
               <Link href="/projects" className="hover:text-white transition-colors">Projects</Link>
               <Link href="/gallery" className="hover:text-white transition-colors">Gallery</Link>
               <Link href="/process" className="hover:text-white transition-colors">Process</Link>

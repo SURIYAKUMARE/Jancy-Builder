@@ -62,6 +62,10 @@ export default function FloatingEngineerAssistant({
       en: "Explore our professional construction and architectural services from residential villas to commercial landmarks.",
       ta: "எங்களின் முதன்மையான குடியிருப்பு மற்றும் வணிக வளாக கட்டுமான சேவைகளை பார்வையிடுங்கள்.",
     },
+    packages: {
+      en: "Compare our transparent turnkey packages: Standard ₹2,400, Premium Porotherm ₹3,200, and Ultra Luxury ₹4,400 per sq.ft.",
+      ta: "எங்களின் வெளிப்படையான கட்டுமான தொகுப்புகளை ஒப்பிடுங்கள்: ஸ்டாண்டர்ட் ₹2,400, பிரீமியம் போரோதெர்ம் ₹3,200, மற்றும் அல்ட்ரா லக்சரி ₹4,400.",
+    },
     projects: {
       en: "Take a look at our construction work and completed projects across Tirunelveli, Vallioor, and Kanyakumari.",
       ta: "திருநெல்வேலி, வள்ளியூர் பகுதிகளில் எங்களால் கட்டி முடிக்கப்பட்ட மற்றும் நேரலை கட்டுமானங்களை பாருங்கள்.",
@@ -211,7 +215,19 @@ export default function FloatingEngineerAssistant({
                   </span>
                 </Link>
 
-                {/* 2. Our Services */}
+                {/* 2. Compare Packages */}
+                <Link
+                  href="/#packages"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-2 p-2 rounded-xl bg-slate-50 hover:bg-[#B78A52]/10 text-slate-800 hover:text-[#966E3A] transition-all border border-slate-200"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-[#B78A52]" />
+                  <span className="font-semibold text-[11px] truncate">
+                    {lang === "en" ? "Compare Packages" : "தொகுப்புகள்"}
+                  </span>
+                </Link>
+
+                {/* 3. Our Services */}
                 <Link
                   href="/services"
                   onClick={() => setIsOpen(false)}
@@ -220,18 +236,6 @@ export default function FloatingEngineerAssistant({
                   <Building className="w-3.5 h-3.5 text-[#B78A52]" />
                   <span className="font-semibold text-[11px] truncate">
                     {lang === "en" ? "Our Services" : "எங்கள் சேவைகள்"}
-                  </span>
-                </Link>
-
-                {/* 3. Construction Process */}
-                <Link
-                  href="/process"
-                  onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-2 p-2 rounded-xl bg-slate-50 hover:bg-[#B78A52]/10 text-slate-800 hover:text-[#966E3A] transition-all border border-slate-200"
-                >
-                  <HardHat className="w-3.5 h-3.5 text-[#B78A52]" />
-                  <span className="font-semibold text-[11px] truncate">
-                    {lang === "en" ? "Construction Process" : "கட்டுமான முறை"}
                   </span>
                 </Link>
 

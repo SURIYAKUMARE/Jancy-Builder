@@ -4,22 +4,22 @@ import React, { useState, useEffect } from "react";
 import { HeroConfig } from "@/types/hero";
 import NavbarExact from "@/components/exact/NavbarExact";
 import HeroExact from "@/components/exact/HeroExact";
+import AboutEditorial from "@/components/sections/AboutEditorial";
 import ServicesExact from "@/components/exact/ServicesExact";
+import ConstructionPackages from "@/components/sections/ConstructionPackages";
 import ProjectsExact from "@/components/exact/ProjectsExact";
 import GallerySection from "@/components/sections/GallerySection";
-import ProcessTestimonialsExact from "@/components/exact/ProcessTestimonialsExact";
-import FooterExact from "@/components/exact/FooterExact";
-import BeforeAfterSlider from "@/components/hero/BeforeAfterSlider";
+import ConstructionProcessUnified from "@/components/sections/ConstructionProcessUnified";
 import EstimatorSection from "@/components/sections/EstimatorSection";
-import EngineeringPillars from "@/components/sections/EngineeringPillars";
 import ContactSection from "@/components/sections/ContactSection";
+import FooterExact from "@/components/exact/FooterExact";
 import FloatingWhatsApp from "@/components/common/FloatingWhatsApp";
 import StageExplorerModal from "@/components/stages/StageExplorerModal";
 import QuoteModal from "@/components/quote/QuoteModal";
 import BrandIntro from "@/components/intro/BrandIntro";
-import AboutEditorial from "@/components/sections/AboutEditorial";
 import MobileBottomBar from "@/components/mobile/MobileBottomBar";
 import EngineerWelcomeModal from "@/components/engineer/EngineerWelcomeModal";
+import FloatingEngineerAssistant from "@/components/engineer/FloatingEngineerAssistant";
 
 interface HomePageClientProps {
   initialConfig: HeroConfig;
@@ -32,6 +32,7 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
   const [progressPercent, setProgressPercent] = useState<number>(0);
   const [playbackSpeed, setPlaybackSpeed] = useState<number>(1);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState<boolean>(false);
+  const [selectedPackageGrade, setSelectedPackageGrade] = useState<"standard" | "premium" | "ultra">("premium");
   const [isExplorerModalOpen, setIsExplorerModalOpen] = useState<boolean>(false);
   const [explorerInitialIdx, setExplorerInitialIdx] = useState<number>(0);
   const [isWelcomeModalOpen, setIsWelcomeModalOpen] = useState<boolean>(false);
@@ -94,16 +95,22 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
     setIsExplorerModalOpen(true);
   };
 
+  const handleOpenQuoteWithTier = (tier?: "standard" | "premium" | "ultra") => {
+    if (tier) setSelectedPackageGrade(tier);
+    setIsQuoteModalOpen(true);
+  };
+
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-white text-slate-900 flex flex-col font-sans selection:bg-[#DC2626]/20 selection:text-[#DC2626]">
+    <div className="min-h-screen w-full overflow-x-hidden bg-[#F8F6F1] text-[#202124] flex flex-col font-sans selection:bg-[#B78A52]/20 selection:text-[#B78A52]">
       {/* 0. ARCHITECTURAL HAIRLINE INTRO ANIMATION */}
       <BrandIntro />
 
       {/* 1. EXACT WHITE NAVBAR */}
-      <NavbarExact onOpenQuote={() => setIsQuoteModalOpen(true)} />
+      <NavbarExact onOpenQuote={() => handleOpenQuoteWithTier()} />
 
-      {/* 2. EXACT 3-COLUMN HERO SECTION (WITH 12-STAGE TIMELAPSE IN CENTER FRAME) */}
+      {/* CANONICAL 8-SECTION ARCHITECTURAL STRUCTURE */}
       <main className="flex-grow">
+        {/* 1. HOME: FULLSCREEN 3D CONSTRUCTING VILLA HERO */}
         <HeroExact
           stages={activeStages}
           currentStageIndex={currentStageIndex}
@@ -111,37 +118,29 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
           isPlaying={isPlaying}
           onTogglePlay={handleTogglePlay}
           progressPercent={progressPercent}
-          onOpenQuote={() => setIsQuoteModalOpen(true)}
+          onOpenQuote={() => handleOpenQuoteWithTier()}
           onOpenExplorer={handleOpenExplorer}
         />
 
-        {/* 2.5 EDITORIAL ABOUT & CIVIL ENGINEERING PILLARS */}
-        <AboutEditorial onOpenQuote={() => setIsQuoteModalOpen(true)} />
+        {/* 2. ABOUT JANCY BUILDERS: EDITORIAL FOUNDER CREED & PILLARS */}
+        <AboutEditorial onOpenQuote={() => handleOpenQuoteWithTier()} />
 
-        {/* 3. EXACT SERVICES SECTION */}
-        <ServicesExact onOpenQuote={() => setIsQuoteModalOpen(true)} />
+        {/* 3. SERVICES: 4 ARCHITECTURAL DISCIPLINES */}
+        <ServicesExact onOpenQuote={() => handleOpenQuoteWithTier()} />
 
-        {/* 4. EXACT DARK FEATURED PROJECTS SECTION */}
-        <ProjectsExact onOpenQuote={() => setIsQuoteModalOpen(true)} />
+        {/* 4. CONSTRUCTION PACKAGES: DEEJOS-INSPIRED COMPARISON & SPECS */}
+        <ConstructionPackages onOpenQuote={handleOpenQuoteWithTier} />
 
-        {/* 4.5 DEDICATED AUTHENTIC CONSTRUCTION GALLERY & LIGHTBOX */}
-        <GallerySection />
+        {/* 5. OUR PROJECTS: 257 AUTHENTIC SITE PHOTOS & BEFORE/AFTER */}
+        <ProjectsExact onOpenQuote={() => handleOpenQuoteWithTier()} />
 
-        {/* 5. EXACT HOW IT WORKS & TESTIMONIALS SECTION */}
-        <ProcessTestimonialsExact />
+        {/* 6. CONSTRUCTION PROCESS: CONSOLIDATED 6-STAGE WORKFLOW & TESTIMONIALS */}
+        <ConstructionProcessUnified onOpenQuote={() => handleOpenQuoteWithTier()} />
 
-        {/* 6. INTERACTIVE BEFORE & AFTER SLIDER (STAGE 01 EMPTY LAND VS STAGE 12 COMPLETED HOME) */}
-        <div className="border-t border-gray-100">
-          <BeforeAfterSlider />
-        </div>
+        {/* 7. COST ESTIMATOR: INTERACTIVE SLIDER & INSTANT BOQ GENERATOR */}
+        <EstimatorSection onOpenQuote={() => handleOpenQuoteWithTier()} />
 
-        {/* 7. INTERACTIVE TURNKEY COST ESTIMATOR */}
-        <EstimatorSection onOpenQuote={() => setIsQuoteModalOpen(true)} />
-
-        {/* 8. ENGINEERING RIGOR & QUALITY ASSURANCE */}
-        <EngineeringPillars />
-
-        {/* 8.5 DEDICATED IN-PAGE CONSULTATION & OFFICE CONTACT SECTION */}
+        {/* 8. CONTACT: SAMUGARENGAPURAM HQ & DIRECT ENGINEER LINE */}
         <ContactSection />
       </main>
 
@@ -151,10 +150,13 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
       {/* 10. FLOATING WHATSAPP BUTTON WITH RADAR PING */}
       <FloatingWhatsApp />
 
-      {/* 11. MOBILE STICKY BOTTOM ACTION BAR */}
-      <MobileBottomBar onOpenQuote={() => setIsQuoteModalOpen(true)} />
+      {/* 11. FLOATING 3D CIVIL ENGINEER GUIDE (TAMIL & ENGLISH CONTEXTUAL ASSISTANT) */}
+      <FloatingEngineerAssistant onOpenQuote={() => handleOpenQuoteWithTier()} />
 
-      {/* 12. INTERACTIVE MODALS */}
+      {/* 12. MOBILE STICKY BOTTOM ACTION BAR */}
+      <MobileBottomBar onOpenQuote={() => handleOpenQuoteWithTier()} />
+
+      {/* 13. INTERACTIVE MODALS */}
       <StageExplorerModal
         isOpen={isExplorerModalOpen}
         onClose={() => setIsExplorerModalOpen(false)}
@@ -166,9 +168,10 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
       <QuoteModal
         isOpen={isQuoteModalOpen}
         onClose={() => setIsQuoteModalOpen(false)}
+        initialGrade={selectedPackageGrade}
       />
 
-      {/* 13. REALISTIC 3D CIVIL ENGINEER WELCOMING MODAL */}
+      {/* 14. REALISTIC 3D CIVIL ENGINEER WELCOMING MODAL */}
       <EngineerWelcomeModal
         isOpen={isWelcomeModalOpen}
         onClose={() => setIsWelcomeModalOpen(false)}
@@ -177,7 +180,7 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
           if (el) el.scrollIntoView({ behavior: "smooth" });
           else window.location.href = "/projects";
         }}
-        onStartDreamHome={() => setIsQuoteModalOpen(true)}
+        onStartDreamHome={() => handleOpenQuoteWithTier("premium")}
       />
     </div>
   );

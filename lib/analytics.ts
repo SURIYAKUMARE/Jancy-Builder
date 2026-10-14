@@ -16,7 +16,9 @@ type AnalyticsEvent =
   | "expert_call_click"
   | "general_whatsapp_click"
   | "project_case_study_view"
-  | "timelapse_interaction";
+  | "timelapse_interaction"
+  | "package_select"
+  | "package_whatsapp_click";
 
 interface EventParams {
   [key: string]: string | number | boolean | undefined;
