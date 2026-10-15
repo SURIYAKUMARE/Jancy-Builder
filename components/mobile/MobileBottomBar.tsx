@@ -41,27 +41,27 @@ export default function MobileBottomBar({ onOpenQuote }: MobileBottomBarProps) {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 80, opacity: 0 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-[#17191B]/95 backdrop-blur-xl border-t border-white/10 px-3 py-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))] shadow-2xl shadow-black/80"
+          className="fixed bottom-0 inset-x-0 z-40 md:hidden liquid-glass border-t border-white/10 px-3 py-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))] shadow-2xl shadow-black/90 backdrop-blur-2xl"
         >
           <div className="max-w-md mx-auto flex items-center gap-2">
             {/* Primary Action: Get Free Estimate Modal */}
             <button
               onClick={onOpenQuote}
-              className="flex-1 min-h-[48px] bg-[#B78A52] hover:bg-[#a37742] active:scale-[0.98] text-slate-950 font-bold text-xs sm:text-sm py-3 px-3.5 rounded-xl shadow-lg shadow-[#B78A52]/25 flex items-center justify-center gap-1.5 transition-all select-none"
+              className="flex-1 min-h-[46px] bg-[#C9A46B] hover:bg-[#d6b279] active:scale-[0.98] text-[#000000] font-semibold text-xs sm:text-sm py-2.5 px-3.5 rounded-xl shadow-lg shadow-[#C9A46B]/20 flex items-center justify-center gap-1.5 transition-all select-none"
             >
-              <Calculator className="w-4 h-4 stroke-[2.5]" />
-              <span className="tracking-wide uppercase font-sans">Get Free Estimate</span>
-              <ChevronRight className="w-3.5 h-3.5 stroke-[2.5]" />
+              <Calculator className="w-4 h-4 stroke-[2.2]" />
+              <span className="tracking-wide uppercase font-body font-semibold">Get Estimate</span>
+              <ChevronRight className="w-3.5 h-3.5 stroke-[2.2]" />
             </button>
 
             {/* Quick Call Button */}
             <a
               href="tel:+917708247124"
-              className="min-h-[48px] bg-white/10 hover:bg-white/20 active:scale-[0.98] text-white border border-white/15 font-semibold text-xs py-3 px-3.5 rounded-xl flex items-center justify-center gap-1.5 transition-all select-none"
+              className="min-h-[46px] liquid-glass hover:bg-white/10 active:scale-[0.98] text-white border border-white/15 font-medium text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 transition-all select-none"
               title="Call Er. Sahaya Antony Stalin"
             >
-              <Phone className="w-4 h-4 text-[#B78A52]" />
-              <span className="font-mono">Call</span>
+              <Phone className="w-4 h-4 text-[#C9A46B]" />
+              <span className="font-body">Call</span>
             </a>
 
             {/* WhatsApp Quick Icon Button */}
@@ -69,7 +69,7 @@ export default function MobileBottomBar({ onOpenQuote }: MobileBottomBarProps) {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-12 h-12 min-h-[48px] min-w-[48px] bg-[#25D366] hover:bg-[#20ba5a] active:scale-[0.98] text-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-md transition-all select-none"
+              className="w-11 h-11 min-h-[44px] min-w-[44px] bg-[#25D366] hover:bg-[#20ba5a] active:scale-[0.98] text-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-md transition-all select-none"
               title="Chat on WhatsApp"
             >
               <MessageCircle className="w-5 h-5 fill-current" />

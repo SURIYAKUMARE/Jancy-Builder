@@ -55,10 +55,10 @@ export default function BrandIntro({ onComplete }: BrandIntroProps) {
               ease: [0.16, 1, 0.3, 1], // Luxury architectural cubic-bezier
             },
           }}
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#F7F4EE] select-none pointer-events-auto"
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#000000] select-none pointer-events-auto"
         >
-          {/* Step 1: Subtle Architectural CAD Grid Lines */}
-          <div className="absolute inset-0 pointer-events-none opacity-40 bg-[linear-gradient(to_right,#E8DFD1_1px,transparent_1px),linear-gradient(to_bottom,#E8DFD1_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+          {/* Subtle Architectural CAD Grid Lines */}
+          <div className="absolute inset-0 pointer-events-none opacity-20 bg-[linear-gradient(to_right,#C9A46B15_1px,transparent_1px),linear-gradient(to_bottom,#C9A46B15_1px,transparent_1px)] bg-[size:4rem_4rem]" />
 
           {/* Center Logo Container - Moves upward at end of intro */}
           <motion.div
@@ -85,7 +85,7 @@ export default function BrandIntro({ onComplete }: BrandIntroProps) {
                 width="352"
                 height="192"
                 rx="16"
-                stroke="#B88746"
+                stroke="#C9A46B"
                 strokeWidth="1.2"
                 strokeDasharray="8 6"
                 initial={{ pathLength: 0, opacity: 0 }}
@@ -96,7 +96,7 @@ export default function BrandIntro({ onComplete }: BrandIntroProps) {
               {/* Precision corner marks */}
               <motion.path
                 d="M 14 26 L 14 14 L 26 14"
-                stroke="#B88746"
+                stroke="#C9A46B"
                 strokeWidth="2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -104,7 +104,7 @@ export default function BrandIntro({ onComplete }: BrandIntroProps) {
               />
               <motion.path
                 d="M 346 26 L 346 14 L 334 14"
-                stroke="#B88746"
+                stroke="#C9A46B"
                 strokeWidth="2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -112,7 +112,7 @@ export default function BrandIntro({ onComplete }: BrandIntroProps) {
               />
               <motion.path
                 d="M 14 174 L 14 186 L 26 186"
-                stroke="#B88746"
+                stroke="#C9A46B"
                 strokeWidth="2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -120,7 +120,7 @@ export default function BrandIntro({ onComplete }: BrandIntroProps) {
               />
               <motion.path
                 d="M 346 174 L 346 186 L 334 186"
-                stroke="#B88746"
+                stroke="#C9A46B"
                 strokeWidth="2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -151,11 +151,11 @@ export default function BrandIntro({ onComplete }: BrandIntroProps) {
               transition={{ delay: 0.55, duration: 0.8, ease: "easeOut" }}
               className="mt-4 flex items-center gap-3"
             >
-              <span className="h-[1px] w-6 bg-[#B88746]/60 block" />
-              <span className="text-[11px] sm:text-xs font-mono font-bold text-[#B88746] uppercase">
+              <span className="h-[1px] w-6 bg-[#C9A46B]/60 block" />
+              <span className="text-[11px] sm:text-xs font-mono font-bold text-[#C9A46B] uppercase">
                 BUILD YOUR WORLD
               </span>
-              <span className="h-[1px] w-6 bg-[#B88746]/60 block" />
+              <span className="h-[1px] w-6 bg-[#C9A46B]/60 block" />
             </motion.div>
           </motion.div>
         </motion.div>

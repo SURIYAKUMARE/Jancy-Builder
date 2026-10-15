@@ -1,21 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
+import React from "react";
+import Link from "next/link";
 import {
   ArrowRight,
   Calculator,
-  Phone,
-  Building2,
-  ShieldCheck,
-  Award,
-  MapPin,
+  HardHat,
+  Building,
   Sparkles,
-  ChevronRight,
-  CheckCircle2,
+  Phone,
+  Compass,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
+import FadingVideo from "@/components/motion/FadingVideo";
+import BlurText from "@/components/motion/BlurText";
 
 interface HeroExactProps {
   onOpenQuote?: () => void;
@@ -28,287 +27,157 @@ export default function HeroExact({
 }: HeroExactProps) {
   const { isTamil } = useLanguage();
 
-  // Authentic project showcases from Jancy Builders
-  const realProjects = [
-    {
-      id: "sunset-villa",
-      titleEn: "Luxury Residential Villa",
-      titleTa: "ஆடம்பர குடியிருப்பு வில்லா",
-      location: "Kavalkinaru, Tirunelveli",
-      image: "/images/hero-sunset-villa.jpg",
-      tagEn: "Completed Turnkey Project",
-      tagTa: "கட்டி முடிக்கப்பட்ட பணி",
-    },
-    {
-      id: "porotherm-villa",
-      titleEn: "Wienerberger Porotherm Eco-Thermal Home",
-      titleTa: "போரோதெர்ம் குளுமை இல்லம்",
-      location: "Samugarengapuram Site",
-      image: "/images/fb-projects/fb-2866252757935105/image_001.jpg",
-      tagEn: "Thermal Clay Masonry",
-      tagTa: "களிமண் செங்கல் கட்டுமானம்",
-    },
-    {
-      id: "silathikulam-duplex",
-      titleEn: "Contemporary Duplex Residence",
-      titleTa: "நவீன இரு அடுக்கு மாளிகை",
-      location: "Silathikulam Site",
-      image: "/images/fb-projects/fb-2996642819924777/image_001.jpg",
-      tagEn: "Handed Over On-Time",
-      tagTa: "குறிப்பிட்ட நாளில் சாவி ஒப்படைப்பு",
-    },
-    {
-      id: "durainagar-casting",
-      titleEn: "Boom-Placer Mechanized Slab Casting",
-      titleTa: "மெஷின் மூலம் தளம் போடுதல்",
-      location: "Durainagar Site",
-      image: "/images/fb-projects/fb-2593310028926711/image_001.jpg",
-      tagEn: "Laser Leveling & M25 Concrete",
-      tagTa: "M25 கான்கிரீட் & துல்லிய தளம்",
-    },
-  ];
-
-  const [activeProjectIdx, setActiveProjectIdx] = useState(0);
-
-  // Auto-rotate hero project background smoothly every 6 seconds
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveProjectIdx((prev) => (prev + 1) % realProjects.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, [realProjects.length]);
-
-  const currentProject = realProjects[activeProjectIdx];
-
-  const verifiedHighlights = [
-    {
-      labelEn: "10+ Years Experience",
-      labelTa: "10+ ஆண்டுகள் கள அனுபவம்",
-      subEn: "Civil Engineering Excellence",
-      subTa: "உண்மையான தரம்",
-      icon: Award,
-    },
-    {
-      labelEn: "Direct Er. Stalin Supervision",
-      labelTa: "பொறியாளர் நேரடி மேற்பார்வை",
-      subEn: "B.E. Civil Engineering",
-      subTa: "இடைத்தரகர்கள் இல்லை",
-      icon: ShieldCheck,
-    },
-    {
-      labelEn: "NABL Certified Materials",
-      labelTa: "பரிசோதிக்கப்பட்ட பொருட்கள்",
-      subEn: "TATA Tiscon & Porotherm",
-      subTa: "தர சான்றிதழ் பெற்றவை",
-      icon: CheckCircle2,
-    },
-    {
-      labelEn: "Headquarters: Samugarengapuram",
-      labelTa: "தலைமையகம்: சாமுகரெங்கபுரம்",
-      subEn: "Radhapuram, Tirunelveli",
-      subTa: "நேரடி அலுவலகம்",
-      icon: MapPin,
-    },
-  ];
-
   return (
-    <section className="relative w-full min-h-[92vh] lg:min-h-screen bg-[#FAF8F5] overflow-hidden flex flex-col justify-between pt-24 sm:pt-28">
+    <section className="relative w-full min-h-screen h-[100dvh] bg-black overflow-hidden flex flex-col justify-between pt-24 sm:pt-28 pb-8 px-4 sm:px-8">
       
-      {/* 1. CINEMATIC REAL PHOTOGRAPHY SHOWCASE (Right/Background on Desktop) */}
-      <div className="absolute right-0 top-0 bottom-0 w-full lg:w-[56%] h-full z-0 overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentProject.id}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.98 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full h-full"
-          >
-            <Image
-              src={currentProject.image}
-              alt={currentProject.titleEn}
-              fill
-              priority
-              className="object-cover object-center"
+      {/* 1. FULLSCREEN ATMOSPHERIC VIDEO BACKGROUND (Actual Jancy Builders Footage) */}
+      <div className="absolute inset-0 z-0">
+        <FadingVideo
+          src={[
+            "/videos/construction-timelapse.mp4",
+            "/videos/construction-timelapse-mobile.mp4",
+          ]}
+          poster="/images/hero-sunset-villa.jpg"
+          className="w-full h-full"
+          overlayGradient={true}
+        />
+        {/* Extra atmospheric radial vignette to focus center text */}
+        <div className="absolute inset-0 bg-radial-vignette pointer-events-none opacity-70" />
+      </div>
+
+      {/* 2. TOP SPACER */}
+      <div className="relative z-10 w-full" />
+
+      {/* 3. CENTER CONTENT: BADGE + LARGE ITALIC HEADING + DESCRIPTION + BUTTONS */}
+      <div className="relative z-10 max-w-5xl mx-auto w-full text-center space-y-6 sm:space-y-8 my-auto">
+        
+        {/* Liquid Glass Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: -20, filter: "blur(8px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full liquid-glass text-xs font-body tracking-wider text-white/90"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-[#C9A46B] animate-pulse" />
+          <span className="text-[11px] sm:text-xs uppercase tracking-widest text-slate-300">
+            {isTamil
+              ? "தொழில்முறை கட்டிடப் பொறியியல் மற்றும் கட்டுமான சேவைகள்"
+              : "Professional Civil Engineering & Construction"}
+          </span>
+        </motion.div>
+
+        {/* Hero Heading: Large Italic Instrument Serif (English) or Elegant Noto Sans (Tamil) */}
+        <div className="space-y-2">
+          {isTamil ? (
+            <BlurText
+              text="உங்கள் கனவு இல்லம், எங்கள் பொறுப்பில்."
+              as="h1"
+              isTamil={true}
+              className="text-4xl sm:text-6xl lg:text-7xl font-tamil font-black tracking-tight text-white leading-[1.2] max-w-4xl mx-auto"
             />
-            {/* Elegant luxury gradients */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/30" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#FAF8F5] via-transparent to-transparent lg:hidden" />
-          </motion.div>
-        </AnimatePresence>
+          ) : (
+            <BlurText
+              text="Your Dream Home, Built with Care."
+              as="h1"
+              italic={true}
+              className="text-5xl sm:text-7xl lg:text-[5.75rem] font-heading font-normal tracking-tight text-white leading-[1.06] max-w-4xl mx-auto drop-shadow-2xl"
+            />
+          )}
+        </div>
 
-        {/* Real Project Caption Pill at bottom right */}
-        <div className="absolute bottom-6 right-6 sm:bottom-10 sm:right-10 z-20 hidden sm:block">
-          <div className="bg-[#17191B]/85 backdrop-blur-md rounded-2xl p-3.5 border border-white/20 text-white max-w-xs shadow-2xl">
-            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#B78A52] block">
-              {isTamil ? currentProject.tagTa : currentProject.tagEn}
-            </span>
-            <h4 className="text-xs sm:text-sm font-bold text-white mt-0.5">
-              {isTamil ? currentProject.titleTa : currentProject.titleEn}
-            </h4>
-            <p className="text-[11px] text-slate-300 mt-0.5 flex items-center gap-1">
-              <MapPin className="w-3 h-3 text-[#B78A52]" />
-              <span>{currentProject.location}</span>
-            </p>
+        {/* Hero Description */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.35, duration: 0.8, ease: "easeOut" }}
+          className="text-sm sm:text-base lg:text-lg text-white/80 max-w-2xl mx-auto font-body leading-relaxed font-normal"
+        >
+          {isTamil
+            ? "வீட்டுத் திட்டம் முதல் கட்டுமானம் முடிந்து ஒப்படைக்கும் வரை, உங்கள் தேவைக்கேற்ற வீட்டை உருவாக்க ஜான்சி பில்டர்ஸ் துணை நிற்கிறது."
+            : "From your first plan to the final handover, Jancy Builders helps you create a home built around your needs."}
+        </motion.p>
 
-            {/* Slide Indicators */}
-            <div className="flex items-center gap-1.5 mt-2.5">
-              {realProjects.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveProjectIdx(i)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    activeProjectIdx === i ? "w-5 bg-[#B78A52]" : "w-1.5 bg-white/40 hover:bg-white/70"
-                  }`}
-                  aria-label={`Slide ${i + 1}`}
-                />
-              ))}
+        {/* Hero Liquid-Glass Action Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
+          className="flex flex-wrap items-center justify-center gap-4 pt-2 font-body"
+        >
+          {/* Primary Button: Explore Our Projects */}
+          <Link
+            href="#projects"
+            className="group inline-flex items-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-full liquid-glass-strong text-white text-xs sm:text-sm font-semibold hover:border-[#C9A46B]/60 transition-all hover:scale-105 active:scale-95 shadow-xl shadow-black/80"
+          >
+            <span>{isTamil ? "எங்கள் கட்டுமானப் பணிகளைப் பாருங்கள்" : "Explore Our Projects"}</span>
+            <ArrowRight className="w-4 h-4 text-[#C9A46B] transition-transform duration-200 group-hover:translate-x-1" />
+          </Link>
+
+          {/* Secondary Button: Get Construction Estimate */}
+          <button
+            onClick={onOpenQuote}
+            className="inline-flex items-center gap-2 px-6 sm:px-7 py-3.5 rounded-full liquid-glass text-white/90 hover:text-white text-xs sm:text-sm font-semibold hover:bg-white/5 transition-all hover:scale-105 active:scale-95"
+          >
+            <Calculator className="w-4 h-4 text-[#C9A46B]" />
+            <span>{isTamil ? "வீடு கட்டும் செலவை அறிய" : "Get Construction Estimate"}</span>
+          </button>
+        </motion.div>
+
+      </div>
+
+      {/* 4. HERO BOTTOM AREA: TWO GENUINE GLASS CARDS */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7, duration: 0.8, ease: "easeOut" }}
+        className="relative z-10 max-w-5xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 font-body"
+      >
+        {/* Card 1: Our Projects */}
+        <Link
+          href="#projects"
+          className="group p-4 sm:p-5 rounded-2xl liquid-glass hover:border-[#C9A46B]/40 transition-all flex items-center justify-between gap-4 text-left"
+        >
+          <div className="flex items-center gap-3.5">
+            <div className="w-10 h-10 rounded-xl liquid-glass flex items-center justify-center text-[#C9A46B] group-hover:scale-110 transition-transform flex-shrink-0">
+              <Building className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-sm font-bold text-white group-hover:text-[#C9A46B] transition-colors">
+                {isTamil ? "கட்டுமானப் பணிகள்" : "Our Projects"}
+              </h4>
+              <p className="text-xs text-white/70">
+                {isTamil
+                  ? "உண்மையான கட்டுமானப் புகைப்படங்களைப் பாருங்கள்"
+                  : "Explore real Jancy Builders construction work."}
+              </p>
             </div>
           </div>
-        </div>
-      </div>
+          <ArrowRight className="w-4 h-4 text-white/40 group-hover:text-[#C9A46B] group-hover:translate-x-1 transition-all flex-shrink-0" />
+        </Link>
 
-      {/* 2. SUBTLE ARCHITECTURAL CURVE DIVIDER (Desktop) */}
-      <div className="absolute inset-0 z-[1] pointer-events-none hidden lg:block overflow-hidden">
-        <svg
-          className="absolute left-0 top-0 h-full w-[52%] text-[#FAF8F5] fill-current drop-shadow-sm"
-          viewBox="0 0 750 1000"
-          preserveAspectRatio="none"
+        {/* Card 2: Talk to Our Engineer */}
+        <div
+          onClick={onOpenAppointmentModal}
+          className="group p-4 sm:p-5 rounded-2xl liquid-glass hover:border-[#C9A46B]/40 transition-all flex items-center justify-between gap-4 text-left cursor-pointer"
         >
-          <path d="M0,0 L600,0 C670,180 710,360 660,540 C610,720 540,860 480,1000 L0,1000 Z" />
-        </svg>
-      </div>
-
-      {/* 3. FOREGROUND MAIN CONTENT */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-16 w-full my-auto py-10 lg:py-16">
-        <div className="max-w-xl sm:max-w-2xl space-y-6 sm:space-y-7">
-          
-          {/* Eyebrow Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center gap-3"
-          >
-            <span className="h-[2px] w-8 bg-[#B78A52] block" />
-            <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.22em] text-[#B78A52]">
-              {isTamil ? "சிவில் பொறியியல் & கட்டுமானம் • திருநெல்வேலி" : "CIVIL ENGINEERING & CONSTRUCTION • TIRUNELVELI"}
-            </span>
-          </motion.div>
-
-          {/* Canonical Headline as explicitly required */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.6 }}
-            className="space-y-1"
-          >
-            <h1 className="text-3xl sm:text-5xl lg:text-[4rem] font-black text-[#17191B] tracking-tight leading-[1.08] font-sans">
-              {isTamil ? (
-                <>
-                  உங்கள் கனவு வீடு, <br />
-                  <span className="text-[#B78A52]">எங்கள் பொறுப்பு.</span>
-                </>
-              ) : (
-                <>
-                  Your Dream Home, <br />
-                  <span className="text-[#B78A52]">Our Responsibility.</span>
-                </>
-              )}
-            </h1>
-            <p className="text-xs sm:text-sm font-serif italic text-slate-700 pt-1">
-              Jancy Builders — Samugarengapuram, Tirunelveli
-            </p>
-          </motion.div>
-
-          {/* Supporting Copy */}
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-slate-700 text-sm sm:text-base max-w-lg leading-relaxed font-normal"
-          >
-            {isTamil
-              ? "திருநெல்வேலி மற்றும் தென் தமிழகத்தில் நேர்மையான பொறியியல், வாஸ்து முறை திட்டமிடல் மற்றும் தரமான வீட்டு கட்டுமானம். தலைமைப் பொறியாளர் Er. சகாய அந்தோணி ஸ்டாலின் நேரடி கள மேற்பார்வை."
-              : "Professional civil engineering, architectural design, and turnkey residential construction across Tirunelveli and South Tamil Nadu. Supervised on-site by Er. Sahaya Antony Stalin, B.E. (Civil)."}
-          </motion.p>
-
-          {/* 3 Main Action Buttons as explicitly requested */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1"
-          >
-            {/* Button 1: View Our Projects / எங்கள் பணிகளைப் பாருங்கள் */}
-            <a
-              href="#projects"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#17191B] hover:bg-[#25282B] text-white text-xs sm:text-sm font-bold shadow-lg shadow-black/10 transition-all hover:scale-105 active:scale-95"
-            >
-              <span>{isTamil ? "எங்கள் பணிகளைப் பாருங்கள்" : "View Our Projects"}</span>
-              <ArrowRight className="w-4 h-4 text-[#B78A52]" />
-            </a>
-
-            {/* Button 2: Get Construction Estimate / கட்டுமான செலவை அறிய */}
-            <a
-              href="#estimator"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#B78A52] hover:bg-[#9e743d] text-white text-xs sm:text-sm font-bold shadow-md transition-all hover:scale-105 active:scale-95"
-            >
-              <Calculator className="w-4 h-4" />
-              <span>{isTamil ? "கட்டுமான செலவை அறிய" : "Get Construction Estimate"}</span>
-            </a>
-
-            {/* Button 3: Contact Our Engineer / எங்கள் பொறியாளரைத் தொடர்புகொள்ள */}
-            <a
-              href="#engineer"
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-full bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 text-xs sm:text-sm font-bold shadow-sm transition-all hover:scale-105 active:scale-95"
-            >
-              <Phone className="w-4 h-4 text-[#B78A52]" />
-              <span>{isTamil ? "எங்கள் பொறியாளரைத் தொடர்புகொள்ள" : "Contact Our Engineer"}</span>
-            </a>
-          </motion.div>
-
-          {/* 4 Verified Company Facts (No Fake Statistics) */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 0.6 }}
-            className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-slate-200/90 max-w-xl"
-          >
-            {verifiedHighlights.map((fact, i) => {
-              const Icon = fact.icon;
-              return (
-                <div key={i} className="flex flex-col space-y-1">
-                  <div className="w-7 h-7 rounded-lg bg-[#B78A52]/10 text-[#B78A52] flex items-center justify-center">
-                    <Icon className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="text-xs font-bold text-slate-950 leading-tight">
-                    {isTamil ? fact.labelTa : fact.labelEn}
-                  </span>
-                  <span className="text-[10px] text-slate-500 font-medium">
-                    {isTamil ? fact.subTa : fact.subEn}
-                  </span>
-                </div>
-              );
-            })}
-          </motion.div>
-
+          <div className="flex items-center gap-3.5">
+            <div className="w-10 h-10 rounded-xl liquid-glass flex items-center justify-center text-[#C9A46B] group-hover:scale-110 transition-transform flex-shrink-0">
+              <HardHat className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-sm font-bold text-white group-hover:text-[#C9A46B] transition-colors">
+                {isTamil ? "பொறியாளரிடம் பேசுக" : "Talk to Our Engineer"}
+              </h4>
+              <p className="text-xs text-white/70">
+                {isTamil
+                  ? "Er. ஸ்டாலின் அவர்களிடம் இலவச ஆலோசனை பெறுக"
+                  : "Get guidance for your home-building project."}
+              </p>
+            </div>
+          </div>
+          <ArrowRight className="w-4 h-4 text-white/40 group-hover:text-[#C9A46B] group-hover:translate-x-1 transition-all flex-shrink-0" />
         </div>
-      </div>
-
-      {/* Mobile-Only Real Projects Mini Strip */}
-      <div className="lg:hidden w-full bg-slate-900 text-white p-4 flex items-center justify-between text-xs z-10 border-t border-white/10">
-        <div className="flex items-center gap-2 truncate">
-          <span className="w-2 h-2 rounded-full bg-[#B78A52]" />
-          <span className="font-semibold truncate">
-            {isTamil ? currentProject.titleTa : currentProject.titleEn}
-          </span>
-        </div>
-        <span className="text-[11px] text-slate-400 font-mono flex-shrink-0">
-          {currentProject.location}
-        </span>
-      </div>
+      </motion.div>
 
     </section>
   );

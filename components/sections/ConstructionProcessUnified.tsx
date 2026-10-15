@@ -10,525 +10,338 @@ import {
   HardHat,
   Key,
   CheckCircle2,
-  ChevronLeft,
-  ChevronRight,
-  Star,
-  Sparkles,
-  ShieldCheck,
   ArrowRight,
-  Volume2,
-  VolumeX,
+  Clock,
+  Sparkles,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
-import { translations } from "@/lib/translations";
+import BlurText from "@/components/motion/BlurText";
 
 interface ConstructionProcessUnifiedProps {
   onOpenQuote?: () => void;
 }
 
 export default function ConstructionProcessUnified({ onOpenQuote }: ConstructionProcessUnifiedProps) {
-  const { language, isTamil } = useLanguage();
-  const t = translations[language];
+  const { isTamil } = useLanguage();
   const [activeStageIdx, setActiveStageIdx] = useState(0);
-  const [activeTestimonialIdx, setActiveTestimonialIdx] = useState(0);
-  const [isSpeaking, setIsSpeaking] = useState(false);
 
-  // The 6 exact canonical stages with bilingual content
+  // The 6 exact canonical stages required by Section 11
   const processSteps = [
     {
       num: "01",
-      name: "Consultation",
-      nameTa: "ஆலோசனை & ஆய்வு",
-      timeline: "Days 1 – 7",
-      timelineTa: "1 முதல் 7 நாட்கள்",
-      tagline: "Vision, Plot Survey & Concept",
-      taglineTa: "எண்ணங்கள், நில ஆய்வு & திட்டம்",
-      desc: "Plot boundary evaluation, topography check, and detailed requirements questionnaire conducted personally with Er. Sahaya Antony Stalin.",
-      descTa: "தலைமைப் பொறியாளர் Er. சகாய அந்தோணி ஸ்டாலின் அவர்களுடன் நேரடி சந்திப்பு, நிலத்தின் அளவு மற்றும் மண் தரம் ஆய்வு, உங்கள் குடும்பத் தேவைகள் கேட்டறிதல்.",
-      deliverables: [
-        "On-site plot contour measurement",
-        "Geotechnical soil feasibility assessment",
-        "Client requirements & lifestyle brief",
-        "Tentative turnkey budget outline",
+      nameEn: "Consultation",
+      nameTa: "ஆலோசனை & தேவைகள்",
+      timelineEn: "Step 01",
+      timelineTa: "படி 01",
+      taglineEn: "Vision, Lifestyle & Requirement Brief",
+      taglineTa: "எண்ணங்கள், குடும்பத் தேவைகள் & பட்ஜெட்",
+      descEn:
+        "Direct meeting with Chief Civil Engineer Er. Sahaya Antony Stalin to discuss your plot orientation, family lifestyle, architectural preferences, and preliminary budget.",
+      descTa:
+        "தலைமைப் பொறியாளர் Er. சகாய அந்தோணி ஸ்டாலின் அவர்களுடன் நேரடி சந்திப்பு. உங்கள் நிலத்தின் அமைப்பு, குடும்ப உறுப்பினர்களின் தேவைகள் மற்றும் உத்தேச பட்ஜெட் குறித்து வெளிப்படையான கலந்துரையாடல்.",
+      pointsEn: [
+        "Family lifestyle & room requirements",
+        "Budget orientation & timeline planning",
+        "Vastu compliance and directional alignment",
       ],
-      deliverablesTa: [
-        "நிலத்தின் துல்லிய எல்லை மற்றும் மட்ட ஆய்வு",
-        "மண் தன்மையின் ஆரம்ப கட்ட சரிபார்ப்பு",
-        "குடும்ப வாழ்க்கை முறைக்கு ஏற்ப தேவைகள் பட்டியல்",
-        "தோராயமான கட்டுமான பட்ஜெட் அறிக்கை",
+      pointsTa: [
+        "குடும்ப உறுப்பினர்களின் விருப்பங்கள் மற்றும் அறைகள்",
+        "பட்ஜெட் மற்றும் கட்டுமான கால அளவு திட்டமிடல்",
+        "வாஸ்து முறை மற்றும் திசைகள் சரிபார்ப்பு",
       ],
       icon: MessageSquare,
       image: "/images/fb-projects/fb-2866252757935105/image_001.jpg",
     },
     {
       num: "02",
-      name: "Planning",
-      nameTa: "வரைபடம் & அனுமதி",
-      timeline: "Days 8 – 21",
-      timelineTa: "8 முதல் 21 நாட்கள்",
-      tagline: "Soil SBC, Vastu & Sanctions",
-      taglineTa: "மண் பரிசோதனை, வாஸ்து & அனுமதி",
-      desc: "Comprehensive safe bearing capacity (SBC) laboratory testing, traditional Vastu Shastra orientation, and municipal permit preparation.",
-      descTa: "அரசு சான்றளிக்கப்பட்ட ஆய்வகத்தில் மண் சுமைத் திறன் (SBC) பரிசோதனை, சரியான வாஸ்து அமைப்புடன் கூடிய பிளான் தயாரிப்பு, பஞ்சாயத்து / DTCP அனுமதி பெறுதல்.",
-      deliverables: [
-        "NABL certified soil SBC test report",
-        "Complete Vastu compliant floor schematics",
-        "Local panchayat / DTCP sanction filings",
-        "Fixed-price itemized BOQ agreement",
+      nameEn: "Site Inspection & Soil Testing",
+      nameTa: "கள ஆய்வு & மண் பரிசோதனை",
+      timelineEn: "Step 02",
+      timelineTa: "படி 02",
+      taglineEn: "Soil SBC Lab Test & Boundary Verification",
+      taglineTa: "மண் உறுதித்தன்மை பரிசோதனை & எல்லை அளவீடு",
+      descEn:
+        "On-site boundary survey, laser leveling, and NABL laboratory Safe Bearing Capacity (SBC) borehole soil testing to engineer the exact foundation depth required.",
+      descTa:
+        "நிலத்தின் எல்லை மற்றும் மட்டத்தை லேசர் கருவிகள் மூலம் அளவிடுதல். அஸ்திவாரம் எந்த ஆழத்தில் அமைக்க வேண்டும் என்பதை அறிய மண் பரிசோதனை (SBC Test) செய்தல்.",
+      pointsEn: [
+        "NABL certified borehole soil testing",
+        "Laser optical ground leveling survey",
+        "Groundwater table & drainage check",
       ],
-      deliverablesTa: [
-        "NABL சான்றளிக்கப்பட்ட மண் பரிசோதனை அறிக்கை",
-        "முழுமையான வாஸ்து முறைப்படி அமைக்கப்பட்ட வரைபடம்",
-        "ஊராட்சி / நகராட்சி அனுமதி விண்ணப்ப ஆவணங்கள்",
-        "பொருட்கள் மற்றும் விலைப் பட்டியல் (BOQ) ஒப்பந்தம்",
+      pointsTa: [
+        "ஆய்வக மண் பரிசோதனை அறிக்கை (SBC)",
+        "லேசர் கருவி மூலம் தரைமட்ட அளவீடு",
+        "நிலத்தடி நீர் மட்டம் & மழைநீர் வடிகால் ஆய்வு",
       ],
       icon: FileCheck,
-      image: "/images/fb-projects/fb-2866252757935105/image_002.jpg",
+      image: "/images/fb-projects/fb-3944641902085937/image_001.jpg",
     },
     {
       num: "03",
-      name: "Design",
-      nameTa: "3D வடிவமைப்பு",
-      timeline: "Days 22 – 35",
-      timelineTa: "22 முதல் 35 நாட்கள்",
-      tagline: "3D Elevations & Structural Drawings",
-      taglineTa: "3D வெளித்தோற்றம் & கட்டுமான வரைபடம்",
-      desc: "Photorealistic 3D exterior renderings, structural column-beam drawings, electrical schematics, and plumbing designs.",
-      descTa: "வீடு கட்டி முடித்தால் எப்படி இருக்கும் என்பதை காட்டும் அசல் 3D வண்ண வரைபடம், தூண்கள் மற்றும் பீம்களுக்கான துல்லிய பொறியியல் கணக்கீடுகள்.",
-      deliverables: [
-        "High-definition 3D day/night elevations",
-        "Structural RCC working drawings (IS 456)",
-        "Plumbing & electrical layout schematics",
-        "Material brand lock & finish catalog",
+      nameEn: "Planning & Architectural Design",
+      nameTa: "வரைபடம் & 3D வடிவமைப்பு",
+      timelineEn: "Step 03",
+      timelineTa: "படி 03",
+      taglineEn: "2D Floor Plans & Photorealistic 3D Views",
+      taglineTa: "2D வரைபடம் & அசல் 3D வண்ண தோற்றம்",
+      descEn:
+        "Creation of comprehensive architectural floor plans, high-resolution 3D elevations, structural column-beam drawings according to IS 456, and municipal approval dossiers.",
+      descTa:
+        "அனுமதிக்குரிய 2D வரைபடங்கள், வீடு கட்டி முடித்தால் எப்படி இருக்கும் என்பதை காட்டும் அழகான 3D வெளித்தோற்றம் மற்றும் அரசு அனுமதி கோப்புகள் தயாரித்தல்.",
+      pointsEn: [
+        "Architectural 2D floor layouts & furniture placement",
+        "Day and night 3D exterior perspective renders",
+        "IS 456 structural column, beam & slab detailing",
       ],
-      deliverablesTa: [
-        "பகல் மற்றும் இரவு நேர உயர்தர 3D வண்ண வரைபடங்கள்",
-        "IS 456 இந்திய தர விதிமுறைப்படி தூண் & பீம் வரைபடம்",
-        "குடிநீர், கழிவுநீர் & மின்சார வழித்தட வரைபடம்",
-        "பயன்படுத்தப்படும் பிராண்டட் பொருட்களின் பட்டியல்",
+      pointsTa: [
+        "2D மாடி வரைபடங்கள் & அறைகள் வடிவமைப்பு",
+        "பகல் மற்றும் இரவு நேர 3D வெளித்தோற்றம்",
+        "இந்திய தர விதிமுறைப்படி (IS 456) தூண், பீம் வரைபடம்",
       ],
       icon: Compass,
       image: "/images/fb-projects/fb-4017946504755476/image_001.jpg",
     },
     {
       num: "04",
-      name: "Foundation",
-      nameTa: "அடித்தளம்",
-      timeline: "Months 2 – 3",
-      timelineTa: "2 முதல் 3 மாதங்கள்",
-      tagline: "Earthwork, Footings & Plinth Beams",
-      taglineTa: "குழி தோண்டுதல், கான்கிரீட் & பீம்",
-      desc: "Precision hydraulic excavation, PCC bed casting, anti-termite chemical soil shielding, and reinforced column footings with plinth tie-beams.",
-      descTa: "பூமி பூஜை முடிந்து உறுதியான பாறை அடுக்கு வரை பள்ளம் தோண்டுதல், கரையான் தடுப்பு மருந்து தெளித்தல், உறுதியான M25 கான்கிரீட் பில்லர் மற்றும் பேஸ்மென்ட் பீம் அமைத்தல்.",
-      deliverables: [
-        "Heavy hydraulic excavation to hard strata",
-        "Anti-termite subterranean barrier",
-        "M25 grade isolated column footings",
-        "Damp-proof course (DPC) & plinth beams",
+      nameEn: "Estimate & Itemized Agreement",
+      nameTa: "செலவு மதிப்பீடு & ஒப்பந்தம்",
+      timelineEn: "Step 04",
+      timelineTa: "படி 04",
+      taglineEn: "Zero Hidden Escalations & Milestone Contracts",
+      taglineTa: "மறைமுக செலவுகள் இல்லாத வெளிப்படையான ஒப்பந்தம்",
+      descEn:
+        "Every brick, steel rebar, and brand is itemized in a transparent Bill of Quantities (BOQ). A binding legal agreement locks the total project cost without midway price hikes.",
+      descTa:
+        "பயன்படுத்தப்படும் ஒவ்வொரு பொருள் மற்றும் பிராண்டுகளின் விவரங்கள் அடங்கிய விரிவான BOQ அறிக்கை. கட்டுமான காலத்தில் விலையேற்றம் செய்யப்படாது என உறுதி செய்யும் ஒப்பந்தம்.",
+      pointsEn: [
+        "Line-item BOQ for every construction material",
+        "Milestone-linked transparent payment schedule",
+        "Written guarantee of fixed project cost",
       ],
-      deliverablesTa: [
-        "கடின பாறை தரைப்பகுதி வரை மெஷின் மூலம் குழி தோண்டுதல்",
-        "அடித்தளத்தில் நீண்டகால கரையான் தடுப்பு மருந்து பூச்சு",
-        "M25 கிரேடு ரெடிமிக்ஸ் கான்கிரீட் பில்லர் அமைத்தல்",
-        "ஈரப்பதம் ஏறாமல் தடுக்கும் DPC பெல்ட் மற்றும் பேஸ்மென்ட்",
+      pointsTa: [
+        "ஒவ்வொரு கட்டுமானப் பொருட்களின் விரிவான பட்டியல்",
+        "வேலை முடிவுக்கு ஏற்ப தவணை முறை கட்டண அட்டவணை",
+        "எழுத்துப்பூர்வமான விலை உறுதி ஒப்பந்தம்",
       ],
       icon: Layers,
-      image: "/images/fb-projects/fb-1473695047740194/image_001.jpg",
+      image: "/images/projects/site-silathikulam-murugan.jpg",
     },
     {
       num: "05",
-      name: "Construction",
-      nameTa: "சுவர்கள் & தளம்",
-      timeline: "Months 4 – 7",
-      timelineTa: "4 முதல் 7 மாதங்கள்",
-      tagline: "Porotherm Walls & Roof Slab Casting",
-      taglineTa: "போரோதெர்ம் செங்கற்கள் & கூரை கான்கிரீட்",
-      desc: "Superstructure execution using Wienerberger Porotherm eco-thermal hollow clay bricks, Fe550D rebar cages, and mechanized boom-placer concrete pouring.",
-      descTa: "வீட்டை இயற்கையாகவே குளிர்ச்சியாக வைக்கும் வீனர்பெர்கர் போரோதெர்ம் களிமண் செங்கற்கள், Fe 550D தர சான்றிதழ் பெற்ற இரும்பு கம்பிகள், பம்ப் மூலம் தளம் போடுதல்.",
-      deliverables: [
-        "Wienerberger Porotherm thermal masonry",
-        "Mechanized boom pump concrete placement",
-        "Continuous 28-day water ponding curing",
-        "Concealed electrical & plumbing rough-ins",
+      nameEn: "Precision Construction",
+      nameTa: "தரம் மிக்க கட்டுமானம்",
+      timelineEn: "Step 05",
+      timelineTa: "படி 05",
+      taglineEn: "Fe550D Rebar, Porotherm Bricks & M25 Concrete",
+      taglineTa: "Fe550D கம்பிகள், போரோதெர்ம் செங்கல் & தளம்",
+      descEn:
+        "Excavation to hard strata, anti-termite treatment, high-ductility Fe550D rebar cages, Wienerberger Porotherm clay masonry, and mechanized boom-placer concrete slab casting.",
+      descTa:
+        "பாறை அடுக்கு வரை குழி தோண்டுதல், கரையான் தடுப்பு மருந்து, Fe550D கம்பிகள் கொண்டு பில்லர் அமைத்தல், போரோதெர்ம் செங்கல் சுவர்கள் மற்றும் மெஷின் மூலம் தளம் போடுதல்.",
+      pointsEn: [
+        "Mechanized boom placer pump for dense concrete",
+        "Wienerberger Porotherm eco-thermal brickwork",
+        "Daily WhatsApp video reports from site to owner",
       ],
-      deliverablesTa: [
-        "அறை வெப்பநிலையைக் குறைக்கும் போரோதெர்ம் செங்கல் சுவர்",
-        "கான்கிரீட் பூம் பிளேசர் மூலம் தரமான தளம் அமைத்தல்",
-        "தொடர்ச்சியாக 28 நாட்கள் நீர் தேக்கி பக்குவப்படுத்துதல்",
-        "சுவருக்குள் மறைமுக பிளம்பிங் மற்றும் வயரிங் குழாய்கள்",
+      pointsTa: [
+        "மெஷின் மூலம் துல்லியமான கான்கிரீட் தளம்",
+        "வீட்டை குளிர்ச்சியாக வைக்கும் போரோதெர்ம் சுவர்கள்",
+        "வாட்ஸ்அப் மூலம் உரிமையாளருக்கு தினசரி வீடியோ ரிப்போர்ட்",
       ],
       icon: HardHat,
-      image: "/images/fb-projects/fb-2593310028926711/image_001.jpg",
+      image: "/images/projects/site-durainagar-praveen.jpg",
     },
     {
       num: "06",
-      name: "Handover",
-      nameTa: "பினிஷிங் & சாவி",
-      timeline: "Month 8",
-      timelineTa: "8-வது மாதம்",
-      tagline: "150-Point Snag Audit & Key Delivery",
-      taglineTa: "150 தரப் பரிசோதனை & சாவி ஒப்படைப்பு",
-      desc: "Rigorous quality audits, 15-Bar plumbing pressure testing, multi-coat waterproofing flood checks, and ceremonial key delivery with warranties.",
-      descTa: "டைல்ஸ், பெயிண்ட், எலக்ட்ரிக்கல், பிளம்பிங் பரிசோதனை, மொட்டை மாடி நீர் கசிவு சோதனை, மற்றும் சான்றிதழ்களுடன் கூடிய மங்களகரமான சாவி ஒப்படைப்பு.",
-      deliverables: [
-        "150-point architectural finishing audit",
-        "15-Bar hydrostatic pipe pressure check",
-        "15-year structural warranty documentation",
-        "Ceremonial key handover & puja ceremony",
+      nameEn: "Quality Checks & Key Handover",
+      nameTa: "தர பரிசோதனை & சாவி ஒப்படைப்பு",
+      timelineEn: "Step 06",
+      timelineTa: "படி 06",
+      taglineEn: "Comprehensive Snag-List & Generational Home",
+      taglineTa: "முழுமையான தர ஆய்வு & மகிழ்ச்சியான குடிபுகுதல்",
+      descEn:
+        "Rigorous 72-hour terrace ponding tests, electrical load balancing, plumbing pressure verification, deep cleaning, and ceremonial key handover on your auspicious date.",
+      descTa:
+        "மொட்டை மாடியில் 72 மணி நேரம் தண்ணீர் தேக்கி கசிவு ஆய்வு, மின்சாரம் மற்றும் பிளம்பிங் பரிசோதனை, முழுமையான சுத்தம் செய்தல் மற்றும் நல்ல நாளில் சாவி ஒப்படைப்பு.",
+      pointsEn: [
+        "72-hour terrace flood waterproofing certification",
+        "Electrical earth resistance and RCCB trip testing",
+        "Ceremonial key handover on your chosen muhurtham",
       ],
-      deliverablesTa: [
-        "150 அம்சங்கள் கொண்ட முழுமையான கட்டிட தரப் பரிசோதனை",
-        "15 பார் பிரஷர் சோதனை மூலம் பைப் கசிவு இல்லை என உறுதி",
-        "15 ஆண்டுகள் கட்டுமான உத்தரவாத ஆவணங்கள்",
-        "மங்களகரமான புதுமனை புகுவிழா சாவி ஒப்படைப்பு",
+      pointsTa: [
+        "72 மணி நேர மொட்டை மாடி கசிவு தடுப்பு சான்றிதழ்",
+        "எர்த்திங் மற்றும் பிளம்பிங் முழுமையான சோதனை",
+        "சுப முகூர்த்த நாளில் மங்களகரமான சாவி ஒப்படைப்பு",
       ],
       icon: Key,
-      image: "/images/fb-projects/fb-2996642819924777/image_001.jpg",
-    },
-  ];
-
-  const handleToggleSpeak = () => {
-    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-    if (isSpeaking) {
-      window.speechSynthesis.cancel();
-      setIsSpeaking(false);
-      return;
-    }
-    window.speechSynthesis.cancel();
-    const activeStep = processSteps[activeStageIdx];
-    const textToSpeak = isTamil
-      ? `${activeStep.nameTa}. ${activeStep.taglineTa}. ${activeStep.descTa}`
-      : `${activeStep.name}. ${activeStep.tagline}. ${activeStep.desc}`;
-
-    const utterance = new SpeechSynthesisUtterance(textToSpeak);
-    utterance.lang = isTamil ? "ta-IN" : "en-IN";
-    utterance.rate = 0.95;
-    utterance.onend = () => setIsSpeaking(false);
-    utterance.onerror = () => setIsSpeaking(false);
-    setIsSpeaking(true);
-    window.speechSynthesis.speak(utterance);
-  };
-
-  // Authentic client testimonials
-  const testimonials = [
-    {
-      id: 1,
-      quote:
-        "Jancy Builders completed our family residence in Silathikulam on the promised date without a single rupee of cost escalation. Er. Stalin ensured superior plastering, teakwood doors, and uncompromising structural strength.",
-      author: "Mr. S. Murugan",
-      location: "Silathikulam Handover",
-      project: "Turnkey Duplex Villa",
-      initials: "SM",
-      rating: 5,
-    },
-    {
-      id: 2,
-      quote:
-        "The choice of Wienerberger Porotherm clay bricks recommended by Chief Engineer Stalin was exceptional. The house stays naturally cool even during peak summer months in Tirunelveli.",
-      author: "Mr. Srinivas",
-      location: "Samugarengapuram",
-      project: "Eco-Thermal Villa",
-      initials: "SR",
-      rating: 5,
-    },
-    {
-      id: 3,
-      quote:
-        "Watching the concrete boom placer cast our roof slab with complete laser leveling gave our family 100% confidence. Their transparency, daily WhatsApp logs, and engineering rigor are unmatched.",
-      author: "Mr. Praveen & Naveen",
-      location: "Durainagar Site",
-      project: "Contemporary Duplex",
-      initials: "PN",
-      rating: 5,
+      image: "/images/hero-sunset-villa.jpg",
     },
   ];
 
   const currentStep = processSteps[activeStageIdx];
-  const currentTestimonial = testimonials[activeTestimonialIdx];
-
-  const handlePrevTestimonial = () => {
-    setActiveTestimonialIdx((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
-
-  const handleNextTestimonial = () => {
-    setActiveTestimonialIdx((prev) => (prev + 1) % testimonials.length);
-  };
 
   return (
     <section
       id="process"
-      className="py-20 lg:py-28 bg-[#17191B] text-white relative overflow-hidden border-t border-[#E2D9CC]/15 scroll-mt-24"
+      className="w-full bg-black py-24 sm:py-32 text-white relative overflow-hidden scroll-mt-20 font-body border-t border-white/10"
     >
-      {/* Ambient Bronze Glow */}
-      <div className="absolute top-1/4 right-0 w-96 h-96 bg-[#B78A52]/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 left-0 w-96 h-96 bg-[#B78A52]/5 rounded-full blur-[140px] pointer-events-none" />
+      {/* Background Gold Ambient Lighting */}
+      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-[#C9A46B]/5 rounded-full blur-[160px] pointer-events-none" />
 
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 mb-3 px-3.5 py-1.5 rounded-full bg-[#B78A52]/15 border border-[#B78A52]/30">
-            <span className="w-2 h-2 rounded-full bg-[#B78A52] animate-pulse" />
-            <span className="text-[11px] font-mono font-bold uppercase tracking-[0.25em] text-[#B78A52]">
-              {t.process.badge}
+        <div className="max-w-3xl mb-14 space-y-3">
+          <div className="inline-flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C9A46B]" />
+            <span className="text-xs font-mono font-bold uppercase tracking-[0.25em] text-[#C9A46B]">
+              {isTamil ? "// கட்டுமானப் பயணம்" : "// HOW WE BUILD YOUR HOME"}
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight font-sans">
-            {t.process.title}
-          </h2>
+          {isTamil ? (
+            <BlurText
+              text="அஸ்திவாரம் முதல் சாவி ஒப்படைப்பு வரை ஒரு தெளிவான பயணம்."
+              as="h2"
+              isTamil={true}
+              className="text-3xl sm:text-5xl font-tamil font-black text-white tracking-tight"
+            />
+          ) : (
+            <BlurText
+              text="A Structured Journey from Ground to Key Handover."
+              as="h2"
+              italic={true}
+              className="text-4xl sm:text-6xl font-heading font-normal text-white tracking-tight leading-[1.08]"
+            />
+          )}
 
-          <p className="mt-3 text-sm sm:text-base text-[#A5A5A2] max-w-2xl mx-auto leading-relaxed">
-            {t.process.subtitle}
+          <p className="text-sm sm:text-base text-white/70 max-w-2xl leading-relaxed">
+            {isTamil
+              ? "புதிதாக வீடு கட்டுபவர்களுக்கு புரியும் வகையில் 6 எளிய நிலைகளில் வெளிப்படையான கட்டுமான முறை. எந்த இடத்திலும் குழப்பம் இன்றி நம்பிக்கையுடன் அடியெடுத்து வையுங்கள்."
+              : "Designed from a homeowner's perspective, our 6-stage construction process ensures complete transparency, milestone verification, and zero hidden costs."}
           </p>
-
-          {/* Audio narration button */}
-          <div className="mt-5 flex items-center justify-center">
-            <button
-              onClick={handleToggleSpeak}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#B78A52]/20 hover:bg-[#B78A52]/30 text-[#E7C188] border border-[#B78A52]/40 text-xs font-bold transition-all shadow-md active:scale-95"
-            >
-              {isSpeaking ? (
-                <>
-                  <VolumeX className="w-4 h-4 text-red-400 animate-pulse" />
-                  <span>{isTamil ? "பேசுகிறது... (நிறுத்த தட்டவும்)" : "Speaking... (Tap to stop)"}</span>
-                </>
-              ) : (
-                <>
-                  <Volume2 className="w-4 h-4 text-[#B78A52]" />
-                  <span>{isTamil ? "🔊 கேட்டுத் தெரிந்துகொள்ளுங்கள்" : "🔊 Listen to Explanation"}</span>
-                </>
-              )}
-            </button>
-          </div>
         </div>
 
-        {/* Desktop 6-Stage Timeline Bar */}
-        <div className="hidden lg:grid lg:grid-cols-6 gap-3 mb-12 relative">
-          <div className="absolute top-6 left-10 right-10 h-[2px] bg-white/10 z-0 pointer-events-none" />
-
+        {/* Horizontal Interactive Step Navigation (Desktop) */}
+        <div className="hidden lg:grid grid-cols-6 gap-3 mb-10">
           {processSteps.map((step, idx) => {
+            const isActive = activeStageIdx === idx;
             const Icon = step.icon;
-            const isActive = activeStageIdx === idx;
             return (
               <button
                 key={step.num}
-                onClick={() => {
-                  setActiveStageIdx(idx);
-                  if (isSpeaking && typeof window !== "undefined") {
-                    window.speechSynthesis?.cancel();
-                    setIsSpeaking(false);
-                  }
-                }}
-                className={`relative z-10 flex flex-col items-center text-center p-3.5 rounded-2xl transition-all duration-300 ${
+                onClick={() => setActiveStageIdx(idx)}
+                className={`p-4 rounded-2xl text-left transition-all duration-300 relative ${
                   isActive
-                    ? "bg-[#1F2226] border-2 border-[#B78A52] shadow-xl shadow-black/40 -translate-y-1"
-                    : "bg-[#17191B]/80 hover:bg-[#1F2226] border border-white/10 text-[#A5A5A2]"
+                    ? "liquid-glass-strong border-[#C9A46B] shadow-xl shadow-[#C9A46B]/15"
+                    : "liquid-glass hover:bg-white/5 opacity-70 hover:opacity-100"
                 }`}
               >
-                <div
-                  className={`w-11 h-11 rounded-full flex items-center justify-center mb-2.5 transition-colors ${
-                    isActive
-                      ? "bg-[#B78A52] text-[#17191B] font-bold shadow-md shadow-[#B78A52]/30"
-                      : "bg-[#1F2226] text-[#A5A5A2] border border-white/10"
-                  }`}
-                >
-                  <Icon className="w-5 h-5" />
+                <div className="flex items-center justify-between mb-2">
+                  <span className={`text-xs font-mono font-bold ${isActive ? "text-[#C9A46B]" : "text-white/50"}`}>
+                    {step.num}
+                  </span>
+                  <Icon className={`w-4 h-4 ${isActive ? "text-[#C9A46B]" : "text-white/40"}`} />
                 </div>
-                <span className="text-[10px] font-mono font-bold text-[#B78A52] tracking-wider uppercase">
-                  {isTamil ? "நிலை" : "STAGE"} {step.num}
-                </span>
-                <span className="text-xs font-bold text-white mt-0.5">
-                  {isTamil ? step.nameTa : step.name}
-                </span>
-                <span className="text-[10px] font-mono text-slate-400 mt-0.5">
-                  {isTamil ? step.timelineTa : step.timeline}
-                </span>
+                <h4 className="text-xs font-bold text-white tracking-wide truncate">
+                  {isTamil ? step.nameTa : step.nameEn}
+                </h4>
               </button>
             );
           })}
         </div>
 
-        {/* Mobile Stage Selector Pills */}
-        <div className="flex lg:hidden items-center gap-2 overflow-x-auto pb-4 mb-6 scrollbar-none">
-          {processSteps.map((step, idx) => {
-            const isActive = activeStageIdx === idx;
-            return (
-              <button
-                key={step.num}
-                onClick={() => {
-                  setActiveStageIdx(idx);
-                  if (isSpeaking && typeof window !== "undefined") {
-                    window.speechSynthesis?.cancel();
-                    setIsSpeaking(false);
-                  }
-                }}
-                className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 ${
-                  isActive
-                    ? "bg-[#B78A52] text-[#17191B] shadow-md"
-                    : "bg-[#1F2226] text-[#A5A5A2] border border-white/10"
-                }`}
-              >
-                <span>{step.num}</span>
-                <span>{isTamil ? step.nameTa : step.name}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Active Stage Detailed Showcase Card */}
-        <div className="rounded-3xl bg-[#1F2226] border border-white/10 p-6 sm:p-10 shadow-2xl mb-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            
-            {/* Left Column: Details */}
-            <div className="lg:col-span-7 space-y-5">
-              <div className="flex items-center gap-3">
-                <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-[#B78A52]/20 border border-[#B78A52]/40 text-[#B78A52]">
-                  {isTamil ? `நிலை ${currentStep.num} / 06` : `STAGE ${currentStep.num} OF 06`}
-                </span>
-                <span className="text-xs font-mono text-slate-400">
-                  {isTamil ? currentStep.timelineTa : currentStep.timeline}
-                </span>
-              </div>
-
-              <div>
-                <h3 className="text-2xl sm:text-3xl font-black text-white font-sans tracking-tight">
-                  {isTamil ? currentStep.nameTa : currentStep.name}: {isTamil ? currentStep.taglineTa : currentStep.tagline}
-                </h3>
-                <p className="mt-2 text-sm text-[#A5A5A2] leading-relaxed">
-                  {isTamil ? currentStep.descTa : currentStep.desc}
-                </p>
-              </div>
-
-              {/* Deliverables Checklist */}
-              <div className="pt-2 space-y-2.5">
-                <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#B78A52] block">
-                  {isTamil ? "முக்கிய பலன்கள் & தர சோதனைகள்:" : "KEY DELIVERABLES & COMPLIANCE:"}
-                </span>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
-                  {(isTamil ? currentStep.deliverablesTa : currentStep.deliverables).map((item, i) => (
-                    <div key={i} className="flex items-start gap-2 text-slate-200">
-                      <div className="w-4 h-4 rounded-full bg-[#B78A52]/20 text-[#B78A52] flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <CheckCircle2 className="w-3 h-3 stroke-[3]" />
-                      </div>
-                      <span className="leading-tight">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Stage Stepper Buttons */}
-              <div className="pt-4 flex items-center gap-3">
-                <button
-                  disabled={activeStageIdx === 0}
-                  onClick={() => {
-                    setActiveStageIdx((prev) => Math.max(0, prev - 1));
-                    if (isSpeaking && typeof window !== "undefined") {
-                      window.speechSynthesis?.cancel();
-                      setIsSpeaking(false);
-                    }
-                  }}
-                  className="px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-white text-xs font-semibold disabled:opacity-40 transition-all border border-white/10"
-                >
-                  {isTamil ? "← முந்தைய நிலை" : "← Previous Stage"}
-                </button>
-                <button
-                  disabled={activeStageIdx === processSteps.length - 1}
-                  onClick={() => {
-                    setActiveStageIdx((prev) => Math.min(processSteps.length - 1, prev + 1));
-                    if (isSpeaking && typeof window !== "undefined") {
-                      window.speechSynthesis?.cancel();
-                      setIsSpeaking(false);
-                    }
-                  }}
-                  className="px-5 py-2 rounded-xl bg-[#B78A52] hover:bg-[#a37742] text-slate-950 text-xs font-bold disabled:opacity-40 transition-all shadow-md flex items-center gap-1.5"
-                >
-                  <span>{isTamil ? "அடுத்த நிலை" : "Next Stage"}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </div>
-
-            {/* Right Column: Authentic Site Photograph */}
-            <div className="lg:col-span-5 relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/15 shadow-xl bg-[#17191B]">
+        {/* Active Stage Detailed Presentation (Split Card) */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeStageIdx}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4 }}
+            className="rounded-3xl liquid-glass-strong border border-white/15 overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-8 p-6 sm:p-10 items-center"
+          >
+            {/* Left Column (6 Cols): Genuine Construction Stage Photo */}
+            <div className="lg:col-span-6 relative aspect-[16/10] sm:aspect-[4/3] rounded-2xl overflow-hidden bg-zinc-900 border border-white/10 shadow-2xl">
               <Image
                 src={currentStep.image}
-                alt={currentStep.name}
+                alt={currentStep.nameEn}
                 fill
-                className="object-cover transition-transform duration-700 hover:scale-105"
-                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-3 left-3 right-3 text-left">
-                <span className="text-[10px] font-mono text-[#B78A52] uppercase tracking-wider block">
-                  AUTHENTIC DOCUMENTATION
-                </span>
-                <span className="text-xs text-white font-medium line-clamp-1">
-                  Jancy Builders Verified Work Site • Tirunelveli District
-                </span>
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+              
+              {/* Stage Pill */}
+              <div className="absolute top-4 left-4 px-3 py-1 rounded-full liquid-glass backdrop-blur-md text-[11px] font-mono font-bold text-[#E2C496]">
+                <span>{isTamil ? currentStep.timelineTa : currentStep.timelineEn}</span>
               </div>
             </div>
 
-          </div>
-        </div>
-
-        {/* Real Client Testimonials Strip */}
-        <div className="rounded-3xl bg-[#131517] border border-white/10 p-6 sm:p-10 shadow-xl">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-white/10">
-            <div>
-              <div className="flex items-center gap-1 mb-1 text-[#B78A52]">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-current" />
-                ))}
-                <span className="text-xs font-mono font-bold text-white ml-2">5.0 / 5.0</span>
-              </div>
-              <h3 className="text-xl sm:text-2xl font-black text-white font-sans">
-                Verified Client Testimonials
-              </h3>
-              <p className="text-xs text-[#A5A5A2] mt-0.5">
-                Genuine feedback from homeowners across Tirunelveli district.
-              </p>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                onClick={handlePrevTestimonial}
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors border border-white/10"
-                aria-label="Previous Testimonial"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                onClick={handleNextTestimonial}
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors border border-white/10"
-                aria-label="Next Testimonial"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-
-          <div className="pt-6">
-            <blockquote className="text-base sm:text-lg text-slate-200 italic font-serif leading-relaxed">
-              &ldquo;{currentTestimonial.quote}&rdquo;
-            </blockquote>
-
-            <div className="mt-5 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-[#B78A52] text-slate-950 font-bold flex items-center justify-center text-xs">
-                {currentTestimonial.initials}
-              </div>
+            {/* Right Column (6 Cols): Description, Points, and Guidance */}
+            <div className="lg:col-span-6 space-y-5 text-left">
               <div>
-                <h4 className="text-sm font-bold text-white leading-tight">
-                  {currentTestimonial.author}
-                </h4>
-                <p className="text-xs text-[#B78A52] font-mono leading-tight mt-0.5">
-                  {currentTestimonial.project} • {currentTestimonial.location}
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#C9A46B] block">
+                  STAGE {currentStep.num} OF 06
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-heading italic text-white mt-1">
+                  {isTamil ? currentStep.nameTa : currentStep.nameEn}
+                </h3>
+                <p className="text-xs font-mono text-[#E2C496] mt-0.5">
+                  {isTamil ? currentStep.taglineTa : currentStep.taglineEn}
                 </p>
               </div>
+
+              <p className="text-sm text-white/80 leading-relaxed font-body">
+                {isTamil ? currentStep.descTa : currentStep.descEn}
+              </p>
+
+              {/* Inclusions / Checklist */}
+              <div className="space-y-2 pt-2 border-t border-white/10">
+                <span className="text-[11px] font-mono text-white/50 uppercase tracking-wider block">
+                  {isTamil ? "இந்த நிலையில் நடப்பவை:" : "KEY STAGE DELIVERABLES:"}
+                </span>
+                {(isTamil ? currentStep.pointsTa : currentStep.pointsEn).map((point, pIdx) => (
+                  <div key={pIdx} className="flex items-center gap-2.5 text-xs text-white/90">
+                    <CheckCircle2 className="w-4 h-4 text-[#C9A46B] flex-shrink-0" />
+                    <span>{point}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Action Buttons for Stage */}
+              <div className="pt-4 flex items-center gap-3">
+                <button
+                  onClick={onOpenQuote}
+                  className="px-5 py-2.5 rounded-full bg-white hover:bg-[#E2C496] text-black text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-colors shadow-lg"
+                >
+                  <span>{isTamil ? "மதிப்பீடு கேட்க" : "Plan This Stage"}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+
+                {/* Mobile Prev / Next Controls */}
+                <div className="flex lg:hidden items-center gap-2 ml-auto">
+                  <button
+                    disabled={activeStageIdx === 0}
+                    onClick={() => setActiveStageIdx((prev) => Math.max(0, prev - 1))}
+                    className="px-3 py-2 rounded-xl liquid-glass text-xs disabled:opacity-30"
+                  >
+                    Prev
+                  </button>
+                  <button
+                    disabled={activeStageIdx === processSteps.length - 1}
+                    onClick={() => setActiveStageIdx((prev) => Math.min(processSteps.length - 1, prev + 1))}
+                    className="px-3 py-2 rounded-xl liquid-glass text-xs disabled:opacity-30"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </AnimatePresence>
 
       </div>
     </section>

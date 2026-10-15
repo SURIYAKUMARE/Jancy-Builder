@@ -6,14 +6,11 @@ import {
   Clock,
   User,
   Phone,
-  FileText,
   X,
   CheckCircle2,
   AlertCircle,
   MessageCircle,
-  Building,
   ArrowRight,
-  ShieldCheck,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
@@ -89,7 +86,6 @@ export default function AppointmentModal({
     },
   ];
 
-  // Min date is today
   const todayStr = new Date().toISOString().split("T")[0];
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -170,14 +166,14 @@ export default function AppointmentModal({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+      <div className="fixed inset-0 z-[120] flex items-center justify-center p-3 sm:p-6 overflow-y-auto font-body">
         {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+          className="fixed inset-0 bg-black/85 backdrop-blur-xl"
         />
 
         {/* Modal Window */}
@@ -186,33 +182,33 @@ export default function AppointmentModal({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl border border-[#E2D9CC] overflow-hidden z-10 my-auto"
+          className="relative w-full max-w-xl liquid-glass-strong bg-[#0F1115]/95 border border-white/20 rounded-3xl overflow-hidden z-10 my-auto text-left shadow-2xl"
         >
           {/* Header */}
-          <div className="bg-[#17191B] text-white p-6 sm:p-7 flex items-start justify-between relative">
+          <div className="p-6 sm:p-7 border-b border-white/10 flex items-start justify-between relative">
             <div>
-              <div className="inline-flex items-center gap-2 mb-1 text-[11px] font-mono font-bold tracking-widest text-[#B78A52] uppercase">
+              <div className="inline-flex items-center gap-2 mb-1 text-[11px] font-mono font-bold tracking-widest text-[#C9A46B] uppercase">
                 <Calendar className="w-3.5 h-3.5" />
                 <span>
                   {isTamil ? "நேரடி அலுவலக சந்திப்பு" : "OFFICE APPOINTMENT BOOKING"}
                 </span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-black font-sans tracking-tight text-white">
+              <h3 className="text-xl sm:text-2xl font-heading italic text-white">
                 {isTamil
                   ? "பொறியாளருடன் சந்திப்பை முன்பதிவு செய்க"
                   : "Book an Office Meeting with Er. Stalin"}
               </h3>
-              <p className="text-xs text-slate-300 mt-1">
+              <p className="text-xs text-white/60 mt-1 font-body">
                 Jancy Home, Perumal Kovil Street, Samugarengapuram, Tirunelveli.
               </p>
             </div>
 
             <button
               onClick={onClose}
-              className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors flex-shrink-0"
+              className="w-9 h-9 rounded-full liquid-glass hover:bg-white/20 text-white flex items-center justify-center transition-colors flex-shrink-0"
               aria-label="Close appointment modal"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4" />
             </button>
           </div>
 
@@ -221,41 +217,30 @@ export default function AppointmentModal({
             {confirmedData ? (
               /* Success confirmation state */
               <div className="space-y-6 text-center py-4">
-                <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-inner">
-                  <CheckCircle2 className="w-9 h-9" />
+                <div className="w-16 h-16 rounded-full bg-[#C9A46B]/20 text-[#C9A46B] flex items-center justify-center mx-auto border border-[#C9A46B]/30">
+                  <CheckCircle2 className="w-8 h-8" />
                 </div>
 
                 <div className="space-y-2">
-                  <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 inline-block">
+                  <span className="text-xs font-mono font-bold px-3 py-1 rounded-full liquid-glass text-[#E2C496] border border-white/10 inline-block">
                     {isTamil ? "கோரிக்கை எண்" : "REFERENCE ID"}: {confirmedData.appointmentId}
                   </span>
-                  <h4 className="text-2xl font-black text-slate-950">
+                  <h4 className="text-2xl font-heading italic text-white">
                     {isTamil ? "முன்பதிவு கோரிக்கை பதிவானது!" : "Appointment Request Received!"}
                   </h4>
-                  <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+                  <p className="text-xs sm:text-sm text-white/70 max-w-md mx-auto leading-relaxed">
                     {isTamil
                       ? `நன்றி ${formData.name}! உங்கள் சந்திப்பு கோரிக்கை பதிவாகியுள்ளது. எங்கள் அலுவலகக் குழு உங்கள் நேரத்தை (${formData.preferredDate} - ${formData.preferredTime}) தொலைபேசி மூலம் உறுதி செய்யும்.`
                       : `Thank you ${formData.name}! Your meeting request for ${formData.preferredDate} at ${formData.preferredTime} has been submitted. Our office will contact you to confirm.`}
                   </p>
                 </div>
 
-                {/* Important notice */}
-                <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-left text-xs text-amber-900 flex items-start gap-2.5">
-                  <AlertCircle className="w-4 h-4 text-amber-700 flex-shrink-0 mt-0.5" />
-                  <p className="leading-relaxed">
-                    {isTamil
-                      ? "குறிப்பு: எங்கள் அலுவலகப் பணியாளர்கள் உங்கள் சந்திப்பை உறுதிசெய்யும் வரை இது இறுதி சந்திப்பாகக் கருதப்படாது. அவசர உதவிக்கு நேரடியாக அழைக்கவும்."
-                      : "Note: Appointments are confirmed by office staff via call/message. If you require immediate same-day consultation, please call directly."}
-                  </p>
-                </div>
-
-                {/* WhatsApp Dispatch Button */}
                 <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
                   <a
                     href={confirmedData.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full sm:flex-1 py-3.5 px-5 rounded-2xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md shadow-[#25D366]/20 transition-all hover:scale-[1.02]"
+                    className="w-full sm:flex-1 py-3.5 px-5 rounded-2xl bg-[#25D366] hover:bg-[#20ba5a] text-black font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg"
                   >
                     <MessageCircle className="w-4 h-4 fill-current" />
                     <span>
@@ -267,7 +252,7 @@ export default function AppointmentModal({
 
                   <button
                     onClick={handleReset}
-                    className="w-full sm:w-auto py-3.5 px-6 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs uppercase tracking-wider transition-colors"
+                    className="w-full sm:w-auto py-3.5 px-6 rounded-2xl liquid-glass text-white text-xs font-bold uppercase tracking-wider transition-colors"
                   >
                     {isTamil ? "மூடுக" : "Close Window"}
                   </button>
@@ -277,8 +262,8 @@ export default function AppointmentModal({
               /* Booking Form */
               <form onSubmit={handleSubmit} className="space-y-4">
                 {errorMsg && (
-                  <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 flex items-start gap-2">
-                    <AlertCircle className="w-4 h-4 text-red-600 flex-shrink-0 mt-0.5" />
+                  <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-xs text-red-400 flex items-start gap-2">
+                    <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />
                     <span>{errorMsg}</span>
                   </div>
                 )}
@@ -286,35 +271,35 @@ export default function AppointmentModal({
                 {/* Name & Phone Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                    <label className="block text-xs font-bold text-white/80 mb-1">
                       {isTamil ? "உங்கள் பெயர் *" : "Your Full Name *"}
                     </label>
                     <div className="relative">
-                      <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                      <User className="w-4 h-4 text-white/40 absolute left-3.5 top-3" />
                       <input
                         type="text"
                         required
                         placeholder={isTamil ? "எ.கா: சுந்தர்" : "e.g. Sundar Raj"}
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-[#B78A52] text-xs font-medium text-slate-900 bg-slate-50 focus:bg-white"
+                        className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-white/5 border border-white/15 text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#C9A46B]"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                    <label className="block text-xs font-bold text-white/80 mb-1">
                       {isTamil ? "தொலைபேசி எண் *" : "Phone Number (10 Digits) *"}
                     </label>
                     <div className="relative">
-                      <Phone className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                      <Phone className="w-4 h-4 text-white/40 absolute left-3.5 top-3" />
                       <input
                         type="tel"
                         required
                         placeholder="77082 47124"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-[#B78A52] text-xs font-medium text-slate-900 bg-slate-50 focus:bg-white"
+                        className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-white/5 border border-white/15 text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#C9A46B] font-mono"
                       />
                     </div>
                   </div>
@@ -323,7 +308,7 @@ export default function AppointmentModal({
                 {/* Date & Time Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                    <label className="block text-xs font-bold text-white/80 mb-1">
                       {isTamil ? "விரும்பும் தேதி *" : "Preferred Date *"}
                     </label>
                     <input
@@ -332,21 +317,21 @@ export default function AppointmentModal({
                       min={todayStr}
                       value={formData.preferredDate}
                       onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-[#B78A52] text-xs font-medium text-slate-900 bg-slate-50 focus:bg-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/15 text-xs text-white focus:outline-none focus:border-[#C9A46B]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                    <label className="block text-xs font-bold text-white/80 mb-1">
                       {isTamil ? "விரும்பும் நேரம் *" : "Preferred Time Slot *"}
                     </label>
                     <select
                       value={formData.preferredTime}
                       onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-[#B78A52] text-xs font-medium text-slate-900 bg-slate-50 focus:bg-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-white/15 text-xs text-white focus:outline-none focus:border-[#C9A46B]"
                     >
                       {timeSlots.map((slot) => (
-                        <option key={slot} value={slot}>
+                        <option key={slot} value={slot} className="bg-zinc-950 text-white">
                           {slot}
                         </option>
                       ))}
@@ -356,16 +341,16 @@ export default function AppointmentModal({
 
                 {/* Purpose of Visit */}
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-white/80 mb-1">
                     {isTamil ? "சந்திப்பின் நோக்கம் *" : "Purpose of Meeting *"}
                   </label>
                   <select
                     value={formData.purpose}
-                    onChange={(e) => setFormData({ ...formData, purpose: e.target.value })}
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:border-[#B78A52] text-xs font-medium text-slate-900 bg-slate-50 focus:bg-white"
+                    onChange={(e) => setFormData({ ...formData, purpose: e.target.value as any })}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-white/15 text-xs text-white focus:outline-none focus:border-[#C9A46B]"
                   >
                     {purposeOptions.map((opt) => (
-                      <option key={opt.id} value={opt.id}>
+                      <option key={opt.id} value={opt.id} className="bg-zinc-950 text-white">
                         {isTamil ? opt.labelTa : opt.labelEn}
                       </option>
                     ))}
@@ -374,7 +359,7 @@ export default function AppointmentModal({
 
                 {/* Optional Message */}
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-white/80 mb-1">
                     {isTamil ? "கூடுதல் தகவல்கள் (விருப்பத்திற்குரியது)" : "Additional Notes (Optional)"}
                   </label>
                   <textarea
@@ -386,28 +371,22 @@ export default function AppointmentModal({
                     }
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:border-[#B78A52] text-xs font-medium text-slate-900 bg-slate-50 focus:bg-white resize-none"
+                    className="w-full px-3.5 py-2 rounded-xl bg-white/5 border border-white/15 text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#C9A46B] resize-none"
                   />
-                </div>
-
-                {/* Office address reminder pill */}
-                <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-600 flex items-center justify-between">
-                  <span>📍 Jancy Home, Samugarengapuram</span>
-                  <span className="font-bold text-slate-900">+91 77082 47124</span>
                 </div>
 
                 {/* Submit button */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3.5 rounded-xl bg-[#B78A52] hover:bg-[#9e743d] disabled:opacity-50 text-white font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95"
+                  className="w-full py-4 rounded-2xl bg-gradient-to-r from-white via-slate-100 to-[#E2C496] disabled:opacity-50 text-black font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all hover:scale-[1.01] active:scale-95 shadow-lg mt-2"
                 >
                   {isSubmitting ? (
-                    <span>{isTamil ? "பதிவாகிறது..." : "Submitting Request..."}</span>
+                    <span>{isTamil ? "பதிவாகிறது..." : "Submitting..."}</span>
                   ) : (
                     <>
                       <span>{isTamil ? "சந்திப்பை முன்பதிவு செய்க" : "Confirm Appointment Request"}</span>
-                      <ArrowRight className="w-4 h-4" />
+                      <ArrowRight className="w-4 h-4 text-black" />
                     </>
                   )}
                 </button>

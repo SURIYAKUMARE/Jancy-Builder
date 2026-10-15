@@ -9,11 +9,9 @@ import {
   MessageCircle,
   Phone,
   ShieldCheck,
-  Loader2,
   Check,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { trackEvent } from "@/lib/analytics";
 
 interface QuoteModalProps {
   isOpen: boolean;
@@ -27,8 +25,8 @@ export default function QuoteModal({
   isOpen,
   onClose,
   initialType = "Luxury Villa",
-  initialArea = 3500,
-  initialGrade = "ultra",
+  initialArea = 2200,
+  initialGrade = "premium",
 }: QuoteModalProps) {
   const [projectType, setProjectType] = useState(initialType);
   const [areaSqFt, setAreaSqFt] = useState(initialArea);
@@ -46,7 +44,6 @@ export default function QuoteModal({
 
   if (!isOpen) return null;
 
-  // Pricing calculations matching exact rates
   const rates = {
     standard: 2400,
     premium: 3200,
@@ -58,100 +55,82 @@ export default function QuoteModal({
   const formattedEstimateLakhs = Math.round(estimatedTotal / 100000);
 
   const getWhatsappUrl = () => {
-    const gradeLabel =
-      grade === "standard"
-        ? "Standard Quality (₹2,400/sq.ft)"
-        : grade === "premium"
-        ? "Premium Elite (₹3,200/sq.ft)"
-        : "Ultra Luxury Craft (₹4,400/sq.ft)";
-
-    const message = `🏗️ *Turnkey Construction & BOQ Request*
-*Jancy Builders — BUILD THE WORLD*
----------------------------------------------
-👤 *Client Name:* ${name || "Valued Client"}
-📱 *Contact Number:* ${phone}
-📍 *Site Location:* ${location || "Samugarengapuram / Tirunelveli"}
-🏛️ *Project Type:* ${projectType}
-📐 *Built-Up Area:* ${areaSqFt.toLocaleString()} sq.ft
-💎 *Specification Grade:* ${gradeLabel}
-💰 *Tentative Budget:* ₹${formattedEstimateCrores} Crores (Approx. ₹${formattedEstimateLakhs} Lakhs)
-
-✅ *Included:* Structural + MEP + Finishing + 100% Guaranteed Timeline
-
-Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ document and schedule an architectural site evaluation.`;
-
+    const message = `Hello Er. Sahaya Antony Stalin, I would like to request an official construction estimate from Jancy Builders.
+Type: ${projectType}
+Area: ${areaSqFt.toLocaleString()} sq.ft
+Grade: ${grade.toUpperCase()} (₹${rates[grade]}/sq.ft)
+Estimated Investment: Approx. ₹${formattedEstimateLakhs} Lakhs
+Location: ${location || "Tirunelveli District"}`;
     return `https://wa.me/917708247124?text=${encodeURIComponent(message)}`;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
     setErrorMessage(null);
-    trackEvent("quote_submission", { projectType, areaSqFt, grade, location });
 
+    const cleanPhone = phone.replace(/[^0-9]/g, "");
+    if (cleanPhone.length < 10) {
+      setErrorMessage("Please enter a valid 10-digit mobile number");
+      return;
+    }
+
+    setIsSubmitting(true);
     try {
       const res = await fetch("/api/quote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name,
-          phone,
-          location,
+          name: name.trim(),
+          phone: cleanPhone,
+          location: location.trim() || "Tirunelveli District",
           projectType,
-          areaSqFt,
-          packageTier: grade,
+          builtUpArea: areaSqFt,
+          tier: grade,
           estimatedTotal,
         }),
       });
 
-      if (!res.ok) {
-        throw new Error("Failed to submit quote request");
-      }
-
       const data = await res.json();
-      const quoteId = data.quoteId || `JB-${Math.floor(100000 + Math.random() * 900000)}`;
-      setSubmittedQuoteId(quoteId);
-
-      // Automatically launch WhatsApp with pre-composed specification
-      const whatsappUrl = getWhatsappUrl();
-      if (typeof window !== "undefined") {
-        window.open(whatsappUrl, "_blank");
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to submit quote request");
       }
-    } catch (err) {
-      setErrorMessage("Something went wrong. Please try again.");
+
+      setSubmittedQuoteId(data.quoteId || "JB-ESTIMATE-OK");
+    } catch (err: any) {
+      setErrorMessage(err.message || "Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/80 backdrop-blur-md overflow-y-auto">
+    <div className="fixed inset-0 z-[120] flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-xl overflow-y-auto font-body">
       <motion.div
-        initial={{ opacity: 0, scale: 0.96, y: 15 }}
+        initial={{ opacity: 0, scale: 0.95, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.96, y: 15 }}
+        exit={{ opacity: 0, scale: 0.95, y: 15 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
-        className="relative w-full max-w-xl rounded-3xl bg-[#17191B] text-white shadow-2xl border border-[#E2D9CC]/20 overflow-hidden my-auto"
+        className="relative w-full max-w-xl rounded-3xl liquid-glass-strong bg-[#0F1115]/95 text-white shadow-2xl border border-white/20 overflow-hidden my-auto text-left"
       >
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-white/10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#B78A52]/20 border border-[#B78A52]/30 flex items-center justify-center text-[#B78A52]">
+            <div className="w-10 h-10 rounded-2xl liquid-glass flex items-center justify-center text-[#C9A46B]">
               <Calculator className="w-5 h-5 stroke-[2.2]" />
             </div>
             <div>
-              <h3 className="text-base sm:text-lg font-bold text-white font-sans leading-tight">
+              <h3 className="text-base sm:text-lg font-heading italic text-white leading-tight">
                 Get a Free Construction Estimate
               </h3>
-              <p className="text-xs text-[#A5A5A2] leading-tight mt-0.5">
-                Precision architectural consultation with Jancy Builders
+              <p className="text-xs text-white/60 leading-tight mt-0.5">
+                Precision civil engineering consultation with Jancy Builders
               </p>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-slate-400 hover:text-white flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded-full liquid-glass hover:bg-white/20 text-white flex items-center justify-center transition-colors"
             aria-label="Close Modal"
           >
             <X className="w-4 h-4" />
@@ -161,18 +140,15 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
         {submittedQuoteId ? (
           /* Confirmation Screen */
           <div className="p-8 text-center space-y-4">
-            <div className="mx-auto h-16 w-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/40">
-              <CheckCircle2 className="h-9 w-9" />
+            <div className="mx-auto h-16 w-16 rounded-full bg-[#C9A46B]/20 text-[#C9A46B] flex items-center justify-center border border-[#C9A46B]/40">
+              <CheckCircle2 className="h-8 w-8" />
             </div>
-            <h4 className="text-2xl font-bold text-white">✓ Request Received</h4>
-            <p className="text-sm text-slate-300 max-w-md mx-auto">
-              Thank you. Our construction expert will contact you shortly.
-            </p>
-            <div className="inline-block px-5 py-2.5 rounded-xl bg-[#1F2226] border border-[#B78A52]/40 font-mono text-lg font-bold text-[#B78A52] tracking-wider">
+            <h4 className="text-2xl font-heading italic text-white">Estimate Request Received</h4>
+            <div className="inline-block px-5 py-2 rounded-xl liquid-glass font-mono text-base font-bold text-[#E2C496]">
               {submittedQuoteId}
             </div>
-            <p className="text-xs text-[#A5A5A2] max-w-md mx-auto">
-              Our Chief Structural Engineer, <strong>Er. Sahaya Antony Stalin</strong>, will review your project and contact you at <strong className="text-slate-200">{phone}</strong> within 24 hours with a comprehensive site evaluation.
+            <p className="text-xs text-white/70 max-w-md mx-auto leading-relaxed">
+              Chief Civil Engineer <strong>Er. Sahaya Antony Stalin</strong> will review your specifications and contact you at <strong className="text-white">{phone}</strong> with a detailed BOQ.
             </p>
 
             <div className="pt-3 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -180,14 +156,14 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
                 href={getWhatsappUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-[#25D366]/25 transition-all hover:scale-105"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-black font-bold text-xs uppercase tracking-wider shadow-lg"
               >
                 <MessageCircle className="w-4 h-4 fill-current" />
                 <span>Chat on WhatsApp Directly</span>
               </a>
               <button
                 onClick={onClose}
-                className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#1F2226] hover:bg-[#282B30] text-slate-200 font-bold text-xs uppercase tracking-wider border border-white/10"
+                className="w-full sm:w-auto px-6 py-3 rounded-full liquid-glass text-white font-bold text-xs uppercase tracking-wider"
               >
                 Close
               </button>
@@ -195,15 +171,14 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
           </div>
         ) : (
           /* Form Content */
-          <form onSubmit={handleSubmit} className="px-6 pt-5 pb-6 space-y-5">
-            
+          <form onSubmit={handleSubmit} className="px-6 pt-5 pb-6 space-y-4">
             {/* 1. PROJECT TYPE */}
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-[#A5A5A2] mb-2">
-                1. PROJECT TYPE
+              <label className="block text-[11px] font-mono uppercase tracking-wider text-white/60 mb-1.5">
+                1. Project Typology
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                {["Luxury Villa", "Independent House", "Commercial Hub", "Duplex Residence"].map((type) => {
+                {["Luxury Villa", "Independent House", "Duplex Residence", "Commercial Hub"].map((type) => {
                   const isSelected = projectType === type;
                   return (
                     <button
@@ -212,8 +187,8 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
                       onClick={() => setProjectType(type)}
                       className={`py-2 px-2.5 rounded-xl text-xs font-semibold border transition-all text-center ${
                         isSelected
-                          ? "bg-[#B78A52]/15 border-[#B78A52] text-[#B78A52] shadow-sm font-bold"
-                          : "bg-[#1F2226] border-white/10 text-slate-300 hover:text-white hover:border-white/20"
+                          ? "liquid-glass-strong border-[#C9A46B] text-[#E2C496] shadow-sm font-bold"
+                          : "liquid-glass text-white/60 hover:text-white"
                       }`}
                     >
                       {type}
@@ -223,187 +198,116 @@ Hello Er. Sahaya Antony Stalin, I would like to request the comprehensive BOQ do
               </div>
             </div>
 
-            {/* 2. BUILT-UP AREA (SQ.FT) */}
+            {/* 2. BUILT-UP AREA */}
             <div>
-              <div className="flex items-center justify-between mb-2">
-                <label className="text-[11px] font-mono uppercase tracking-wider text-[#A5A5A2]">
-                  2. BUILT-UP AREA (SQ.FT)
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="text-[11px] font-mono uppercase tracking-wider text-white/60">
+                  2. Built-Up Area (sq.ft)
                 </label>
-                <span className="text-sm font-bold font-mono text-[#B78A52]">
+                <span className="text-sm font-bold font-mono text-[#E2C496]">
                   {areaSqFt.toLocaleString()} sq.ft
                 </span>
               </div>
               <input
                 type="range"
-                min="1000"
-                max="12000"
-                step="250"
+                min="800"
+                max="8000"
+                step="100"
                 value={areaSqFt}
                 onChange={(e) => setAreaSqFt(Number(e.target.value))}
-                className="w-full h-1.5 bg-[#1F2226] rounded-lg appearance-none cursor-pointer accent-[#B78A52]"
+                className="w-full accent-[#C9A46B] cursor-pointer h-2 bg-white/10 rounded-lg appearance-none"
               />
             </div>
 
-            {/* 3. SPECIFICATION GRADE */}
+            {/* 3. MATERIAL GRADE */}
             <div>
-              <label className="block text-[11px] font-mono uppercase tracking-wider text-[#A5A5A2] mb-2">
-                3. SPECIFICATION GRADE
+              <label className="block text-[11px] font-mono uppercase tracking-wider text-white/60 mb-1.5">
+                3. Material Package
               </label>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-3 gap-2">
                 {[
-                  { id: "standard" as const, title: "Standard Quality", rate: "₹2,400 / sq.ft" },
-                  { id: "premium" as const, title: "Premium Elite", rate: "₹3,200 / sq.ft" },
-                  { id: "ultra" as const, title: "Ultra Luxury Craft", rate: "₹4,400 / sq.ft" },
-                ].map((pkg) => {
-                  const isSelected = grade === pkg.id;
+                  { id: "standard" as const, name: "Standard", rate: "₹2,400" },
+                  { id: "premium" as const, name: "Porotherm", rate: "₹3,200" },
+                  { id: "ultra" as const, name: "Ultra", rate: "₹4,400" },
+                ].map((tier) => {
+                  const isSelected = grade === tier.id;
                   return (
-                    <div
-                      key={pkg.id}
-                      onClick={() => setGrade(pkg.id)}
-                      className={`p-3 rounded-2xl border cursor-pointer transition-all ${
+                    <button
+                      key={tier.id}
+                      type="button"
+                      onClick={() => setGrade(tier.id)}
+                      className={`py-2 px-2.5 rounded-xl text-xs font-semibold border transition-all text-center ${
                         isSelected
-                          ? "bg-[#B78A52]/15 border-[#B78A52] shadow-md"
-                          : "bg-[#1F2226] border-white/10 hover:border-white/20"
+                          ? "liquid-glass-strong border-[#C9A46B] text-white shadow-sm font-bold"
+                          : "liquid-glass text-white/60 hover:text-white"
                       }`}
                     >
-                      <h5 className="text-xs font-bold text-white">{pkg.title}</h5>
-                      <p className="text-[11px] text-[#A5A5A2] font-mono mt-0.5">{pkg.rate}</p>
-                    </div>
+                      <span className="block">{tier.name}</span>
+                      <span className="text-[10px] text-[#C9A46B] font-mono">{tier.rate}</span>
+                    </button>
                   );
                 })}
               </div>
             </div>
 
-            {/* TENTATIVE TURNKEY BUDGET BOX */}
-            <div className="p-4 rounded-2xl bg-[#1F2226] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-inner">
-              <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-[#A5A5A2] block">
-                  TENTATIVE TURNKEY BUDGET
-                </span>
-                <div className="text-2xl sm:text-3xl font-black text-[#B78A52] font-sans tracking-tight mt-0.5">
-                  ₹{formattedEstimateCrores} Crores
-                </div>
-              </div>
-
-              <div className="text-left sm:text-right">
-                <span className="text-[11px] text-[#A5A5A2] block">
-                  Includes Structural + MEP + Finishing
-                </span>
-                <span className="text-xs font-bold text-emerald-400 block mt-0.5">
-                  100% Guaranteed Timeline
-                </span>
-              </div>
+            {/* Estimated Display */}
+            <div className="p-3.5 rounded-xl liquid-glass flex items-center justify-between">
+              <span className="text-xs text-white/70">Estimated Turnkey Cost:</span>
+              <span className="text-lg font-heading italic text-[#E2C496]">
+                ~₹{formattedEstimateLakhs} Lakhs
+              </span>
             </div>
 
-            {/* Contact Input Fields */}
+            {/* 4. CONTACT DETAILS */}
             <div className="space-y-3 pt-1">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <div className="flex items-center justify-between mb-1">
-                    <label className="text-[11px] text-slate-300 font-medium">
-                      Your Full Name
-                    </label>
-                    {name.trim().length >= 2 && (
-                      <Check className="w-3.5 h-3.5 text-emerald-400 stroke-[3]" />
-                    )}
-                  </div>
-                  <input
-                    type="text"
-                    required
-                    autoComplete="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="e.g. John Doe"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#1F2226] border border-white/15 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#B78A52] focus:ring-1 focus:ring-[#B78A52]/40 transition-all"
-                  />
-                </div>
-
-                <div>
-                  <div className="flex items-center justify-between mb-1">
-                    <label className="text-[11px] text-slate-300 font-medium">
-                      Contact Number
-                    </label>
-                    {phone.trim().length >= 10 && (
-                      <Check className="w-3.5 h-3.5 text-emerald-400 stroke-[3]" />
-                    )}
-                  </div>
-                  <input
-                    type="tel"
-                    required
-                    inputMode="numeric"
-                    autoComplete="tel"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    placeholder="+91 98765 43210"
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#1F2226] border border-white/15 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#B78A52] focus:ring-1 focus:ring-[#B78A52]/40 transition-all"
-                  />
-                </div>
-              </div>
-
               <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label className="text-[11px] text-slate-300 font-medium">
-                    Site / Construction Location
-                  </label>
-                  {location.trim().length >= 3 && (
-                    <Check className="w-3.5 h-3.5 text-emerald-400 stroke-[3]" />
-                  )}
-                </div>
                 <input
                   type="text"
                   required
-                  autoComplete="street-address"
+                  placeholder="Your Full Name *"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/15 text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#C9A46B]"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <input
+                  type="tel"
+                  required
+                  placeholder="Mobile (10 Digits) *"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/15 text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#C9A46B] font-mono"
+                />
+                <input
+                  type="text"
+                  placeholder="Plot Location / City"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  placeholder="e.g. Samugarengapuram / Tirunelveli / Coimbatore"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#1F2226] border border-white/15 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-[#B78A52] focus:ring-1 focus:ring-[#B78A52]/40 transition-all"
+                  className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/15 text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#C9A46B]"
                 />
               </div>
             </div>
 
-            {/* Error Message Banner */}
             {errorMessage && (
-              <div className="p-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 text-xs text-center font-medium">
-                {errorMessage}
-              </div>
+              <p className="text-xs text-red-400">{errorMessage}</p>
             )}
 
-            {/* Architectural Bronze CTA Button */}
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              disabled={isSubmitting}
+            <button
               type="submit"
-              className="w-full py-3.5 px-6 rounded-full bg-[#B78A52] hover:bg-[#a37742] text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-[#B78A52]/25 flex items-center justify-center gap-2 transition-all disabled:opacity-60"
+              disabled={isSubmitting}
+              className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-white via-slate-100 to-[#E2C496] disabled:opacity-50 text-black font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg"
             >
               {isSubmitting ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Submitting...</span>
-                </>
+                <span>Generating Estimate...</span>
               ) : (
                 <>
-                  <span>REQUEST FULL BOQ &amp; SITE INSPECTION</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <span>Request Official Itemized BOQ</span>
+                  <ArrowRight className="w-4 h-4 text-black" />
                 </>
               )}
-            </motion.button>
-
-            {/* Footer Note */}
-            <div className="text-center pt-1">
-              <p className="text-[11px] text-[#A5A5A2]">
-                Prefer speaking directly? Call Er. Sahaya Antony Stalin at{" "}
-                <a
-                  href="tel:+917708247124"
-                  onClick={() => trackEvent("expert_call_click", { source: "quote_modal" })}
-                  className="text-[#B78A52] font-bold hover:underline"
-                >
-                  +91 77082 47124
-                </a>{" "}
-                (Open 24/7)
-              </p>
-            </div>
-
+            </button>
           </form>
         )}
       </motion.div>

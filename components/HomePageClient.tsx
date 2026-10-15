@@ -1,22 +1,15 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { HeroConfig } from "@/types/hero";
 import NavbarExact from "@/components/exact/NavbarExact";
 import HeroExact from "@/components/exact/HeroExact";
-import EngineerProfileSection from "@/components/sections/EngineerProfileSection";
-import HousePlanningStarter from "@/components/sections/HousePlanningStarter";
-import AboutEditorial from "@/components/sections/AboutEditorial";
 import ServicesExact from "@/components/exact/ServicesExact";
-import ConstructionPackages from "@/components/sections/ConstructionPackages";
 import ProjectsExact from "@/components/exact/ProjectsExact";
+import EngineerProfileSection from "@/components/sections/EngineerProfileSection";
 import ConstructionProcessUnified from "@/components/sections/ConstructionProcessUnified";
-import MaterialsExplained from "@/components/sections/MaterialsExplained";
-import DocumentGuidance from "@/components/sections/DocumentGuidance";
-import CustomerTrust from "@/components/sections/CustomerTrust";
 import EstimatorSection from "@/components/sections/EstimatorSection";
 import VisitOfficeSection from "@/components/office/VisitOfficeSection";
-import CustomerFAQ from "@/components/sections/CustomerFAQ";
 import ContactSection from "@/components/sections/ContactSection";
 import FooterExact from "@/components/exact/FooterExact";
 import FloatingWhatsApp from "@/components/common/FloatingWhatsApp";
@@ -47,92 +40,68 @@ export default function HomePageClient({ initialConfig }: HomePageClientProps) {
   };
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-[#F8F6F1] text-[#202124] flex flex-col font-sans selection:bg-[#B78A52]/20 selection:text-[#B78A52]">
-      {/* 0. ARCHITECTURAL HAIRLINE INTRO ANIMATION */}
+    <div className="min-h-screen w-full overflow-x-hidden bg-[#000000] text-[#FFFFFF] flex flex-col font-body selection:bg-[#C9A46B] selection:text-[#000000]">
+      {/* 0. CINEMATIC ARCHITECTURAL CAD HAIRLINE INTRO */}
       <BrandIntro />
 
-      {/* 1. EXACT WHITE NAVBAR */}
+      {/* 1. FLOATING LIQUID GLASS NAVBAR */}
       <NavbarExact
         onOpenQuote={() => handleOpenQuoteWithTier()}
         onOpenAppointment={() => handleOpenAppointment("office_visit")}
       />
 
-      {/* COMPLETE PROFESSIONAL & REAL CIVIL ENGINEERING PORTAL */}
+      {/* CANONICAL 8-SECTION CINEMATIC LIQUID-GLASS ARCHITECTURAL FLOW */}
       <main className="flex-grow">
-        {/* 1. HOME: AUTHENTIC PHOTOGRAPHY & DIRECT CIVIL ENGINEERING HERO */}
+        {/* SECTION 1: FULLSCREEN CINEMATIC HERO */}
         <HeroExact
           onOpenQuote={() => handleOpenQuoteWithTier()}
           onOpenAppointmentModal={() => handleOpenAppointment("house_construction")}
         />
 
-        {/* 2. CHIEF CIVIL ENGINEER PROFILE: ER. SAHAYA ANTONY STALIN */}
+        {/* SECTION 2: FULLSCREEN CAPABILITIES / SERVICES */}
+        <ServicesExact onOpenQuote={() => handleOpenQuoteWithTier()} />
+
+        {/* SECTION 3: CINEMATIC REAL PROJECT PORTFOLIO (257 REAL PHOTOS) */}
+        <ProjectsExact onOpenQuote={() => handleOpenQuoteWithTier()} />
+
+        {/* SECTION 4: MEET THE REAL ENGINEER (ER. SAHAYA ANTONY STALIN) */}
         <EngineerProfileSection
           onOpenAppointmentModal={() => handleOpenAppointment("consultation")}
           onOpenQuoteModal={() => handleOpenQuoteWithTier("premium")}
         />
 
-        {/* 3. HOUSE PLANNING STARTER: 5-STEP HOMEOWNER HELPER & ROADMAP */}
-        <HousePlanningStarter onOpenQuote={() => handleOpenQuoteWithTier()} />
-
-        {/* 4. ABOUT JANCY BUILDERS: EDITORIAL FOUNDER CREED & PILLARS (#about) */}
-        <AboutEditorial onOpenQuote={() => handleOpenQuoteWithTier()} />
-
-        {/* 5. SERVICES: 4 ARCHITECTURAL DISCIPLINES (#services) */}
-        <ServicesExact onOpenQuote={() => handleOpenQuoteWithTier()} />
-
-        {/* 6. CONSTRUCTION PACKAGES: SPECIFICATIONS & ITEMIZATION (#packages) */}
-        <ConstructionPackages onOpenQuote={handleOpenQuoteWithTier} />
-
-        {/* 7. OUR PROJECTS: 257 AUTHENTIC SITE PHOTOS & BEFORE/AFTER (#projects) */}
-        <ProjectsExact onOpenQuote={() => handleOpenQuoteWithTier()} />
-
-        {/* 8. CONSTRUCTION PROCESS: 8-STAGE WORKFLOW & MILESTONES */}
+        {/* SECTION 5: CONSTRUCTION JOURNEY (6 UNIFIED STAGES) */}
         <ConstructionProcessUnified onOpenQuote={() => handleOpenQuoteWithTier()} />
 
-        {/* 9. HOMEOWNER CONSTRUCTION GUIDE (#guide) */}
-        <section id="guide" className="scroll-mt-24">
-          {/* MATERIALS EXPLAINED SIMPLY: WHAT GOES INTO YOUR HOME */}
-          <MaterialsExplained />
-
-          {/* DOCUMENT GUIDANCE: ESSENTIAL LAND & APPROVAL RECORDS */}
-          <DocumentGuidance />
-
-          {/* CUSTOMER TRUST & PROTECTIONS: WHAT YOU MUST KNOW BEFORE BUILDING */}
-          <CustomerTrust />
-        </section>
-
-        {/* 10. COST ESTIMATOR: INTERACTIVE SLIDER & INSTANT BOQ GENERATOR (#estimator) */}
+        {/* SECTION 6: CONSTRUCTION COST ESTIMATOR (DARK LIQUID GLASS) */}
         <EstimatorSection onOpenQuote={() => handleOpenQuoteWithTier()} />
 
-        {/* 11. PHYSICAL OFFICE & VISITS: SAMUGARENGAPURAM HQ (#office) */}
+        {/* SECTION 7: VISIT OUR OFFICE (SAMUGARENGAPURAM HQ) */}
         <VisitOfficeSection
           onOpenAppointmentModal={() => handleOpenAppointment("office_visit")}
         />
 
-        {/* 12. CUSTOMER FAQ: HONEST ANSWERS FOR FIRST-TIME BUILDERS */}
-        <CustomerFAQ />
-
-        {/* 13. CONTACT: DIRECT ENGINEER LINE & ENQUIRIES (#contact) */}
+        {/* SECTION 8: CONTACT FORM (POSTS TO /api/enquiries) */}
         <ContactSection />
       </main>
 
-      {/* 14. FOOTER */}
+      {/* PURE BLACK CINEMATIC FOOTER WITH FINAL CTA */}
       <FooterExact />
 
-      {/* 15. FLOATING WHATSAPP BUTTON */}
+      {/* FLOATING WHATSAPP BUTTON */}
       <FloatingWhatsApp />
 
-      {/* 16. MOBILE STICKY BOTTOM ACTION BAR */}
+      {/* MOBILE FLOATING ACTION BAR */}
       <MobileBottomBar onOpenQuote={() => handleOpenQuoteWithTier()} />
 
-      {/* 17. COST ESTIMATE & DETAILED QUOTE MODAL */}
+      {/* COST ESTIMATE & DETAILED QUOTE MODAL */}
       <QuoteModal
         isOpen={isQuoteModalOpen}
         onClose={() => setIsQuoteModalOpen(false)}
         initialGrade={selectedPackageGrade}
       />
 
-      {/* 18. PHYSICAL OFFICE APPOINTMENT BOOKING MODAL */}
+      {/* PHYSICAL OFFICE APPOINTMENT BOOKING MODAL */}
       <AppointmentModal
         isOpen={isAppointmentModalOpen}
         onClose={() => setIsAppointmentModalOpen(false)}

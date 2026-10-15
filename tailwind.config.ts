@@ -9,48 +9,38 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        // MotionSites AI / Luxury Architectural Design System
+        background: "#000000",
+        foreground: "#FFFFFF",
         primary: {
-          DEFAULT: "#17191B", // Deep charcoal
-          dark: "#0F1012",
-          light: "#25282B",
+          DEFAULT: "#000000",
+          dark: "#000000",
+          light: "#121214",
         },
-        ivory: {
-          DEFAULT: "#F8F6F1", // Warm ivory background
-          dark: "#EFECE4",
-          light: "#FCFAF6",
-        },
-        concrete: {
-          DEFAULT: "#A5A5A2", // Concrete gray
-          dark: "#787875",
-          light: "#CECECB",
-        },
-        bronze: {
-          DEFAULT: "#B78A52", // Architectural bronze accent
-          dark: "#966E3A",
-          light: "#D4A870",
-          glow: "rgba(183, 138, 82, 0.2)",
-        },
-        "rich-black": "#202124", // Rich black text
-        charcoal: {
-          DEFAULT: "#17191B",
-          dark: "#0F1012",
-          light: "#25282B",
+        accent: {
+          DEFAULT: "#C9A46B", // Liquid glass gold accent
+          light: "#E2C496",
+          dark: "#A3804A",
+          glow: "rgba(201, 164, 107, 0.25)",
         },
         gold: {
-          DEFAULT: "#B78A52",
-          light: "#D4A870",
-          dark: "#966E3A",
-          glow: "rgba(183, 138, 82, 0.2)",
+          DEFAULT: "#C9A46B",
+          light: "#E2C496",
+          dark: "#A3804A",
+          glow: "rgba(201, 164, 107, 0.25)",
+        },
+        bronze: {
+          DEFAULT: "#C9A46B",
+          light: "#E2C496",
+          dark: "#A3804A",
+          glow: "rgba(201, 164, 107, 0.25)",
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
-        display: ["var(--font-cinzel)", "Cinzel", "serif"],
-        serif: ["var(--font-playfair)", "Playfair Display", "serif"],
-        mono: ["var(--font-mono)", "JetBrains Mono", "monospace"],
+        heading: ["'Instrument Serif'", "serif"],
+        body: ["'Barlow'", "sans-serif"],
+        tamil: ["'Noto Sans Tamil'", "sans-serif"],
+        sans: ["'Barlow'", "sans-serif"],
+        serif: ["'Instrument Serif'", "serif"],
       },
       animation: {
         "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
