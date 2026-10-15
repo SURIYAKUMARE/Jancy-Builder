@@ -3,228 +3,240 @@
 import React from "react";
 import Image from "next/image";
 import {
-  HardHat,
-  ShieldCheck,
-  Award,
   Phone,
   MessageCircle,
-  Building,
+  MapPin,
   Calendar,
   CheckCircle2,
-  Sparkles,
-  MapPin,
-  Clock,
+  Award,
+  BookOpen,
+  Building,
+  ShieldCheck,
   ArrowRight,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 
 interface EngineerProfileSectionProps {
-  onOpenAppointment: () => void;
-  onOpenConsultation: () => void;
+  onOpenAppointmentModal?: () => void;
+  onOpenQuoteModal?: () => void;
 }
 
 export default function EngineerProfileSection({
-  onOpenAppointment,
-  onOpenConsultation,
+  onOpenAppointmentModal,
+  onOpenQuoteModal,
 }: EngineerProfileSectionProps) {
   const { isTamil } = useLanguage();
 
-  const engineerInfo = {
+  const engineer = {
     name: "Er. Sahaya Antony Stalin",
     qualification: "B.E. (Civil Engineering)",
-    role: "Chief Civil Engineer & Founder",
-    experience: "8+ Years Hands-on Site Leadership",
+    role: isTamil ? "தலைமை சிவில் பொறியாளர் & நிறுவனர்" : "Chief Civil Engineer & Founder",
+    experience: isTamil ? "10+ ஆண்டுகள் கள அனுபவம்" : "10+ Years On-Site Experience",
     phone: "+91 77082 47124",
-    office: "Jancy Home, Samugarengapuram",
+    email: "stalin@jancybuilders.com",
+    office: "Jancy Home, Samugarengapuram, Tirunelveli",
+    photo: "/images/fb-projects/fb-2866252757935105/image_001.jpg", // Real site supervision photo
   };
 
-  const engineeringPillars = [
+  const whatsappMessage = encodeURIComponent(
+    isTamil
+      ? "வணக்கம் Er. Stalin, எனது புதிய வீடு கட்டுமானம் தொடர்பாக ஆலோசனை பெற விரும்புகிறேன்."
+      : "Hello Er. Sahaya Antony Stalin, I would like to consult with you regarding a new building construction project."
+  );
+  const whatsappUrl = `https://wa.me/917708247124?text=${whatsappMessage}`;
+
+  const credentials = [
     {
-      titleEn: "Personal Daily Site Inspection",
-      titleTa: "நேரடி தினசரி கள மேற்பார்வை",
-      descEn: "No contractor delegation. Every concrete pour, steel alignment, and brick bond is inspected personally by Er. Stalin.",
-      descTa: "இடைத்தரகர்கள் இன்றி, ஒவ்வொரு கான்கிரீட் மற்றும் இரும்பு வேலைகளையும் Er. ஸ்டாலின் அவர்கள் நேரில் ஆய்வு செய்கிறார்.",
+      titleEn: "Anna University Engineering Degree",
+      titleTa: "அண்ணா பல்கலைக்கழக பொறியியல் பட்டதாரி",
+      descEn: "Strict adherence to IS 456 RCC design and Indian Standard building codes.",
+      descTa: "இந்திய தர விதிமுறைகள் (IS 456) படி தூண்கள் மற்றும் கட்டமைப்பு வடிவமைப்பு.",
     },
     {
-      titleEn: "Laboratory-Tested Structural Safety",
-      titleTa: "NABL ஆய்வக தர பரிசோதனை",
-      descEn: "NABL certified soil SBC bearing capacity tests and cube crush strength verification (IS 456 compliance).",
-      descTa: "அரசு அங்கீகாரம் பெற்ற ஆய்வகத்தில் மண் மற்றும் கான்கிரீட் தரப் பரிசோதனை செய்யப்பட்ட பிறகே பணிகள் தொடங்கும்.",
+      titleEn: "Direct Site Supervision",
+      titleTa: "நேரடி கள மேற்பார்வை",
+      descEn: "No subcontractors or middle-men. Er. Stalin personally supervises every structural stage.",
+      descTa: "இடைத்தரகர்கள் இல்லை. அஸ்திவாரம் முதல் தளம் வரை பொறியாளரே நேரடியாக மேற்பார்வையிடுவார்.",
     },
     {
-      titleEn: "Fixed Itemized BOQ Contract",
-      titleTa: "உறுதியான விலைப் பட்டியல் ஒப்பந்தம்",
-      descEn: "100% written transparency with zero mid-construction hidden cost escalations or unauthorized brand swaps.",
-      descTa: "எழுத்துப்பூர்வமான தெளிவான ஒப்பந்தம். கட்டுமானத்தின் நடுவே விலையேற்றம் இல்லாத வெளிப்படையான கட்டண முறை.",
+      titleEn: "Transparent Fixed Pricing",
+      titleTa: "வெளிப்படையான ஒப்பந்த விலை",
+      descEn: "Itemized BOQ with zero hidden escalations throughout the construction timeline.",
+      descTa: "ஒப்பந்தத்தில் குறிப்பிட்ட விலையைத் தவிர ஒரு ரூபாய் கூட இடையில் அதிகரிக்கப்படாது.",
     },
     {
-      titleEn: "15-Year Structural Guarantee",
-      titleTa: "15 ஆண்டுகள் கட்டுமான உத்தரவாதம்",
-      descEn: "Engineered foundation footings and anti-crack damp-proof course backed by long-term legal warranty.",
-      descTa: "உறுதியான அஸ்திவாரம், கசிவு இல்லாத மொட்டை மாடி மற்றும் 15 ஆண்டுகளுக்கான முறையான கட்டுமான உத்தரவாதம்.",
+      titleEn: "Soil-Tested Foundation Design",
+      titleTa: "மண் பரிசோதனை செய்யப்பட்ட அடித்தளம்",
+      descEn: "Safe Bearing Capacity (SBC) lab tests conduct for every plot before digging.",
+      descTa: "ஒவ்வொரு நிலத்தின் மண் தரம் ஆய்வகத்தில் பரிசோதிக்கப்பட்ட பிறகே அஸ்திவாரம் இடப்படும்.",
     },
   ];
 
   return (
     <section
       id="engineer"
-      className="py-20 lg:py-28 bg-[#17191B] text-white relative overflow-hidden border-t border-slate-800 scroll-mt-24"
+      className="py-20 lg:py-28 bg-[#17191B] text-white relative overflow-hidden scroll-mt-20 border-t border-white/10"
     >
       {/* Subtle ambient lighting */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#B78A52]/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header with Exact Copy requested by user */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        {/* Section Header */}
+        <div className="max-w-3xl mb-14">
           <div className="inline-flex items-center gap-2 mb-3 px-3.5 py-1.5 rounded-full bg-[#B78A52]/15 border border-[#B78A52]/30">
-            <HardHat className="w-3.5 h-3.5 text-[#B78A52]" />
+            <span className="w-2 h-2 rounded-full bg-[#B78A52]" />
             <span className="text-[11px] font-mono font-bold uppercase tracking-[0.25em] text-[#B78A52]">
-              {isTamil ? "தலைமை சிவில் பொறியாளர்" : "CHIEF CIVIL ENGINEER"}
+              {isTamil ? "பொறியாளர் அறிமுகம்" : "CHIEF CIVIL ENGINEER"}
             </span>
           </div>
 
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight font-sans">
-            {engineerInfo.name}, <span className="text-[#B78A52] font-normal">{engineerInfo.qualification}</span>
+            {isTamil ? "தலைமைப் பொறியாளருடன் நேரடித் தொடர்பு" : "Meet Chief Engineer Er. Stalin"}
           </h2>
 
-          <p className="mt-4 text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+          {/* Genuine user prompt text */}
+          <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl font-normal">
             {isTamil
               ? "வீடு கட்டுவது பற்றி சந்தேகம் இருக்கிறதா? கட்டுமான முறை, செலவு, பொருட்கள் மற்றும் வீட்டுத் திட்டம் பற்றிய விவரங்களை எங்கள் பொறியியல் குழுவிடம் கேட்டுத் தெரிந்துகொள்ளலாம்."
               : "Have questions about building your house? Our engineering team can explain the construction process, estimated costs, materials, and planning requirements."}
           </p>
         </div>
 
-        {/* 2-Column Detailed Card */}
-        <div className="bg-[#1F2226] border border-white/10 rounded-3xl p-6 sm:p-10 lg:p-12 shadow-2xl mb-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            
-            {/* Left 5 Cols: Authentic Engineer Photo & Credentials */}
-            <div className="lg:col-span-5 space-y-5">
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden border border-white/15 bg-slate-900 shadow-xl group">
-                <Image
-                  src="/images/fb-projects/fb-2866252757935105/image_001.jpg"
-                  alt="Er. Sahaya Antony Stalin, B.E. (Civil) - Jancy Builders"
-                  fill
-                  className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent flex flex-col justify-end p-5">
-                  <span className="text-xs font-mono font-bold text-[#B78A52] uppercase">
-                    CHIEF CIVIL ENGINEER
+        {/* 2-Column Presentation */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          
+          {/* Left Column (5 Cols): Genuine Engineer Card with Real Project Photos */}
+          <div className="lg:col-span-5">
+            <div className="bg-[#1F2226] rounded-3xl p-6 sm:p-8 border border-white/10 shadow-2xl space-y-6 relative overflow-hidden">
+              <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-[#B78A52]/10 rounded-full blur-3xl pointer-events-none" />
+
+              <div className="flex items-start gap-4">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-slate-800 border-2 border-[#B78A52] overflow-hidden relative flex-shrink-0">
+                  <Image
+                    src={engineer.photo}
+                    alt={engineer.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#B78A52] block">
+                    {engineer.role}
                   </span>
-                  <h3 className="text-xl font-bold text-white">
-                    {engineerInfo.name}
+                  <h3 className="text-xl sm:text-2xl font-black text-white font-sans tracking-tight">
+                    {engineer.name}
                   </h3>
-                  <span className="text-xs text-slate-300">
-                    B.E. Civil • Founder, Jancy Builders
-                  </span>
-                </div>
-              </div>
-
-              {/* Verified Badges */}
-              <div className="grid grid-cols-2 gap-2 text-xs">
-                <div className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
-                  <Award className="w-4 h-4 text-[#B78A52] flex-shrink-0" />
-                  <span className="font-semibold text-slate-200">B.E. Civil Engineering</span>
-                </div>
-                <div className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                  <span className="font-semibold text-slate-200">IS 456 Structural Code</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right 7 Cols: 4 Pillars & 4 Required Actions */}
-            <div className="lg:col-span-7 space-y-6">
-              <div>
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#B78A52] block mb-1">
-                  {isTamil ? "நேர்மையான சிவில் பொறியியல் வாக்குறுதி" : "VERIFIED CIVIL ENGINEERING ETHOS"}
-                </span>
-                <h4 className="text-2xl font-black text-white font-sans tracking-tight">
-                  {isTamil
-                    ? "காகிதத்தில் அல்ல, உங்கள் வீட்டின் அடித்தளத்தில் எங்கள் தரம் தெரியும்"
-                    : "True Engineering Quality, Personally Supervised on Every Site"}
-                </h4>
-                <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-                  {isTamil
-                    ? "வீடு கட்டுவது ஒரு குடும்பத்தின் வாழ்நாள் சேமிப்பு. அதை விளம்பர வார்த்தைகளால் ஏமாற்றாமல், நேர்மையான பொருட்கள் மற்றும் துல்லிய பொறியியல் கணக்கீடுகளுடன் மட்டுமே கட்டுகிறோம்."
-                    : "Building a home is your family's lifetime dream. We honour your investment through uncompromising engineering standards, NABL certified concrete, and direct engineer availability."}
-                </p>
-              </div>
-
-              {/* 4 Pillars Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
-                {engineeringPillars.map((p, i) => (
-                  <div
-                    key={i}
-                    className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1 text-xs"
-                  >
-                    <div className="flex items-center gap-1.5 font-bold text-white">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#B78A52] flex-shrink-0" />
-                      <span>{isTamil ? p.titleTa : p.titleEn}</span>
-                    </div>
-                    <p className="text-[11px] text-slate-400 leading-relaxed pl-5">
-                      {isTamil ? p.descTa : p.descEn}
-                    </p>
+                  <p className="text-xs font-mono text-slate-300 font-semibold">
+                    {engineer.qualification}
+                  </p>
+                  <div className="pt-1 flex items-center gap-1.5 text-[11px] text-emerald-400 font-medium">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
+                    <span>{engineer.experience}</span>
                   </div>
-                ))}
-              </div>
-
-              {/* 4 MANDATORY ACTIONS REQUESTED BY USER */}
-              <div className="pt-6 border-t border-white/10 space-y-3">
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#B78A52] block">
-                  {isTamil ? "பொறியாளரைத் தொடர்பு கொள்ள:" : "DIRECT ENGINEER ACTIONS:"}
-                </span>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {/* Action 1: Call Engineer */}
-                  <a
-                    href={`tel:${engineerInfo.phone.replace(/[\s\-\+]/g, "")}`}
-                    className="inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#17191B] hover:bg-[#25282B] text-white text-xs font-bold border border-white/15 transition-all shadow-md group"
-                  >
-                    <Phone className="w-4 h-4 text-[#B78A52] group-hover:scale-110 transition-transform" />
-                    <span>{isTamil ? "பொறியாளரை அழைக்க (+91 77082 47124)" : "Call Engineer (+91 77082 47124)"}</span>
-                  </a>
-
-                  {/* Action 2: WhatsApp Engineer */}
-                  <a
-                    href={`https://wa.me/917708247124?text=${encodeURIComponent(
-                      isTamil
-                        ? "வணக்கம் Er. ஸ்டாலின், புதிய வீடு கட்டுமானம் தொடர்பாக உங்கள் ஆலோசனை தேவைப்படுகிறது."
-                        : "Vanakkam Er. Stalin, I would like to consult with you regarding our new residential construction."
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-bold transition-all shadow-md shadow-[#25D366]/20"
-                  >
-                    <MessageCircle className="w-4 h-4 fill-current" />
-                    <span>{isTamil ? "வாட்ஸ்அப்பில் பேச" : "WhatsApp Engineer"}</span>
-                  </a>
-
-                  {/* Action 3: Visit Office */}
-                  <a
-                    href="#office"
-                    className="inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-bold border border-white/10 transition-colors"
-                  >
-                    <Building className="w-4 h-4 text-[#B78A52]" />
-                    <span>{isTamil ? "அலுவலகத்திற்கு வருக" : "Visit Office"}</span>
-                  </a>
-
-                  {/* Action 4: Request Consultation */}
-                  <button
-                    onClick={onOpenAppointment}
-                    className="inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-[#B78A52] hover:bg-[#a37742] text-slate-950 text-xs font-bold transition-all shadow-md shadow-[#B78A52]/20"
-                  >
-                    <Calendar className="w-4 h-4" />
-                    <span>{isTamil ? "நேரடி ஆலோசனை கோருக" : "Request Consultation"}</span>
-                  </button>
                 </div>
               </div>
 
+              {/* Direct Office & Contact details */}
+              <div className="pt-4 border-t border-white/10 space-y-2.5 text-xs text-slate-300">
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-[#B78A52] flex-shrink-0" />
+                  <span>{engineer.office}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-[#B78A52] flex-shrink-0" />
+                  <span className="font-mono">{engineer.phone}</span>
+                </div>
+              </div>
+
+              {/* 4 Direct Action Buttons as Requested */}
+              <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                {/* 1. Call Engineer */}
+                <a
+                  href={`tel:${engineer.phone}`}
+                  className="py-3 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-950 text-xs font-bold flex items-center justify-center gap-2 transition-transform hover:scale-105 active:scale-95 shadow-md"
+                >
+                  <Phone className="w-3.5 h-3.5 text-[#B78A52]" />
+                  <span>{isTamil ? "பொறியாளரை அழைக்க" : "Call Engineer"}</span>
+                </a>
+
+                {/* 2. WhatsApp Engineer */}
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-bold flex items-center justify-center gap-2 transition-transform hover:scale-105 active:scale-95 shadow-md"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 fill-current" />
+                  <span>{isTamil ? "வாட்ஸ்அப் பேச" : "WhatsApp Engineer"}</span>
+                </a>
+
+                {/* 3. Visit Office */}
+                <a
+                  href="#office"
+                  className="py-3 px-4 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold flex items-center justify-center gap-2 border border-white/15 transition-transform hover:scale-105 active:scale-95"
+                >
+                  <Building className="w-3.5 h-3.5 text-[#B78A52]" />
+                  <span>{isTamil ? "அலுவலகம் வர" : "Visit Office"}</span>
+                </a>
+
+                {/* 4. Request Consultation */}
+                <button
+                  onClick={() => {
+                    if (onOpenAppointmentModal) onOpenAppointmentModal();
+                    else {
+                      const el = document.getElementById("office");
+                      if (el) el.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
+                  className="py-3 px-4 rounded-xl bg-[#B78A52] hover:bg-[#9e743d] text-white text-xs font-bold flex items-center justify-center gap-2 transition-transform hover:scale-105 active:scale-95 shadow-md"
+                >
+                  <Calendar className="w-3.5 h-3.5" />
+                  <span>{isTamil ? "ஆலோசனை பெற" : "Request Consultation"}</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Right Column (7 Cols): Verified Civil Engineering Credentials */}
+          <div className="lg:col-span-7 space-y-5">
+            <span className="text-xs font-mono font-bold tracking-wider text-[#B78A52] uppercase block">
+              {isTamil ? "பொறியியல் கொள்கைகள் & உத்தரவாதம்" : "CIVIL ENGINEERING STANDARDS & GUARANTEES"}
+            </span>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {credentials.map((c, i) => (
+                <div
+                  key={i}
+                  className="p-5 rounded-2xl bg-[#1F2226] border border-white/10 space-y-2 hover:border-[#B78A52]/40 transition-colors"
+                >
+                  <div className="w-8 h-8 rounded-xl bg-[#B78A52]/15 text-[#B78A52] flex items-center justify-center">
+                    <ShieldCheck className="w-4 h-4" />
+                  </div>
+                  <h4 className="text-sm font-bold text-white font-sans">
+                    {isTamil ? c.titleTa : c.titleEn}
+                  </h4>
+                  <p className="text-xs text-slate-400 leading-relaxed">
+                    {isTamil ? c.descTa : c.descEn}
+                  </p>
+                </div>
+              ))}
             </div>
 
+            {/* Note regarding on-site visits */}
+            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs text-slate-300 flex items-start gap-3">
+              <Award className="w-4 h-4 text-[#B78A52] flex-shrink-0 mt-0.5" />
+              <p className="leading-relaxed">
+                {isTamil
+                  ? "திருநெல்வேலி, வள்ளியூர், நாங்குநேரி, திசையன்விளை, மற்றும் ராதாபுரம் சுற்றுவட்டாரப் பகுதிகளில் நேரில் வந்து இலவச நில ஆய்வு மேற்கொள்ளப்படும்."
+                  : "On-site plot feasibility surveys are conducted personally by Er. Stalin across Tirunelveli, Valliyur, Nanguneri, Thisayanvilai, and Radhapuram."}
+              </p>
+            </div>
           </div>
+
         </div>
 
       </div>

@@ -25,10 +25,10 @@ interface AboutEditorialProps {
 
 export default function AboutEditorial({ onOpenQuote }: AboutEditorialProps) {
   const stats = [
-    { label: "Completed Projects", value: "250+", detail: "Villas, Duplexes & Commercial" },
-    { label: "Delighted Clients", value: "500+", detail: "Across Tirunelveli & South TN" },
-    { label: "Years of Excellence", value: "8+", detail: "Founded in 2016 by Er. Stalin" },
-    { label: "Client Satisfaction", value: "4.8★", detail: "Verified Google & Client Reviews" },
+    { label: "Engineering Leadership", value: "10+ Yrs", detail: "Er. Sahaya Antony Stalin, B.E. (Civil)" },
+    { label: "Site Supervision", value: "100%", detail: "Direct personal engineer inspection" },
+    { label: "Certified Materials", value: "NABL", detail: "Tata Tiscon Fe550D & Porotherm Clay" },
+    { label: "Pricing Transparency", value: "Zero Hidden", detail: "Itemized BOQ without unexpected costs" },
   ];
 
   const engineeringPillars = [

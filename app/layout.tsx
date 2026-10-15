@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import ArchitecturalCursor from "@/components/common/ArchitecturalCursor";
 import { LanguageProvider } from "@/context/LanguageContext";
 
 export const metadata: Metadata = {
@@ -102,10 +101,9 @@ const jsonLd = {
         "Thursday",
         "Friday",
         "Saturday",
-        "Sunday",
       ],
-      opens: "00:00",
-      closes: "23:59",
+      opens: "09:00",
+      closes: "19:30",
     },
   ],
   sameAs: ["https://www.facebook.com/JancyBuilder/"],
@@ -143,7 +141,6 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-[#F8F6F1] text-[#202124] antialiased selection:bg-[#B78A52]/20 selection:text-[#B78A52]">
         <LanguageProvider>
-          <ArchitecturalCursor />
           {children}
         </LanguageProvider>
       </body>

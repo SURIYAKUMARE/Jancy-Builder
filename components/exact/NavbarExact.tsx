@@ -13,7 +13,6 @@ import {
   MessageCircle,
   Globe,
   Calendar,
-  Lock,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
@@ -45,16 +44,15 @@ export default function NavbarExact({ onOpenQuote, onOpenAppointment }: NavbarEx
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Requested Navigation Structure (Requirement 15)
   const navLinks = [
     { name: t.nav.home, href: "/" },
-    { name: t.nav.about, href: "/#about" },
-    { name: t.nav.services, href: "/#services" },
-    { name: t.nav.projects, href: "/#projects" },
-    { name: t.nav.guide, href: "/#process" },
-    { name: t.nav.estimator, href: "/#estimator" },
-    { name: t.nav.office, href: "/#office" },
-    { name: t.nav.contact, href: "/#contact" },
+    { name: t.nav.about, href: "#about" },
+    { name: t.nav.services, href: "#services" },
+    { name: t.nav.projects, href: "#projects" },
+    { name: t.nav.guide, href: "#guide" },
+    { name: t.nav.estimator, href: "#estimator" },
+    { name: t.nav.visitOffice, href: "#office" },
+    { name: t.nav.contact, href: "#contact" },
   ];
 
   const whatsappMessage = encodeURIComponent(
@@ -176,28 +174,23 @@ export default function NavbarExact({ onOpenQuote, onOpenAppointment }: NavbarEx
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            onClick={() => {
-              if (onOpenAppointment) onOpenAppointment();
-              else {
-                const el = document.getElementById("office");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
-              }
-            }}
-            className="group relative inline-flex items-center gap-2 bg-[#B78A52] hover:bg-[#a37742] text-slate-950 text-xs sm:text-sm font-bold px-4 py-2.5 rounded-full shadow-lg shadow-[#B78A52]/20 transition-all"
+            onClick={onOpenAppointment || onOpenQuote}
+            className="inline-flex items-center gap-1.5 bg-[#B78A52] hover:bg-[#9e743d] text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-full shadow-md shadow-[#B78A52]/20 transition-all duration-200"
           >
             <Calendar className="w-3.5 h-3.5" />
             <span>{t.nav.bookVisit}</span>
           </motion.button>
 
-          {/* Discreet Office Staff Login */}
-          <Link
-            href="/admin"
-            className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-colors"
-            title={t.nav.officeLogin}
-            aria-label="Office Staff Login"
+          {/* Signature Bronze / Charcoal Luxury CTA Button: Free Estimate */}
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={onOpenQuote}
+            className="group relative inline-flex items-center gap-2 bg-[#17191B] hover:bg-[#25282B] text-white text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2.5 rounded-full shadow-lg shadow-black/10 transition-all duration-300 border border-white/10"
           >
-            <Lock className="w-3.5 h-3.5" />
-          </Link>
+            <span>{t.nav.getQuote}</span>
+            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1 text-[#B78A52] group-hover:text-white" />
+          </motion.button>
         </div>
 
         {/* Mobile Action Controls (Language + WhatsApp + Phone + Hamburger) */}
@@ -343,12 +336,9 @@ export default function NavbarExact({ onOpenQuote, onOpenAppointment }: NavbarEx
                 onClick={() => {
                   setMobileMenuOpen(false);
                   if (onOpenAppointment) onOpenAppointment();
-                  else {
-                    const el = document.getElementById("office");
-                    if (el) el.scrollIntoView({ behavior: "smooth" });
-                  }
+                  else onOpenQuote();
                 }}
-                className="w-full bg-[#B78A52] hover:bg-[#a17845] text-slate-950 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2"
+                className="w-full bg-[#B78A52] hover:bg-[#9e743d] text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2"
               >
                 <Calendar className="w-4 h-4" />
                 <span>{t.nav.bookVisit}</span>
@@ -359,20 +349,11 @@ export default function NavbarExact({ onOpenQuote, onOpenAppointment }: NavbarEx
                   setMobileMenuOpen(false);
                   onOpenQuote();
                 }}
-                className="w-full bg-white/10 hover:bg-white/15 text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 border border-white/15"
+                className="w-full bg-white/10 hover:bg-white/20 text-white py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 border border-white/15"
               >
                 <span>{t.nav.getQuote}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
-
-              <Link
-                href="/admin"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-2.5 rounded-xl text-slate-400 hover:text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
-              >
-                <Lock className="w-3.5 h-3.5" />
-                <span>{t.nav.officeLogin}</span>
-              </Link>
             </div>
           </motion.div>
         )}

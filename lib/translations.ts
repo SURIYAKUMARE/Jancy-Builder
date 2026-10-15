@@ -8,12 +8,11 @@ export interface TranslationDict {
     guide: string;
     process: string;
     estimator: string;
-    office: string;
+    visitOffice: string;
     contact: string;
+    bookVisit: string;
     callEngineer: string;
     getQuote: string;
-    bookVisit: string;
-    officeLogin: string;
     languageToggle: string;
   };
   hero: {
@@ -120,25 +119,24 @@ export const translations: Record<"en" | "ta", TranslationDict> = {
       guide: "Construction Guide",
       process: "How We Build",
       estimator: "Cost Estimator",
-      office: "Visit Office",
+      visitOffice: "Visit Office",
       contact: "Contact",
+      bookVisit: "Book Office Visit",
       callEngineer: "Call Er. Stalin",
       getQuote: "Free Estimate",
-      bookVisit: "Book Visit",
-      officeLogin: "Office Login",
       languageToggle: "தமிழ்",
     },
     hero: {
       badge: "PROFESSIONAL CIVIL ENGINEERING • TIRUNELVELI",
-      title: "Your Dream Home Starts Here.",
+      title: "Your Dream Home, Our Responsibility.",
       subtitle:
-        "From planning to construction, we guide you through every step of building your home with complete transparency and zero stress.",
-      btnStart: "Start Building Your Home",
+        "Professional civil engineering, architectural design, and turnkey residential construction in Tirunelveli and South Tamil Nadu. Supervised on-site by Er. Sahaya Antony Stalin, B.E. (Civil).",
+      btnStart: "View Our Projects",
       btnProjects: "View Our Projects",
-      btnCost: "Check Construction Cost",
+      btnCost: "Get Construction Estimate",
       statsYears: "Years Experience",
-      statsProjects: "Homes Built",
-      statsQuality: "NABL Quality Tested",
+      statsProjects: "Structural Integrity",
+      statsQuality: "NABL Tested Materials",
     },
     starter: {
       badge: "FIRST-TIME HOMEOWNER HELPER",
@@ -233,29 +231,28 @@ export const translations: Record<"en" | "ta", TranslationDict> = {
       home: "முகப்பு",
       about: "எங்களைப் பற்றி",
       services: "சேவைகள்",
-      packages: "கட்டுமானத் தொகுப்புகள்",
+      packages: "தொகுப்புகள்",
       projects: "கட்டுமானப் பணிகள்",
       guide: "கட்டுமான வழிகாட்டி",
       process: "கட்டுமான முறை",
       estimator: "செலவுக் கணக்கீடு",
-      office: "அலுவலகத்திற்கு வருக",
+      visitOffice: "அலுவலகத்திற்கு வருக",
       contact: "தொடர்பு",
+      bookVisit: "அலுவலக சந்திப்பு",
       callEngineer: "பொறியாளரை அழைக்க",
       getQuote: "இலவச மதிப்பீடு",
-      bookVisit: "சந்திப்பு முன்பதிவு",
-      officeLogin: "அலுவலக உள்நுழைவு",
       languageToggle: "English",
     },
     hero: {
       badge: "நம்பகமான சிவில் இன்ஜினியரிங் • திருநெல்வேலி",
-      title: "உங்கள் கனவு இல்லம் இங்கே தொடங்குகிறது.",
+      title: "உங்கள் கனவு வீடு, எங்கள் பொறுப்பு.",
       subtitle:
-        "வீட்டுத் திட்டம் முதல் கட்டுமானம் வரை, ஒவ்வொரு கட்டத்திலும் முழுமையான வெளிப்படைத்தன்மையுடன் உங்களுக்கு வழிகாட்டுகிறோம்.",
-      btnStart: "உங்கள் வீட்டு கட்டுமானத்தைத் தொடங்குங்கள்",
-      btnProjects: "எங்கள் கட்டுமானப் பணிகளைப் பாருங்கள்",
-      btnCost: "வீடு கட்டும் செலவை அறிய",
+        "திருநெல்வேலி மற்றும் தென் தமிழகத்தில் நேர்மையான பொறியியல், வாஸ்து முறை திட்டமிடல் மற்றும் தரமான வீட்டு கட்டுமானம். தலைமைப் பொறியாளர் Er. சகாய அந்தோணி ஸ்டாலின் நேரடி மேற்பார்வை.",
+      btnStart: "எங்கள் பணிகளைப் பாருங்கள்",
+      btnProjects: "எங்கள் பணிகளைப் பாருங்கள்",
+      btnCost: "கட்டுமான செலவை அறிய",
       statsYears: "ஆண்டுகள் அனுபவம்",
-      statsProjects: "கட்டி முடிக்கப்பட்ட வீடுகள்",
+      statsProjects: "உறுதியான கட்டுமானம்",
       statsQuality: "NABL தரப் பரிசோதனை",
     },
     starter: {

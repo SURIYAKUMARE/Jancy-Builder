@@ -1,29 +1,35 @@
 import { NextResponse } from "next/server";
-import { recordCostEstimate } from "@/lib/db";
+import { saveEnquiry } from "@/lib/db";
 
 export async function POST(request: Request) {
   try {
     const data = await request.json();
-    
-    const estimate = await recordCostEstimate({
-      name: data.name || "Website Homeowner",
-      phone: data.phone || "",
-      location: data.location || "Tirunelveli District",
-      houseType: data.houseType || "Independent Residential",
-      areaSqFt: Number(data.areaSqFt || data.area || 1200),
-      floors: Number(data.floors || 1),
-      packageGrade: (data.packageGrade || data.grade || "premium") as "standard" | "premium" | "ultra",
-      estimatedTotal: Number(data.estimatedTotal || data.estimatedCost || 3840000),
+    const name = data.name || "Estimate Requester";
+    const phone = (data.phone || "").toString().replace(/[^0-9]/g, "");
+    const email = data.email || "";
+    const location = data.location || "Tamil Nadu";
+    const service = data.projectType || data.service || "Construction Estimate Request";
+    const message = data.message || `Package: ${data.package || "General"}, Area: ${data.area || "N/A"} sq.ft, Est: ${data.estimate || "N/A"}`;
+
+    const enquiry = saveEnquiry({
+      name,
+      phone: phone.length >= 10 ? phone : "7708247124",
+      email,
+      location,
+      service,
+      message,
     });
 
     return NextResponse.json({
       success: true,
-      quoteId: estimate.id,
-      estimate,
-      timestamp: estimate.createdAt,
-      message: "Consultation & estimate request received. Er. Stalin will personally contact you with itemized BOQ.",
+      quoteId: enquiry.id,
+      timestamp: enquiry.createdAt,
+      message: "Consultation request received successfully. Our senior project engineer will contact you within 24 hours.",
+      enquiryId: enquiry.id,
+      details: data,
     });
   } catch (error) {
-    return NextResponse.json({ success: false, error: "Invalid submission" }, { status: 400 });
+    console.error("Quote API error:", error);
+    return NextResponse.json({ error: "Invalid submission" }, { status: 400 });
   }
 }
